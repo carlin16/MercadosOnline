@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -75,8 +75,18 @@ dependencies {
 
 
 //gson
-    // implementation 'com.google.code.gson:gson:2.8.6'
+//Geofirestore
+  //  implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'
+ //   implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
+  //  implementation 'com.google.firebase:firebase-database:19.2.1'
+  //  implementation 'com.google.firebase:firebase-firestore:21.4.1'
+  //  implementation 'com.google.firebase:firebase-auth:19.2.0'
 
+
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
+    implementation 'com.google.firebase:firebase-analytics:17.2.1'
+    implementation 'com.google.firebase:firebase-core:17.2.3'
 
 
 

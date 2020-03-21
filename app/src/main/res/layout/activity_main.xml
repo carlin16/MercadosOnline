@@ -66,8 +66,8 @@
                         android:layout_margin="3dp"
                         android:layout_gravity="center"
                         android:id="@+id/registro_perfil"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
                         android:src="@drawable/adduser"
                         android:scaleType="fitXY"
                         app:riv_border_width="1dip"
@@ -158,6 +158,36 @@
                 </LinearLayout>
 
 
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/border_text"
+                    >
+
+                    <EditText
+                        android:id="@+id/registro_usuario"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="Usuario"
+                        android:textSize="15sp"
+
+
+                        android:imeActionId="6"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textAlignment="center"
+                        android:textColor="#2583ef"
+                        android:textColorHint="#CCCCCC" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -373,34 +403,6 @@
                             ></Spinner>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/Contenedor_TipoTienda"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:gravity="center"
-                            android:text="@string/tipoTienda"
-                            android:textSize="18sp"
-
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-
-                        <Spinner
-                            android:id="@+id/spn_tipoTienda"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginEnd="8dp"
-                            ></Spinner>
-                    </LinearLayout>
 
 
 

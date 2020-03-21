@@ -8,10 +8,9 @@
 
 
     <string-array name="Roles">
-        <item>Usuario</item>
-        <item>Tiendero</item>
-        <item>Transportista</item>
-
+        <item>CLIENTE</item>
+        <item>VENDEDOR</item>
+        <item>TRANSPORTISTA</item>
     </string-array>
 
 

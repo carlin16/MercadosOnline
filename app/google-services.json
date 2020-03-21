@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "472471598648",
+    "firebase_url": "https://pedidosmunicipio-d536f.firebaseio.com",
+    "project_id": "pedidosmunicipio-d536f",
+    "storage_bucket": "pedidosmunicipio-d536f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:472471598648:android:de5b7b6768f4f7e9ee58cd",
+        "android_client_info": {
+          "package_name": "com.example.tiendaclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "472471598648-p31184jh2l6lq2ik6mch3bd9jl60dpg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tiendaclient",
+            "certificate_hash": "95b29dc2ac148612205af86aae4dc5af6457966b"
+          }
+        },
+        {
+          "client_id": "472471598648-4e5sok432qrvsefeffcpk80nra4kgklp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwTPjG4lIpI6Ev3Q92oTL4w9Gk0Pi-zrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "472471598648-4e5sok432qrvsefeffcpk80nra4kgklp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
