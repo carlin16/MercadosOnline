@@ -22,6 +22,9 @@ android {
     }
 
 }
+ext {
+    glideVersion = '4.10.0'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -44,5 +47,38 @@ dependencies {
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
 //pais
     implementation 'com.github.joielechong:countrycodepicker:2.4.1'
+    //shape
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+
+    //crop image
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    //RoundView
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+
+
+    //dialog custom
+    implementation 'com.github.f0ris.sweetalert:library:1.5.1'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.9.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //implementation 'io.reactivex.rxjava2:rxjava:2.0.8'
+    //  implementation 'io.reactivex.rxjava2:rxjava:2.x.x'
+
+
+//gson
+    // implementation 'com.google.code.gson:gson:2.8.6'
+
+
+
+
 
 }

@@ -8,13 +8,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.tiendaclient.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
+
+import java.util.regex.Pattern;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import in.anshul.libray.PasswordEditText;
@@ -26,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     CountryCodePicker codigo_pais;
     CircularProgressButton BtnRegistrar;
     Uri  imagen_perfil;
+    LinearLayout ConteTipoTienda;
 
     String numeroTelefono;
 
@@ -49,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         TipoTienda=findViewById(R.id.spn_tipoTienda);
         BtnRegistrar=findViewById(R.id.btn_registro);
         codigo_pais = findViewById(R.id.ccp);
-
+        ConteTipoTienda=findViewById(R.id.Contenedor_TipoTienda);
 
 
     }
@@ -62,6 +68,26 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("clic", "se dio clic");
             }
         });
+        Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position==1){
+                    ConteTipoTienda.setVisibility(View.VISIBLE);
+                    Log.e("click","visible");
+
+                }else {
+                    ConteTipoTienda.setVisibility(View.GONE);
+                    Log.e("click","oculto");
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 
@@ -83,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
         else if(verificar_vacio(Direccion.getText().toString())) Direccion.requestFocus();
         else if (verificar_vacio(Telefono.getText().toString())) Telefono.requestFocus();
         else if (verificar_vacio(Email.getText().toString())) Email.requestFocus();
+        else if(validarEmail(Email.getText().toString()));
         else if(verificar_vacio(Pass.getText().toString())) Pass.requestFocus();
         else if(tamaño_texto(Pass) );
+
 
         else if(verificar_vacio(RePass.getText().toString())) RePass.requestFocus();
 
@@ -135,6 +163,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+    private boolean validarEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
+
 
 
 }
