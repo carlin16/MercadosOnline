@@ -3,8 +3,11 @@ package com.example.tiendaclient.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +25,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionLoginUser;
 import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
@@ -35,6 +39,7 @@ import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
 import java.util.regex.Pattern;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
@@ -43,20 +48,25 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class RegistroUser extends AppCompatActivity {
     EditText Nombres, Apellidos, Direccion, Telefono,  Email,Usuario;
     TextInputLayout TINom, TIApell, TIDir, TITel, TIEma, TIUsua, TIPassw, TIRePass ;
-
+    Dialog myDialog;
     PasswordEditText Pass, RePass;
     String[] Roles;
     int posicionRol=0;
-
+    Boolean cambio=false;
+    String mensaje="";
     Spinner Rol, TipoTienda;
     CountryCodePicker codigo_pais;
-    CircularProgressButton BtnRegistrar;
+    CircularProgressButton BtnRegistrar ,datos,fotos,credenciales;
+    RoundedImageView preview;
     Uri  imagen_perfil;
     RoundedImageView Perfil;
     LinearLayout ConteTipoTienda;
@@ -69,6 +79,7 @@ public class RegistroUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         UI();
+        animacion_cargando();
         Click();
     }
 
@@ -218,10 +229,10 @@ public class RegistroUser extends AppCompatActivity {
 
 
         else if(verificar_vacio(RePass.getText().toString())) RePass.requestFocus();
-
         else if(!Pass.getText().toString().equals(RePass.getText().toString())){
             Snackbar.make(findViewById(android.R.id.content), "Las contraseñas no coinciden", Snackbar.LENGTH_LONG).show();
         }
+        else if (imagen_perfil==null) mensaje();
         else if (Telefono.getText().toString().substring(0, 1).equals("0")) {
             numeroTelefono = codigo_pais.getSelectedCountryCode() + Telefono.getText().toString().trim().substring(1);
                 llenarDatos();
@@ -230,6 +241,21 @@ public class RegistroUser extends AppCompatActivity {
             llenarDatos();
 
         }
+
+    }
+
+    private void animacion_cargando(){
+        myDialog = new Dialog(this, R.style.NewDialog);
+        myDialog.setContentView(R.layout.animacion_registo_user);
+        credenciales = myDialog.findViewById(R.id.btn_credenciales);
+        datos = myDialog.findViewById(R.id.btn_datos) ;
+        fotos = myDialog.findViewById(R.id.btn_foto);
+        preview=myDialog.findViewById(R.id.perfil_registro);
+        //  myDialog = new Dialog(LoginActivity.this);
+        //     myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+        //     myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        myDialog.setCancelable(false);
 
     }
 
@@ -243,20 +269,12 @@ public class RegistroUser extends AppCompatActivity {
         User.setUsuario(Usuario.getText().toString());
         User.setRol(Roles[posicionRol]);
         User.setPassword(Pass.getText().toString());
-
         Gson gson = new Gson();
         String JPetUser= gson.toJson(User);
-
-
         Log.e("json",JPetUser);
-
-
-
+        animacion_registro();
         peticion_Registro(JPetUser);
   }
-     Boolean cambio=false;
-     String mensaje="";
-
 
     private void peticion_Registro(String jsonConf){
         retrofit = RetrofitCliente.getInstance();
@@ -275,21 +293,26 @@ public class RegistroUser extends AppCompatActivity {
 
                         if(responseRegistroUserResponse.code()==201){
                             cambio=true;
-                        }else  if(responseRegistroUserResponse.code()==401){
+                            mensaje=responseRegistroUserResponse.body().getMensaje();
+                        }else  if(responseRegistroUserResponse.code()==400){
+                            Gson gson = new Gson();
+                            Log.e("repetido","----"+responseRegistroUserResponse.code());
+                            Log.e("repetido","----"+responseRegistroUserResponse.errorBody());
+                            Log.e("repetido","----"+responseRegistroUserResponse);
 
+                            animacion_errores();
+
+                            /*ResponseError staff = gson.fromJson(responseRegistroUserResponse.body().toString(), ResponseError.class);
+                            mensaje=staff.getMensaje();
+                           */
                         }else{
 
                         }
-
-                        responseRegistroUserResponse.body().toString();
-
-                        mensaje=responseRegistroUserResponse.body().getMensaje();
-
                     }
-
                     @Override
                     public void onError(Throwable e) {
                         Log.e("error",e.toString());
+                        animacion_errores();
 
                     }
 
@@ -302,8 +325,6 @@ public class RegistroUser extends AppCompatActivity {
                     }
                 });
     }
-
-
 
     private void mensaje() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -351,9 +372,6 @@ public class RegistroUser extends AppCompatActivity {
         }
     }
     private void llenar_subida(){
-
-
-
         Glide
                 .with(this)
                 .load(imagen_perfil)
@@ -361,11 +379,50 @@ public class RegistroUser extends AppCompatActivity {
                 .override(125, 125)
                 .fitCenter()
                 .into(Perfil);
-
+        Glide
+                .with(this)
+                .load(imagen_perfil)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(preview);
     }
     public void funcion_cortar() {
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(this);
+    }
+
+
+
+
+    public void subir_foto(){
+
+
+
+
+
+      //  Staff staff = gson.fromJson(reader, Staff.class);
+
+        File file = new File(imagen_perfil.getPath());
+        //RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+
+
+    }
+
+    private  void animacion_errores(){
+
+        credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+        datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+        fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+    }
+
+    private void animacion_registro(){
+
+        myDialog.show();
+        credenciales.startAnimation();
+        datos.startAnimation();
+        fotos.startAnimation();
+
     }
 }
