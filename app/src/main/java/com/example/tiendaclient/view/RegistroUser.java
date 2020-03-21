@@ -27,6 +27,7 @@ import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -47,6 +48,7 @@ import retrofit2.Retrofit;
 
 public class RegistroUser extends AppCompatActivity {
     EditText Nombres, Apellidos, Direccion, Telefono,  Email,Usuario;
+    TextInputLayout TINom, TIApell, TIDir, TITel, TIEma, TIUsua, TIPassw, TIRePass ;
 
     PasswordEditText Pass, RePass;
     String[] Roles;
@@ -86,7 +88,18 @@ public class RegistroUser extends AppCompatActivity {
         Roles= getResources().getStringArray(R.array.Roles);
 
 
+        ///
+        Nombres.requestFocus();
+        ///
 
+        TINom=findViewById(R.id.TINombre);
+        TIApell=findViewById(R.id.TIApellido);
+        TIDir=findViewById(R.id.TIDireccion);
+        TIEma=findViewById(R.id.TIEmail);
+        TITel=findViewById(R.id.TITelefono);
+        TIUsua=findViewById(R.id.TIUsuario);
+        TIPassw=findViewById(R.id.TIPass);
+        TIRePass=findViewById(R.id.TIRepass);
     }
 
     @Override
@@ -107,8 +120,57 @@ public class RegistroUser extends AppCompatActivity {
             }
         });
 
+        TIEma.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Email.requestFocus();
+            }
+        });
 
-       // Nombres.requestFocus();
+
+        TIApell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Apellidos.requestFocus();
+            }
+        });
+        TINom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Nombres.requestFocus();
+            }
+        });
+        TITel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Telefono.requestFocus();
+            }
+        });
+        TIDir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Direccion.requestFocus();
+            }
+        });
+        TIUsua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Usuario.requestFocus();
+            }
+        });
+        TIPassw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Pass.requestFocus();
+            }
+        });
+        TIRePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RePass.requestFocus();
+            }
+        });
+
 
         Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -239,14 +301,6 @@ public class RegistroUser extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-
-
-
-
     }
 
 

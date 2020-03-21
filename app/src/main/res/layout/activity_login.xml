@@ -58,7 +58,7 @@
             >
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout_correo_login"
+                android:id="@+id/TILoginUser"
                 android:layout_width="160dp"
                 android:layout_height="41dp"
                 android:background="@drawable/border_login"
@@ -67,7 +67,7 @@
 
 
                 <EditText
-                    android:id="@+id/correo_login"
+                    android:id="@+id/LoginUser"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -91,7 +91,7 @@
 
 
             <ImageButton
-                android:layout_below="@+id/textInputLayout_correo_login"
+                android:layout_below="@+id/TILoginUser"
                 android:id="@+id/siguiente_login_kt"
                 android:layout_width="20dp"
                 android:visibility="invisible"
@@ -105,7 +105,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_below="@+id/siguiente_login_kt"
-                android:id="@+id/textInputLayout_password_login"
+                android:id="@+id/TILoginPass"
                 android:layout_width="160dp"
                 android:layout_marginTop="10dp"
                 android:layout_height="41dp"
@@ -117,7 +117,7 @@
 
 
                 <EditText
-                    android:id="@+id/password_login"
+                    android:id="@+id/LoginPass"
 
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -142,8 +142,8 @@
 
 
             <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-                android:id="@+id/btn_ingresar_login_digo"
-                android:layout_below="@+id/textInputLayout_password_login"
+                android:id="@+id/btn_ingresar_login"
+                android:layout_below="@+id/TILoginPass"
 
                 android:layout_width="120dp"
                 android:layout_height="38dp"
