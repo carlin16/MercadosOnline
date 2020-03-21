@@ -47,6 +47,7 @@ import retrofit2.Retrofit;
 
 public class RegistroUser extends AppCompatActivity {
     EditText Nombres, Apellidos, Direccion, Telefono,  Email,Usuario;
+
     PasswordEditText Pass, RePass;
     String[] Roles;
     int posicionRol=0;
@@ -105,6 +106,10 @@ public class RegistroUser extends AppCompatActivity {
                 Log.e("clic", "se dio clic");
             }
         });
+
+
+       // Nombres.requestFocus();
+
         Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -179,7 +184,12 @@ public class RegistroUser extends AppCompatActivity {
 
         Gson gson = new Gson();
         String JPetUser= gson.toJson(User);
+
+
         Log.e("json",JPetUser);
+
+
+
         peticion_Registro(JPetUser);
   }
      Boolean cambio=false;
@@ -203,7 +213,13 @@ public class RegistroUser extends AppCompatActivity {
 
                         if(responseRegistroUserResponse.code()==201){
                             cambio=true;
+                        }else  if(responseRegistroUserResponse.code()==401){
+
+                        }else{
+
                         }
+
+                        responseRegistroUserResponse.body().toString();
 
                         mensaje=responseRegistroUserResponse.body().getMensaje();
 
