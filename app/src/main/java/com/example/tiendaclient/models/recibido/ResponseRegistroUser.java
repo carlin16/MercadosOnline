@@ -6,22 +6,30 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseRegistroUser {
 
-    @SerializedName("codigo")
+    @SerializedName("id")
     @Expose
-    private String codigo;
+    private Integer id;
+    @SerializedName("token")
+    @Expose
+    private String token;
     @SerializedName("mensaje")
     @Expose
     private String mensaje;
-    @SerializedName("payload")
-    @Expose
-    private Payload payload;
 
-    public String getCodigo() {
-        return codigo;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getMensaje() {
@@ -31,13 +39,4 @@ public class ResponseRegistroUser {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-
-    public Payload getPayload() {
-        return payload;
-    }
-
-    public void setPayload(Payload payload) {
-        this.payload = payload;
-    }
-
 }

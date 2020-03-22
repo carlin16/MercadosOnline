@@ -15,7 +15,13 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
-
+    <!-- Material application theme. -->
+    <style name="AppTheme2" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
 
     <style name="NewDialog">
@@ -33,7 +39,6 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@color/col_White</item>
     </style>
-
 
 
 </resources>

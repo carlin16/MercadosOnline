@@ -1,8 +1,10 @@
 package com.example.tiendaclient.service;
 
 
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Observable;
@@ -21,18 +23,29 @@ public interface ApiService {
 
     @Headers("Content-Type: application/json")
     @POST("usuarios")
-    Observable<Response<ResponseRegistroUser> >RegistroUser(@Body JsonObject object);
-
-    @Headers("Content-Type: application/json")
-    @POST("authr")
-    Observable<Response<ResponseLoginUser> >LoginUser(@Body JsonObject object);
+    Observable<Response<ResponseRegistroUser>>RegistroUser(@Body JsonObject object);
 
 
     @Multipart
     @Headers("Content-Type: application/json")
     @POST("usuarios/{user_id}/foto")
-    Observable<String>UploadImage(@Path(value = "user_id", encoded = true) String userId,
-                                  @Part MultipartBody.Part imageFile);
+    Observable<Response<ResponseUpdateImagen>>UploadImage(@Path(value = "user_id", encoded = true) String userId,
+                                                          @Part MultipartBody.Part imageFile);
+
+
+
+
+
+
+    @Headers("Content-Type: application/json")
+    @POST("authr")
+    Observable<ResponseLoginUser>LoginUser(@Body JsonObject object);
+
+
+
+
+
+
 
 
 

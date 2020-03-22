@@ -24,7 +24,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
@@ -36,6 +38,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.regex.Pattern;
@@ -49,6 +53,8 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -124,7 +130,8 @@ public class RegistroUser extends AppCompatActivity {
         BtnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validar_campos();
+                //validar_campos();
+                subir_foto();
                 Log.e("clic", "se dio clic");
             }
         });
@@ -288,35 +295,30 @@ public class RegistroUser extends AppCompatActivity {
                 .subscribeWith(new DisposableObserver<Response<ResponseRegistroUser>>() {
                     @Override
                     public void onNext(Response<ResponseRegistroUser> response) {
-
-
-                        Log.e("Respuesta codigo",""+response.code());
-                        Log.e("Respuesta codigo",""+response.toString());
-                        Log.e("Respuesta codigo",""+response.body());
-
-                       // Log.e("Respuesta codigo",""+response.code());
-
-                        Log.e("Respuesta codigo",""+Global.convertObjToString(response.body()));
-                        //revisar
-                       if(response.code()==201){
-                            cambio=true;
-
-                        }else{
+                        if (response.isSuccessful()) {
+                            mensaje=response.body().getMensaje();
+                        } else {
                             animacion_errores();
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
                         }
-                        mensaje=response.body().getMensaje();
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("error",e.toString());
-                       animacion_errores();
-
+                        myDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado","registrado");
-                       Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_LONG).show();
                         myDialog.dismiss();
 
                     }
@@ -392,17 +394,52 @@ public class RegistroUser extends AppCompatActivity {
 
 
     public void subir_foto(){
-
-
-
-
-
-      //  Staff staff = gson.fromJson(reader, Staff.class);
-
         File file = new File(imagen_perfil.getPath());
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+       // RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+
+
+
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+
+
+        disposable = (Disposable) retrofitApi.UploadImage("1",imagen)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
+                    @Override
+                    public void onNext(Response<ResponseUpdateImagen> response) {
+
+                        if (response.isSuccessful()) {
+                            mensaje=response.body().getMensaje();
+                        } else {
+                            animacion_errores();
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        myDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("Completado","registrado");
+                        myDialog.dismiss();
+
+                    }
+                });
 
 
     }
