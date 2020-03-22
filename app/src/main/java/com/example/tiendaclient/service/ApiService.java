@@ -43,8 +43,8 @@ public interface ApiService {
 
 //////////////////////
     @Headers("Content-Type: application/json")
-    @POST("authr")
-    Observable<ResponseLoginUser>LoginUser(@Body JsonObject object);
+    @POST("auth")
+    Observable<Response<ResponseLoginUser>>LoginUser(@Body JsonObject object);
 
 
 
