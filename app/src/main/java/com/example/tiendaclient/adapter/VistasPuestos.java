@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.Puesto;
+import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +26,19 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
 
 
-    List<Puesto> lst_normal;
-    List<Puesto> lst_full;
+    List<ResponseVerAllPuesto> lst_normal;
+    List<ResponseVerAllPuesto> lst_full;
 
     Context contex;
     FragmentManager fragmentManager;
 
-    public VistasPuestos(List<Puesto> lst_normal) {
+    public VistasPuestos(List<ResponseVerAllPuesto> lst_normal) {
         this.lst_normal = lst_normal;
         lst_full=new ArrayList<>(lst_normal);
 
     }
 
-    public VistasPuestos(List<Puesto> lst_normal, FragmentManager fragmentManager) {
+    public VistasPuestos(List<ResponseVerAllPuesto> lst_normal, FragmentManager fragmentManager) {
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
     }
@@ -99,14 +100,14 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
     private Filter puestos_filter =new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<Puesto> filtro=new ArrayList<>();
+            List<ResponseVerAllPuesto> filtro=new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
                 filtro.addAll(lst_full);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Puesto item : lst_full) {
+                for (ResponseVerAllPuesto item : lst_full) {
                     if (item.getFechaRegistro().toLowerCase().contains(filterPattern) ) {
                         filtro.add(item);
                     }
