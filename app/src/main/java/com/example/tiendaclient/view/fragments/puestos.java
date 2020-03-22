@@ -26,6 +26,7 @@ public class puestos extends Fragment {
 
 
     public List<Puesto> ls_listado= new ArrayList<>();
+    public int id=0;
 
     public puestos() {
         // Required empty public constructor

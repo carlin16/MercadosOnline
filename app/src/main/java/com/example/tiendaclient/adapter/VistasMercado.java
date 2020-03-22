@@ -85,7 +85,7 @@ int manejador=0;
             @Override
             public void onClick(View v) {
                 puestos pue= new puestos();
-                pue.ls_listado=lst_normal.get(position).getPuestos();
+                pue.id=lst_normal.get(position).getId();
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.Contenedor_Fragments, pue).addToBackStack(null);
