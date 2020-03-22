@@ -337,6 +337,12 @@ public class RegistroUser extends AppCompatActivity {
         dialog.show();
 
     }
+
+
+    private  void hola(){
+
+    }
+
     private Boolean tamaño_texto( EditText texto){
 
 
