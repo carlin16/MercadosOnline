@@ -297,7 +297,7 @@ public class RegistroUser extends AppCompatActivity {
                        // Log.e("Respuesta codigo",""+response.code());
 
                         Log.e("Respuesta codigo",""+Global.convertObjToString(response.body()));
-
+                        //revisar
                        if(response.code()==201){
                             cambio=true;
 
