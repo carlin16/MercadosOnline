@@ -1,9 +1,14 @@
 package com.example.tiendaclient.utils;
 
+import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class Global {
+
+    public static ResponseRegistroUser RegisU= new ResponseRegistroUser();
+
+
 
 
     public static String convertObjToString(Object clsObj) {
@@ -12,4 +17,10 @@ public class Global {
         }.getType());
         return jsonSender;
     }
+
+
+
+
+
+
 }

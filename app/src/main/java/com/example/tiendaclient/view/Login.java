@@ -79,16 +79,18 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), RegistroUser.class);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
                 finish();
             }
         });
         BtnLoginIngresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validar_campos();
+               // validar_campos();
                 Log.e("clic", "Clic Inicio sesion");
                 guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString());
+                iniciar_sesion();
+
             }
         });
 
@@ -178,6 +180,13 @@ public class Login extends AppCompatActivity {
         PassSave=DtsRescatados.getString("PasswordS", "password");
         Log.e("Datos llamados", UserSave);
         Log.e("Datos llamados", PassSave);
+    }
+
+    public void iniciar_sesion(){
+        Intent intent = new Intent (getApplicationContext(), Principal.class);
+        startActivity(intent);
+        finish();
+
     }
 
 

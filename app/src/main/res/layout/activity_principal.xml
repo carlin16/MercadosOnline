@@ -8,15 +8,15 @@
     >
 
     <FrameLayout
-        android:id="@+id/login_digo"
+        android:id="@+id/Contenedor_Fragments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#861212"
-         >
+        android:background="@android:color/transparent"
+        >
     </FrameLayout>
 
+
     <RelativeLayout
-        android:visibility="visible"
         android:id="@+id/sesion_digo"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -26,6 +26,7 @@
 
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/cordinator"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -154,8 +155,9 @@
                     <View
                         android:id="@+id/placeholder"
                         android:layout_width="65dp"
-                        android:layout_height="0dp"
+                        android:layout_height="65dp"
                         android:visibility="invisible"
+                        android:backgroundTint="#BE2323"
                         app:layout_constraintBottom_toBottomOf="@+id/first_menu_item"
                         app:layout_constraintEnd_toStartOf="@+id/third_menu_item"
                         app:layout_constraintHorizontal_chainStyle="packed"
@@ -254,13 +256,20 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.bottomappbar.BottomAppBar>
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:fabSize="mini"
+                app:fabSize="normal"
+                app:fabCustomSize="45dp"
                 android:id="@+id/floating_multi"
-                android:src="@drawable/ic_arrow_drop_down_black_24dp"
-                app:layout_anchor="@+id/bottomAppBar" />
+                android:backgroundTint="#fff"
+                android:src="@drawable/adduser"
+                app:layout_anchor="@+id/bottomAppBar"
+               />
+
+            <!-- Esto es un comentario en XML, ojo porque tendrás que ponerlo bien para que funcione.
+Y sí, es de varias líneas.
+app:layout_anchor="@+id/bottomAppBar"
+-->
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </RelativeLayout>
