@@ -72,7 +72,7 @@ return vista;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView=vista.findViewById(R.id.Recycler_busqueda);
+        recyclerView=vista.findViewById(R.id.Recycler_mercados);
         busqueda=vista.findViewById(R.id.icono_buscar);
         iniciar_recycler();
         click();
@@ -80,7 +80,7 @@ return vista;
     }
 
     private void  iniciar_recycler(){
-        adapter= new VistasMercado(listado);
+        adapter= new VistasMercado(listado,getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);

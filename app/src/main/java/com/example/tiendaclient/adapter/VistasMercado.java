@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
+import com.example.tiendaclient.view.fragments.puestos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +27,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class VistasMercado extends RecyclerView.Adapter<VistasMercado.Holder>  implements Filterable {
 
     List<ResponseVerMercado> lst_normal;
-List<ResponseVerMercado> list_full;
+    List<ResponseVerMercado> list_full;
+    FragmentManager fragmentManager;
+
 int manejador=0;
 
+    public VistasMercado(List<ResponseVerMercado> lst_normal, FragmentManager fragmentManager) {
+        this.lst_normal = lst_normal;
+        list_full=new ArrayList<>(lst_normal);
+        this.fragmentManager = fragmentManager;
+    }
 
     public VistasMercado(List<ResponseVerMercado> lst_normal) {
         this.lst_normal = lst_normal;
@@ -50,7 +60,7 @@ int manejador=0;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VistasMercado.Holder holder, int position) {
+    public void onBindViewHolder(@NonNull VistasMercado.Holder holder, final int position) {
 
         //Tienda currentItem = lst_normal.get(position);
         holder.mercado_nombre.setText(lst_normal.get(position).getNombre());
@@ -71,6 +81,18 @@ int manejador=0;
                 .placeholder(R.drawable.adduser)
                 .into(holder.mercado_portada);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                puestos pue= new puestos();
+                pue.ls_listado=lst_normal.get(position).getPuestos();
+                FragmentTransaction fragmentTransaction;
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, pue).addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
     }
 
     @Override
@@ -80,7 +102,7 @@ int manejador=0;
 
     @Override
     public Filter getFilter() {
-        return tiendas_filter;
+        return mercados_filter;
     }
 
     public class Holder extends RecyclerView.ViewHolder {
@@ -103,7 +125,7 @@ int manejador=0;
     }
 
 
-private Filter tiendas_filter=new Filter() {
+private Filter mercados_filter =new Filter() {
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
         List<ResponseVerMercado> filtro=new ArrayList<>();
