@@ -257,6 +257,7 @@ public class RegistroUser extends AppCompatActivity {
         //     myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         myDialog.setCancelable(false);
 
+
     }
 
     private  void llenarDatos(){

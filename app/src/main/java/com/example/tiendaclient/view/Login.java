@@ -3,9 +3,12 @@ package com.example.tiendaclient.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +31,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.util.prefs.Preferences;
+
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -43,18 +48,25 @@ public class Login extends AppCompatActivity {
     TextView Registro;
     EditText ETLoginUser, ETLoginPass;
     TextInputLayout TILoginUse, TILoginPassW;
+    String UserSave,PassSave;
 
     CircularProgressButton BtnLoginIngresar;
 
     Retrofit retrofit;
     ApiService retrofitApi;
+    Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+
+       // animacion_cargando();
         UiAnima();
         UI();
+        llamarPreferences();
         Click();
     }
     private void UiAnima(){
@@ -91,6 +103,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 validar_campos();
                 Log.e("clic", "Clic Inicio sesion");
+                guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString());
             }
         });
 
@@ -133,6 +146,9 @@ public class Login extends AppCompatActivity {
         Gson gson = new Gson();
         String JPetCredenciales= gson.toJson(Credenciales);
         Log.e("json",JPetCredenciales);
+
+
+
        // peticion_Login(JPetCredenciales);
     }
 
@@ -154,7 +170,30 @@ public class Login extends AppCompatActivity {
                 }
     }*/
 
+    private void animacion_cargando(){
+        myDialog = new Dialog(this, R.style.NewDialog);
+    //  myDialog.setContentView(R.layout.s);
+        //myDialog.setContentView(R.layout.splash_screen);
+        myDialog.show();
 
+    }
+    public void guardarPreferences(String Use, String Pass){
+        SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor MyEditorDts=DtsAlmacenados.edit();
+        MyEditorDts.putString("UsuarioS", Use);
+        MyEditorDts.putString("PasswordS", Pass);
+        MyEditorDts.apply();
+        Log.e("Datos g", Use);
+        Log.e("Datos g", Pass);
+
+    }
+    public void llamarPreferences(){
+        SharedPreferences DtsRescatados=PreferenceManager.getDefaultSharedPreferences(this);
+        UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
+        PassSave=DtsRescatados.getString("PasswordS", "password");
+        Log.e("Datos llamados", UserSave);
+        Log.e("Datos llamados", PassSave);
+    }
 
 
 }
