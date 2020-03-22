@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+//
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasPuestos;
 import com.example.tiendaclient.models.recibido.Puesto;
