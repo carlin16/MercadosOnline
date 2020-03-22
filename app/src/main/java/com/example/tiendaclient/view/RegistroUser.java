@@ -81,7 +81,6 @@ public class RegistroUser extends AppCompatActivity {
         UI();
         animacion_cargando();
         Click();
-        llenarDatos();
     }
 
     private  void UI(){
@@ -272,9 +271,6 @@ public class RegistroUser extends AppCompatActivity {
         User.setUsuario(Usuario.getText().toString());
         User.setRol(Roles[posicionRol]);
         User.setPassword(Pass.getText().toString());
-
-        PeticionRegistroUser x = new PeticionRegistroUser();
-        User=x;
         Gson gson = new Gson();
         String JPetUser= gson.toJson(User);
         Log.e("json",JPetUser);
@@ -322,7 +318,7 @@ public class RegistroUser extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         Log.e("error",e.toString());
-                        animacion_errores();
+                     //   animacion_errores();
 
                     }
 
