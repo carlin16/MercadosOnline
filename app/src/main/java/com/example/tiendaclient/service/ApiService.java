@@ -1,13 +1,8 @@
 package com.example.tiendaclient.service;
 
 
-import com.example.tiendaclient.models.enviado.PeticionLoginUser;
-import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
-import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
-import com.example.tiendaclient.view.RegistroUser;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import io.reactivex.Observable;

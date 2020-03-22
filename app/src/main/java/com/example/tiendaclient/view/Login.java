@@ -2,9 +2,7 @@ package com.example.tiendaclient.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,25 +18,12 @@ import android.widget.TextView;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionLoginUser;
-import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
-import com.example.tiendaclient.models.recibido.ResponseLoginUser;
-import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.service.ApiService;
-import com.example.tiendaclient.service.RetrofitCliente;
-import com.example.tiendaclient.utils.Global;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import java.util.prefs.Preferences;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 
 

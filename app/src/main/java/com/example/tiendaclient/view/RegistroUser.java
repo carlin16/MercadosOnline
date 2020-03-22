@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
-import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
@@ -32,7 +31,6 @@ import com.example.tiendaclient.utils.Global;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
@@ -300,33 +298,26 @@ public class RegistroUser extends AppCompatActivity {
 
                         Log.e("Respuesta codigo",""+Global.convertObjToString(response.body()));
 
-                       /* if(responseRegistroUserResponse.code()==201){
+                       if(response.code()==201){
                             cambio=true;
-                            mensaje=responseRegistroUserResponse.body().getRespuestaU().getMensaje();
-                        }else  if(responseRegistroUserResponse.code()==400){
-                            Gson gson = new Gson();
-                            mensaje=responseRegistroUserResponse.body().getRespuestaE().getMensaje();
-                            animacion_errores();
 
-                            *//*ResponseError staff = gson.fromJson(responseRegistroUserResponse.body().toString(), ResponseError.class);
-                            mensaje=staff.getMensaje();
-                           *//*
                         }else{
-
-                        }*/
+                            animacion_errores();
+                        }
+                        mensaje=response.body().getMensaje();
                     }
                     @Override
                     public void onError(Throwable e) {
                         Log.e("error",e.toString());
-                     //   animacion_errores();
+                       animacion_errores();
 
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado","registrado");
-                     //   Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_LONG).show();
-
+                       Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_LONG).show();
+                        myDialog.dismiss();
 
                     }
                 });
