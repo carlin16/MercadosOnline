@@ -24,6 +24,7 @@
             android:text="Mercados Online"
             android:textColor="#7e7e7c"
             android:textSize="12sp"
+
             ></TextView>
 
         <TextView
@@ -39,9 +40,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible"
-            >
+            android:elevation="1dp"
+            android:theme="@style/TextLabel">
 
 
             <EditText
@@ -56,9 +56,8 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="5dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 android:singleLine="true"
+                android:text="jaj"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813" />
 
@@ -73,11 +72,12 @@
             android:layout_below="@+id/siguiente_login_kt"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/pesta1"
-            android:theme="@style/TextLabel"            android:visibility="visible">
+            android:theme="@style/TextInputLayoutHint"
+            android:visibility="visible">
 
 
             <in.anshul.libray.PasswordEditText
-                android:id="@+id/LoginPass"
+                android:id="@+id/registro_pass"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
@@ -88,8 +88,6 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
-                android:textSize="22sp"
-                android:textStyle="bold"
                 android:textColorHint="#EE8813" />
 
 
@@ -121,17 +119,18 @@
             android:textColor="#1D1C1A"
             android:textSize="15sp"></TextView>
 
-        <TextView
-            android:id="@+id/registrarme_login"
+        <com.example.tiendaclient.utils.UnderlinedTextView
+            android:id="@+id/tvTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="@string/Registrarse"
+            android:text="Registrarse"
             android:textColor="#f19f43"
             android:textSize="16sp"
             android:textStyle="bold"
-            ></TextView>
+            app:underlineColor="#f19f43"
+            app:underlineWidth="1dp"></com.example.tiendaclient.utils.UnderlinedTextView>
 
 
     </LinearLayout>

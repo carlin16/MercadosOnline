@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.tiendaclient.R;
@@ -29,7 +31,6 @@ import retrofit2.Retrofit;
 
 public class Login extends AppCompatActivity {
     Animation Rebote;
-    ImageButton Flecha;
     TextView Registro;
     EditText ETLoginUser, ETLoginPass;
     TextInputLayout TILoginUse, TILoginPassW;
@@ -45,20 +46,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
        // animacion_cargando();
-        UiAnima();
         UI();
         llamarPreferences();
         Click();
     }
-    private void UiAnima(){
-        Rebote = AnimationUtils.loadAnimation(this, R.anim.rebote);
 
-
-    }
     private  void UI(){
         ETLoginUser=findViewById(R.id.LoginUser);
         ETLoginPass=findViewById(R.id.LoginPass);
@@ -66,9 +59,33 @@ public class Login extends AppCompatActivity {
         TILoginUse=findViewById(R.id.TILoginUser);
         TILoginPassW=findViewById(R.id.TILoginPass);
 
-        Flecha=findViewById(R.id.flecha_registro);
-        Flecha.startAnimation(Rebote);
         Registro=findViewById(R.id.registrarme_login);
+        SpannableString content = new SpannableString("Registrarse");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        Registro.setText(content);
+
+
+        ETLoginUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    TILoginUse.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TILoginUse.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+        });
+
+        ETLoginPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    TILoginPassW.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TILoginPassW.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+        });
 
         BtnLoginIngresar=findViewById(R.id.btn_ingresar_login);
     }
