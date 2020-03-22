@@ -15,6 +15,7 @@ public class ResponseRegistroUser {
     @Expose
     private String mensaje;
 
+
     public Integer getId() {
         return id;
     }

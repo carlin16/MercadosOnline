@@ -39,10 +39,14 @@ dependencies {
 
     //Circle Imageview
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-    
+
     //RoundView
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.google.android.material:material:1.1.0'
+
+//tab notificacion
+    implementation 'com.github.nikartm:image-support:1.0.5'
+
 
     //password text
     implementation 'com.github.anshulagarwal06:PasswordEditText:v1.0'
@@ -78,19 +82,17 @@ dependencies {
 
 //gson
 //Geofirestore
-  //  implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'
- //   implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
-  //  implementation 'com.google.firebase:firebase-database:19.2.1'
-  //  implementation 'com.google.firebase:firebase-firestore:21.4.1'
-  //  implementation 'com.google.firebase:firebase-auth:19.2.0'
+    //  implementation 'com.github.imperiumlabs:GeoFirestore-Android:v1.5.0'
+    //   implementation 'com.google.firebase:firebase-dynamic-links:19.1.0'
+    //  implementation 'com.google.firebase:firebase-database:19.2.1'
+    //  implementation 'com.google.firebase:firebase-firestore:21.4.1'
+    //  implementation 'com.google.firebase:firebase-auth:19.2.0'
 
 
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.google.firebase:firebase-core:17.2.3'
-
-
 
 
 }
