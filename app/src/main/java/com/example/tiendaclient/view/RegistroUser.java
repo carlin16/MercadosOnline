@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
@@ -19,14 +18,13 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
-import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
-import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
@@ -38,8 +36,6 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.util.regex.Pattern;
@@ -63,7 +59,7 @@ public class RegistroUser extends AppCompatActivity {
     PasswordEditText Pass, RePass;
     String[] Roles;
     int posicionRol=0;
-    Boolean cambio_pantalla=false;
+    Boolean cambio=false;
     String mensaje="";
     Spinner Rol, TipoTienda;
     CountryCodePicker codigo_pais;
@@ -263,7 +259,6 @@ public class RegistroUser extends AppCompatActivity {
     }
 
     private  void llenarDatos(){
-
         PeticionRegistroUser User = new PeticionRegistroUser();
         User.setNombres(Nombres.getText().toString());
         User.setApellidos(Apellidos.getText().toString());
@@ -294,61 +289,35 @@ public class RegistroUser extends AppCompatActivity {
                     @Override
                     public void onNext(Response<ResponseRegistroUser> response) {
 
-                        Log.e("code PU",""+response.code());
-                        if (response.isSuccessful()) {
-                            cambio_pantalla=true;
-                            Global.RegisU=response.body();
-                            mensaje=response.body().getMensaje();
-                        } else {
+
+                        Log.e("Respuesta codigo",""+response.code());
+                        Log.e("Respuesta codigo",""+response.toString());
+                        Log.e("Respuesta codigo",""+response.body());
+
+                       // Log.e("Respuesta codigo",""+response.code());
+
+                        Log.e("Respuesta codigo",""+Global.convertObjToString(response.body()));
+                        //revisar
+                       if(response.code()==201){
+                            cambio=true;
+
+                        }else{
                             animacion_errores();
-                            try {
-                                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
-                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-
-                                mensaje=staff.getMensaje();
-
-                            } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
-                            }
                         }
+                        mensaje=response.body().getMensaje();
                     }
                     @Override
                     public void onError(Throwable e) {
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Write whatever to want to do after delay specified (1 sec)
-                                myDialog.dismiss();
-                            }
-                        }, 2000);
+                        Log.e("error",e.toString());
+                       animacion_errores();
 
-
-                        myDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado","registrado");
-                        if(!cambio_pantalla){
-                            datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    revertir_animacion();
-                                    //Write whatever to want to do after delay specified (1 sec)
-                                    myDialog.dismiss();
-                                }
-                            }, 2000);
-                        }else{
-                            subir_foto();
-                        }
-
-
+                       Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_LONG).show();
+                        myDialog.dismiss();
 
                     }
                 });
@@ -423,73 +392,17 @@ public class RegistroUser extends AppCompatActivity {
 
 
     public void subir_foto(){
-        datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
-        credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+
+
+
+
+
+      //  Staff staff = gson.fromJson(reader, Staff.class);
 
         File file = new File(imagen_perfil.getPath());
-        //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
-       RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        //RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
-        retrofit = RetrofitCliente.getInstance();
-        retrofitApi = retrofit.create(ApiService.class);
-        Disposable disposable;
-        disposable = (Disposable) retrofitApi.UploadImage(""+Global.RegisU.getId(),imagen)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
-                    @Override
-                    public void onNext(Response<ResponseUpdateImagen> response) {
-
-                        if (response.isSuccessful()) {
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
-                            cambio_pantalla =true;
-                            mensaje=response.body().getMensaje();
-                            Log.e("normal",mensaje);
-                        } else {
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-
-                            animacion_errores();
-                            try {
-                                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
-                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-                                mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
-
-                            } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
-                            }
-                            iniciar_sesion();
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Write whatever to want to do after delay specified (1 sec)
-                                iniciar_sesion();
-                                myDialog.dismiss();
-                            }
-                        }, 2000);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.e("Completado","registrado");
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                iniciar_sesion();
-                                //Write whatever to want to do after delay specified (1 sec)
-                                myDialog.dismiss();
-                            }
-                        }, 1000);
-                    }
-                });
 
 
     }
@@ -509,20 +422,4 @@ public class RegistroUser extends AppCompatActivity {
         fotos.startAnimation();
 
     }
-
-    private void revertir_animacion(){
-// todo dejar en estado originsl el boton
-        credenciales.revertAnimation();
-        datos.revertAnimation();
-        fotos.revertAnimation();
-
-
-    }
-
-    private void iniciar_sesion(){
-        Intent intent = new Intent (getApplicationContext(), Principal.class);
-        startActivity(intent);
-        finish();
-    }
-
 }
