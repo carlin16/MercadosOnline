@@ -55,7 +55,7 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:singleLine="true"
@@ -86,9 +86,10 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
+                android:padding="10dp"
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColorHint="#EE8813" />
 
