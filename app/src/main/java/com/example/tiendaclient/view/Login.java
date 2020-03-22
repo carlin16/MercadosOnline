@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -93,6 +96,33 @@ public class Login extends AppCompatActivity {
 
 
     private void Click(){
+        SpannableString content = new SpannableString("Registrarse");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        Registro.setText(content);
+
+
+        ETLoginUser.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    TILoginUse.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TILoginUse.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+        });
+
+        ETLoginPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    TILoginPassW.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TILoginPassW.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+        });
+
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
