@@ -28,6 +28,8 @@ import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.view.fragments.mercado;
+import com.example.tiendaclient.view.fragments.registro_datos_usuario;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -76,6 +78,9 @@ public class RegistroUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+//new registro_datos_usuario()
+
         UI();
         animacion_cargando();
         Click();
