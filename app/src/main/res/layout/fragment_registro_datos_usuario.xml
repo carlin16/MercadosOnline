@@ -42,7 +42,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINombre"
+            android:id="@+id/TINombre2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -75,7 +75,7 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIApellido"
+            android:id="@+id/TIApellido2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"

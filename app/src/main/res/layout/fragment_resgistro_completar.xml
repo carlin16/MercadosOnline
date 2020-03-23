@@ -39,21 +39,21 @@
             >
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_weight="0"
+            android:layout_margin="3dp"
+            android:layout_gravity="center"
             android:id="@+id/registro_perfil"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginLeft="1dp"
-            android:layout_marginTop="20dp"
             android:src="@drawable/adduser"
-            app:civ_border_color="#fff"
-            app:civ_border_width="2dp"
-
-            />
-
-
+            android:scaleType="fitXY"
+            app:riv_border_width="1dip"
+            app:riv_border_color="#E6E6E6"
+            app:riv_corner_radius="10dp"
+            app:riv_oval="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,8 +79,8 @@
 
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
+                android:textColor="@color/col_gris"
+                android:textColorHint="#1D1C1A"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -102,7 +102,7 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIApellido"
+            android:id="@+id/TIDireccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

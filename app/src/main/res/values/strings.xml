@@ -10,7 +10,6 @@
     <string-array name="Roles">
         <item>CLIENTE</item>
         <item>VENDEDOR</item>
-        <item>TRANSPORTISTA</item>
     </string-array>
 
 

@@ -2,6 +2,7 @@ package com.example.tiendaclient.utils;
 
 import android.text.TextUtils;
 
+import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.google.android.material.snackbar.Snackbar;
@@ -10,7 +11,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Global {
 
-    public static ResponseRegistroUser RegisU= new ResponseRegistroUser();
+    public static PeticionRegistroUser RegisU= new PeticionRegistroUser();
     public static ResponseLoginUser LoginU= new ResponseLoginUser();
 
 
@@ -22,17 +23,12 @@ public class Global {
         return jsonSender;
     }
 
-    private Boolean verificar_vacio(String texto) {
-
-
+    public static Boolean verificar_vacio(String texto) {
         //Todo retorno true si esta vacio
         if (TextUtils.isEmpty(texto)) {
-
             return true;
         }
-
-
-        return false;
+       return false;
     }
 
 

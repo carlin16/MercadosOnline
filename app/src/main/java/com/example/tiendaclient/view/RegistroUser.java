@@ -140,8 +140,6 @@ public class RegistroUser extends AppCompatActivity {
                 Email.requestFocus();
             }
         });
-
-
         TIApell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -404,18 +402,12 @@ public class RegistroUser extends AppCompatActivity {
 
     public void subir_foto(){
 
-
-
-
-
       //  Staff staff = gson.fromJson(reader, Staff.class);
 
         File file = new File(imagen_perfil.getPath());
         //RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
-
-
     }
 
     private  void animacion_errores(){
