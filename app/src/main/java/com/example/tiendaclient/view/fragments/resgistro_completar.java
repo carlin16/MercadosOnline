@@ -263,7 +263,7 @@ public class resgistro_completar extends Fragment {
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
-
+        //
         disposable = (Disposable) retrofitApi.RegistroUser(convertedObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
