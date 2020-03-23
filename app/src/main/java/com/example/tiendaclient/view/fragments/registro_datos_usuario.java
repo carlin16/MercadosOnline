@@ -96,6 +96,7 @@ public class registro_datos_usuario extends Fragment {
                     TINom.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
                 } else {
                     TINom.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                    //
                 }
             }
         });
