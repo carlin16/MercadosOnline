@@ -42,10 +42,10 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINombre"
+            android:id="@+id/TINombre2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="9dp"
             android:theme="@style/TextInputLayoutHint"
             android:visibility="visible">
 
@@ -67,7 +67,7 @@
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -75,10 +75,10 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIApellido"
+            android:id="@+id/TIApellido2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="9dp"
             android:theme="@style/TextInputLayoutHint"
             android:visibility="visible">
 
@@ -99,7 +99,7 @@
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -109,7 +109,7 @@
             android:id="@+id/TIUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="9dp"
             android:theme="@style/TextInputLayoutHint"
             android:visibility="visible">
 
@@ -130,7 +130,7 @@
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -142,6 +142,16 @@
             android:layout_marginLeft="2dp"
             android:orientation="horizontal">
 
+            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:ccp_defaultNameCode="EC"
+                android:gravity="center"
+                android:layout_gravity="center"
+
+                app:ccp_defaultCode="593"
+                app:ccp_countryPreference="US,EC,ME,CO,PE"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TITelefono"
@@ -153,7 +163,7 @@
                 <EditText
                     android:id="@+id/telefono_registro"
                     android:layout_width="match_parent"
-                    android:layout_height="31dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="15dp"
                     android:gravity="center"
@@ -165,20 +175,11 @@
                     android:singleLine="true"
                     android:textColorHint="@color/colorSecondaryText"
 
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
-                android:id="@+id/ccp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                app:ccp_countryPreference="US,EC,ME,CO,PE"
 
-                app:ccp_defaultCode="593"
-                app:ccp_defaultNameCode="EC" />
 
         </LinearLayout>
 
@@ -207,7 +208,7 @@
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -240,7 +241,7 @@
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -273,7 +274,7 @@
                 android:singleLine="true"
                 android:textColor="#1D1C1A"
                 android:textColorHint="#EE8813"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 

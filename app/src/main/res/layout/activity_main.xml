@@ -230,6 +230,7 @@
 
                     <com.rilixtech.widget.countrycodepicker.CountryCodePicker
                         android:id="@+id/ccp"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:ccp_defaultNameCode="EC"
@@ -241,6 +242,7 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/TITelefono"
+                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 

@@ -7,28 +7,28 @@ public class PeticionRegistroUser {
 
     @SerializedName("usuario")
     @Expose
-    private String usuario="CARLIN21o";
+    private String usuario;
     @SerializedName("password")
     @Expose
-    private String password="12345";
+    private String password;
     @SerializedName("nombres")
     @Expose
-    private String nombres="X";
+    private String nombres;
     @SerializedName("apellidos")
     @Expose
-    private String apellidos="A";
+    private String apellidos;
     @SerializedName("direccion")
     @Expose
-    private String direccion="DURAN";
+    private String direccion;
     @SerializedName("celular")
     @Expose
-    private String celular="0993942225";
+    private String celular;
     @SerializedName("rol")
     @Expose
-    private String rol="CLIENTE";
+    private String rol;
     @SerializedName("email")
     @Expose
-    private String email="carls.forever@gmail.com";
+    private String email;
 
     public String getUsuario() {
         return usuario;

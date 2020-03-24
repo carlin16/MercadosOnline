@@ -126,7 +126,7 @@ public class Login extends AppCompatActivity {
         Registro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), RegistroUser.class);
+                Intent intent = new Intent (v.getContext(), RegistroUsuarios.class);
                 startActivity(intent);
                 finish();
             }
@@ -236,7 +236,9 @@ public class Login extends AppCompatActivity {
                             cambio_pantalla=true;
                             Global.LoginU=response.body();
                            // mensaje=response.body().getMensaje();
-                        } else {
+                        } else if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        }else{
 
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
