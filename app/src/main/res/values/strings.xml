@@ -7,14 +7,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <string name="Registrarse"><u>Resgistrarse</u></string>
+
+
+    <string name="IniciarSesion"><u>Iniciar Sesion</u></string>
     <string-array name="Roles">
         <item>CLIENTE</item>
         <item>VENDEDOR</item>
     </string-array>
-
-
-    <string name="Registrarse"><u>Resgistrarse</u></string>
-    <string name="IniciarSesion"><u>Iniciar Sesion</u></string>
 
 
 </resources>

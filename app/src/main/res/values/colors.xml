@@ -10,7 +10,5 @@
 <color name="col_Black">#000000</color>
 
 <color name="col_gris">#CCCCCC</color>
-    <color name="col_naranja">#EE8813</color>
-
-
+    <color name="col_naranja">#ff8900</color>
 </resources>

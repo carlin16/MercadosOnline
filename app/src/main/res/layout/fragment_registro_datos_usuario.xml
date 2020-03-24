@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="Mercados Online"
             android:textColor="#7e7e7c"
-            android:textSize="12sp"></TextView>
+            android:textSize="17sp"></TextView>
 
 
         <TextView
@@ -33,7 +35,7 @@
             android:layout_height="wrap_content"
             android:text="Registrarse"
             android:textColor="#1D1C1A"
-            android:textSize="25sp"
+            android:textSize="30sp"
             android:textStyle="bold"></TextView>
 
 
@@ -316,6 +318,6 @@
 
 
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

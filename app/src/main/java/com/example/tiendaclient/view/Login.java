@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
 
 
 
-       // animacion_cargando();
+       animacion_cargando();
         //UiAnima();
         UI();
         llamarPreferences();
@@ -181,18 +181,12 @@ public class Login extends AppCompatActivity {
         Gson gson = new Gson();
         String JPetCredenciales= gson.toJson(Credenciales);
         Log.e("json",JPetCredenciales);
-        peticion_Login(JPetCredenciales);
-    }
-
-
-
-    private void animacion_cargando(){
-        myDialog = new Dialog(this, R.style.NewDialog);
-    //  myDialog.setContentView(R.layout.s);
-        //myDialog.setContentView(R.layout.splash_screen);
         myDialog.show();
+        peticion_Login(JPetCredenciales);
 
     }
+
+
     public void guardarPreferences(String Use, String Pass){
         SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor MyEditorDts=DtsAlmacenados.edit();
@@ -238,6 +232,7 @@ public class Login extends AppCompatActivity {
                            // mensaje=response.body().getMensaje();
                         } else if (response.code()==500) {
                             mensaje = "Internal Server Error";
+                           // myDialog.dismiss();
                         }else{
 
                             try {
@@ -259,27 +254,42 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //Write whatever to want to do after delay specified (1 sec)
-                                myDialog.dismiss();
+                                if(myDialog != null || myDialog.isShowing())
+                                    myDialog.dismiss();
+
                             }
                         }, 2000);
 
 
-                        myDialog.dismiss();
+                        //myDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
 
                         if(cambio_pantalla){
+                            if(myDialog != null || myDialog.isShowing())
+                                myDialog.dismiss();
                             iniciar_sesion();
                             Log.e("Completado","Login exitoso");
                             guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString());
+
                         }else{
+                            if(myDialog != null || myDialog.isShowing())
+                                myDialog.dismiss();
                             Snackbar.make(findViewById(android.R.id.content), "Ingrese credenciales correctas", Snackbar.LENGTH_LONG).show();
                         }
 
                     }
                 });
+    }
+
+    private void animacion_cargando(){
+        myDialog = new Dialog(this, R.style.NewDialog);
+        myDialog.setContentView(R.layout.animacion_login);
+        myDialog.setCancelable(false);
+
+
     }
 
 

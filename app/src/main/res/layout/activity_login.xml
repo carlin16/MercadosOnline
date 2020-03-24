@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Mercados Online"
             android:textColor="#7e7e7c"
-            android:textSize="12sp"
+            android:textSize="17sp"
             ></TextView>
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Iniciar Sesión"
             android:textColor="#1D1C1A"
-            android:textSize="25sp"
+            android:textSize="30sp"
             android:textStyle="bold"></TextView>
 
         <com.google.android.material.textfield.TextInputLayout
