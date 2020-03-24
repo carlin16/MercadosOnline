@@ -13,13 +13,17 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
+        android:name=".utils.Aplicacion"
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:replace="android:icon">
         <activity android:name=".view.RegistroUsuarios"
             android:theme="@style/AppFullScreenTheme"
@@ -31,7 +35,8 @@
         </activity>
         <activity
             android:name=".view.Principal"
-            android:theme="@style/AppFullScreenTheme" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
         <activity
             android:name=".view.Login"
             android:theme="@style/AppFullScreenTheme">

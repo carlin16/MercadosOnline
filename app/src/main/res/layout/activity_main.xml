@@ -27,7 +27,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="4dp"
                 android:scaleType="centerInside"
-                android:src="@drawable/adduser"
+                android:src="@drawable/adduser2"
                 />
 
             <TextView
@@ -68,7 +68,7 @@
                         android:id="@+id/registro_perfil"
                         android:layout_width="125dp"
                         android:layout_height="125dp"
-                        android:src="@drawable/adduser"
+                        android:src="@drawable/adduser2"
                         android:scaleType="fitXY"
                         app:riv_border_width="1dip"
                         app:riv_border_color="#E6E6E6"

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<color name="colorPrimary">#2583ef</color>
-<color name="colorPrimaryDark">#2583ef</color>
+<color name="colorPrimary">#ff8900</color>
+    <color name="col_celeste">#2583ef</color>
+
+    <color name="colorPrimaryDark">#2583ef</color>
 <color name="colorPrimaryLight">#FFFFFF</color>
 <color name="colorAccent">#2583ef</color>
 <color name="colorPrimaryText">#00346C</color>
@@ -11,4 +13,7 @@
 
 <color name="col_gris">#CCCCCC</color>
     <color name="col_naranja">#ff8900</color>
+    <color name="col_negro">#1D1C1A</color>
+    <color name="col_grissuave">#7e7e7c</color>
+
 </resources>

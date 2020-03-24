@@ -2,322 +2,324 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/col_White"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mercados Online"
-            android:textColor="#7e7e7c"
-            android:textSize="17sp"></TextView>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Registrarse"
-            android:textColor="#1D1C1A"
-            android:textSize="30sp"
-            android:textStyle="bold"></TextView>
-
-
-
-
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINombre2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
-
-
-            <EditText
-                android:id="@+id/registro_nombre"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Nombres"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIApellido2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
-
-
-            <EditText
-                android:id="@+id/registro_apellido"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Apellidos"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIUsuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
-
-
-            <EditText
-                android:id="@+id/registro_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Usuario"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:orientation="horizontal">
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
-            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
-                android:id="@+id/ccp"
+
+
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:ccp_defaultNameCode="EC"
-                android:gravity="center"
-                android:layout_gravity="center"
+                android:text="Mercados Online"
+                android:textColor="@color/col_grissuave"
+                android:textSize="17sp"></TextView>
 
-                app:ccp_defaultCode="593"
-                app:ccp_countryPreference="US,EC,ME,CO,PE"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Registrarse"
+                android:textColor="@color/col_negro"
+                android:textSize="30sp"
+                android:textStyle="bold"></TextView>
+
+
+
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TITelefono"
+                android:id="@+id/TINombre2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/TextInputLayoutHint">
+                android:layout_marginTop="9dp"
+                android:theme="@style/TextInputLayoutHint"
+                android:visibility="visible">
 
 
                 <EditText
-                    android:id="@+id/telefono_registro"
+                    android:id="@+id/registro_nombre"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:gravity="center"
-                    android:hint="Telefono"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Nombres"
+                    android:imeActionId="1"
                     android:imeOptions="actionUnspecified"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingBottom="10dp"
-                    android:singleLine="true"
-                    android:textColorHint="@color/colorSecondaryText"
+                    android:inputType="text"
 
-                    android:textSize="14sp" />
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIApellido2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:theme="@style/TextInputLayoutHint"
+                android:visibility="visible">
+
+
+                <EditText
+                    android:id="@+id/registro_apellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Apellidos"
+                    android:imeActionId="2"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:theme="@style/TextInputLayoutHint"
+                android:visibility="visible">
+
+
+                <EditText
+                    android:id="@+id/registro_usuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Usuario"
+                    android:imeActionId="3"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:orientation="horizontal">
+                <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    app:ccp_countryPreference="US,EC,ME,CO,PE"
+
+                    app:ccp_defaultCode="593"
+                    app:ccp_defaultNameCode="EC" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TITelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/TextInputLayoutHint">
+
+
+                    <EditText
+                        android:id="@+id/telefono_registro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="15dp"
+                        android:gravity="center"
+                        android:hint="Telefono"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:paddingBottom="10dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorSecondaryText"
+
+                        android:textSize="16sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:theme="@style/TextInputLayoutHint"
+                android:visibility="visible">
+
+
+                <EditText
+                    android:id="@+id/registro_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Email"
+                    android:imeActionId="4"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/siguiente_login_kt"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/pesta1"
+                android:theme="@style/TextLabel"
+                android:visibility="visible">
+
+
+                <in.anshul.libray.PasswordEditText
+                    android:id="@+id/registro_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:hint="Password"
+                    android:imeActionId="5"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TIRepass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/pesta1"
+                android:theme="@style/TextLabel"
+                android:visibility="visible">
+
+
+                <in.anshul.libray.PasswordEditText
+                    android:id="@+id/registro_repass"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:hint="Repetir contraseña"
+                    android:imeActionId="6"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+                android:id="@+id/btn_registro"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_ingresar"
+                android:text="Continuar"
+                android:textColor="@color/col_White"
+                android:visibility="visible"
+                app:spinning_bar_color="@color/col_White"
+                app:spinning_bar_padding="4dp"
+                app:spinning_bar_width="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="Ya estas registrado"
+                android:textColor="#1D1C1A"
+                android:textSize="15sp"></TextView>
+
+            <TextView
+                android:id="@+id/ir_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/IniciarSesion"
+                android:textColor="@color/col_naranja"
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
 
 
 
         </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
-
-
-            <EditText
-                android:id="@+id/registro_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Email"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/siguiente_login_kt"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/pesta1"
-            android:theme="@style/TextLabel"
-            android:visibility="visible">
-
-
-            <in.anshul.libray.PasswordEditText
-                android:id="@+id/registro_pass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:hint="Password"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-
-                android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TIRepass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/pesta1"
-            android:theme="@style/TextLabel"
-            android:visibility="visible">
-
-
-            <in.anshul.libray.PasswordEditText
-                android:id="@+id/registro_repass"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:hint="Repetir contraseña"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-
-                android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
-            android:id="@+id/btn_registro"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/border_ingresar"
-            android:text="Continuar"
-            android:textColor="#fff"
-            android:visibility="visible"
-            app:spinning_bar_color="#FFF"
-            app:spinning_bar_padding="4dp"
-            app:spinning_bar_width="4dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:text="Ya estas registrado"
-            android:textColor="#1D1C1A"
-            android:textSize="15sp"></TextView>
-
-        <TextView
-            android:id="@+id/ir_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/IniciarSesion"
-            android:textColor="#f19f43"
-            android:textSize="16sp"
-            android:textStyle="bold"></TextView>
-
-
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </ScrollView>

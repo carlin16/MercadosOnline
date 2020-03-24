@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/col_White"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mercados Online"
-            android:textColor="#7e7e7c"
+            android:textColor="@color/col_grissuave"
             android:textSize="17sp"
             ></TextView>
 
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Iniciar Sesión"
-            android:textColor="#1D1C1A"
+            android:textColor="@color/col_negro"
             android:textSize="30sp"
             android:textStyle="bold"></TextView>
 
@@ -60,8 +60,8 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813" />
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -91,10 +91,10 @@
                 android:paddingBottom="15dp"
 
                 android:singleLine="true"
-                android:textColor="#1D1C1A"
+                android:textColor="@color/col_negro"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColorHint="#EE8813" />
+                android:textColorHint="@color/col_naranja" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,9 +109,9 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/border_ingresar"
             android:text="Ingresar"
-            android:textColor="#fff"
+            android:textColor="@color/col_White"
             android:visibility="visible"
-            app:spinning_bar_color="#FFF"
+            app:spinning_bar_color="@color/col_White"
             app:spinning_bar_padding="4dp"
             app:spinning_bar_width="4dp" />
 
@@ -122,7 +122,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:text="Aun no estas registrado"
-            android:textColor="#1D1C1A"
+            android:textColor="@color/col_negro"
             android:textSize="15sp"></TextView>
 
         <TextView
@@ -132,7 +132,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/Registrarse"
-            android:textColor="#f19f43"
+            android:textColor="@color/col_naranja"
             android:textSize="16sp"
             android:textStyle="bold"
             ></TextView>

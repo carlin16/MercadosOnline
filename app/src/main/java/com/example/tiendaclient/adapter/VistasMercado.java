@@ -74,7 +74,7 @@ int manejador=0;
                 .load("https://www.lifeder.com/wp-content/uploads/2017/07/tipos-de-mercado-min.jpg")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .placeholder(R.drawable.adduser)
+                .placeholder(R.drawable.adduser2)
                 .into(holder.mercado_portada);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/col_White"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:orientation="vertical"
@@ -24,20 +25,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mercados Online"
-            android:textColor="#7e7e7c"
-            android:textSize="12sp"></TextView>
+            android:textColor="@color/col_grissuave"
+            android:textSize="17sp"></TextView>
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Registrarse"
-            android:textColor="#1D1C1A"
-            android:textSize="25sp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/col_negro"
+            android:textSize="30sp"
 
             android:textStyle="bold"></TextView
             >
-
 
 
         <com.makeramen.roundedimageview.RoundedImageView
@@ -48,10 +49,10 @@
             android:id="@+id/registro_perfil"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/adduser"
+            android:src="@drawable/adduser2"
             android:scaleType="fitXY"
             app:riv_border_width="1dip"
-            app:riv_border_color="#E6E6E6"
+            app:riv_border_color="@android:color/transparent"
             app:riv_corner_radius="10dp"
             app:riv_oval="false" />
 
@@ -64,14 +65,13 @@
 
 
             <TextView
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:id="@+id/txtRol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/geo"
-                android:textAlignment="center"
                 android:text="Soy"
-                android:padding="10dp"
+                android:paddingLeft="10dp"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
@@ -79,26 +79,26 @@
 
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/col_gris"
-                android:textColorHint="#1D1C1A"
-                android:textSize="18sp"
+                android:textColor="@color/col_naranja"
+                android:textColorHint="@color/col_negro"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Spinner
-                android:layout_weight="1"
                 android:id="@+id/spn_rolUser"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
+
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:textAlignment="center"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:entries="@array/Roles"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
+                android:fontFamily="@font/geo"
+                android:textAlignment="center"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                ></Spinner>
+                android:textStyle="bold"></Spinner>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -124,9 +124,9 @@
                 android:paddingLeft="10dp"
                 android:paddingBottom="15dp"
                 android:singleLine="true"
-                android:textColor="#1D1C1A"
-                android:textColorHint="#EE8813"
-                android:textSize="14sp"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
 
@@ -141,9 +141,9 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/border_ingresar"
             android:text="Registrarse"
-            android:textColor="#fff"
+            android:textColor="@color/col_White"
             android:visibility="visible"
-            app:spinning_bar_color="#FFF"
+            app:spinning_bar_color="@color/col_White"
             app:spinning_bar_padding="4dp"
             app:spinning_bar_width="4dp" />
 
@@ -153,7 +153,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="Ya estas registrado"
-            android:textColor="#1D1C1A"
+            android:textColor="@color/col_negro"
             android:textSize="15sp"></TextView>
 
 
@@ -164,7 +164,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="@string/IniciarSesion"
-            android:textColor="#f19f43"
+            android:textColor="@color/col_naranja"
             android:textSize="16sp"
             android:textStyle="bold"></TextView>
 
