@@ -59,6 +59,7 @@ public interface ApiService {
   Call<List<Repo>> listRepos(@Path("user") String user);
      */
 //////////////////////
+    //
     @Headers("Content-Type: application/json")
     @POST("auth")
     Observable<Response<ResponseLoginUser>>LoginUser(@Body JsonObject object);
