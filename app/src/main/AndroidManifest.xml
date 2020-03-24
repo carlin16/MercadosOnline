@@ -25,6 +25,13 @@
             android:theme="@style/AppFullScreenTheme"
             >
 
+
+
+        </activity>
+        <activity
+            android:name=".view.Principal"
+            android:theme="@style/AppFullScreenTheme" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,10 +39,8 @@
             </intent-filter>
 
 
+
         </activity>
-        <activity
-            android:name=".view.Principal"
-            android:theme="@style/AppFullScreenTheme" />
         <activity
             android:name=".view.Login"
             android:theme="@style/AppFullScreenTheme">

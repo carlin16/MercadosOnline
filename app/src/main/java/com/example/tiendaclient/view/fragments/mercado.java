@@ -11,10 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.tiendaclient.R;
@@ -53,10 +57,11 @@ public class mercado extends Fragment {
 
     View vista;
     RecyclerView recyclerView;
-    RoundedImageView busqueda;
+    ImageView compra;
     VistasMercado adapter;
     List<ResponseVerMercado> listado= new ArrayList<>();
     Retrofit retrofit;
+    EditText buscar;
     ApiService retrofitApi;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,8 +78,10 @@ return vista;
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=vista.findViewById(R.id.Recycler_mercados);
-        busqueda=vista.findViewById(R.id.icono_buscar);
-        iniciar_recycler();
+        compra=vista.findViewById(R.id.icono_buscar);
+        buscar=vista.findViewById(R.id.escribir_busqueda);
+        peticion_mercado();
+
         click();
 
     }
@@ -85,7 +92,6 @@ return vista;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        peticion_mercado();
     }
 
     private void peticion_mercado(){
@@ -116,18 +122,63 @@ return vista;
                     public void onComplete() {
 
                         Log.e("code VM","completado");
-                        adapter.notifyDataSetChanged();
+                       // adapter.notifyDataSetChanged();
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            Log.e("activity","removido de la actividad mercado");
+                            return;
+                        }else{
+                            iniciar_recycler();
+
+                        }
+
+
 
                     }
                 });
     }
 
+    public void filtro(String S){
+        adapter.getFilter().filter(S);
+    }
+
+
     private void click(){
 
-        busqueda.setOnClickListener(new View.OnClickListener() {
+        compra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+                filtro(editable.toString());
+
+
+
+
+
+
+
+
+
+                //  filter(editable.toString());
+
             }
         });
     }
