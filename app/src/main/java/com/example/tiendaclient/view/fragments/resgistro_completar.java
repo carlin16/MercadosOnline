@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,10 +27,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.view.Login;
+import com.example.tiendaclient.view.Principal;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -37,6 +42,8 @@ import com.google.gson.JsonObject;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -68,12 +75,12 @@ public class resgistro_completar extends Fragment {
     View vista;
     String[] Roles;
     int posicionRol=0;
-    Boolean cambio=false;
+    Boolean cambio_pantalla=false;
     String mensaje="";
     Spinner Rol;
     EditText Direccion;
     TextInputLayout TIDir;
-    TextView Soy;
+    TextView Soy, IrLogin;
     CircularProgressButton BtnRegistrar2;
 
     Retrofit retrofit;
@@ -88,6 +95,7 @@ public class resgistro_completar extends Fragment {
         TIDir=vista.findViewById(R.id.TIDireccion);
         Soy=vista.findViewById(R.id.txtRol);
         BtnRegistrar2=vista.findViewById(R.id.btn_registro2);
+        IrLogin=vista.findViewById(R.id.ir_login2);
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -97,6 +105,14 @@ public class resgistro_completar extends Fragment {
         Click();
     }
     public void Click(){
+        IrLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), Login.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
         BtnRegistrar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -263,7 +279,7 @@ public class resgistro_completar extends Fragment {
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
-        //
+
         disposable = (Disposable) retrofitApi.RegistroUser(convertedObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -271,35 +287,61 @@ public class resgistro_completar extends Fragment {
                     @Override
                     public void onNext(Response<ResponseRegistroUser> response) {
 
-
-                        Log.e("Respuesta codigo",""+response.code());
-                        Log.e("Respuesta codigo",""+response.toString());
-                        Log.e("Respuesta codigo",""+response.body());
-
-                        // Log.e("Respuesta codigo",""+response.code());
-
-                        Log.e("Respuesta codigo",""+Global.convertObjToString(response.body()));
-                        //revisar
-                        if(response.code()==201){
-                            cambio=true;
-
-                        }else{
+                        Log.e("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            cambio_pantalla=true;
+                            Global.RegisUser=response.body();
+                            mensaje=response.body().getMensaje();
+                        } else {
                             animacion_errores();
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
                         }
-                        mensaje=response.body().getMensaje();
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("error",e.toString());
-                        animacion_errores();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Write whatever to want to do after delay specified (1 sec)
+                                myDialog.dismiss();
+                            }
+                        }, 2000);
 
+
+                        myDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado","registrado");
-                        Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
-                        myDialog.dismiss();
+                        if(!cambio_pantalla){
+                            datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                            credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    revertir_animacion();
+                                    //Write whatever to want to do after delay specified (1 sec)
+                                    myDialog.dismiss();
+                                }
+                            }, 2000);
+                        }else{
+                            subir_foto();
+                        }
+
+
 
                     }
                 });
@@ -320,14 +362,92 @@ public class resgistro_completar extends Fragment {
 
     }
     public void subir_foto(){
-
-        //  Staff staff = gson.fromJson(reader, Staff.class);
+        datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+        credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
 
         File file = new File(imagen_perfil.getPath());
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.UploadImage(""+Global.RegisUser.getId(),imagen)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
+                    @Override
+                    public void onNext(Response<ResponseUpdateImagen> response) {
+
+                        if (response.isSuccessful()) {
+                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+                            cambio_pantalla =true;
+                            mensaje=response.body().getMensaje();
+                            Log.e("normal",mensaje);
+                        } else  if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        } else{
+                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+
+                            animacion_errores();
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+                            iniciar_sesion();
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Write whatever to want to do after delay specified (1 sec)
+                                iniciar_sesion();
+                                myDialog.dismiss();
+                            }
+                        }, 2000);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("Completado foto","registrado");
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                iniciar_sesion();
+                                //Write whatever to want to do after delay specified (1 sec)
+                                myDialog.dismiss();
+                            }
+                        }, 1000);
+                    }
+                });
+
+
     }
+    private void iniciar_sesion(){
+        Intent intent = new Intent (getActivity(), Principal.class);
+        startActivity(intent);
+        getActivity().finish();
+    }
+    private void revertir_animacion(){
+// todo dejar en estado originsl el boton
+        credenciales.revertAnimation();
+        datos.revertAnimation();
+        fotos.revertAnimation();
+
+
+    }
+
 
 
 }

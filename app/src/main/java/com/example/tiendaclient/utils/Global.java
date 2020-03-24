@@ -13,6 +13,7 @@ public class Global {
 
     public static PeticionRegistroUser RegisU= new PeticionRegistroUser();
     public static ResponseLoginUser LoginU= new ResponseLoginUser();
+    public static ResponseRegistroUser RegisUser= new ResponseRegistroUser();
 
 
 

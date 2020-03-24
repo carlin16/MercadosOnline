@@ -1,6 +1,7 @@
 package com.example.tiendaclient.view.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.view.Login;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -45,6 +48,7 @@ public class registro_datos_usuario extends Fragment {
    View vista;
     EditText Nombres, Apellidos, Direccion, Telefono,  Email,Usuario;
     TextInputLayout TINom, TIApell, TIDir, TITel, TIEma, TIUsua, TIPassw, TIRePass ;
+    TextView IrLogin;
     Dialog myDialog;
     PasswordEditText Pass, RePass;
     String[] Roles;
@@ -82,6 +86,7 @@ public class registro_datos_usuario extends Fragment {
         RePass=vista.findViewById(R.id.registro_repass);
         BtnRegistrar=vista.findViewById(R.id.btn_registro);
         codigo_pais = vista.findViewById(R.id.ccp);
+        IrLogin=vista.findViewById(R.id.ir_login);
 
         TINom=vista.findViewById(R.id.TINombre2);
         TIApell=vista.findViewById(R.id.TIApellido2);
@@ -97,6 +102,14 @@ public class registro_datos_usuario extends Fragment {
     }
 
     private void CLick(){
+        IrLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext(), Login.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
         BtnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

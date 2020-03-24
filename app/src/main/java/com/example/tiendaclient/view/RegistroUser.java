@@ -1,58 +1,60 @@
-package com.example.tiendaclient.view;
+        package com.example.tiendaclient.view;
 
-import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
+        import android.app.AlertDialog;
+        import android.app.Dialog;
+        import android.content.DialogInterface;
+        import android.content.Intent;
+        import android.graphics.BitmapFactory;
+        import android.graphics.Color;
+        import android.net.Uri;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.text.TextUtils;
+        import android.util.Log;
+        import android.util.Patterns;
+        import android.view.View;
+        import android.widget.AdapterView;
+        import android.widget.EditText;
+        import android.widget.LinearLayout;
+        import android.widget.Spinner;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.tiendaclient.R;
-import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
-import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
-import com.example.tiendaclient.service.ApiService;
-import com.example.tiendaclient.service.RetrofitCliente;
-import com.example.tiendaclient.utils.Global;
-import com.example.tiendaclient.view.fragments.mercado;
-import com.example.tiendaclient.view.fragments.registro_datos_usuario;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.makeramen.roundedimageview.RoundedImageView;
-import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+        import com.bumptech.glide.Glide;
+        import com.bumptech.glide.load.engine.DiskCacheStrategy;
+        import com.example.tiendaclient.R;
+        import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
+        import com.example.tiendaclient.models.recibido.ResponseError;
+        import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
+        import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
+        import com.example.tiendaclient.service.ApiService;
+        import com.example.tiendaclient.service.RetrofitCliente;
+        import com.example.tiendaclient.utils.Global;
+        import com.google.android.material.snackbar.Snackbar;
+        import com.google.android.material.textfield.TextInputLayout;
+        import com.google.gson.Gson;
+        import com.google.gson.JsonObject;
+        import com.makeramen.roundedimageview.RoundedImageView;
+        import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
+        import com.theartofdev.edmodo.cropper.CropImage;
+        import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
-import java.util.regex.Pattern;
+        import org.json.JSONObject;
 
-import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
-import in.anshul.libray.PasswordEditText;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Response;
-import retrofit2.Retrofit;
+        import java.io.File;
+        import java.util.regex.Pattern;
+
+        import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+        import in.anshul.libray.PasswordEditText;
+        import io.reactivex.android.schedulers.AndroidSchedulers;
+        import io.reactivex.disposables.Disposable;
+        import io.reactivex.observers.DisposableObserver;
+        import io.reactivex.schedulers.Schedulers;
+        import okhttp3.MediaType;
+        import okhttp3.MultipartBody;
+        import okhttp3.RequestBody;
+        import retrofit2.Response;
+        import retrofit2.Retrofit;
 
 public class RegistroUser extends AppCompatActivity {
     EditText Nombres, Apellidos, Direccion, Telefono,  Email,Usuario;
@@ -61,7 +63,7 @@ public class RegistroUser extends AppCompatActivity {
     PasswordEditText Pass, RePass;
     String[] Roles;
     int posicionRol=0;
-    Boolean cambio=false;
+    Boolean cambio_pantalla=false;
     String mensaje="";
     Spinner Rol, TipoTienda;
     CountryCodePicker codigo_pais;
@@ -78,9 +80,6 @@ public class RegistroUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//new registro_datos_usuario()
-
         UI();
         animacion_cargando();
         Click();
@@ -140,6 +139,8 @@ public class RegistroUser extends AppCompatActivity {
                 Email.requestFocus();
             }
         });
+
+
         TIApell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,7 +188,7 @@ public class RegistroUser extends AppCompatActivity {
         Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-              posicionRol=position;
+                posicionRol=position;
             }
 
             @Override
@@ -236,7 +237,7 @@ public class RegistroUser extends AppCompatActivity {
         else if (imagen_perfil==null) mensaje();
         else if (Telefono.getText().toString().substring(0, 1).equals("0")) {
             numeroTelefono = codigo_pais.getSelectedCountryCode() + Telefono.getText().toString().trim().substring(1);
-                llenarDatos();
+            llenarDatos();
         } else {
             numeroTelefono = codigo_pais.getSelectedCountryCode() + Telefono.getText().toString().trim();
             llenarDatos();
@@ -262,6 +263,7 @@ public class RegistroUser extends AppCompatActivity {
     }
 
     private  void llenarDatos(){
+
         PeticionRegistroUser User = new PeticionRegistroUser();
         User.setNombres(Nombres.getText().toString());
         User.setApellidos(Apellidos.getText().toString());
@@ -277,7 +279,7 @@ public class RegistroUser extends AppCompatActivity {
         Log.e("json",JPetUser);
         animacion_registro();
         peticion_Registro(JPetUser);
-  }
+    }
 
     private void peticion_Registro(String jsonConf){
         retrofit = RetrofitCliente.getInstance();
@@ -292,35 +294,61 @@ public class RegistroUser extends AppCompatActivity {
                     @Override
                     public void onNext(Response<ResponseRegistroUser> response) {
 
-
-                        Log.e("Respuesta codigo",""+response.code());
-                        Log.e("Respuesta codigo",""+response.toString());
-                        Log.e("Respuesta codigo",""+response.body());
-
-                       // Log.e("Respuesta codigo",""+response.code());
-
-                        Log.e("Respuesta codigo",""+Global.convertObjToString(response.body()));
-                        //revisar
-                       if(response.code()==201){
-                            cambio=true;
-
-                        }else{
+                        Log.e("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            cambio_pantalla=true;
+                            Global.RegisUser=response.body();
+                            mensaje=response.body().getMensaje();
+                        } else {
                             animacion_errores();
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
                         }
-                        mensaje=response.body().getMensaje();
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("error",e.toString());
-                       animacion_errores();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Write whatever to want to do after delay specified (1 sec)
+                                myDialog.dismiss();
+                            }
+                        }, 2000);
 
+
+                        myDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado","registrado");
-                       Toast.makeText(getApplicationContext(),mensaje,Toast.LENGTH_LONG).show();
-                        myDialog.dismiss();
+                        if(!cambio_pantalla){
+                            datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                            credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    revertir_animacion();
+                                    //Write whatever to want to do after delay specified (1 sec)
+                                    myDialog.dismiss();
+                                }
+                            }, 2000);
+                        }else{
+                            subir_foto();
+                        }
+
+
 
                     }
                 });
@@ -340,12 +368,6 @@ public class RegistroUser extends AppCompatActivity {
         dialog.show();
 
     }
-
-
-    private  void hola(){
-
-    }
-
     private Boolean tamaño_texto( EditText texto){
 
 
@@ -401,13 +423,75 @@ public class RegistroUser extends AppCompatActivity {
 
 
     public void subir_foto(){
-
-      //  Staff staff = gson.fromJson(reader, Staff.class);
+        datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+        credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
 
         File file = new File(imagen_perfil.getPath());
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.UploadImage(""+Global.RegisUser.getId(),imagen)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
+                    @Override
+                    public void onNext(Response<ResponseUpdateImagen> response) {
+
+                        if (response.isSuccessful()) {
+                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
+                            cambio_pantalla =true;
+                            mensaje=response.body().getMensaje();
+                            Log.e("normal",mensaje);
+                        } else {
+                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+
+                            animacion_errores();
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+                            iniciar_sesion();
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Write whatever to want to do after delay specified (1 sec)
+                                iniciar_sesion();
+                                myDialog.dismiss();
+                            }
+                        }, 2000);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("Completado","registrado");
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                iniciar_sesion();
+                                //Write whatever to want to do after delay specified (1 sec)
+                                myDialog.dismiss();
+                            }
+                        }, 1000);
+                    }
+                });
+
+
     }
 
     private  void animacion_errores(){
@@ -425,4 +509,21 @@ public class RegistroUser extends AppCompatActivity {
         fotos.startAnimation();
 
     }
+
+    private void revertir_animacion(){
+// todo dejar en estado originsl el boton
+        credenciales.revertAnimation();
+        datos.revertAnimation();
+        fotos.revertAnimation();
+
+
+    }
+
+    private void iniciar_sesion(){
+        Intent intent = new Intent (getApplicationContext(), Principal.class);
+        startActivity(intent);
+        finish();
+    }
+
 }
+
