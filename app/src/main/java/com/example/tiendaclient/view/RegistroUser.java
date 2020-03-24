@@ -366,6 +366,7 @@ public class RegistroUser extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+        //
 
     }
     private Boolean tamaño_texto( EditText texto){
