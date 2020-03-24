@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
@@ -48,6 +49,7 @@ import org.json.JSONObject;
 import java.io.File;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -70,8 +72,8 @@ public class resgistro_completar extends Fragment {
 
     Uri imagen_perfil;
     RoundedImageView Perfil;
-    Dialog myDialog;
-    CircularProgressButton BtnRegistrar ,datos,fotos,credenciales;
+
+
     View vista;
     String[] Roles;
     int posicionRol=0;
@@ -82,6 +84,8 @@ public class resgistro_completar extends Fragment {
     TextInputLayout TIDir;
     TextView Soy, IrLogin;
     CircularProgressButton BtnRegistrar2;
+
+    SweetAlertDialog pDialog;
 
     Retrofit retrofit;
     ApiService retrofitApi;
@@ -165,7 +169,6 @@ public class resgistro_completar extends Fragment {
 
     }
 
-    RoundedImageView preview;
 
     public resgistro_completar() {
         // Required empty public constructor
@@ -209,11 +212,7 @@ public class resgistro_completar extends Fragment {
                 .override(125, 125)
                 .fitCenter()
                 .into(Perfil);
-        Glide
-                .with(this)
-                .load(imagen_perfil)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(preview);
+
     }
     public void funcion_cortar() {
         CropImage.activity()
@@ -222,17 +221,11 @@ public class resgistro_completar extends Fragment {
     }
 
     private void animacion_cargando(){
-        myDialog = new Dialog(getActivity(), R.style.NewDialog);
-        myDialog.setContentView(R.layout.animacion_registo_user);
-        credenciales = myDialog.findViewById(R.id.btn_credenciales);
-        datos = myDialog.findViewById(R.id.btn_datos) ;
-        fotos = myDialog.findViewById(R.id.btn_foto);
-        preview=myDialog.findViewById(R.id.perfil_registro);
-        //  myDialog = new Dialog(LoginActivity.this);
-        //     myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
+        pDialog.setTitleText("Registrando");
+        pDialog.setCancelable(false);
 
-        //     myDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        myDialog.setCancelable(false);
 
 
     }
@@ -256,7 +249,7 @@ public class resgistro_completar extends Fragment {
         Gson gson = new Gson();
         String JPetUser= gson.toJson(RegisU);
         Log.e("json",JPetUser);
-         animacion_registro();
+        pDialog.show();
         peticion_Registro(JPetUser);
     }
 
@@ -293,7 +286,7 @@ public class resgistro_completar extends Fragment {
                             Global.RegisUser=response.body();
                             mensaje=response.body().getMensaje();
                         } else {
-                            animacion_errores();
+
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                                 Gson gson =new Gson();
@@ -308,35 +301,14 @@ public class resgistro_completar extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Write whatever to want to do after delay specified (1 sec)
-                                myDialog.dismiss();
-                            }
-                        }, 2000);
-
-
-                        myDialog.dismiss();
+                        pDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado","registrado");
                         if(!cambio_pantalla){
-                            datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    revertir_animacion();
-                                    //Write whatever to want to do after delay specified (1 sec)
-                                    myDialog.dismiss();
-                                }
-                            }, 2000);
+                           pDialog.dismiss();
                         }else{
                             subir_foto();
                         }
@@ -346,24 +318,10 @@ public class resgistro_completar extends Fragment {
                     }
                 });
     }
-    private  void animacion_errores(){
 
-        credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
-        datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
-        fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
-    }
 
-    private void animacion_registro(){
 
-        myDialog.show();
-        credenciales.startAnimation();
-        datos.startAnimation();
-        fotos.startAnimation();
-
-    }
     public void subir_foto(){
-        datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
-        credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
 
         File file = new File(imagen_perfil.getPath());
         //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
@@ -380,16 +338,13 @@ public class resgistro_completar extends Fragment {
                     public void onNext(Response<ResponseUpdateImagen> response) {
 
                         if (response.isSuccessful()) {
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
                             cambio_pantalla =true;
                             mensaje=response.body().getMensaje();
                             Log.e("normal",mensaje);
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
                         } else{
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
 
-                            animacion_errores();
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                                 Gson gson =new Gson();
@@ -405,30 +360,15 @@ public class resgistro_completar extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Write whatever to want to do after delay specified (1 sec)
                                 iniciar_sesion();
-                                myDialog.dismiss();
-                            }
-                        }, 2000);
+                                pDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("Completado foto","registrado");
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                iniciar_sesion();
-                                //Write whatever to want to do after delay specified (1 sec)
-                                myDialog.dismiss();
-                            }
-                        }, 1000);
+                     iniciar_sesion();
+                                pDialog.dismiss();
                     }
                 });
 
@@ -439,14 +379,7 @@ public class resgistro_completar extends Fragment {
         startActivity(intent);
         getActivity().finish();
     }
-    private void revertir_animacion(){
-// todo dejar en estado originsl el boton
-        credenciales.revertAnimation();
-        datos.revertAnimation();
-        fotos.revertAnimation();
 
-
-    }
 
 
 

@@ -1,7 +1,7 @@
 package com.example.tiendaclient.service;
 
 
-import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.models.recibido.ResponseUserPorID;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
@@ -62,6 +62,11 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("auth")
     Observable<Response<ResponseLoginUser>>LoginUser(@Body JsonObject object);
+
+
+    @Headers("Content-Type: application/json")
+    @GET("usuarios/{user_id}")
+    Observable<Response<ResponseUserPorID>>ObtenerUsuarioporID(@Path(value = "user_id", encoded = true) String userId);
 
 
 
