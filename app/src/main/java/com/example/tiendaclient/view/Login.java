@@ -1,5 +1,6 @@
 package com.example.tiendaclient.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -21,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionLoginUser;
@@ -30,12 +32,23 @@ import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.utils.Notificaciones.DtsToken;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
+
+import java.time.Instant;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,18 +75,21 @@ public class Login extends AppCompatActivity {
 
     Boolean cambio_pantalla=false;
     String mensaje="";
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth   firebaseauth=FirebaseAuth.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
 
        animacion_cargando();
         //UiAnima();
         UI();
         llamarPreferences();
         Click();
+
     }
     private void UiAnima(){
         Rebote = AnimationUtils.loadAnimation(this, R.anim.rebote);
@@ -270,7 +286,9 @@ public class Login extends AppCompatActivity {
                         if(cambio_pantalla){
                             if(myDialog != null || myDialog.isShowing())
                                 myDialog.dismiss();
+                            generar_token(ETLoginUser.getText().toString());
                             iniciar_sesion();
+
                             Log.e("Completado","Login exitoso");
                             guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString());
 
@@ -289,6 +307,51 @@ public class Login extends AppCompatActivity {
         myDialog.setContentView(R.layout.animacion_login);
         myDialog.setCancelable(false);
 
+
+    }
+
+    private void generar_token(final String correo){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.e("falla", "getInstanceId failed"+task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        DtsToken tokensito=new DtsToken();
+                        tokensito.setCorreo(correo);
+                        tokensito.setToken(token);
+
+
+                        db.collection("CHAT").document().set(tokensito).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                //  Toast.makeText(getContext(),"enviado",Toast.LENGTH_LONG).show();
+
+                                Log.e("exito", "exito");
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                            Log.e("falla", ""+e.toString());
+
+
+
+                            }
+                        });
+
+
+                       // Toast.makeText(Login.this,token,Toast.LENGTH_LONG).show();
+
+                        // Log and toast
+                        Log.e("token", token);
+                    }
+                });
 
     }
 
