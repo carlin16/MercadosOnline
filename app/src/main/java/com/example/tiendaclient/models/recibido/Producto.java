@@ -1,4 +1,3 @@
-
 package com.example.tiendaclient.models.recibido;
 
 import com.google.gson.annotations.Expose;
@@ -18,6 +17,9 @@ public class Producto {
     @SerializedName("descripcion")
     @Expose
     private String descripcion;
+    @SerializedName("id_categoria")
+    @Expose
+    private Integer idCategoria;
     @SerializedName("precio")
     @Expose
     private Double precio;
@@ -66,6 +68,14 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(Integer idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
     public Double getPrecio() {
         return precio;
     }
@@ -105,5 +115,4 @@ public class Producto {
     public void setFechaActualiza(Object fechaActualiza) {
         this.fechaActualiza = fechaActualiza;
     }
-
 }

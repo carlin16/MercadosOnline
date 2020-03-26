@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -69,11 +70,13 @@ public class puestos extends Fragment {
     }
 
 
-    private void iniciar_recycler(){
 
+
+    private void  iniciar_recycler(){
         adapter=new VistasPuestos(ls_listado);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 
@@ -89,22 +92,22 @@ public class puestos extends Fragment {
                     @Override
                     public void onNext(Response<List<ResponseVerAllPuesto>> response) {
 
-                        Log.e("code VM",""+response.code());
-                        Log.e("respuest VM", Global.convertObjToString(response.body()));
+                        Log.e("code VP",""+response.code());
+                        Log.e("respuest VP", Global.convertObjToString(response.body()));
                         ls_listado.addAll(response.body());
 
 
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("code VM","error");
+                        Log.e("code VP","error"+e.toString());
 
                     }
 
                     @Override
                     public void onComplete() {
 
-                        Log.e("code VM","completado");
+                        Log.e("code VP","completado");
                         adapter.notifyDataSetChanged();
 
                     }

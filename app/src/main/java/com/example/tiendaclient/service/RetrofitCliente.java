@@ -34,7 +34,7 @@ public class RetrofitCliente {
                 .create();
         newInstance= new Retrofit.Builder()
                 .client(client)
-                .baseUrl("http://3.213.162.176/pedidos/public/api/")
+                .baseUrl("http://mercados-online.com/public/api/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

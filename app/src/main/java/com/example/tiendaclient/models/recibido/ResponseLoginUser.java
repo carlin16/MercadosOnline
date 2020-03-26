@@ -5,6 +5,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseLoginUser {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
     @SerializedName("nombres")
     @Expose
     private String nombres;
@@ -26,6 +29,10 @@ public class ResponseLoginUser {
     @SerializedName("token")
     @Expose
     private String token;
+
+    public int getid() { return id;}
+
+    public void setid(int id) { this.id = id; }
 
     public String getNombres() {
         return nombres;

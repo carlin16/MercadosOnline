@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
@@ -45,6 +47,7 @@ public class perfil_usuario extends Fragment {
     View vista;
     TextView PerfilNombresCompletos, PerfilUsuario,PerfilDireccion, PerfilCelular, PerfilCorreo, PerfilRol;
     RoundedImageView PerfilFoto;
+    String LinkImagenP= "http://mercados-online.com/public/api/usuarios/"+""+Global.LoginU.getid()+"/foto";
 
     String mensaje="";
    // ResponseUserPorID Usua= new ResponseUserPorID();
@@ -78,16 +81,16 @@ public class perfil_usuario extends Fragment {
         PerfilCorreo=vista.findViewById(R.id.TVPerfilCorreo);
         PerfilRol=vista.findViewById(R.id.TVPerfilRol);
         PerfilFoto=vista.findViewById(R.id.PerfilFoto);
-        peticion_usuario("1");
+        peticion_usuario(Global.LoginU.getid());
     }
 
-    private void peticion_usuario(String id){
+    private void peticion_usuario(int id){
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
         //JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
 
-        disposable = (Disposable) retrofitApi.ObtenerUsuarioporID(id)
+        disposable = (Disposable) retrofitApi.ObtenerUsuarioporID(""+id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseUserPorID>>() {
@@ -133,6 +136,7 @@ public class perfil_usuario extends Fragment {
             Log.e("activity","removido de la actividad ");
             return;
         }
+        llenar_subida();
         PerfilNombresCompletos.setText(Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos());
         PerfilUsuario.setText("@"+Global.UserGlobal.getUsuario());
         PerfilDireccion.setText(Global.UserGlobal.getDireccion());
@@ -140,5 +144,17 @@ public class perfil_usuario extends Fragment {
         PerfilCorreo.setText(Global.UserGlobal.getEmail());
         PerfilRol.setText(Global.UserGlobal.getRol());
     }
+
+    private void llenar_subida(){
+        Glide
+                .with(getActivity())
+                .load(LinkImagenP)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .override(125, 125)
+                .fitCenter()
+                .into(PerfilFoto);
+
+    }
+
 
 }

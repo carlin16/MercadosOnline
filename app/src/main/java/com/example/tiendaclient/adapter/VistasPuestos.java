@@ -15,9 +15,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.Puesto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,10 +58,14 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, int position) {
-        holder.nombre.setText(""+ lst_normal.get(position).getIdVendedor());
+        holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres()+" "+lst_normal.get(position).getVendedor().getApellidos());
+        holder.CodigoPuesto.setText(lst_normal.get(position).getCodigo());
+        holder.DescripcionPuesto.setText(lst_normal.get(position).getFechaRegistro());
+    //  aqui guia te y setea acvtualiza el response
+
         Glide
                 .with(holder.imagen.getContext())
-                .load("https://www.eltelegrafo.com.ec/media/k2/items/cache/a5bd5a3316b1f3f06df4936ac9164372_XL.jpg")
+                .load("https://images.squarespace-cdn.com/content/v1/5def38213ab4a76a02e72dac/1577824254353-Y9FOHXRD3ZAHDYIQ2Z1E/ke17ZwdGBToddI8pDm48kNiEM88mrzHRsd1mQ3bxVct7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0s0XaMNjCqAzRibjnE_wBlkZ2axuMlPfqFLWy-3Tjp4nKScCHg1XF4aLsQJlo6oYbA/1x1_Foto-perfil-LinkedIn.jpg")
                 // .override(60,60)
 
                 .placeholder(R.drawable.perfil_mercado)
@@ -86,13 +92,18 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
     }
 
     public class MultiHolder extends RecyclerView.ViewHolder {
-
-        ImageView imagen;
-        TextView nombre;
+// instancia la scosas que faltan aqui creas lo que hay en la vista
+        RoundedImageView imagen;
+        TextView nombre, CodigoPuesto, DescripcionPuesto;
         public MultiHolder(@NonNull View itemView) {
             super(itemView);
-            imagen=itemView.findViewById(R.id.multi_foto);
-            nombre=itemView.findViewById(R.id.multi_nombre);
+            imagen=itemView.findViewById(R.id.TVPuestoFotoV);
+            nombre=itemView.findViewById(R.id.TVPuestoNombre);
+            CodigoPuesto=itemView.findViewById(R.id.TVPuestoCodP);
+            DescripcionPuesto=itemView.findViewById(R.id.TVPuestoDescripcion);
+
+            ///aqui instancias
+
         }
     }
 
@@ -125,6 +136,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
             notifyDataSetChanged();
         }
     };
+
 
 
 
