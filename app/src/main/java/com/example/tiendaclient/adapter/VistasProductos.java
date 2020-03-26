@@ -59,12 +59,12 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
        holder.nombre.setText(lst_normal.get(position).getNombre());
-        holder.precio.setText(""+lst_normal.get(position).getPrecio());
+        holder.precio.setText("$"+lst_normal.get(position).getPrecio());
     //  aqui guia te y setea acvtualiza el response
 
         Glide
                 .with(holder.imagen.getContext())
-                .load("https://www.ama-time.com/img/productos/botellas/bot-manzana.png")
+                .load("http://mercados-online.com/public/api/productos/"+lst_normal.get(position).getId()+"/foto")
                 .placeholder(R.drawable.perfil_mercado)
                 .into(holder.imagen);
 

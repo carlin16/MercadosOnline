@@ -15,19 +15,22 @@ public class ResponseVerAllPuesto {
     private String codigo;
     @SerializedName("id_mercado")
     @Expose
-    private Integer idMercado;
+    private String idMercado;
     @SerializedName("id_vendedor")
     @Expose
-    private Integer idVendedor;
+    private String idVendedor;
     @SerializedName("estado")
     @Expose
-    private Integer estado;
+    private String estado;
     @SerializedName("fecha_registro")
     @Expose
     private String fechaRegistro;
     @SerializedName("fecha_actualiza")
     @Expose
     private Object fechaActualiza;
+    @SerializedName("max_categorias")
+    @Expose
+    private String maxCategorias;
     @SerializedName("vendedor")
     @Expose
     private Vendedor vendedor;
@@ -51,27 +54,27 @@ public class ResponseVerAllPuesto {
         this.codigo = codigo;
     }
 
-    public Integer getIdMercado() {
+    public String getIdMercado() {
         return idMercado;
     }
 
-    public void setIdMercado(Integer idMercado) {
+    public void setIdMercado(String idMercado) {
         this.idMercado = idMercado;
     }
 
-    public Integer getIdVendedor() {
+    public String getIdVendedor() {
         return idVendedor;
     }
 
-    public void setIdVendedor(Integer idVendedor) {
+    public void setIdVendedor(String idVendedor) {
         this.idVendedor = idVendedor;
     }
 
-    public Integer getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Integer estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -89,6 +92,14 @@ public class ResponseVerAllPuesto {
 
     public void setFechaActualiza(Object fechaActualiza) {
         this.fechaActualiza = fechaActualiza;
+    }
+
+    public String getMaxCategorias() {
+        return maxCategorias;
+    }
+
+    public void setMaxCategorias(String maxCategorias) {
+        this.maxCategorias = maxCategorias;
     }
 
     public Vendedor getVendedor() {

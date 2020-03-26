@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 //
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasPuestos;
@@ -52,6 +53,8 @@ public class puestos extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
+    TextView NombreMercado;
+    public String Mercado="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,8 +67,13 @@ public class puestos extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        NombreMercado=vista.findViewById(R.id.TVPNombreMercado);
         recyclerView= vista.findViewById(R.id.Recycler_puestos);
-        iniciar_recycler();
+        NombreMercado.setText(Mercado);
+
+
+
+    iniciar_recycler();
         peticio_puestos();
     }
 
@@ -91,7 +99,7 @@ public class puestos extends Fragment {
                 .subscribeWith(new DisposableObserver<Response<List<ResponseVerAllPuesto>>>() {
                     @Override
                     public void onNext(Response<List<ResponseVerAllPuesto>> response) {
-
+                        ls_listado.clear();
                         Log.e("code VP",""+response.code());
                         Log.e("respuest VP", Global.convertObjToString(response.body()));
                         ls_listado.addAll(response.body());

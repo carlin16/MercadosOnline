@@ -19,6 +19,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:background="@color/col_White"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
@@ -42,12 +43,15 @@
             android:layout_weight="1">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/TVPNombreMercado"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="17dp"
-                android:text="Mercado Mascote"
+                android:layout_marginEnd="15dp"
+                android:textAlignment="textEnd"
+                android:text="Mercado Mascote que va ir a la call ede "
                 android:textColor="@color/col_grissuave"
-                android:textSize="18sp"
+                android:textSize="16sp"
+                android:maxLines="2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.93"

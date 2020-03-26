@@ -20,6 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+            android:background="@color/col_White"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_weight="1"
@@ -27,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="23dp"
                 android:layout_gravity="start"
-                android:text="Puestos"
+                android:text="Productos"
                 android:gravity="start"
                 android:textColor="#1D1C1A"
                 android:textSize="28sp"
@@ -42,10 +43,11 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:id="@+id/TVProPuesto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="17dp"
-                    android:text="Mercado Mascote"
+                    android:text="Puesto"
                     android:textColor="@color/col_grissuave"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +74,7 @@
             android:background="#FFF"
             android:padding="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +88,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/TVPuestoFotoV"
                     android:layout_width="125dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="130dp"
                     android:layout_weight="0"
                     android:scaleType="fitXY"
                     android:src="@drawable/perfil_usuario"
@@ -96,7 +98,7 @@
                     app:riv_oval="false" />
 
                 <LinearLayout
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -117,6 +119,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginTop="5dp"
                         android:padding="5dp"
                         android:text="Verduras, mariscos, Productos del hogar"
                         android:textColor="@color/col_grissuave"

@@ -82,6 +82,8 @@ int manejador=0;
             public void onClick(View v) {
                 puestos pue= new puestos();
                 pue.id=lst_normal.get(position).getId();
+                pue.Mercado=lst_normal.get(position).getNombre();
+
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.Contenedor_Fragments, pue).addToBackStack(null);

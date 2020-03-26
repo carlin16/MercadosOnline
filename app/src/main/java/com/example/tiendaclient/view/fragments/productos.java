@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasProductos;
@@ -39,12 +40,28 @@ public class productos extends Fragment {
     View vista;
     RecyclerView recyclerView;
     VistasProductos adapter;
+    TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
+    public String idPuesto;
+    public  String categorias;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView= vista.findViewById(R.id.Recycler_productos);
+        Idpuesto= vista.findViewById(R.id.TVProPuesto);
+        Idpuesto.setText(idPuesto);
+
+        NombreDueno= vista.findViewById(R.id.TVPuestoNombre);
+        DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
+        Cantidadpro= vista.findViewById(R.id.TVProCantidad);
+
+        NombreDueno.setText(vendedor.getNombres()+" "+vendedor.getApellidos());
+        DescripcionPuesto.setText(categorias);
+        Cantidadpro.setText(""+(ls_listado.size()));
+
+
         iniciar_recycler();
     }
 

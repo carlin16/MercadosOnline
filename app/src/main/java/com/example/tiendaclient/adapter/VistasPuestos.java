@@ -62,7 +62,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
         holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres()+" "+lst_normal.get(position).getVendedor().getApellidos());
         holder.CodigoPuesto.setText(lst_normal.get(position).getCodigo());
-        holder.DescripcionPuesto.setText(lst_normal.get(position).getFechaRegistro());
+        holder.DescripcionPuesto.setText(lst_normal.get(position).getMaxCategorias());
     //  aqui guia te y setea acvtualiza el response
 
         Glide
@@ -81,6 +81,11 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         productos pro= new productos();
         pro.ls_listado=lst_normal.get(position).getProductos();
         pro.vendedor=lst_normal.get(position).getVendedor();
+        pro.idPuesto=""+lst_normal.get(position).getCodigo();
+        pro.categorias=lst_normal.get(position).getMaxCategorias();
+
+
+
         FragmentTransaction fragmentTransaction;
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.Contenedor_Fragments, pro).addToBackStack(null);
