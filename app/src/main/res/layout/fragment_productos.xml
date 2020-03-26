@@ -70,7 +70,8 @@
 
         <LinearLayout
             android:background="#FFF"
-            android:layout_marginLeft="20dp"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
@@ -85,9 +86,7 @@
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/TVPuestoFotoV"
                     android:layout_width="125dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="3dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="0"
                     android:scaleType="fitXY"
                     android:src="@drawable/perfil_usuario"
@@ -97,74 +96,44 @@
                     app:riv_oval="false" />
 
                 <LinearLayout
+                    android:layout_marginStart="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginStart="13sp"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
 
 
-                    <LinearLayout
-                        android:layout_weight="1"
-
+                    <TextView
+                        android:id="@+id/TVPuestoNombre"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:elevation="1dp"
-                        android:layout_marginBottom="5dp"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:text="Scarlet Brigigte Johanson Chicaisa"
+                        android:textStyle="bold"
+                        android:textColor="@color/col_negrosolida"
+                        android:textSize="18sp" />
 
-
-                        <TextView
-                            android:id="@+id/TVPuestoNombre"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Scarlet Brigigte Johanson Chicaisa"
-                            android:textStyle="bold"
-                            android:textColor="@color/col_negrosolida"
-                            android:textSize="19sp" />
-
-
-
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_weight="1"
-
+                    <TextView
+                        android:id="@+id/TVPuestoDescripcion"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:text="Verduras, mariscos, Productos del hogar"
+                        android:textColor="@color/col_grissuave"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
 
-
-                        <TextView
-                            android:id="@+id/TVPuestoDescripcion"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:layout_weight="1"
-                            android:text="Verduras, mariscos, Productos del hogar"
-                            android:textColor="@color/col_grissuave"
-                            android:textSize="15sp"
-                            android:textStyle="italic" />
-
-
-                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="bottom"
+                        android:layout_height="wrap_content"
                         android:paddingTop="5dp"
+                        android:gravity="bottom"
                         android:layout_weight="1">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             >
 
@@ -207,11 +176,14 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:id="@+id/Recycler_productos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="5dp"
-            android:background="@color/col_White"
+            android:background="#FBFBFB"
+            tools:listitem="@layout/item_productos"
           >
 
 

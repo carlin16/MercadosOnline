@@ -73,7 +73,7 @@ public class puestos extends Fragment {
 
 
     private void  iniciar_recycler(){
-        adapter=new VistasPuestos(ls_listado);
+        adapter=new VistasPuestos(ls_listado,getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
