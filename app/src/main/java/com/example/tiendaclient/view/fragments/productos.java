@@ -1,5 +1,8 @@
 package com.example.tiendaclient.view.fragments;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,17 +11,23 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasProductos;
 import com.example.tiendaclient.adapter.VistasPuestos;
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.example.tiendaclient.models.recibido.Vendedor;
+import com.google.android.material.snackbar.Snackbar;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +41,10 @@ public class productos extends Fragment {
     public List<Producto> ls_listado= new ArrayList<>();
     public Vendedor vendedor= new Vendedor();
 
+    TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
+    ElegantNumberButton CantidadCar;
+    RoundedImageView FotoProducto;
+    Button AgregarCarrito;
 
     public productos() {
         // Required empty public constructor
@@ -43,6 +56,7 @@ public class productos extends Fragment {
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
     public String idPuesto;
     public  String categorias;
+    Dialog myDialog;
 
 
     @Override
@@ -62,7 +76,9 @@ public class productos extends Fragment {
         Cantidadpro.setText(""+(ls_listado.size()));
 
 
+        animacion_compra();
         iniciar_recycler();
+
     }
 
     @Override
@@ -74,7 +90,45 @@ public class productos extends Fragment {
     }
 
     private void  iniciar_recycler(){
-        adapter=new VistasProductos(ls_listado);
+        adapter=new VistasProductos(ls_listado, new VistasProductos.OnItemClicListener() {
+            @Override
+            public void onItemClick(final Producto product, int position) {
+                Log.e("hey producto","click");
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                //
+                NombreProducto.setText(product.getNombre());
+                UnidadesProd.setText("Precio Unidad");
+                Valorproduct.setText("$"+product.getPrecio().toString());
+                Subtotal.setText("$"+product.getPrecio().toString());
+                DescripProduct.setText(product.getDescripcion());
+                CantidadCar.setNumber("1");
+                final double precio=product.getPrecio();
+                 //final double subtotal=0;
+
+                CantidadCar.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
+                    @Override
+                    public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
+                        Log.e("Elegante btn", String.format("oldValue: %d   newValue: %d", oldValue, newValue));
+
+                        Subtotal.setText("$"+(precio*newValue));
+                    }
+                });
+
+                AgregarCarrito.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(), "Se hizo compra", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+               // FotoProducto=myDialog.findViewById(R.id.TVPuestoFotoV);
+                //AgregarCarrito=myDialog.findViewById(R.id.TVCompBtnAgregarCar);
+                myDialog.show();
+
+
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -86,6 +140,21 @@ public class productos extends Fragment {
 
 
 
+    }
+
+    private void animacion_compra(){
+        myDialog = new Dialog(getActivity());
+        myDialog.setContentView(R.layout.compra);
+        myDialog.setCancelable(true);
+
+      NombreProducto=myDialog.findViewById(R.id.TVProducNombre);
+        UnidadesProd=myDialog.findViewById(R.id.TVProducUnidades);
+        Valorproduct=myDialog.findViewById(R.id.TVProducValor);
+        DescripProduct=myDialog.findViewById(R.id.TVCompDescripcion);
+        CantidadCar=myDialog.findViewById(R.id.TVCompCantidad);
+        Subtotal=myDialog.findViewById(R.id.TVCompSubtotal);
+        FotoProducto=myDialog.findViewById(R.id.TVPuestoFotoV);
+        AgregarCarrito=myDialog.findViewById(R.id.TVCompBtnAgregarCar);
     }
 
 

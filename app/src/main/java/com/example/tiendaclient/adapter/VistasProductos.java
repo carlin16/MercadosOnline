@@ -26,6 +26,8 @@ import java.util.List;
 
 public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiHolder>  implements Filterable {
 
+    private OnItemClicListener itemClicListener;
+
 
 
     List<Producto> lst_normal;
@@ -33,6 +35,12 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
 
     Context contex;
     FragmentManager fragmentManager;
+
+    public VistasProductos(List<Producto> lst_normal, OnItemClicListener itemClicListener) {
+        this.lst_normal = lst_normal;
+        this.itemClicListener = itemClicListener;
+    }
+
 
     public VistasProductos(List<Producto> lst_normal) {
         this.lst_normal = lst_normal;
@@ -72,8 +80,8 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        Log.e("click","Tienda");
-
+       // Log.e("click","Tienda");
+        itemClicListener.onItemClick(lst_normal.get(position),position);
 
 
 
@@ -137,7 +145,10 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         }
     };
 
+    public  interface OnItemClicListener{
 
+        void onItemClick(Producto product, int position);
+    }
 
 
 

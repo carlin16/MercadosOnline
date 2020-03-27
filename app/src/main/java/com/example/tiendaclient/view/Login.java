@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
     String mensaje="";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth   firebaseauth=FirebaseAuth.getInstance();
+   // FirebaseAuth   firebaseauth=FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
