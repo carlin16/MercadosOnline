@@ -24,7 +24,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".view.fragments.Compra"></activity>
         <activity
             android:name=".view.RegistroUsuarios"
             android:theme="@style/AppFullScreenTheme"></activity>

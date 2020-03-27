@@ -23,6 +23,14 @@ public class Compra {
     @Expose
     private Integer cantidad=0;
 
+    public Double getTotal() {
+        return Total;
+    }
+
+    public void setTotal(Double total) {
+        Total = total;
+    }
+
     @SerializedName("total")
     @Expose
     private Double Total=0.0;
