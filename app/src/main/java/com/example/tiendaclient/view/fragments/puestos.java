@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 //
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasPuestos;
@@ -55,6 +59,9 @@ public class puestos extends Fragment {
     ApiService retrofitApi;
     TextView NombreMercado;
 
+    ImageView compra;
+    EditText buscar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,11 +76,13 @@ public class puestos extends Fragment {
         NombreMercado=vista.findViewById(R.id.TVPNombreMercado);
         recyclerView= vista.findViewById(R.id.Recycler_puestos);
         NombreMercado.setText(Mercado.getNombre());
-
+        compra=vista.findViewById(R.id.icono_buscar);
+        buscar=vista.findViewById(R.id.escribir_busqueda);
 
 
     iniciar_recycler();
     peticio_puestos();
+        click();
     }
 
 
@@ -119,6 +128,55 @@ public class puestos extends Fragment {
 
                     }
                 });
+    }
+
+    private void click(){
+
+        compra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
+                FragmentTransaction fragmentTransaction;
+                fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, new carrito()).addToBackStack(null);
+                fragmentTransaction.commit();
+
+
+            }
+        });
+
+
+/*
+       buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+                filtro(editable.toString());
+
+
+
+
+
+
+
+
+
+                //  filter(editable.toString());
+
+            }
+        });
+*/
     }
 
 

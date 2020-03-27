@@ -19,12 +19,7 @@ public class PuestosCompra {
     @SerializedName("productos")
     @Expose
     private List<ProductosCompra> productos = new ArrayList<>();
-    @SerializedName("latitud")
-    @Expose
-    private String latitud;
-    @SerializedName("longitud")
-    @Expose
-    private String longitud;
+
 
     public Vendedor getVendedor() {
         return vendedor;
@@ -50,21 +45,6 @@ public class PuestosCompra {
         this.productos = productos;
     }
 
-    public String getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(String latitud) {
-        this.latitud = latitud;
-    }
-
-    public String getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(String longitud) {
-        this.longitud = longitud;
-    }
 
 
     public void agregar_compra( ProductosCompra pro){

@@ -85,6 +85,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         pro.ls_listado=lst_normal.get(position).getProductos();
         pro.vendedor=lst_normal.get(position).getVendedor();
         pro.idPuesto=""+lst_normal.get(position).getCodigo();
+        pro.ID=lst_normal.get(position).getId();
         pro.categorias=lst_normal.get(position).getMaxCategorias();
         pro.Mercado=Mercado;
 

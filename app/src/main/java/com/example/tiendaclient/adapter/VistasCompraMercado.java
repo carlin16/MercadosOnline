@@ -56,7 +56,7 @@ int manejador=0;
     @Override
     public VistasCompraMercado.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mercados,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_varios_mercadors,
                 parent, false);
         return new Holder(v);
     }
@@ -64,8 +64,12 @@ int manejador=0;
     @Override
     public void onBindViewHolder(@NonNull VistasCompraMercado.Holder holder, final int position) {
         holder.nombre.setText(lst_normal.get(position).getNombre());
-        holder.cantidad.setText(""+lst_normal.get(position).getCantidad());
-        holder.total.setText(""+lst_normal.get(position).getTotal());
+        String plb=" Producto";
+        if(lst_normal.get(position).getCantidad()>1){
+            plb=" Productos";
+        }
+        holder.cantidad.setText(""+lst_normal.get(position).getCantidad()+plb);
+        holder.total.setText("$"+lst_normal.get(position).getTotal());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

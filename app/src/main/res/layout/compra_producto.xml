@@ -192,6 +192,7 @@
                             app:backGroundColor="@color/col_White"
                             app:textColor="@color/col_grissuave"
                             app:textSize="8sp"
+                            app:initialNumber="1"
 
                             >
 

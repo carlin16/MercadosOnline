@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-    android:elevation="2dp"
+    android:elevation="10dp"
     android:backgroundTint="@color/col_White"
     android:background="@color/col_White"
     android:layout_marginTop="10dp"
-    android:layout_marginBottom="7dp"
+    android:layout_marginBottom="10dp"
     android:layout_height="wrap_content"
     >
 
@@ -69,34 +69,35 @@
                         android:layout_height="match_parent">
 
                         <RelativeLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             >
 
 
+                            <TextView
+                                android:id="@+id/Compra_Mercado_Cantidad"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="0dp"
 
-                        <TextView
-                            android:id="@+id/Compra_Mercado_Cantidad"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:text="10 Productos"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-
-                            >
+                                android:text="10 Productos"
+                                android:textColor="@color/col_grissuave"
+                                android:textSize="16sp">
 
 
-                        </TextView>
+                            </TextView>
 
-                        <TextView
+                            <TextView
                             android:id="@+id/Compra_Mercado_Total"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="$50.00"
                             android:textSize="18sp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/col_negrosolida"
                             android:layout_alignParentRight="true"
                             >
 

@@ -1,7 +1,6 @@
 package com.example.tiendaclient.models.compra;
 
-import com.example.tiendaclient.models.recibido.Puesto;
-import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

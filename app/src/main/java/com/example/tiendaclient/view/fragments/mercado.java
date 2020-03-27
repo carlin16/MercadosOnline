@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -147,7 +148,13 @@ return vista;
         compra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
+                FragmentTransaction fragmentTransaction;
+                fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, new carrito()).addToBackStack(null);
+                fragmentTransaction.commit();
+
+
             }
         });
 

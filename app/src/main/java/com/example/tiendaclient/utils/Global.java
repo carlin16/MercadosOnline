@@ -1,6 +1,7 @@
 package com.example.tiendaclient.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.tiendaclient.models.compra.Compra;
 import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
@@ -64,6 +65,13 @@ public class Global {
         if(!encontre)
         VerCompras.add(nueva);
 
+
+        Log.e("lista",convertObjToString(VerCompras));
+
+    }
+
+    public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
+        return Math.round(numero * Math.pow(10, numeroDecimales)) / Math.pow(10, numeroDecimales);
     }
 
 

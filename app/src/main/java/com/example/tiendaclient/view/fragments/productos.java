@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +26,19 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasProductos;
 import com.example.tiendaclient.adapter.VistasPuestos;
+import com.example.tiendaclient.models.compra.Compra;
+import com.example.tiendaclient.models.compra.ProductosCompra;
+import com.example.tiendaclient.models.compra.PuestosCompra;
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.models.recibido.Vendedor;
+import com.example.tiendaclient.utils.Global;
 import com.google.android.material.snackbar.Snackbar;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +57,11 @@ public class productos extends Fragment {
     RoundedImageView FotoProducto;
     Button AgregarCarrito;
 
+    ImageView compra;
+    EditText buscar;
+
+    DecimalFormat df = new DecimalFormat("#.00");//formatear  a 2 decimales
+
     public productos() {
         // Required empty public constructor
     }
@@ -58,6 +72,7 @@ public class productos extends Fragment {
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
     public String idPuesto;
     public  String categorias;
+    public int ID=0;
     Dialog myDialog;
 
 
@@ -77,10 +92,13 @@ public class productos extends Fragment {
         DescripcionPuesto.setText(categorias);
         Cantidadpro.setText(""+(ls_listado.size()));
 
+        compra=vista.findViewById(R.id.icono_buscar);
+        buscar=vista.findViewById(R.id.escribir_busqueda);
+
 
         animacion_compra();
         iniciar_recycler();
-
+        click();
     }
 
     @Override
@@ -106,13 +124,14 @@ public class productos extends Fragment {
                 CantidadCar.setNumber("1");
                 final double precio=product.getPrecio();
                  //final double subtotal=0;
-
+                CantidadCar.setRange( 1,  1000);
                 CantidadCar.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
                     @Override
                     public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
                         Log.e("Elegante btn", String.format("oldValue: %d   newValue: %d", oldValue, newValue));
 
-                        Subtotal.setText("$"+(precio*newValue));
+
+                        Subtotal.setText("$"+df.format(precio*newValue));
                     }
                 });
 
@@ -120,9 +139,11 @@ public class productos extends Fragment {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getActivity(), "Se hizo compra", Toast.LENGTH_SHORT).show();
+                        llenarCarrito(product);
+                        myDialog.dismiss();
+
                     }
                 });
-
 
                // FotoProducto=myDialog.findViewById(R.id.TVPuestoFotoV);
                 //AgregarCarrito=myDialog.findViewById(R.id.TVCompBtnAgregarCar);
@@ -157,8 +178,108 @@ public class productos extends Fragment {
         Subtotal=myDialog.findViewById(R.id.TVCompSubtotal);
         FotoProducto=myDialog.findViewById(R.id.TVPuestoFotoV);
         AgregarCarrito=myDialog.findViewById(R.id.TVCompBtnAgregarCar);
+
+
+    }
+private void llenarCarrito(Producto product){
+    Compra nuevoC = new Compra();
+    List<PuestosCompra> pues = new ArrayList<>();
+    PuestosCompra PuestComp = new PuestosCompra();
+    List<ProductosCompra> lstprod=new ArrayList<>();
+    ProductosCompra prod= new ProductosCompra();
+
+    prod.setNombre(product.getNombre());
+    prod.setDescripcion(product.getDescripcion());
+    prod.setId_cantidad(Integer.parseInt(CantidadCar.getNumber()));
+    prod.setIdCategoria(product.getIdCategoria());
+    prod.setIdProducto(product.getId());
+    prod.setIdPuesto(product.getIdPuesto());
+    prod.setIdVendedor(vendedor.getId().toString());
+    prod.setPrecio(product.getPrecio());
+    Double total= prod.getId_cantidad()*product.getPrecio();
+
+    String f=df.format(total);
+    try {
+        total=DecimalFormat.getNumberInstance().parse(f).doubleValue();
+    } catch (ParseException e) {
+        e.printStackTrace();
     }
 
+    prod.setTotal(total);
+
+    lstprod.add(prod);
+
+    PuestComp.setId(ID);
+    PuestComp.setVendedor(vendedor);
+    PuestComp.setProductos(lstprod);
+
+    pues.add(PuestComp);
+
+    nuevoC.setPuestos(pues);
+    nuevoC.setCantidad(Integer.parseInt(CantidadCar.getNumber()));
+    nuevoC.setCiudad(Mercado.getCiudad());
+    nuevoC.setCodigoMercado(Mercado.getCodigoMercado());
+    nuevoC.setDescripcion(Mercado.getDescripcion());
+    nuevoC.setDireccion(Mercado.getDireccion());
+    nuevoC.setEstado(Integer.parseInt(Mercado.getEstado()));
+    nuevoC.setFechaRegistro(Mercado.getFechaRegistro());
+    nuevoC.setId(Mercado.getId());
+    // nuevoC.setLatitud(""+Mercado.getLatitud().toString());
+    // nuevoC.setLongitud(""+Mercado.getLatitud().toString());
+    nuevoC.setNombre(Mercado.getNombre());
+    nuevoC.setTotal(total);
+    Global.Agregar_Carrito(nuevoC);
+
+}
+
+    private void click(){
+
+        compra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
+                FragmentTransaction fragmentTransaction;
+                fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, new carrito()).addToBackStack(null);
+                fragmentTransaction.commit();
+
+
+            }
+        });
+
+
+/*
+       buscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+
+                filtro(editable.toString());
+
+
+
+
+
+
+
+
+
+                //  filter(editable.toString());
+
+            }
+        });
+*/
+    }
 
 
 }
