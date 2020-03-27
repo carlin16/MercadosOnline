@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
+import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.productos;
 import com.makeramen.roundedimageview.RoundedImageView;
 
@@ -72,7 +73,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
 
         Glide
                 .with(holder.imagen.getContext())
-                .load("http://mercados-online.com/public/api/productos/"+lst_normal.get(position).getId()+"/foto")
+                .load(Global.Url+"productos/"+lst_normal.get(position).getId()+"/foto")
                 .placeholder(R.drawable.perfil_mercado)
                 .into(holder.imagen);
 

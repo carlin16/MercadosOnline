@@ -25,6 +25,7 @@ import com.example.tiendaclient.adapter.VistasProductos;
 import com.example.tiendaclient.adapter.VistasPuestos;
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
+import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.models.recibido.Vendedor;
 import com.google.android.material.snackbar.Snackbar;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -40,6 +41,7 @@ public class productos extends Fragment {
 
     public List<Producto> ls_listado= new ArrayList<>();
     public Vendedor vendedor= new Vendedor();
+    public ResponseVerMercado Mercado =new ResponseVerMercado();
 
     TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
     ElegantNumberButton CantidadCar;

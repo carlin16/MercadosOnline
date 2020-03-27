@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.compra.Compra;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.view.fragments.puestos;
 
@@ -25,26 +26,26 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class VistasMercado extends RecyclerView.Adapter<VistasMercado.Holder>  implements Filterable {
+public class VistasCompraMercado extends RecyclerView.Adapter<VistasCompraMercado.Holder>  implements Filterable {
 
-    List<ResponseVerMercado> lst_normal;
-    List<ResponseVerMercado> list_full;
+    List<Compra> lst_normal;
+    List<Compra> list_full;
     FragmentManager fragmentManager;
 
 int manejador=0;
 
-    public VistasMercado(List<ResponseVerMercado> lst_normal, FragmentManager fragmentManager) {
+    public VistasCompraMercado(List<Compra> lst_normal, FragmentManager fragmentManager) {
         this.lst_normal = lst_normal;
         list_full=new ArrayList<>(lst_normal);
         this.fragmentManager = fragmentManager;
     }
 
-    public VistasMercado(List<ResponseVerMercado> lst_normal) {
+    public VistasCompraMercado(List<Compra> lst_normal) {
         this.lst_normal = lst_normal;
 
         list_full=new ArrayList<>(lst_normal);
     }
-    public VistasMercado(List<ResponseVerMercado> lst_normal, int manejador) {
+    public VistasCompraMercado(List<Compra> lst_normal, int manejador) {
         this.lst_normal = lst_normal;
 
         list_full=new ArrayList<>(lst_normal);
@@ -53,7 +54,7 @@ int manejador=0;
 
     @NonNull
     @Override
-    public VistasMercado.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public VistasCompraMercado.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mercados,
                 parent, false);
@@ -61,27 +62,14 @@ int manejador=0;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VistasMercado.Holder holder, final int position) {
-
-        //Tienda currentItem = lst_normal.get(position);
-        holder.mercado_nombre.setText(lst_normal.get(position).getNombre());
-        holder.mercado_descripcion.setText(lst_normal.get(position).getDescripcion());
-        holder.mercado_direccion.setText(lst_normal.get(position).getDireccion());
-
-
-
-        Glide
-                .with(holder.mercado_portada.getContext())
-                .load("https://www.lifeder.com/wp-content/uploads/2017/07/tipos-de-mercado-min.jpg")
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .placeholder(R.drawable.adduser2)
-                .into(holder.mercado_portada);
-
+    public void onBindViewHolder(@NonNull VistasCompraMercado.Holder holder, final int position) {
+        holder.nombre.setText(lst_normal.get(position).getNombre());
+        holder.cantidad.setText(""+lst_normal.get(position).getCantidad());
+        holder.total.setText(""+lst_normal.get(position).getTotal());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                puestos pue= new puestos();
+              /*  puestos pue= new puestos();
 
                 pue.Mercado=lst_normal.get(position);
 
@@ -89,7 +77,7 @@ int manejador=0;
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.Contenedor_Fragments, pue).addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
             }
         });
 
@@ -107,20 +95,14 @@ int manejador=0;
 
     public class Holder extends RecyclerView.ViewHolder {
 
-        ImageView mercado_portada;
-        CircleImageView mercado_perfil;
-        TextView mercado_nombre,mercado_ciudad,mercado_direccion,mercado_descripcion;
+        TextView nombre,cantidad,total;
+
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            mercado_portada=itemView.findViewById(R.id.mercado_portada);
-            mercado_perfil=itemView.findViewById(R.id.mercado_perfil);
-            mercado_nombre=itemView.findViewById(R.id.mercado_nombre);
-            mercado_ciudad=itemView.findViewById(R.id.mercado_ciudad);
-            mercado_direccion=itemView.findViewById(R.id.mercado_direccion);
-            mercado_descripcion=itemView.findViewById(R.id.mercado_descripcion);
-
-
+            nombre=itemView.findViewById(R.id.Compra_Mercado_Nombre);
+            cantidad=itemView.findViewById(R.id.Compra_Mercado_Cantidad);
+            total=itemView.findViewById(R.id.Compra_Mercado_Total);
         }
     }
 
@@ -130,7 +112,7 @@ private Filter mercados_filter =new Filter() {
     protected FilterResults performFiltering(CharSequence constraint) {
 
         Log.e("adapter","filtro llegar" +constraint);
-        List<ResponseVerMercado> filtro=new ArrayList<>();
+        List<Compra> filtro=new ArrayList<>();
 
         if (constraint == null || constraint.length() == 0) {
             Log.e("adapter","filtro sin cambios");
@@ -141,7 +123,7 @@ private Filter mercados_filter =new Filter() {
             Log.e("adapter","probar-->" + filterPattern);
             Log.e("adapter","tamaño lista -->" + list_full.size());
 
-            for (ResponseVerMercado item : list_full) {
+            for (Compra item : list_full) {
                 Log.e("adapter","recorro" + item.getNombre());
 
 

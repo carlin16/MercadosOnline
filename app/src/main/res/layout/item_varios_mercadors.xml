@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:elevation="2dp"
+    android:backgroundTint="@color/col_White"
+    android:background="@color/col_White"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="7dp"
+    android:layout_height="wrap_content"
+    >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <View
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="@color/col_naranja"
+                >
+
+
+
+            </View>
+
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="vertical">
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical"
+                        >
+
+                    <TextView
+                        android:id="@+id/Compra_Mercado_Nombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mercado Mascote"
+                        android:maxLines="2"
+                        android:textColor="@color/col_negrosolida"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            >
+
+
+
+                        <TextView
+                            android:id="@+id/Compra_Mercado_Cantidad"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="10 Productos"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            >
+
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/Compra_Mercado_Total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$50.00"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_alignParentRight="true"
+                            >
+
+
+
+                        </TextView>
+
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+</androidx.cardview.widget.CardView>

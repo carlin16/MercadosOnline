@@ -6,7 +6,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseVerMercado {
-
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -36,7 +35,10 @@ public class ResponseVerMercado {
     private String fechaRegistro;
     @SerializedName("estado")
     @Expose
-    private Integer estado;
+    private String estado;
+    @SerializedName("url_imagen")
+    @Expose
+    private String urlImagen;
     @SerializedName("puestos")
     @Expose
     private List<Puesto> puestos = null;
@@ -113,12 +115,20 @@ public class ResponseVerMercado {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public Integer getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Integer estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     public List<Puesto> getPuestos() {
@@ -128,5 +138,4 @@ public class ResponseVerMercado {
     public void setPuestos(List<Puesto> puestos) {
         this.puestos = puestos;
     }
-
 }

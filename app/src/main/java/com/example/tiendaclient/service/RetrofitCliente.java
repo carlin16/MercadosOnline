@@ -1,6 +1,7 @@
 package com.example.tiendaclient.service;
 
 
+import com.example.tiendaclient.utils.Global;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -34,7 +35,8 @@ public class RetrofitCliente {
                 .create();
         newInstance= new Retrofit.Builder()
                 .client(client)
-                .baseUrl("http://mercados-online.com/public/api/")
+               // .baseUrl("http://mercados-online.com/public/api/")
+                .baseUrl(Global.Url)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

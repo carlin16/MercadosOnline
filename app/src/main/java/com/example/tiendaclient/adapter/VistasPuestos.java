@@ -20,7 +20,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.Puesto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
+import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.view.fragments.productos;
+import com.google.android.gms.common.api.Response;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     List<ResponseVerAllPuesto> lst_normal;
     List<ResponseVerAllPuesto> lst_full;
-
+    ResponseVerMercado Mercado=new ResponseVerMercado();
     Context contex;
     FragmentManager fragmentManager;
 
@@ -42,9 +44,10 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     }
 
-    public VistasPuestos(List<ResponseVerAllPuesto> lst_normal, FragmentManager fragmentManager) {
+    public VistasPuestos(List<ResponseVerAllPuesto> lst_normal, FragmentManager fragmentManager, ResponseVerMercado Mercado) {
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
+        this.Mercado=Mercado;
     }
 
     @NonNull
@@ -83,6 +86,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         pro.vendedor=lst_normal.get(position).getVendedor();
         pro.idPuesto=""+lst_normal.get(position).getCodigo();
         pro.categorias=lst_normal.get(position).getMaxCategorias();
+        pro.Mercado=Mercado;
 
 
 

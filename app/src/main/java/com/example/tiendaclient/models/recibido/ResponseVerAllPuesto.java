@@ -7,9 +7,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseVerAllPuesto {
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
+        @SerializedName("id")
+        @Expose
+        private Integer id;
     @SerializedName("codigo")
     @Expose
     private String codigo;

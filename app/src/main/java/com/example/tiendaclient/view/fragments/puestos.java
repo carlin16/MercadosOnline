@@ -41,7 +41,7 @@ public class puestos extends Fragment {
 
 
     public List<ResponseVerAllPuesto> ls_listado= new ArrayList<>();
-    public int id=0;
+    public ResponseVerMercado Mercado= new ResponseVerMercado();
 
     public puestos() {
         // Required empty public constructor
@@ -54,7 +54,6 @@ public class puestos extends Fragment {
     Retrofit retrofit;
     ApiService retrofitApi;
     TextView NombreMercado;
-    public String Mercado="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,19 +68,19 @@ public class puestos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         NombreMercado=vista.findViewById(R.id.TVPNombreMercado);
         recyclerView= vista.findViewById(R.id.Recycler_puestos);
-        NombreMercado.setText(Mercado);
+        NombreMercado.setText(Mercado.getNombre());
 
 
 
     iniciar_recycler();
-        peticio_puestos();
+    peticio_puestos();
     }
 
 
 
 
     private void  iniciar_recycler(){
-        adapter=new VistasPuestos(ls_listado,getFragmentManager());
+        adapter=new VistasPuestos(ls_listado,getFragmentManager(),Mercado);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -93,7 +92,7 @@ public class puestos extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerAllPuestos("si",""+id)
+        disposable = (Disposable) retrofitApi.VerAllPuestos("si",""+Mercado.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseVerAllPuesto>>>() {
