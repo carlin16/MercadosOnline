@@ -15,15 +15,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.utils.ConnectivityStatus;
+import com.example.tiendaclient.utils.Global;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,11 +43,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
  */
 public class ubica_entrega extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMapClickListener {
 
-
+    TextView DetalleCancelarPedido;
     private GoogleMap mMap;
     LocationManager locationManager ;
     private Marker marcador;
     public  LatLng nuevo=null;
+    public String id_del_fragment;
+    public int PosicionListaArray = 0;
     public ubica_entrega() {
         // Required empty public constructor
     }
@@ -65,6 +71,18 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         super.onViewCreated(view, savedInstanceState);
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.Maps);
         mapFragment.getMapAsync(this);
+        DetalleCancelarPedido=vista.findViewById(R.id.DetalleCancelarPedido);
+        DetalleCancelarPedido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            //    FragmentManager.popBackStack(id_del_fragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+                 Global.VerCompras.remove(PosicionListaArray);
+                 Log.e("posicion",""+PosicionListaArray);
+                 getFragmentManager().popBackStack(id_del_fragment,0);
+            }
+        });
     }
 
     @Override
@@ -85,7 +103,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
 
         miUbicacion();
-        mMap.setOnMarkerDragListener(this);
+       // mMap.setOnMarkerDragListener(this);
 
         }else{
 
@@ -126,7 +144,6 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
     @Override
     public void onMarkerDragEnd(Marker marker) {
-        Log.e("click","end");
         nuevo= marker.getPosition();
     }
 
@@ -152,8 +169,6 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         nuevo = new LatLng(lat, lng);
         CameraUpdate miubicacion = CameraUpdateFactory.newLatLngZoom(nuevo, 14);
         if (marcador != null) marcador.remove();
-
-
         marcador = mMap.addMarker(new MarkerOptions().position(nuevo).draggable(true));
         //marcador = gmap.addMarker(new MarkerOptions().position(nuevo).draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         mMap.animateCamera(miubicacion);

@@ -38,6 +38,7 @@ public class detalle extends Fragment {
     TextView DetaCancelarPeido, DetaSubtotal, DetaCostoEnvio, DetaTotal, DetaTotal2;
     RelativeLayout DetaContinuar;
     List<ProductosCompra> LstPro = new ArrayList<>();
+    public String id_del_fragment;
 
     RecyclerView recyclerView;
     VistasDetalleProductos adapter;
@@ -109,9 +110,13 @@ public class detalle extends Fragment {
         DetaContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ubica_entrega ubi = new ubica_entrega();
+                ubi.id_del_fragment=id_del_fragment;
+                ubi.PosicionListaArray=PosicionListaArray;
+
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, new ubica_entrega()).addToBackStack(null);
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, ubi).addToBackStack("frag_ubi");
                 fragmentTransaction.commit();
 
             }
@@ -137,7 +142,7 @@ public class detalle extends Fragment {
 
     private void  iniciar_recycler(){
         recyclerView=vista.findViewById(R.id.Recycler_Detalles);
-        adapter= new VistasDetalleProductos(LstPro,getFragmentManager());
+        adapter= new VistasDetalleProductos(LstPro,getFragmentManager(),id_del_fragment);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);

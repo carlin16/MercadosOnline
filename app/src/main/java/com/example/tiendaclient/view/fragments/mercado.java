@@ -149,9 +149,11 @@ return vista;
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
+                carrito car = new carrito();
+                car.id_del_fragment="frag_car";
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, new carrito()).addToBackStack(null);
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, car).addToBackStack("frag_car");
                 fragmentTransaction.commit();
 
 

@@ -26,9 +26,15 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
     List<ProductosCompra> lst_normal;
     List<ProductosCompra> list_full;
     FragmentManager fragmentManager;
+    String id_del_fragment;
 
+    public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager, String id_del_fragment) {
+        this.lst_normal = lst_normal;
+        this.fragmentManager = fragmentManager;
+        this.id_del_fragment = id_del_fragment;
+    }
 
-int manejador=0;
+    int manejador=0;
 
     public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager) {
         this.lst_normal = lst_normal;

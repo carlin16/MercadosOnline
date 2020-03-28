@@ -33,13 +33,21 @@ public class VistasCompraMercado extends RecyclerView.Adapter<VistasCompraMercad
     List<Compra> lst_normal;
     List<Compra> list_full;
     FragmentManager fragmentManager;
+    String id_del_fragment;
 
-int manejador=0;
+
+    int manejador=0;
 
     public VistasCompraMercado(List<Compra> lst_normal, FragmentManager fragmentManager) {
         this.lst_normal = lst_normal;
         list_full=new ArrayList<>(lst_normal);
         this.fragmentManager = fragmentManager;
+    }
+
+    public VistasCompraMercado(List<Compra> lst_normal, FragmentManager fragmentManager, String id_del_fragment) {
+        this.lst_normal = lst_normal;
+        this.fragmentManager = fragmentManager;
+        this.id_del_fragment = id_del_fragment;
     }
 
     public VistasCompraMercado(List<Compra> lst_normal) {
@@ -77,10 +85,11 @@ int manejador=0;
             public void onClick(View v) {
                 detalle deta= new detalle();
                 deta.CompraNueva=lst_normal.get(position);
-               deta.PosicionListaArray=position;
+                deta.PosicionListaArray=position;
+                deta.id_del_fragment=id_del_fragment;
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, deta).addToBackStack(null);
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, deta).addToBackStack("frag_deta");
                 fragmentTransaction.commit();
             }
         });

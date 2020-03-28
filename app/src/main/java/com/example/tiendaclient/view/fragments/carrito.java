@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasCompraMercado;
@@ -30,6 +32,7 @@ public class carrito extends Fragment {
     RecyclerView recyclerView;
    VistasCompraMercado adapter;
     EditText buscar;
+    public String id_del_fragment;
 
     public carrito() {
         // Required empty public constructor
@@ -42,8 +45,11 @@ public class carrito extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Log.e("volvi a crear","carrito");
+
         vista= inflater.inflate(R.layout.fragment_carrito, container, false);
         return vista;
+
 
     }
 
@@ -51,16 +57,27 @@ public class carrito extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=vista.findViewById(R.id.Recycler_CompaMercados);
+
+
         iniciar_recycler();
+
+        if(Global.VerCompras.size()<1){
+
+            getFragmentManager().popBackStack();
+            Toast.makeText(getActivity(),"No tiene Ningun Producto Agregado a su Carrito",Toast.LENGTH_LONG ).show();
+        }
+        Log.e("volvi a crear vista","carrito");
 
     }
 
     private void  iniciar_recycler(){
-        adapter= new VistasCompraMercado(Global.VerCompras,getFragmentManager());
+        adapter= new VistasCompraMercado(Global.VerCompras,getFragmentManager(),id_del_fragment);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
+
+
 
 }

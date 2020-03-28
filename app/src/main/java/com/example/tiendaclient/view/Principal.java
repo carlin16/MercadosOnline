@@ -23,7 +23,7 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                .replace(R.id.Contenedor_Fragments, new mercado()).addToBackStack("frag_merca").commit();
         iniciar_tabs();
     }
 
@@ -48,7 +48,7 @@ public class Principal extends AppCompatActivity {
                     case 0:
 
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                                .replace(R.id.Contenedor_Fragments, new mercado(),"frag_merca").commit();
                         break;
 
                     case 1:
