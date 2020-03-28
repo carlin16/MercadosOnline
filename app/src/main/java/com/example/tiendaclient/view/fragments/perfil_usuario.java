@@ -47,7 +47,7 @@ public class perfil_usuario extends Fragment {
     View vista;
     TextView PerfilNombresCompletos, PerfilUsuario,PerfilDireccion, PerfilCelular, PerfilCorreo, PerfilRol;
     RoundedImageView PerfilFoto;
-    String LinkImagenP=Global.Url+""+Global.LoginU.getid()+"/foto";
+    String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
 
     String mensaje="";
    // ResponseUserPorID Usua= new ResponseUserPorID();

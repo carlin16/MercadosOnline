@@ -284,6 +284,7 @@ public class resgistro_completar extends Fragment {
                         if (response.isSuccessful()) {
                             cambio_pantalla=true;
                             Global.RegisUser=response.body();
+                            Global.LoginU.setid(response.body().getId());
                             mensaje=response.body().getMensaje();
                         } else {
 
@@ -308,6 +309,8 @@ public class resgistro_completar extends Fragment {
                     public void onComplete() {
                         Log.e("Completado","registrado");
                         if(!cambio_pantalla){
+
+                            Snackbar.make(vista,""+mensaje, Snackbar.LENGTH_LONG).show();
                            pDialog.dismiss();
                         }else{
                             subir_foto();
@@ -367,6 +370,7 @@ public class resgistro_completar extends Fragment {
                     @Override
                     public void onComplete() {
                         Log.e("Completado foto","registrado");
+
                      iniciar_sesion();
                                 pDialog.dismiss();
                     }
