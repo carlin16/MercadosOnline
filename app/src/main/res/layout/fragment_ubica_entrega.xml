@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="2dp"
+    tools:context=".view.fragments.mercado">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:background="#FFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <include layout="@layout/app_busqueda"></include>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12sp"
+            android:layout_marginEnd="12sp"
+            >
+
+            <RelativeLayout
+                android:id="@+id/superior"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="40dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+
+                    >
+                    <TextView
+                        android:id="@+id/NombreCArro"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Carrito"
+                        android:gravity="left"
+                        android:textColor="@color/col_negrosolida"
+                        android:textSize="28sp"
+                        android:textStyle="bold">
+
+
+                    </TextView>
+
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/DetalleCancelarPedido"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Cancelar pedido"
+                        android:textSize="15sp"
+                        android:textColor="@color/col_rojo"
+                        android:textStyle="bold"
+                        android:gravity="center||right"
+
+
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_above="@+id/inferior"
+                android:layout_below="@+id/superior"
+
+                android:background="#fff"
+                android:id="@+id/Recycler_CompaMercados"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+
+                android:id="@+id/inferior"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_margin="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Subtotal"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grissuave"
+
+                            android:layout_alignParentRight="true"
+                            >
+                        </TextView>
+
+                        <TextView
+
+                            android:id="@+id/DetalleSubtotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$50.00"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grissuave"
+                            android:layout_alignParentRight="true"
+                            android:textAlignment="textEnd"
+                            >
+                        </TextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Costo envio"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grissuave"
+
+                            android:layout_alignParentRight="true"
+                            >
+                        </TextView>
+
+                        <TextView
+
+                            android:id="@+id/DetalleCostoEnvio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$2.00"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grissuave"
+                            android:layout_alignParentRight="true"
+                            android:textAlignment="textEnd"
+                            >
+                        </TextView>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Total"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grissuave"
+
+                            android:layout_alignParentRight="true"
+                            >
+                        </TextView>
+
+                        <TextView
+
+                            android:id="@+id/DetalleTotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$52.00"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grissuave"
+                            android:layout_alignParentRight="true"
+                            android:textAlignment="textEnd"
+                            >
+                        </TextView>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border_boton"
+                    >
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:text="Continuar"
+                        android:textColor="@color/col_White"
+                        android:textSize="8dp"
+                        android:textStyle="bold"
+
+                        >
+
+
+
+                    </Button>
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="$50.00"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+
+                        android:textSize="15sp"
+                        android:textColor="@color/col_White"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"
+                        android:background="@color/col_naranja"
+                        >
+                    </TextView>
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Continuar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+
+                        android:textSize="15sp"
+                        android:textColor="@color/col_White"
+                        android:textStyle="bold"
+                        android:textAlignment="textEnd"
+                        android:background="@color/col_naranja"
+                        >
+                    </TextView>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
