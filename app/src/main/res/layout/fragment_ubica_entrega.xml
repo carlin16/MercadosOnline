@@ -100,119 +100,23 @@
                 android:orientation="vertical"
                 >
 
-                <LinearLayout
-                    android:layout_margin="5dp"
+                <TextView
+
+                    android:id="@+id/Ubicacionmensaje"
+                    android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:text="Seleccione un punto en el mapa"
+                    android:textSize="16sp"
+                    android:textColor="@color/col_negro"
+                    android:textStyle="italic"
+                    android:gravity="center"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
+
                     >
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
+                </TextView>
 
 
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Subtotal"
-                            android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-
-                            android:layout_alignParentRight="true"
-                            >
-                        </TextView>
-
-                        <TextView
-
-                            android:id="@+id/DetalleSubtotal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="$50.00"
-                            android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-                            android:layout_alignParentRight="true"
-                            android:textAlignment="textEnd"
-                            >
-                        </TextView>
-
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Costo envio"
-                            android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-
-                            android:layout_alignParentRight="true"
-                            >
-                        </TextView>
-
-                        <TextView
-
-                            android:id="@+id/DetalleCostoEnvio"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="$2.00"
-                            android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-                            android:layout_alignParentRight="true"
-                            android:textAlignment="textEnd"
-                            >
-                        </TextView>
-
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Total"
-                            android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-
-                            android:layout_alignParentRight="true"
-                            >
-                        </TextView>
-
-                        <TextView
-
-                            android:id="@+id/DetalleTotal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="$52.00"
-                            android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-                            android:layout_alignParentRight="true"
-                            android:textAlignment="textEnd"
-                            >
-                        </TextView>
-
-
-                    </LinearLayout>
-
-                </LinearLayout>
 
                 <RelativeLayout
 
