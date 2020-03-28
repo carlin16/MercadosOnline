@@ -18,8 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="12sp"
-            android:layout_marginEnd="12sp"
+
             >
 
             <RelativeLayout
@@ -96,21 +95,29 @@
                 android:layout_alignParentBottom="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+
                 android:orientation="vertical"
                 >
+                <View
+                    android:layout_marginTop="1dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/col_gris"
+                    >
 
+                </View>
                 <LinearLayout
-                    android:layout_margin="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
                     >
+
+
                     <LinearLayout
+                        android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -211,71 +218,85 @@
                         </TextView>
 
 
+
+
                     </LinearLayout>
+
+                    <View
+                        android:layout_marginTop="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:background="@color/col_gris"
+                        >
+
+                    </View>
+
+                    <RelativeLayout
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/border_boton"
+                        >
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="invisible"
+                            android:text="Continuar"
+                            android:textColor="@color/col_White"
+                            android:textSize="8dp"
+                            android:textStyle="bold"
+
+                            >
+
+
+
+                        </Button>
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$50.00"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="15dp"
+
+                            android:textSize="15sp"
+                            android:textColor="@color/col_White"
+                            android:textStyle="bold"
+                            android:textAlignment="textEnd"
+                            android:background="@color/col_naranja"
+                            >
+                        </TextView>
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Continuar"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="15dp"
+
+                            android:textSize="15sp"
+                            android:textColor="@color/col_White"
+                            android:textStyle="bold"
+                            android:textAlignment="textEnd"
+                            android:background="@color/col_naranja"
+                            >
+                        </TextView>
+
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
-                <RelativeLayout
-
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@drawable/border_boton"
-                    >
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="invisible"
-                        android:text="Continuar"
-                        android:textColor="@color/col_White"
-                        android:textSize="8dp"
-                        android:textStyle="bold"
-
-                        >
-
-
-
-                    </Button>
-                    <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="$50.00"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15dp"
-
-                    android:textSize="15sp"
-                    android:textColor="@color/col_White"
-                    android:textStyle="bold"
-                    android:textAlignment="textEnd"
-                    android:background="@color/col_naranja"
-                    >
-                </TextView>
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Continuar"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
-
-                        android:textSize="15sp"
-                        android:textColor="@color/col_White"
-                        android:textStyle="bold"
-                        android:textAlignment="textEnd"
-                        android:background="@color/col_naranja"
-                        >
-                    </TextView>
-
-
-                </RelativeLayout>
 
 
 
