@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.compra.Compra;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
+import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.detalle;
 import com.example.tiendaclient.view.fragments.puestos;
 
@@ -70,7 +71,7 @@ int manejador=0;
             plb=" Productos";
         }
         holder.cantidad.setText(""+lst_normal.get(position).getCantidad()+plb);
-        holder.total.setText("$"+lst_normal.get(position).getTotal());
+        holder.total.setText("$"+ Global.formatearDecimales(lst_normal.get(position).getTotal(),2));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

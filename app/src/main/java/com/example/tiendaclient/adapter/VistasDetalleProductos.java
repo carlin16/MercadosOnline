@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.compra.ProductosCompra;
+import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.detalle;
 
 import java.util.ArrayList;
@@ -58,14 +59,12 @@ int manejador=0;
 
     @Override
     public void onBindViewHolder(@NonNull VistasDetalleProductos.Holder holder, final int position) {
-      /*  holder.nombre.setText(lst_normal.get(position).getNombre());
+       holder.Nombreproduct.setText(lst_normal.get(position).getNombre());
         String plb=" Producto";
-        if(lst_normal.get(position).getCantidad()>1){
-            plb=" Productos";
-        }
-        holder.cantidad.setText(""+lst_normal.get(position).getCantidad()+plb);
-        holder.total.setText("$"+lst_normal.get(position).getTotal());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.UnidadMedida.setText(plb);
+        holder.CantidadProductos.setText(""+lst_normal.get(position).getId_cantidad());
+        holder.SubtotalProduct.setText("$"+ Global.formatearDecimales(lst_normal.get(position).getTotal(),2));
+       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 detalle deta= new detalle();
@@ -76,8 +75,7 @@ int manejador=0;
                 fragmentTransaction.replace(R.id.Contenedor_Fragments, deta).addToBackStack(null);
                 fragmentTransaction.commit();
             }
-        });
-*/
+        });*/
     }
 
     @Override
@@ -92,14 +90,15 @@ int manejador=0;
 
     public class Holder extends RecyclerView.ViewHolder {
 
-        TextView nombre,cantidad,total;
+        TextView Nombreproduct,UnidadMedida, CantidadProductos,SubtotalProduct;
 
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            nombre=itemView.findViewById(R.id.Compra_Mercado_Nombre);
-            cantidad=itemView.findViewById(R.id.Compra_Mercado_Cantidad);
-            total=itemView.findViewById(R.id.Compra_Mercado_Total);
+            Nombreproduct=itemView.findViewById(R.id.DPNombrePro);
+            UnidadMedida=itemView.findViewById(R.id.DPUnidadMedida);
+            CantidadProductos=itemView.findViewById(R.id.DPCantidadPro);
+            SubtotalProduct=itemView.findViewById(R.id.DPSubtotalProduc);
         }
     }
 
