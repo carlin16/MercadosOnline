@@ -1,31 +1,46 @@
 package com.example.tiendaclient.view.fragments;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tiendaclient.R;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ubica_entrega extends Fragment implements OnMapReadyCallback {
+public class ubica_entrega extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMapClickListener {
 
 
     private GoogleMap mMap;
-
+    LocationManager locationManager ;
+    private Marker marcador;
+    public  LatLng nuevo=null;
     public ubica_entrega() {
         // Required empty public constructor
     }
@@ -53,11 +68,101 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
-        LatLng UCA = new LatLng(-2.176741, -79.828183);
-        mMap.addMarker(new MarkerOptions().position(UCA).title("YOUR TITLE")).showInfoWindow();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(UCA,17));
+
+
+        if ((ActivityCompat.checkSelfPermission(getContext(),android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                (ActivityCompat.checkSelfPermission(getContext(),android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED))) {
+
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+        Log.e("click","click");
+        agregar_marcador(latLng.latitude,latLng.longitude);
+    }
 
+    @Override
+    public void onMarkerDragStart(Marker marker) {
+        marker.hideInfoWindow();
+
+    }
+
+    @Override
+    public void onMarkerDrag(Marker marker) {
+
+    }
+
+    @Override
+    public void onMarkerDragEnd(Marker marker) {
+        Log.e("click","end");
+        nuevo= marker.getPosition();
+    }
+
+    private void miUbicacion() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if(nuevo==null)
+            actualizarUbicacion(location);
+
+
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, locListener, Looper.getMainLooper());
+
+        // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100,0,locListener);
+    }
+
+
+    private void agregar_marcador(double lat, double lng) {
+        nuevo = new LatLng(lat, lng);
+        CameraUpdate miubicacion = CameraUpdateFactory.newLatLngZoom(nuevo, 18);
+        if (marcador != null) marcador.remove();
+
+
+        marcador = mMap.addMarker(new MarkerOptions().position(nuevo).draggable(true));
+        //marcador = gmap.addMarker(new MarkerOptions().position(nuevo).draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.animateCamera(miubicacion);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(nuevo));
+
+    }
+
+    private void actualizarUbicacion(Location location) {
+        if (location != null) {
+
+            agregar_marcador(location.getLatitude(), location.getLongitude());
+        }
+
+    }
+
+
+    LocationListener locListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            Log.e("actualizar","ubicacion");
+             actualizarUbicacion(location);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
 }
