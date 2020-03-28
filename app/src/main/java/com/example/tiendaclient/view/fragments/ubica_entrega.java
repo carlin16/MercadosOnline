@@ -2,6 +2,7 @@ package com.example.tiendaclient.view.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Location;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -21,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.utils.ConnectivityStatus;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -69,6 +72,9 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
         mMap = googleMap;
 
+        if(ConnectivityStatus.isConnected(getActivity())){
+
+
 
         if ((ActivityCompat.checkSelfPermission(getContext(),android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 (ActivityCompat.checkSelfPermission(getContext(),android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED))) {
@@ -77,6 +83,27 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         }
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        miUbicacion();
+        mMap.setOnMarkerDragListener(this);
+
+        }else{
+
+
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext());
+        builder.setTitle("¡Alerta!");
+        builder.setMessage("Revise su conexión a internet");
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();        }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        }
+
     }
 
 
