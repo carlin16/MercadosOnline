@@ -265,18 +265,18 @@
                         </Button>
                         <TextView
                             android:id="@+id/DetalleTotal2"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="$52.00"
                             android:layout_alignParentEnd="true"
                             android:layout_centerVertical="true"
                             android:layout_marginEnd="15dp"
-
                             android:textSize="15sp"
                             android:textColor="@color/col_White"
                             android:textStyle="bold"
                             android:textAlignment="textEnd"
+                            android:paddingEnd="5dp"
                             android:background="@color/col_naranja"
                             >
                         </TextView>

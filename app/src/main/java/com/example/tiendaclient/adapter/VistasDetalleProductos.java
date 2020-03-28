@@ -27,6 +27,15 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
     List<ProductosCompra> list_full;
     FragmentManager fragmentManager;
     String id_del_fragment;
+    private OnItemLongClicListener itemLongClicListener;
+
+
+    public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager, String id_del_fragment, OnItemLongClicListener itemLongClicListener) {
+        this.lst_normal = lst_normal;
+        this.fragmentManager = fragmentManager;
+        this.id_del_fragment = id_del_fragment;
+        this.itemLongClicListener = itemLongClicListener;
+    }
 
     public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager, String id_del_fragment) {
         this.lst_normal = lst_normal;
@@ -70,18 +79,16 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
         holder.UnidadMedida.setText(plb);
         holder.CantidadProductos.setText(""+lst_normal.get(position).getId_cantidad());
         holder.SubtotalProduct.setText("$"+ Global.formatearDecimales(lst_normal.get(position).getTotal(),2));
-       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                detalle deta= new detalle();
-               // deta.CompraNueva=lst_normal.get(position);
-               deta.PosicionListaArray=position;
-                FragmentTransaction fragmentTransaction;
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, deta).addToBackStack(null);
-                fragmentTransaction.commit();
+            public boolean onLongClick(View v) {
+                itemLongClicListener.onItemClickLong(lst_normal.get(position),position);
+
+                return true;
             }
-        });*/
+        });
+
     }
 
     @Override
@@ -148,6 +155,11 @@ private Filter mercados_filter =new Filter() {
         notifyDataSetChanged();
     }
 };
+
+
+    public  interface OnItemLongClicListener{
+        void onItemClickLong(ProductosCompra product, int position);
+    }
 
 
 }

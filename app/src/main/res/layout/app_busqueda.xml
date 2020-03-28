@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="2dp"
     android:padding="10dp"
-    android:background="#fff"
+    android:background="@color/col_White"
     android:orientation="vertical"
     >
 
@@ -21,7 +20,6 @@
         android:visibility="visible"
         android:layout_marginStart="10dp"
         android:layout_centerVertical="true"
-        android:elevation="1dp"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:layout_width="match_parent"

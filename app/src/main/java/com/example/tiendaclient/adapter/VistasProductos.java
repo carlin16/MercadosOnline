@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -103,7 +104,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
 
     public class MultiHolder extends RecyclerView.ViewHolder {
 // instancia la scosas que faltan aqui creas lo que hay en la vista
-        RoundedImageView imagen;
+        ImageView imagen;
         TextView nombre, precio;
         public MultiHolder(@NonNull View itemView) {
             super(itemView);

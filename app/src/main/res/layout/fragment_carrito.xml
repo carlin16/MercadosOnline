@@ -25,6 +25,14 @@
             android:textSize="28sp"
             android:textStyle="bold"></TextView>
 
+
+        <ImageView
+            android:id="@+id/StockSeleccion"
+            android:layout_width="match_parent"
+            android:src="@drawable/sin_productos"
+            android:layout_height="match_parent">
+
+        </ImageView>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"

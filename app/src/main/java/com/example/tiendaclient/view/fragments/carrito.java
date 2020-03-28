@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.tiendaclient.R;
@@ -31,6 +32,7 @@ public class carrito extends Fragment {
     View vista;
     RecyclerView recyclerView;
    VistasCompraMercado adapter;
+   ImageView StockSeleccion;
     EditText buscar;
     public String id_del_fragment;
 
@@ -57,14 +59,18 @@ public class carrito extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=vista.findViewById(R.id.Recycler_CompaMercados);
+        StockSeleccion=vista.findViewById(R.id.StockSeleccion);
 
 
-        iniciar_recycler();
 
         if(Global.VerCompras.size()<1){
+            StockSeleccion.setVisibility(View.VISIBLE);
+            Toast.makeText(getActivity(),"Ningun roducto Agregado a su Carrito",Toast.LENGTH_LONG ).show();
 
-            getFragmentManager().popBackStack();
-            Toast.makeText(getActivity(),"No tiene Ningun Producto Agregado a su Carrito",Toast.LENGTH_LONG ).show();
+          ///  getFragmentManager().popBackStack();
+        }else{
+            StockSeleccion.setVisibility(View.GONE);
+            iniciar_recycler();
         }
         Log.e("volvi a crear vista","carrito");
 
