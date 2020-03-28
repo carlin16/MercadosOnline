@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.compra.Compra;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
+import com.example.tiendaclient.view.fragments.detalle;
 import com.example.tiendaclient.view.fragments.puestos;
 
 import java.util.ArrayList;
@@ -73,15 +74,13 @@ int manejador=0;
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              /*  puestos pue= new puestos();
-
-                pue.Mercado=lst_normal.get(position);
-
-
+                detalle deta= new detalle();
+                deta.CompraNueva=lst_normal.get(position);
+               deta.PosicionListaArray=position;
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, pue).addToBackStack(null);
-                fragmentTransaction.commit();*/
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, deta).addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
