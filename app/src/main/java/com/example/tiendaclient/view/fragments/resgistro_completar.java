@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -80,8 +81,8 @@ public class resgistro_completar extends Fragment {
     Boolean cambio_pantalla=false;
     String mensaje="";
     Spinner Rol;
-    EditText Direccion;
-    TextInputLayout TIDir;
+    EditText Direccion , TENMer,TENPuest;
+    TextInputLayout TIDir, TINomMercado, TINPuesto;
     TextView Soy, IrLogin;
     CircularProgressButton BtnRegistrar2;
 
@@ -89,6 +90,8 @@ public class resgistro_completar extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
+
+    int posRol;
 
 
     private void UI(){
@@ -100,12 +103,24 @@ public class resgistro_completar extends Fragment {
         Soy=vista.findViewById(R.id.txtRol);
         BtnRegistrar2=vista.findViewById(R.id.btn_registro2);
         IrLogin=vista.findViewById(R.id.ir_login2);
+
+
+        TINomMercado=vista.findViewById(R.id.TINombreMercado);
+        TINPuesto=vista.findViewById(R.id.TINPuesto);
+        TENMer=vista.findViewById(R.id.registro_nombreMercado);
+        TENPuest=vista.findViewById(R.id.registro_NumPuesto);
+
+        TIDir.setVisibility(View.VISIBLE);
+
+
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         animacion_cargando();
         UI();
+
         Click();
     }
     public void Click(){
@@ -131,6 +146,19 @@ public class resgistro_completar extends Fragment {
                 Direccion.requestFocus();
             }
         });
+        TINomMercado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TENMer.requestFocus();
+            }
+        });
+        TINPuesto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TENPuest.requestFocus();
+            }
+        });
+
 
 
         Perfil.setOnClickListener(new View.OnClickListener() {
@@ -155,15 +183,77 @@ public class resgistro_completar extends Fragment {
 
 
         });
+        TENMer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                //spn_rolUser
+                if (hasFocus) {
+                    TINomMercado.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TINomMercado.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+            //validaciones para que al seleccionar campo, el texview cambien de color
+
+
+        });
+        TENPuest.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                //spn_rolUser
+                if (hasFocus) {
+                    TINPuesto.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TINPuesto.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+            //validaciones para que al seleccionar campo, el texview cambien de color
+
+
+        });
+
+
         Rol.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     if (Rol.getWindowToken() != null) {
+
                         Rol.performClick();
                         Soy.setTextColor(Color.parseColor("#EE8813"));
+
+
+
                     }else Soy.setTextColor(Color.parseColor("#CCCCCC"));
                 }
+            }
+        });
+
+        Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    posRol=position;
+                switch (position) {
+                    case 0:
+                        //Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
+                        TIDir.setVisibility(View.VISIBLE);
+                        TINomMercado.setVisibility(View.GONE);
+                        TINPuesto.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        TIDir.setVisibility(View.GONE);
+                        TINomMercado.setVisibility(View.VISIBLE);
+                        TINPuesto.setVisibility(View.VISIBLE);
+                       // Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
             }
         });
 
@@ -231,15 +321,39 @@ public class resgistro_completar extends Fragment {
     }
     private void validar_campos(){
         Log.e("VC", "estoy en validar campos ");
-        if(verificar_vacio(Direccion.getText().toString())) {
-            Direccion.requestFocus();
-            Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+        switch (posRol) {
+            case 0:
+                if(verificar_vacio(Direccion.getText().toString())) {
+                    Direccion.requestFocus();
+                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+                  } else if (imagen_perfil==null) {
+                        mensaje();
+                    }else {
+                        llenarDatos();
+                    }
+
+
+
+                break;
+            case 1:
+                if(verificar_vacio(TENMer.getText().toString())) {
+                    TENMer.requestFocus();
+                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+                }
+                else if(verificar_vacio(TENPuest.getText().toString())) {
+                    TENPuest.requestFocus();
+                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+                }else if (imagen_perfil==null) {
+                        mensaje();
+                    }else {
+                        llenarDatos();
+                    }
+
+                break;
+
         }
-        else if (imagen_perfil==null) {
-            mensaje();
-        }else {
-            llenarDatos();
-        }
+
+
     }
     public  void llenarDatos(){
 
