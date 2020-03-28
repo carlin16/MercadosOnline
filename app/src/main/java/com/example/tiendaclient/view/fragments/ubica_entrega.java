@@ -150,14 +150,14 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
     private void agregar_marcador(double lat, double lng) {
         nuevo = new LatLng(lat, lng);
-        CameraUpdate miubicacion = CameraUpdateFactory.newLatLngZoom(nuevo, 18);
+        CameraUpdate miubicacion = CameraUpdateFactory.newLatLngZoom(nuevo, 14);
         if (marcador != null) marcador.remove();
 
 
         marcador = mMap.addMarker(new MarkerOptions().position(nuevo).draggable(true));
         //marcador = gmap.addMarker(new MarkerOptions().position(nuevo).draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         mMap.animateCamera(miubicacion);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,12));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,14));
 
 
     }
