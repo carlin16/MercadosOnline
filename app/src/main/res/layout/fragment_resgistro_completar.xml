@@ -107,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
+            android:visibility="gone">
 
 
             <EditText
@@ -131,6 +131,69 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TINombreMercado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextInputLayoutHint"
+            android:visibility="gone">
+
+
+            <EditText
+                android:id="@+id/registro_nombreMercado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/geo"
+                android:gravity="left"
+                android:hint="Mercado"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingBottom="15dp"
+                android:singleLine="true"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TINPuesto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextInputLayoutHint"
+            android:visibility="gone">
+
+
+            <EditText
+                android:id="@+id/registro_NumPuesto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/geo"
+                android:gravity="left"
+                android:hint="Nro de puesto"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingBottom="15dp"
+                android:singleLine="true"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
             android:id="@+id/btn_registro2"
