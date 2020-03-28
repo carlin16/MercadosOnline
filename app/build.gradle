@@ -108,5 +108,8 @@ dependencies {
     //implementacion de boton de add/restar en compras
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
 
-
+    //maps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:0.5'
 }

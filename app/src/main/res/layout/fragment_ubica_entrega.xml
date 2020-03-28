@@ -74,20 +74,15 @@
             </RelativeLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_above="@+id/inferior"
-                android:layout_below="@+id/superior"
-
-                android:background="#fff"
-                android:id="@+id/Recycler_CompaMercados"
+            <fragment
+                android:id="@+id/Maps"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:layout_above="@+id/inferior"
+                android:layout_below="@+id/superior"
+                class="com.google.android.gms.maps.SupportMapFragment" />
 
 
-            </androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
 
