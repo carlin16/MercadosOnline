@@ -54,8 +54,8 @@ public class Global {
             if(C.getId()==nueva.getId()){
 
               C.setCantidad(C.getCantidad()+nueva.getCantidad());
-              C.setTotal(C.getTotal()+nueva.getTotal());
-
+              C.setTotal(formatearDecimales(C.getTotal()+nueva.getTotal(),2));
+                Log.e("totalGlobal" , "------------->"+C.getTotal());
                 C.agregar_producto(nueva.getPuestos().get(0));
                 encontre=true;
             }

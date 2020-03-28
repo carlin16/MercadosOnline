@@ -56,6 +56,7 @@ public class detalle extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         UI();
+        llenar_Detalle();
         Click();
 
 
@@ -68,14 +69,14 @@ public class detalle extends Fragment {
         DetaCostoEnvio=vista.findViewById(R.id.DetalleCostoEnvio);
         DetaTotal=vista.findViewById(R.id.DetalleTotal);
         DetaTotal2=vista.findViewById(R.id.DetalleTotal2);
-        DetaContinuar=vista.findViewById(R.id.DetalleTotal2);
+        DetaContinuar=vista.findViewById(R.id.DetalleBtnContinuar);
 
     }
     private  void llenar_Detalle(){
         DetaSubtotal.setText("$"+CompraNueva.getTotal().toString());
         DetaCostoEnvio.setText("$"+CostoEnvi);
-        DetaTotal.setText(""+CompraNueva.getTotal()+CostoEnvi);
-        DetaTotal2.setText(""+CompraNueva.getTotal()+CostoEnvi);
+        DetaTotal.setText("$"+(CompraNueva.getTotal()+CostoEnvi));
+        DetaTotal2.setText("$"+(CompraNueva.getTotal()+CostoEnvi));
 
     }
 

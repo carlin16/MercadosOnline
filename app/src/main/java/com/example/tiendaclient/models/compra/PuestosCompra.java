@@ -2,6 +2,7 @@ package com.example.tiendaclient.models.compra;
 
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.Vendedor;
+import com.example.tiendaclient.utils.Global;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -58,7 +59,9 @@ public class PuestosCompra {
              int cantidad= C.getId_cantidad()+pro.getId_cantidad();
 
              C.setId_cantidad(cantidad);
-             C.setTotal(cantidad*C.getPrecio());
+
+
+             C.setTotal(Global.formatearDecimales((cantidad*C.getPrecio()),2));
 
                 encontre=true;
             }

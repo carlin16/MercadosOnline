@@ -61,7 +61,7 @@
                         android:textSize="15sp"
                         android:textColor="@color/col_rojo"
                         android:textStyle="bold"
-                        android:gravity="center||right"
+                        android:gravity="center|right"
 
 
                         >

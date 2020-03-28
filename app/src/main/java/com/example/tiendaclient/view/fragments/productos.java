@@ -201,6 +201,8 @@ private void llenarCarrito(Producto product){
     String f=df.format(total);
     try {
         total=DecimalFormat.getNumberInstance().parse(f).doubleValue();
+
+        Log.e("total" , "------------->"+total);
     } catch (ParseException e) {
         e.printStackTrace();
     }
