@@ -142,7 +142,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             actualizarUbicacion(location);
 
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 0, locListener, Looper.getMainLooper());
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 60000, 0, locListener, Looper.getMainLooper());
 
         // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100,0,locListener);
     }
@@ -157,7 +157,8 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         marcador = mMap.addMarker(new MarkerOptions().position(nuevo).draggable(true));
         //marcador = gmap.addMarker(new MarkerOptions().position(nuevo).draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         mMap.animateCamera(miubicacion);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(nuevo));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,12));
+
 
     }
 
