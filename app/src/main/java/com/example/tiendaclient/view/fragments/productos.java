@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasProductos;
@@ -55,9 +57,10 @@ public class productos extends Fragment {
     public Vendedor vendedor= new Vendedor();
     public ResponseVerMercado Mercado =new ResponseVerMercado();
 
+
     TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
     ElegantNumberButton CantidadCar;
-    RoundedImageView FotoProducto;
+    RoundedImageView FotoProducto,FotoPuesto;
     Button AgregarCarrito;
 
     ImageView compra;
@@ -74,6 +77,7 @@ public class productos extends Fragment {
     VistasProductos adapter;
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
     public String idPuesto;
+    String LinkImagenP=Global.Url+"usuarios/"+idPuesto+"/foto";
     public  String categorias;
     public int ID=0;
     Dialog myDialog;
@@ -83,22 +87,9 @@ public class productos extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView= vista.findViewById(R.id.Recycler_productos);
-        Idpuesto= vista.findViewById(R.id.TVProPuesto);
-        Idpuesto.setText(idPuesto);
 
-        NombreDueno= vista.findViewById(R.id.TVPuestoNombre);
-        DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
-        Cantidadpro= vista.findViewById(R.id.TVProCantidad);
-
-        NombreDueno.setText(vendedor.getNombres()+" "+vendedor.getApellidos());
-        DescripcionPuesto.setText(categorias);
-        Cantidadpro.setText(""+(ls_listado.size()));
-
-        compra=vista.findViewById(R.id.icono_buscar);
-        buscar=vista.findViewById(R.id.escribir_busqueda);
-
-
+UI();
+llenarDatos();
         animacion_compra();
         iniciar_recycler();
         click();
@@ -113,6 +104,7 @@ public class productos extends Fragment {
     }
 
     private void  iniciar_recycler(){
+        recyclerView= vista.findViewById(R.id.Recycler_productos);
         adapter=new VistasProductos(ls_listado, new VistasProductos.OnItemClicListener() {
             @Override
             public void onItemClick(final Producto product, int position) {
@@ -141,7 +133,7 @@ public class productos extends Fragment {
                 AgregarCarrito.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "Se hizo compra", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Se agrego al Carrito", Toast.LENGTH_SHORT).show();
                         llenarCarrito(product);
                         myDialog.dismiss();
 
@@ -163,10 +155,33 @@ public class productos extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+private void llenarDatos(){
 
+    NombreDueno.setText(vendedor.getNombres()+" "+vendedor.getApellidos());
+
+    Cantidadpro.setText(""+(ls_listado.size()));
+
+    Idpuesto.setText(idPuesto);
+    Glide
+            .with(getActivity())
+            .load(LinkImagenP)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.placeholder_perfil)
+            .error(R.drawable.placeholder_perfil)
+            .fitCenter()
+            .into(FotoPuesto);
+}
     private void UI(){
 
 
+        Idpuesto= vista.findViewById(R.id.TVProPuesto);
+        NombreDueno= vista.findViewById(R.id.TVPuestoNombre);
+        DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
+        Cantidadpro= vista.findViewById(R.id.TVProCantidad);
+        FotoPuesto= vista.findViewById(R.id.TVPuestoFotoV);
+        DescripcionPuesto.setText(categorias);
+        compra=vista.findViewById(R.id.icono_buscar);
+        buscar=vista.findViewById(R.id.escribir_busqueda);
 
     }
 

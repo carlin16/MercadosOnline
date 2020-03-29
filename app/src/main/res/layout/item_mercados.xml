@@ -162,6 +162,7 @@
                     android:id="@+id/mercado_descripcion"
                     android:layout_width="match_parent"
                     android:gravity="center"
+                    android:textColor="@color/col_grissuave"
                     android:text="Descripcion de todo lo que podria tener la tienda"
                     android:layout_centerHorizontal="true"
                     android:layout_height="wrap_content">

@@ -75,7 +75,8 @@ int manejador=0;
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
-                .placeholder(R.drawable.adduser2)
+                .placeholder(R.drawable.placeholder_mercado)
+                .error(R.drawable.placeholder_mercado)
                 .into(holder.mercado_portada);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -12,15 +12,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistaPedidos;
 import com.example.tiendaclient.adapter.VistasMercado;
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.models.recibido.ResponseVerPedido;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +48,8 @@ public class pedido extends Fragment {
     List<ResponseVerPedido> listado= new ArrayList<>();
     Retrofit retrofit;
     ApiService retrofitApi;
-
+    Boolean continuar=false;
+    String mensaje="";
 
     public pedido() {
         // Required empty public constructor
@@ -86,9 +92,27 @@ public class pedido extends Fragment {
                     @Override
                     public void onNext(Response<List<ResponseVerPedido>> response) {
 
-                        Log.e("Pedido",""+response.code());
-                        Log.e("Resp Pedido", Global.convertObjToString(response.body()));
-                        listado.addAll(response.body());
+
+                        if(response.isSuccessful()){
+                            Log.e("Pedido",""+response.code());
+                            Log.e("Resp Pedido", Global.convertObjToString(response.body()));
+                            listado.addAll(response.body());
+                            continuar=true;
+                        }else{
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
+
 
 
                     }
@@ -107,7 +131,19 @@ public class pedido extends Fragment {
                             Log.e("activity","removido ");
                             return;
                         }else{
-                            iniciar_recycler();
+
+
+
+                            if(continuar){
+                                iniciar_recycler();
+                            }
+                            else{
+                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                            }
+
+
+
+
 
                         }
 

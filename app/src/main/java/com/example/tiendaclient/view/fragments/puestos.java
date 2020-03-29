@@ -24,11 +24,15 @@ import android.widget.Toast;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasPuestos;
 import com.example.tiendaclient.models.recibido.Puesto;
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,8 @@ public class puestos extends Fragment {
 
     ImageView compra;
     EditText buscar;
+    Boolean continuar=false;
+    String mensaje="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -108,11 +114,29 @@ public class puestos extends Fragment {
                 .subscribeWith(new DisposableObserver<Response<List<ResponseVerAllPuesto>>>() {
                     @Override
                     public void onNext(Response<List<ResponseVerAllPuesto>> response) {
-                        ls_listado.clear();
-                        Log.e("code VP",""+response.code());
-                        Log.e("respuest VP", Global.convertObjToString(response.body()));
-                        ls_listado.addAll(response.body());
 
+
+                        if(response.isSuccessful()){
+                            ls_listado.clear();
+                            Log.e("code VP",""+response.code());
+                            Log.e("respuest VP", Global.convertObjToString(response.body()));
+                            ls_listado.addAll(response.body());
+                            continuar=true;
+
+                        }else{
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+                        }
 
                     }
                     @Override
@@ -130,17 +154,23 @@ public class puestos extends Fragment {
                             return;
                         }else{
 
-                            for(ResponseVerAllPuesto res:ls_listado){
+                            if(continuar){
 
-                                if(Integer.parseInt(res.getEstado())<=0){
+                                for(ResponseVerAllPuesto res:ls_listado){
+
+                                    if(Integer.parseInt(res.getEstado())<=0){
 
 
-                                    ls_listado.remove(res);
+                                        ls_listado.remove(res);
+                                    }
+
+
                                 }
-
-
+                                iniciar_recycler();
+                            }else{
+                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                             }
-                            iniciar_recycler();
+
 
                         }
                        // adapter.notifyDataSetChanged();

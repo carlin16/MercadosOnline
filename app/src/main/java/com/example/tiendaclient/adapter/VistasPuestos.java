@@ -78,7 +78,8 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
                 .with(holder.imagen.getContext())
                 .load(url)
                 // .override(60,60)
-                .placeholder(R.drawable.perfil_mercado)
+                .placeholder(R.drawable.placeholder_mercado)
+                .error(R.drawable.placeholder_mercado)
                 .into(holder.imagen);
 
 
@@ -148,9 +149,25 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
                    String comparar= item.getMaxCategorias().toLowerCase().trim();
 
                     List<String> list = new ArrayList<String>(Arrays.asList(comparar.split(" , ")));
-                    if(list.contains(filterPattern)){
+                    Log.e("lista",Global.convertObjToString(list));
+
+
+                    boolean encontre=false;
+                    for(String s:list){
+                        Log.e("buscar",s+"");
+                        Log.e("buscando",""+filterPattern+"--"+s.contains(filterPattern));
+
+                        if(s.toLowerCase().contains(filterPattern)){
+                            encontre=true;
+                        }
+
+                    }
+
+                    if(encontre){
                         filtro.add(item);
                     }
+                   /* if(list.contains(filterPattern)){
+                    }*/
 
                    /* if (item.getFechaRegistro().toLowerCase().contains(filterPattern) ) {
                         filtro.add(item);

@@ -67,6 +67,8 @@ public class mercado extends Fragment {
     Retrofit retrofit;
     EditText buscar;
     ApiService retrofitApi;
+    Boolean continuar=false;
+    String mensaje="";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -110,9 +112,29 @@ return vista;
                     @Override
                     public void onNext(Response<List<ResponseVerMercado>> response) {
 
-                        Log.e("code VM",""+response.code());
-                        Log.e("respuest VM",Global.convertObjToString(response.body()));
-                        listado.addAll(response.body());
+
+                        if(response.isSuccessful()){
+
+                            Log.e("code VM",""+response.code());
+                            Log.e("respuest VM",Global.convertObjToString(response.body()));
+                            listado.addAll(response.body());
+                            continuar=true;
+
+                        }else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
 
 
                     }
@@ -132,19 +154,28 @@ return vista;
                             return;
                         }else{
 
-                         for(ResponseVerMercado res:listado){
-
-                             if(Integer.parseInt(res.getEstado())<=0){
 
 
-                                 listado.remove(res);
-                             }
+                            if(continuar){
+
+                                for(ResponseVerMercado res:listado){
+
+                                    if(Integer.parseInt(res.getEstado())<=0){
 
 
-                         }
+                                        listado.remove(res);
+                                    }
 
 
-                            iniciar_recycler();
+                                }
+
+
+                                iniciar_recycler();
+
+                            }else{
+                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                            }
+
 
                         }
 

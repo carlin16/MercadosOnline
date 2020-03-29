@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -48,7 +49,7 @@ public class perfil_usuario extends Fragment {
     TextView PerfilNombresCompletos, PerfilUsuario,PerfilDireccion, PerfilCelular, PerfilCorreo, PerfilRol;
     RoundedImageView PerfilFoto;
     String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
-
+    Boolean continuar=false;
     String mensaje="";
    // ResponseUserPorID Usua= new ResponseUserPorID();
 
@@ -98,9 +99,9 @@ public class perfil_usuario extends Fragment {
                     public void onNext(Response<ResponseUserPorID> response) {
 
                         Log.e("code PU",""+response.code());
-                        if (response.code()==200) {
+                        if (response.isSuccessful()) {
                             Global.UserGlobal=response.body();
-
+                            continuar=true;
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
                         } else{
@@ -125,7 +126,14 @@ public class perfil_usuario extends Fragment {
                     @Override
                     public void onComplete() {
                         Log.e("Completado","Se cargo usuario");
-                       llenaDts();
+                        if(continuar){
+                            llenaDts();
+
+                        }else{
+                            Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                        }
+
+
 
                     }
                 });
@@ -137,12 +145,12 @@ public class perfil_usuario extends Fragment {
             return;
         }
         llenar_subida();
-        PerfilNombresCompletos.setText(Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos());
+        PerfilNombresCompletos.setText(""+Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos());
         PerfilUsuario.setText("@"+Global.UserGlobal.getUsuario());
-        PerfilDireccion.setText(Global.UserGlobal.getDireccion());
-        PerfilCelular.setText(Global.UserGlobal.getCelular());
-        PerfilCorreo.setText(Global.UserGlobal.getEmail());
-        PerfilRol.setText(Global.UserGlobal.getRol());
+        PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
+        PerfilCelular.setText(""+Global.UserGlobal.getCelular());
+        PerfilCorreo.setText(""+Global.UserGlobal.getEmail());
+        PerfilRol.setText(""+Global.UserGlobal.getRol());
     }
 
     private void llenar_subida(){
@@ -150,7 +158,8 @@ public class perfil_usuario extends Fragment {
                 .with(getActivity())
                 .load(LinkImagenP)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(125, 125)
+                .placeholder(R.drawable.placeholder_perfil)
+                .error(R.drawable.placeholder_perfil)
                 .fitCenter()
                 .into(PerfilFoto);
 

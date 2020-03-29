@@ -194,22 +194,6 @@ public class resgistro_completar extends Fragment {
         });
 
 
-        Rol.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (Rol.getWindowToken() != null) {
-
-                        Rol.performClick();
-                        Soy.setTextColor(Color.parseColor("#EE8813"));
-
-
-
-                    }else Soy.setTextColor(Color.parseColor("#CCCCCC"));
-                }
-            }
-        });
-
         Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
