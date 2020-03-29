@@ -38,6 +38,9 @@ public class ResponseVerPedido {
     @SerializedName("estado")
     @Expose
     private String estado;
+    @SerializedName("nombre_mercado")
+    @Expose
+    private String nombreMercado;
 
     public Integer getId() {
         return id;
@@ -127,4 +130,11 @@ public class ResponseVerPedido {
         this.estado = estado;
     }
 
+    public String getNombreMercado() {
+        return nombreMercado;
+    }
+
+    public void setNombreMercado(String nombreMercado) {
+        this.nombreMercado = nombreMercado;
+    }
 }

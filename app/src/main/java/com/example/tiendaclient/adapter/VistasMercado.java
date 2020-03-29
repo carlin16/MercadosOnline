@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
+import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.puestos;
 
 import java.util.ArrayList;
@@ -68,11 +69,10 @@ int manejador=0;
         holder.mercado_descripcion.setText(lst_normal.get(position).getDescripcion());
         holder.mercado_direccion.setText(lst_normal.get(position).getDireccion());
 
-
-
+        String url= Global.Url+"mercados/"+lst_normal.get(position).getId()+"/foto";
         Glide
                 .with(holder.mercado_portada.getContext())
-                .load("https://www.lifeder.com/wp-content/uploads/2017/07/tipos-de-mercado-min.jpg")
+                .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .placeholder(R.drawable.adduser2)

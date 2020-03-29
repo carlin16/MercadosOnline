@@ -21,6 +21,7 @@ import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.Puesto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
+import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.productos;
 import com.google.android.gms.common.api.Response;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -68,11 +69,12 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         holder.DescripcionPuesto.setText(lst_normal.get(position).getMaxCategorias());
     //  aqui guia te y setea acvtualiza el response
 
+
+       String url= Global.Url+"usuarios/"+lst_normal.get(position).getId()+"/foto";
         Glide
                 .with(holder.imagen.getContext())
-                .load("https://images.squarespace-cdn.com/content/v1/5def38213ab4a76a02e72dac/1577824254353-Y9FOHXRD3ZAHDYIQ2Z1E/ke17ZwdGBToddI8pDm48kNiEM88mrzHRsd1mQ3bxVct7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0s0XaMNjCqAzRibjnE_wBlkZ2axuMlPfqFLWy-3Tjp4nKScCHg1XF4aLsQJlo6oYbA/1x1_Foto-perfil-LinkedIn.jpg")
+                .load(url)
                 // .override(60,60)
-
                 .placeholder(R.drawable.perfil_mercado)
                 .into(holder.imagen);
 
