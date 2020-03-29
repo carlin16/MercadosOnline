@@ -80,7 +80,7 @@ public class resgistro_completar extends Fragment {
     int posicionRol=0;
     Boolean cambio_pantalla=false;
     String mensaje="";
-    Spinner Rol;
+    Spinner Rol, Mercado;
     EditText Direccion , TENMer,TENPuest;
     TextInputLayout TIDir, TINomMercado, TINPuesto;
     TextView Soy, IrLogin;
@@ -103,11 +103,10 @@ public class resgistro_completar extends Fragment {
         Soy=vista.findViewById(R.id.txtRol);
         BtnRegistrar2=vista.findViewById(R.id.btn_registro2);
         IrLogin=vista.findViewById(R.id.ir_login2);
+        Mercado=vista.findViewById(R.id.spn_Mercado);
 
-
-        TINomMercado=vista.findViewById(R.id.TINombreMercado);
         TINPuesto=vista.findViewById(R.id.TINPuesto);
-        TENMer=vista.findViewById(R.id.registro_nombreMercado);
+
         TENPuest=vista.findViewById(R.id.registro_NumPuesto);
 
         TIDir.setVisibility(View.VISIBLE);
@@ -146,12 +145,7 @@ public class resgistro_completar extends Fragment {
                 Direccion.requestFocus();
             }
         });
-        TINomMercado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TENMer.requestFocus();
-            }
-        });
+
         TINPuesto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -183,20 +177,7 @@ public class resgistro_completar extends Fragment {
 
 
         });
-        TENMer.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                //spn_rolUser
-                if (hasFocus) {
-                    TINomMercado.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
-                } else {
-                    TINomMercado.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
-                }
-            }
-            //validaciones para que al seleccionar campo, el texview cambien de color
 
-
-        });
         TENPuest.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -237,12 +218,12 @@ public class resgistro_completar extends Fragment {
                     case 0:
                         //Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
                         TIDir.setVisibility(View.VISIBLE);
-                        TINomMercado.setVisibility(View.GONE);
+                        Mercado.setVisibility(View.GONE);
                         TINPuesto.setVisibility(View.GONE);
                         break;
                     case 1:
                         TIDir.setVisibility(View.GONE);
-                        TINomMercado.setVisibility(View.VISIBLE);
+                        Mercado.setVisibility(View.VISIBLE);
                         TINPuesto.setVisibility(View.VISIBLE);
                        // Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
                         break;
@@ -336,11 +317,8 @@ public class resgistro_completar extends Fragment {
 
                 break;
             case 1:
-                if(verificar_vacio(TENMer.getText().toString())) {
-                    TENMer.requestFocus();
-                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-                }
-                else if(verificar_vacio(TENPuest.getText().toString())) {
+
+                 if(verificar_vacio(TENPuest.getText().toString())) {
                     TENPuest.requestFocus();
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
                 }else if (imagen_perfil==null) {

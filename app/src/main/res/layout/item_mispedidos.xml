@@ -66,27 +66,31 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
                             >
+
                             <TextView
                                 android:id="@+id/PedidoNumero"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Pedido # 1 "
                                 android:maxLines="2"
+                                android:text="Pedido # 1 "
                                 android:textColor="@color/col_negrosolida"
-                                android:textSize="20sp"
+                                android:textSize="19sp"
                                 android:textStyle="bold" />
+
                             <LinearLayout
+                                android:layout_marginStart="5dp"
                                 android:id="@+id/PedidoStatus"
                                 android:layout_width="wrap_content"
                                 android:layout_height="20dp"
                                 android:orientation="vertical"
-                                android:background="@drawable/border_estatus_pedidos"
+                                android:background="@drawable/border_estatus_naranja"
                                 android:paddingEnd="10dp"
                                 android:paddingStart="10dp"
 
                                 >
 
                                 <TextView
+                                    android:id="@+id/PedidoTxtStatus"
                                     android:gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -104,10 +108,11 @@
                         <TextView
                             android:id="@+id/PedidoFecha"
                             android:layout_weight="2"
-                            android:gravity="center|end"
+                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="italic"
+                            android:textColor="@color/col_grissuave"
                            android:text="19/03/2020 15:30"
 
                             >

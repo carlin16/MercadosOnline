@@ -101,6 +101,51 @@
                 android:textStyle="bold"></Spinner>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+
+            <TextView
+                android:layout_weight="2"
+                android:id="@+id/txNomMerca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/geo"
+                android:text="Mercado"
+                android:paddingLeft="10dp"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+
+
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/col_naranja"
+                android:textColorHint="@color/col_negro"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spn_Mercado"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:entries="@array/Roles"
+                android:fontFamily="@font/geo"
+                android:textAlignment="center"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="12sp"
+                android:textStyle="bold"></Spinner>
+        </LinearLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TIDireccion"
             android:layout_width="match_parent"
@@ -132,36 +177,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINombreMercado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="gone">
 
-
-            <EditText
-                android:id="@+id/registro_nombreMercado"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Mercado"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TINPuesto"
@@ -181,7 +197,7 @@
                 android:hint="Nro de puesto"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
-                android:inputType="text"
+                android:inputType="number"
                 android:maxLines="1"
                 android:paddingLeft="10dp"
                 android:paddingBottom="15dp"

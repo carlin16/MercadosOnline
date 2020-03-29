@@ -50,6 +50,8 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
         this.Mercado=Mercado;
+        lst_full=new ArrayList<>(lst_normal);
+
     }
 
     @NonNull

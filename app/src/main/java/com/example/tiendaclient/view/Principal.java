@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.utils.Vista_tabs;
 import com.example.tiendaclient.view.fragments.mercado;
+import com.example.tiendaclient.view.fragments.pedido;
 import com.example.tiendaclient.view.fragments.perfil_usuario;
 import com.google.android.material.tabs.TabLayout;
 
@@ -54,7 +55,7 @@ public class Principal extends AppCompatActivity {
                     case 1:
 
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.Contenedor_Fragments, new perfil_usuario()).commit();
+                                .replace(R.id.Contenedor_Fragments, new pedido()).commit();
                         break;
 
                     case 2:

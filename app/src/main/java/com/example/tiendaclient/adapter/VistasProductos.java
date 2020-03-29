@@ -41,6 +41,8 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     public VistasProductos(List<Producto> lst_normal, OnItemClicListener itemClicListener) {
         this.lst_normal = lst_normal;
         this.itemClicListener = itemClicListener;
+        lst_full=new ArrayList<>(lst_normal);
+
     }
 
 

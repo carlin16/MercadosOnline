@@ -92,17 +92,20 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     //cambiar y pasar por parametros, en list poner la clase q cojo de pojo
     @GET("pedidos")
-    Observable<Response<ResponseVerPedido>>VerPedidosClientes(@Query("type") String type ,
-                                                        @Query("id") String id);
+    Observable<Response<List<ResponseVerPedido>>>VerPedidosClientes(@Query("type") String type ,
+                                                              @Query("id") String id);
 
 
 
 
     @Headers("Content-Type: application/json")
     @GET("pedidos/{user_id}")
-    Observable<Response<ResponseDetallesPedidos>>VerDetallePedidos(@Path(value = "user_id", encoded = true) String userId, @Query("type") String type);
+    Observable<Response<List<ResponseDetallesPedidos>>>VerDetallePedidos(@Path(value = "user_id", encoded = true) String userId, @Query("type") String type);
 
 
+
+
+//pedidos?type=CLIENTE&id=16
 
 
 
