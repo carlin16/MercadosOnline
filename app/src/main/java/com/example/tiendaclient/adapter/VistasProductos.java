@@ -129,7 +129,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (Producto item : lst_full) {
-                    if (item.getFechaRegistro().toLowerCase().contains(filterPattern) ) {
+                    if (item.getNombre().toLowerCase().contains(filterPattern) ) {
                         filtro.add(item);
                     }
                 }

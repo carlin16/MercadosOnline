@@ -80,7 +80,6 @@ public class puestos extends Fragment {
         buscar=vista.findViewById(R.id.escribir_busqueda);
 
 
-    iniciar_recycler();
     peticio_puestos();
         click();
     }
@@ -124,7 +123,26 @@ public class puestos extends Fragment {
                     public void onComplete() {
 
                         Log.e("code VP","completado");
-                        adapter.notifyDataSetChanged();
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            Log.e("activity","removido de la actividad mercado");
+                            return;
+                        }else{
+
+                            for(ResponseVerAllPuesto res:ls_listado){
+
+                                if(Integer.parseInt(res.getEstado())<=0){
+
+
+                                    ls_listado.remove(res);
+                                }
+
+
+                            }
+                            iniciar_recycler();
+
+                        }
+                       // adapter.notifyDataSetChanged();
+
 
                     }
                 });

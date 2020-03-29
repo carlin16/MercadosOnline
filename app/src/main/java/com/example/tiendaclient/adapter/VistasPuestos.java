@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.Response;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolder>  implements Filterable {
@@ -140,9 +141,20 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (ResponseVerAllPuesto item : lst_full) {
-                    if (item.getFechaRegistro().toLowerCase().contains(filterPattern) ) {
+
+
+                   String comparar= item.getMaxCategorias().toLowerCase().trim();
+
+                    List<String> list = new ArrayList<String>(Arrays.asList(comparar.split(" , ")));
+                    if(list.contains(filterPattern)){
                         filtro.add(item);
                     }
+
+                   /* if (item.getFechaRegistro().toLowerCase().contains(filterPattern) ) {
+                        filtro.add(item);
+                    }*/
+
+
                 }
             }
             FilterResults results = new FilterResults();

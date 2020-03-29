@@ -2,6 +2,7 @@ package com.example.tiendaclient.view.fragments;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -128,6 +131,19 @@ return vista;
                             Log.e("activity","removido de la actividad mercado");
                             return;
                         }else{
+
+                         for(ResponseVerMercado res:listado){
+
+                             if(Integer.parseInt(res.getEstado())<=0){
+
+
+                                 listado.remove(res);
+                             }
+
+
+                         }
+
+
                             iniciar_recycler();
 
                         }
