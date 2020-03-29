@@ -1,12 +1,14 @@
 package com.example.tiendaclient.service;
 
 
+import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
+import com.example.tiendaclient.models.recibido.ResponseVerPedido;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -83,5 +85,25 @@ public interface ApiService {
 
 
   //  ResponseVerMercado
+
+
+
+
+    @Headers("Content-Type: application/json")
+    //cambiar y pasar por parametros, en list poner la clase q cojo de pojo
+    @GET("pedidos")
+    Observable<Response<ResponseVerPedido>>VerPedidosClientes(@Query("type") String type ,
+                                                        @Query("id") String id);
+
+
+
+
+    @Headers("Content-Type: application/json")
+    @GET("pedidos/{user_id}")
+    Observable<Response<ResponseDetallesPedidos>>VerDetallePedidos(@Path(value = "user_id", encoded = true) String userId, @Query("type") String type);
+
+
+
+
 
 }
