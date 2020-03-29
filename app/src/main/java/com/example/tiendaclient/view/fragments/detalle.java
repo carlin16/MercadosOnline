@@ -1,15 +1,22 @@
 package com.example.tiendaclient.view.fragments;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.StrictMode;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +38,7 @@ import com.example.tiendaclient.view.RegistroUsuarios;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import jp.wasabeef.recyclerview.animators.ScaleInRightAnimator;
 
 /**
@@ -46,6 +54,10 @@ public class detalle extends Fragment {
     RecyclerView recyclerView;
     VistasDetalleProductos adapter;
 
+
+
+    SweetAlertDialog dialog_permisos;
+    SweetAlertDialog dialog_manual;
 
     public Compra CompraNueva = new Compra();
 
@@ -113,14 +125,14 @@ public class detalle extends Fragment {
         DetaContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ubica_entrega ubi = new ubica_entrega();
-                ubi.id_del_fragment=id_del_fragment;
-                ubi.PosicionListaArray=PosicionListaArray;
 
-                FragmentTransaction fragmentTransaction;
-                fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, ubi).addToBackStack("frag_ubi");
-                fragmentTransaction.commit();
+
+
+                if(validar_permisos()){
+                    ir_ubicacion();
+                }
+
+
 
             }
         });
@@ -202,6 +214,112 @@ public class detalle extends Fragment {
         LstPro.remove(position);
         adapter.notifyItemRemoved(position);
     }
+///////////////////////////////////////////////////////////////////////////////
+private void ir_ubicacion(){
+    ubica_entrega ubi = new ubica_entrega();
+    ubi.id_del_fragment=id_del_fragment;
+    ubi.PosicionListaArray=PosicionListaArray;
+
+    FragmentTransaction fragmentTransaction;
+    fragmentTransaction = getFragmentManager().beginTransaction();
+    fragmentTransaction.replace(R.id.Contenedor_Fragments, ubi).addToBackStack("frag_ubi");
+    fragmentTransaction.commit();
+
+}
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 100) {
+            if (grantResults.length == 2
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                Log.e("permisos ", "defecto");
+
+                ir_ubicacion();
+            } else {
+                Log.e("permisos", "manual");
+
+                solicitarPermisosManual();
+            }
+        }
+
+    }
+
+
+private boolean validar_permisos() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        return true;
+    }
+    if (ActivityCompat.checkSelfPermission(getActivity().getApplication(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        Log.e("tengo permisos", "bien");
+        if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) ||
+                ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            //Todo no tiene permisos y le sale para dar
+            cargarDialogoRecomendacion();
+            Log.e("dialogo", "recomendacion");
+        } else {
+            //Todo no tiene permisos por que los nego y puso no volver a presentar asi que  mandamos de nuevo  a pedir y entrara
+            //Todo a permisos manual
+            //  requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+           requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+            Log.e("dialogo", "else");
+        }
+        return false;
+    }
+    return true;
+}
+    //Todo un dialog que recomienda por que activar los permisos
+
+    private void cargarDialogoRecomendacion() {
+
+        dialog_permisos = new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE);
+        dialog_permisos.setTitleText("Permisos Desactivados");
+        dialog_permisos.setContentText("Debe aceptar los permisos para el correcto funcionamiento de la App");
+        dialog_permisos.setConfirmText("OK2");
+        dialog_permisos.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                    requestPermissions
+                            (new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                }
+                dialog_permisos.dismissWithAnimation();
+            }
+        });
+
+
+        dialog_permisos.setCancelable(false);
+        dialog_permisos.show();
+    }
+
+    private void solicitarPermisosManual() {
+        dialog_manual = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
+        dialog_manual.setTitleText("Permisos Desactivados");
+        dialog_manual.setContentText(" Configure los permisos de forma manual para el correcto funcionamiento de la App");
+        dialog_manual.setConfirmText("OK");
+        dialog_manual.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri = Uri.fromParts("package", getActivity().getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+
+                dialog_manual.dismissWithAnimation();
+            }
+        });
+
+
+        dialog_manual.setCancelable(false);
+        dialog_manual.show();
+
+
+    }
+
 
 
 }
