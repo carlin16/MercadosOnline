@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -256,7 +258,7 @@ private void llenarCarrito(Producto product){
         });
 
 
-/*
+
        buscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -286,7 +288,11 @@ private void llenarCarrito(Producto product){
 
             }
         });
-*/
+
+    }
+
+    public void filtro(String S){
+        adapter.getFilter().filter(S);
     }
 
 

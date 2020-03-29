@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -166,7 +168,7 @@ public class puestos extends Fragment {
         });
 
 
-/*
+
        buscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -196,7 +198,10 @@ public class puestos extends Fragment {
 
             }
         });
-*/
+
+    }
+    public void filtro(String S){
+        adapter.getFilter().filter(S);
     }
 
 
