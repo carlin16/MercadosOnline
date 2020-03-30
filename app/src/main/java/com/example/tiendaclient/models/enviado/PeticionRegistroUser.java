@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class PeticionRegistroUser {
 
+
     @SerializedName("usuario")
     @Expose
     private String usuario;
@@ -29,6 +30,12 @@ public class PeticionRegistroUser {
     @SerializedName("email")
     @Expose
     private String email;
+    @SerializedName("id_mercado")
+    @Expose
+    private Integer idMercado;
+    @SerializedName("puesto")
+    @Expose
+    private String puesto;
 
     public String getUsuario() {
         return usuario;
@@ -94,4 +101,19 @@ public class PeticionRegistroUser {
         this.email = email;
     }
 
+    public Integer getIdMercado() {
+        return idMercado;
+    }
+
+    public void setIdMercado(Integer idMercado) {
+        this.idMercado = idMercado;
+    }
+
+    public String getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
 }

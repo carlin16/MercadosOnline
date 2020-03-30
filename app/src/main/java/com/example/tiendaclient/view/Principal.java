@@ -1,10 +1,12 @@
 package com.example.tiendaclient.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.tiendaclient.R;
@@ -24,7 +26,7 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.Contenedor_Fragments, new mercado()).addToBackStack("frag_merca").commit();
+                .replace(R.id.Contenedor_Fragments, new mercado()).commit();
         iniciar_tabs();
     }
 
@@ -45,36 +47,20 @@ public class Principal extends AppCompatActivity {
                 int position = tab.getPosition();
               //  tabLayout.getTabAt(position).select();
 
-                switch (position) {
-                    case 0:
-
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.Contenedor_Fragments, new mercado(),"frag_merca").commit();
-                        break;
-
-                    case 1:
-
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.Contenedor_Fragments, new pedido()).commit();
-                        break;
-
-                    case 2:
-
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.Contenedor_Fragments, new perfil_usuario()).commit();
-                        break;
-
-                }
+                elegir(tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                Log.e("seleccion ","antiguo");
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
+              //  int position = tab.getPosition();
+                Log.e("seleccion ","nuevo");
+                elegir(tab.getPosition());
             }
         });
 
@@ -82,5 +68,48 @@ public class Principal extends AppCompatActivity {
 
     }
 
+
+    private void elegir(int position){
+        clearFragmentBackStack();
+        switch (position) {
+            case 0:
+                Log.e("posicion",""+position);
+
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                break;
+
+            case 1:
+                Log.e("posicion",""+position);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Contenedor_Fragments, new pedido()).commit();
+                break;
+
+            case 2:
+                Log.e("posicion",""+position);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Contenedor_Fragments, new perfil_usuario()).commit();
+                break;
+
+        }
+
+    }
+
+    private static void removeAllFragments(FragmentManager fragmentManager) {
+        while (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStackImmediate();
+        }
+    }
+
+
+    public void clearFragmentBackStack() {
+        FragmentManager fm = getSupportFragmentManager();
+        Log.e("cuantos fragments",""+fm.getBackStackEntryCount());
+        for (int i = 0; i < fm.getBackStackEntryCount() - 1; i++) {
+            fm.popBackStack();
+        }
+    }
 
 }

@@ -41,20 +41,17 @@
             >
 
 
-        <com.makeramen.roundedimageview.RoundedImageView
+
+
+        <ImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_weight="0"
-            android:layout_margin="3dp"
+            android:id="@+id/image"
+            android:scaleType="fitXY"
             android:layout_gravity="center"
-            android:id="@+id/registro_perfil"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/adduser2"
-            android:scaleType="fitXY"
-            app:riv_border_width="1dip"
-            app:riv_border_color="@android:color/transparent"
-            app:riv_corner_radius="10dp"
-            app:riv_oval="false" />
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,48 +99,88 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/contenedor_mercado"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
+            android:orientation="vertical"
             >
 
-
-            <TextView
-                android:layout_weight="2"
-                android:id="@+id/txNomMerca"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/geo"
-                android:text="Mercado"
-                android:paddingLeft="10dp"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                >
 
 
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_negro"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_weight="2"
+                    android:id="@+id/txNomMerca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/geo"
+                    android:text="Mercado"
+                    android:paddingLeft="10dp"
+                    android:imeActionId="6"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="3"
+                    android:singleLine="true"
+                    android:textColor="@color/col_naranja"
+                    android:textColorHint="@color/col_negro"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <Spinner
-                android:id="@+id/spn_Mercado"
+                <Spinner
+                    android:id="@+id/spn_Mercado"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:entries="@array/Roles"
+                    android:fontFamily="@font/geo"
+                    android:textAlignment="center"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="12sp"
+                    android:textStyle="bold"></Spinner>
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TINPuesto"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:entries="@array/Roles"
-                android:fontFamily="@font/geo"
-                android:textAlignment="center"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="12sp"
-                android:textStyle="bold"></Spinner>
+                android:layout_marginTop="10dp"
+                android:theme="@style/TextInputLayoutHint"
+                >
+
+
+                <EditText
+                    android:id="@+id/registro_NumPuesto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Nro de puesto"
+                    android:imeActionId="6"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -152,7 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:theme="@style/TextInputLayoutHint"
-            android:visibility="gone">
+            >
 
 
             <EditText
@@ -179,36 +216,6 @@
 
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINPuesto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="gone">
-
-
-            <EditText
-                android:id="@+id/registro_NumPuesto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Nro de puesto"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="number"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
 
 
         <br.com.simplepass.loadingbutton.customViews.CircularProgressButton

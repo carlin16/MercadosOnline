@@ -1,6 +1,5 @@
 package com.example.tiendaclient.models.compra;
 
-import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.Vendedor;
 import com.example.tiendaclient.utils.Global;
 import com.google.gson.annotations.Expose;
@@ -19,7 +18,7 @@ public class PuestosCompra {
     private Integer id;
     @SerializedName("productos")
     @Expose
-    private List<ProductosCompra> productos = new ArrayList<>();
+    private List<CompraProductos> productos = new ArrayList<>();
 
 
     public Vendedor getVendedor() {
@@ -38,20 +37,20 @@ public class PuestosCompra {
         this.id = id;
     }
 
-    public List<ProductosCompra> getProductos() {
+    public List<CompraProductos> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<ProductosCompra> productos) {
+    public void setProductos(List<CompraProductos> productos) {
         this.productos = productos;
     }
 
 
 
-    public void agregar_compra( ProductosCompra pro){
+    public void agregar_compra( CompraProductos pro){
 
         Boolean encontre =false;
-        for(ProductosCompra C: productos){
+        for(CompraProductos C: productos){
 
             if(C.getIdProducto()==pro.getIdProducto()){
 

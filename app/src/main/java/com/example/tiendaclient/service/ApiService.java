@@ -2,6 +2,7 @@ package com.example.tiendaclient.service;
 
 
 import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
+import com.example.tiendaclient.models.recibido.ResponseRegistrarPedido;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
@@ -100,9 +101,13 @@ public interface ApiService {
 
     @Headers("Content-Type: application/json")
     @GET("pedidos/{user_id}")
-    Observable<Response<List<ResponseDetallesPedidos>>>VerDetallePedidos(@Path(value = "user_id", encoded = true) String userId, @Query("type") String type);
+    Observable<Response<ResponseDetallesPedidos>>VerDetallePedidos(@Path(value = "user_id", encoded = true) String userId, @Query("type") String type);
 
 
+
+    @Headers("Content-Type: application/json")
+    @POST("pedidos")
+    Observable<Response<ResponseRegistrarPedido>>RegistrarPedidos(@Body JsonObject object);
 
 
 //pedidos?type=CLIENTE&id=16

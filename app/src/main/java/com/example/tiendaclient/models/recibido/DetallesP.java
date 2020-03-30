@@ -4,7 +4,7 @@ package com.example.tiendaclient.models.recibido;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Detalle {
+public class DetallesP {
 
     @SerializedName("id")
     @Expose

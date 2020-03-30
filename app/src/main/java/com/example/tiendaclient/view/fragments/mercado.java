@@ -157,21 +157,7 @@ return vista;
 
 
                             if(continuar){
-
-                                for(ResponseVerMercado res:listado){
-
-                                    if(Integer.parseInt(res.getEstado())<=0){
-
-
-                                        listado.remove(res);
-                                    }
-
-
-                                }
-
-
                                 iniciar_recycler();
-
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                             }
@@ -186,6 +172,8 @@ return vista;
     }
 
     public void filtro(String S){
+
+    if(listado.size()>0)
         adapter.getFilter().filter(S);
     }
 

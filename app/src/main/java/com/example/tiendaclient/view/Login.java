@@ -88,6 +88,7 @@ public class Login extends AppCompatActivity {
         //UiAnima();
         UI();
         llamarPreferences();
+
         Click();
 
     }
@@ -216,9 +217,15 @@ public class Login extends AppCompatActivity {
     public void llamarPreferences(){
         SharedPreferences DtsRescatados=PreferenceManager.getDefaultSharedPreferences(this);
         UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
-        PassSave=DtsRescatados.getString("PasswordS", "password");
-        Log.e("Datos llamados", UserSave);
-        Log.e("Datos llamados", PassSave);
+        PassSave=DtsRescatados.getString("PasswordS", "Password");
+
+        if(!UserSave.equals("Usuario")){
+            ETLoginUser.setText(UserSave);
+            ETLoginPass.setText(PassSave);
+            BtnLoginIngresar.setEnabled(false);
+            llenarDatos();
+        }
+
     }
 
     public void iniciar_sesion(){

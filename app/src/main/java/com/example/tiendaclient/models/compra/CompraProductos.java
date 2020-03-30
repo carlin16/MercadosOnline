@@ -3,7 +3,7 @@ package com.example.tiendaclient.models.compra;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ProductosCompra {
+public class CompraProductos {
 
     @SerializedName("id")
     @Expose

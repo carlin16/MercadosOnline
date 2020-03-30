@@ -1,26 +1,22 @@
 package com.example.tiendaclient.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.recibido.DetallesP;
 import com.example.tiendaclient.models.recibido.ResponseVerPedido;
 import com.example.tiendaclient.utils.Global;
-import com.example.tiendaclient.view.fragments.detalle;
+import com.example.tiendaclient.view.fragments.detallesPedido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,12 +54,7 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
 
         list_full=new ArrayList<>(lst_normal);
     }
-    public VistaPedidos(List<ResponseVerPedido> lst_normal, int manejador) {
-        this.lst_normal = lst_normal;
 
-        list_full=new ArrayList<>(lst_normal);
-        this.manejador=manejador;
-    }
 
     @NonNull
     @Override
@@ -86,7 +77,7 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
         holder.Status.setText(lst_normal.get(position).getEstado());
         holder.NumPedido.setText("Pedido # "+lst_normal.get(position).getId());
         holder.DirMercado.setText(lst_normal.get(position).getNombreMercado());
-        holder.FechayHoraPedido.setText(lst_normal.get(position).getFechaRegistro());
+        holder.FechayHoraPedido.setText(lst_normal.get(position).getFechaRegistro().replace(" ","\n"));
 
         holder.TotalPedido.setText("$"+ Global.formatearDecimales(Double.parseDouble(lst_normal.get(position).getTotal()),2));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -96,10 +87,13 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
                deta.CompraNueva=lst_normal.get(position);
                 deta.PosicionListaArray=position;
                 deta.id_del_fragment=id_del_fragment;
+                */
+               detallesPedido pedido = new detallesPedido();
+               pedido.id_pedido=""+lst_normal.get(position).getId();
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, deta).addToBackStack("frag_deta");
-                fragmentTransaction.commit();*/
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, pedido).addToBackStack("detallesPedido");
+                fragmentTransaction.commit();
             }
         });
 

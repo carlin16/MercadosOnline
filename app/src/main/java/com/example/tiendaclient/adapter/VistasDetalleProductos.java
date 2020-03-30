@@ -10,34 +10,32 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tiendaclient.R;
-import com.example.tiendaclient.models.compra.ProductosCompra;
+import com.example.tiendaclient.models.compra.CompraProductos;
 import com.example.tiendaclient.utils.Global;
-import com.example.tiendaclient.view.fragments.detalle;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetalleProductos.Holder>  implements Filterable {
 
-    List<ProductosCompra> lst_normal;
-    List<ProductosCompra> list_full;
+    List<CompraProductos> lst_normal;
+    List<CompraProductos> list_full;
     FragmentManager fragmentManager;
     String id_del_fragment;
     private OnItemLongClicListener itemLongClicListener;
 
 
-    public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager, String id_del_fragment, OnItemLongClicListener itemLongClicListener) {
+    public VistasDetalleProductos(List<CompraProductos> lst_normal, FragmentManager fragmentManager, String id_del_fragment, OnItemLongClicListener itemLongClicListener) {
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
         this.id_del_fragment = id_del_fragment;
         this.itemLongClicListener = itemLongClicListener;
     }
 
-    public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager, String id_del_fragment) {
+    public VistasDetalleProductos(List<CompraProductos> lst_normal, FragmentManager fragmentManager, String id_del_fragment) {
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
         this.id_del_fragment = id_del_fragment;
@@ -45,18 +43,18 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
 
     int manejador=0;
 
-    public VistasDetalleProductos(List<ProductosCompra> lst_normal, FragmentManager fragmentManager) {
+    public VistasDetalleProductos(List<CompraProductos> lst_normal, FragmentManager fragmentManager) {
         this.lst_normal = lst_normal;
         list_full=new ArrayList<>(lst_normal);
         this.fragmentManager = fragmentManager;
     }
 
-    public VistasDetalleProductos(List<ProductosCompra> lst_normal) {
+    public VistasDetalleProductos(List<CompraProductos> lst_normal) {
         this.lst_normal = lst_normal;
 
         list_full=new ArrayList<>(lst_normal);
     }
-    public VistasDetalleProductos(List<ProductosCompra> lst_normal, int manejador) {
+    public VistasDetalleProductos(List<CompraProductos> lst_normal, int manejador) {
         this.lst_normal = lst_normal;
 
         list_full=new ArrayList<>(lst_normal);
@@ -121,7 +119,7 @@ private Filter mercados_filter =new Filter() {
     protected FilterResults performFiltering(CharSequence constraint) {
 
         Log.e("adapter","filtro llegar" +constraint);
-        List<ProductosCompra> filtro=new ArrayList<>();
+        List<CompraProductos> filtro=new ArrayList<>();
 
         if (constraint == null || constraint.length() == 0) {
             Log.e("adapter","filtro sin cambios");
@@ -132,7 +130,7 @@ private Filter mercados_filter =new Filter() {
             Log.e("adapter","probar-->" + filterPattern);
             Log.e("adapter","tamaño lista -->" + list_full.size());
 
-            for (ProductosCompra item : list_full) {
+            for (CompraProductos item : list_full) {
                 Log.e("adapter","recorro" + item.getNombre());
 
 
@@ -158,7 +156,7 @@ private Filter mercados_filter =new Filter() {
 
 
     public  interface OnItemLongClicListener{
-        void onItemClickLong(ProductosCompra product, int position);
+        void onItemClickLong(CompraProductos product, int position);
     }
 
 

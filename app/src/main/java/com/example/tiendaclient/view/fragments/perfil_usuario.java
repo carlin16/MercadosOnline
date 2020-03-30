@@ -1,5 +1,8 @@
 package com.example.tiendaclient.view.fragments;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -7,15 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
@@ -23,6 +29,8 @@ import com.example.tiendaclient.models.recibido.ResponseUserPorID;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.view.Login;
+import com.example.tiendaclient.view.Principal;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -30,6 +38,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import org.json.JSONObject;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -47,10 +56,11 @@ public class perfil_usuario extends Fragment {
     }
     View vista;
     TextView PerfilNombresCompletos, PerfilUsuario,PerfilDireccion, PerfilCelular, PerfilCorreo, PerfilRol;
-    RoundedImageView PerfilFoto;
+    ImageView PerfilFoto;
     String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
     Boolean continuar=false;
     String mensaje="";
+    CircleImageView sesionoff;
    // ResponseUserPorID Usua= new ResponseUserPorID();
 
     Retrofit retrofit;
@@ -82,6 +92,19 @@ public class perfil_usuario extends Fragment {
         PerfilCorreo=vista.findViewById(R.id.TVPerfilCorreo);
         PerfilRol=vista.findViewById(R.id.TVPerfilRol);
         PerfilFoto=vista.findViewById(R.id.PerfilFoto);
+        sesionoff=vista.findViewById(R.id.sesionoff);
+        sesionoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(getActivity());
+                DtsAlmacenados.edit().clear().commit();
+
+                Intent intent = new Intent (getActivity().getApplicationContext(), Login.class);
+                startActivity(intent);
+                getActivity().finish();
+
+            }
+        });
         peticion_usuario(Global.LoginU.getid());
     }
 
@@ -154,14 +177,12 @@ public class perfil_usuario extends Fragment {
     }
 
     private void llenar_subida(){
-        Glide
-                .with(getActivity())
-                .load(LinkImagenP)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+
+
+        Glide.with(this).load(LinkImagenP).diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.placeholder_perfil)
-                .error(R.drawable.placeholder_perfil)
-                .fitCenter()
-                .into(PerfilFoto);
+                .error(R.drawable.placeholder_perfil).apply(RequestOptions.circleCropTransform()).into(PerfilFoto);
+
 
     }
 

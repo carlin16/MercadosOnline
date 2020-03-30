@@ -155,7 +155,7 @@ public class puestos extends Fragment {
                         }else{
 
                             if(continuar){
-
+/*
                                 for(ResponseVerAllPuesto res:ls_listado){
 
                                     if(Integer.parseInt(res.getEstado())<=0){
@@ -165,7 +165,7 @@ public class puestos extends Fragment {
                                     }
 
 
-                                }
+                                }*/
                                 iniciar_recycler();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
@@ -231,7 +231,8 @@ public class puestos extends Fragment {
 
     }
     public void filtro(String S){
-        adapter.getFilter().filter(S);
+        if(ls_listado.size()>0)
+            adapter.getFilter().filter(S);
     }
 
 

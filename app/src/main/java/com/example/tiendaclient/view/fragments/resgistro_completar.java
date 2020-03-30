@@ -16,25 +16,32 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
+import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.utils.MinMaxFilter;
 import com.example.tiendaclient.view.Login;
 import com.example.tiendaclient.view.Principal;
 import com.google.android.material.snackbar.Snackbar;
@@ -48,6 +55,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -72,7 +81,6 @@ import static com.example.tiendaclient.utils.Global.verificar_vacio;
 public class resgistro_completar extends Fragment {
 
     Uri imagen_perfil;
-    RoundedImageView Perfil;
 
 
     View vista;
@@ -85,32 +93,40 @@ public class resgistro_completar extends Fragment {
     TextInputLayout TIDir, TINomMercado, TINPuesto;
     TextView Soy, IrLogin;
     CircularProgressButton BtnRegistrar2;
-
+    Boolean continuar=false;
+    ArrayList<String> list_tiendas = new ArrayList<String>();
+    ArrayAdapter<String> spinnerArrayAdapter;
+List<ResponseVerMercado> mercadito =new ArrayList<>();
     SweetAlertDialog pDialog;
-
+    ImageView image;
+LinearLayout contenedor_mercado;
     Retrofit retrofit;
     ApiService retrofitApi;
 
-    int posRol;
+    int posRol=0;
 
 
     private void UI(){
-        Perfil=vista.findViewById(R.id.registro_perfil);
         Roles= getResources().getStringArray(R.array.Roles);
         Rol=vista.findViewById(R.id.spn_rolUser);
+        image=vista.findViewById(R.id.image);
         Direccion=vista.findViewById(R.id.registro_direccion);
         TIDir=vista.findViewById(R.id.TIDireccion);
         Soy=vista.findViewById(R.id.txtRol);
         BtnRegistrar2=vista.findViewById(R.id.btn_registro2);
         IrLogin=vista.findViewById(R.id.ir_login2);
         Mercado=vista.findViewById(R.id.spn_Mercado);
-
+        contenedor_mercado=vista.findViewById(R.id.contenedor_mercado);
         TINPuesto=vista.findViewById(R.id.TINPuesto);
 
+
         TENPuest=vista.findViewById(R.id.registro_NumPuesto);
+        TENPuest.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "5" )}) ;
 
         TIDir.setVisibility(View.VISIBLE);
-
+        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,list_tiendas);
+        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        Mercado.setAdapter(spinnerArrayAdapter);
 
 
     }
@@ -119,7 +135,7 @@ public class resgistro_completar extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         animacion_cargando();
         UI();
-
+        peticion_mercado();
         Click();
     }
     public void Click(){
@@ -155,7 +171,7 @@ public class resgistro_completar extends Fragment {
 
 
 
-        Perfil.setOnClickListener(new View.OnClickListener() {
+        image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 funcion_cortar();
@@ -201,14 +217,14 @@ public class resgistro_completar extends Fragment {
                 switch (position) {
                     case 0:
                         //Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
-                        TIDir.setVisibility(View.VISIBLE);
-                        Mercado.setVisibility(View.GONE);
-                        TINPuesto.setVisibility(View.GONE);
+                      //  TIDir.setVisibility(View.VISIBLE);
+
+                        contenedor_mercado.setVisibility(View.GONE);
+
                         break;
                     case 1:
-                        TIDir.setVisibility(View.GONE);
-                        Mercado.setVisibility(View.VISIBLE);
-                        TINPuesto.setVisibility(View.VISIBLE);
+                        contenedor_mercado.setVisibility(View.VISIBLE);
+                       // TIDir.setVisibility(View.GONE);
                        // Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -260,13 +276,10 @@ public class resgistro_completar extends Fragment {
         }
     }
     private void llenar_subida(){
-        Glide
-                .with(this)
-                .load(imagen_perfil)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .override(125, 125)
-                .fitCenter()
-                .into(Perfil);
+
+
+        Glide.with(this).load(imagen_perfil).apply(RequestOptions.circleCropTransform()).into(image);
+
 
     }
     public void funcion_cortar() {
@@ -286,6 +299,10 @@ public class resgistro_completar extends Fragment {
     }
     private void validar_campos(){
         Log.e("VC", "estoy en validar campos ");
+
+
+
+
         switch (posRol) {
             case 0:
                 if(verificar_vacio(Direccion.getText().toString())) {
@@ -302,7 +319,10 @@ public class resgistro_completar extends Fragment {
                 break;
             case 1:
 
-                 if(verificar_vacio(TENPuest.getText().toString())) {
+                if(verificar_vacio(Direccion.getText().toString())) {
+                    Direccion.requestFocus();
+                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+                }  if(verificar_vacio(TENPuest.getText().toString())) {
                     TENPuest.requestFocus();
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
                 }else if (imagen_perfil==null) {
@@ -318,9 +338,16 @@ public class resgistro_completar extends Fragment {
 
     }
     public  void llenarDatos(){
-
+        RegisU.setRol(Roles[posRol]);
         RegisU.setDireccion(Direccion.getText().toString());
-        RegisU.setRol(Rol.getSelectedItem().toString());
+
+
+        if(posRol>0){
+            RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
+            RegisU.setPuesto(TENPuest.getText().toString());
+        }
+
+
         Log.e("Llenar todos dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
         Gson gson = new Gson();
         String JPetUser= gson.toJson(RegisU);
@@ -461,6 +488,83 @@ public class resgistro_completar extends Fragment {
     }
 
 
+
+
+    private void peticion_mercado(){
+        Log.e("peticion","mercado");
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.VerMercados()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<ResponseVerMercado>>>() {
+                    @Override
+                    public void onNext(Response<List<ResponseVerMercado>> response) {
+
+
+                        if(response.isSuccessful()){
+
+                            Log.e("code VM",""+response.code());
+                            Log.e("respuest VM",Global.convertObjToString(response.body()));
+                            mercadito=response.body();
+                            continuar=true;
+
+                        }else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
+
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("code VM","error");
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                        Log.e("code VM","completado");
+                        // adapter.notifyDataSetChanged();
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            Log.e("activity","removido de la actividad mercado");
+                            return;
+                        }else{
+
+
+
+                            if(continuar){
+                                for (ResponseVerMercado x:mercadito){
+                                    list_tiendas.add(x.getNombre());
+                                    spinnerArrayAdapter.notifyDataSetChanged();
+
+                                }
+
+                            }else{
+                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                            }
+
+
+                        }
+
+
+
+                    }
+                });
+    }
 
 
 }

@@ -48,13 +48,13 @@ public class ResponseDetallesPedidos {
     private Cliente cliente;
     @SerializedName("transportista")
     @Expose
-    private Transportista transportista;
+    private Transportista transportista = new Transportista();
     @SerializedName("entrega")
     @Expose
     private Entrega entrega;
     @SerializedName("detalles")
     @Expose
-    private List<Detalle> detalles = null;
+    private List<DetallesP> detallesPS = null;
 
     public Integer getId() {
         return id;
@@ -176,12 +176,12 @@ public class ResponseDetallesPedidos {
         this.entrega = entrega;
     }
 
-    public List<Detalle> getDetalles() {
-        return detalles;
+    public List<DetallesP> getDetallesPS() {
+        return detallesPS;
     }
 
-    public void setDetalles(List<Detalle> detalles) {
-        this.detalles = detalles;
+    public void setDetallesPS(List<DetallesP> detallesPS) {
+        this.detallesPS = detallesPS;
     }
 
 }

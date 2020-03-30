@@ -15,25 +15,20 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.StrictMode;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasDetalleProductos;
 import com.example.tiendaclient.models.compra.Compra;
-import com.example.tiendaclient.models.compra.ProductosCompra;
+import com.example.tiendaclient.models.compra.CompraProductos;
 import com.example.tiendaclient.models.compra.PuestosCompra;
 import com.example.tiendaclient.utils.Global;
-import com.example.tiendaclient.view.RegistroUsuarios;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +43,7 @@ public class detalle extends Fragment {
     View vista;
     TextView DetaCancelarPeido, DetaSubtotal, DetaCostoEnvio, DetaTotal, DetaTotal2;
     RelativeLayout DetaContinuar;
-    List<ProductosCompra> LstPro = new ArrayList<>();
+    List<CompraProductos> LstPro = new ArrayList<>();
     public String id_del_fragment;
     ScaleInRightAnimator animator1 = new ScaleInRightAnimator();
     RecyclerView recyclerView;
@@ -141,14 +136,14 @@ public class detalle extends Fragment {
 
 
     private void unir() {
-
+        LstPro.clear();
         for (PuestosCompra p : CompraNueva.getPuestos()) {
             LstPro.addAll(p.getProductos());
 
         }
     }
 
-    private  void eliminar_producto(ProductosCompra product){
+    private  void eliminar_producto(CompraProductos product){
 
         int indice_puesto=0;
         int indice_final=0;
@@ -195,8 +190,8 @@ public class detalle extends Fragment {
         recyclerView=vista.findViewById(R.id.Recycler_Detalles);
         adapter= new VistasDetalleProductos(LstPro, getFragmentManager(), id_del_fragment, new VistasDetalleProductos.OnItemLongClicListener() {
             @Override
-            public void onItemClickLong(ProductosCompra product, int position) {
-                borrar_alarma(position);
+            public void onItemClickLong(CompraProductos product, int position) {
+                borrar_producto(position);
                 eliminar_producto(product);
             }
         });
@@ -207,7 +202,7 @@ public class detalle extends Fragment {
     }
 
 
-    private void borrar_alarma(int position){
+    private void borrar_producto(int position){
         animator1.setRemoveDuration(1000);
         recyclerView.setItemAnimator(animator1);
         // eliminar("http://learn4win.com/WebServices/eliminar_alarma.php",malarma.get(position));
@@ -219,6 +214,8 @@ private void ir_ubicacion(){
     ubica_entrega ubi = new ubica_entrega();
     ubi.id_del_fragment=id_del_fragment;
     ubi.PosicionListaArray=PosicionListaArray;
+    ubi.productos=LstPro;
+    ubi.Total_precio=Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2);
 
     FragmentTransaction fragmentTransaction;
     fragmentTransaction = getFragmentManager().beginTransaction();

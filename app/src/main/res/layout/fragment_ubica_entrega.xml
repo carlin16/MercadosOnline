@@ -95,25 +95,52 @@
                 android:orientation="vertical"
                 >
 
-                <TextView
 
-                    android:id="@+id/Ubicacionmensaje"
-                    android:layout_alignParentBottom="true"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Seleccione un punto en el mapa"
-                    android:textSize="16sp"
-                    android:textColor="@color/col_negro"
-                    android:textStyle="italic"
+                    android:layout_gravity="center"
                     android:gravity="center"
-
-
+                    android:orientation="horizontal"
                     >
-                </TextView>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/icono_localizador"
+
+                        >
+
+
+                    </ImageView>
+
+
+
+                    <TextView
+
+                        android:id="@+id/UbicacionDireccion"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Seleccione un punto en el mapa"
+                        android:textSize="16sp"
+                        android:textColor="@color/col_negro"
+                        android:textStyle="italic"
+                        android:gravity="center"
+
+
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
 
 
 
                 <RelativeLayout
+                    android:id="@+id/UbicaBtnContinuar"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
 
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
@@ -123,8 +150,9 @@
                     android:background="@drawable/border_boton"
                     >
                     <Button
+
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="40dp"
                         android:visibility="invisible"
                         android:text="Continuar"
                         android:textColor="@color/col_White"
@@ -137,19 +165,19 @@
 
                     </Button>
                     <TextView
-
-                        android:layout_width="wrap_content"
+                        android:id="@+id/DetalleTotalUbica"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="$50.00"
+                        android:text="$52.00"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="15dp"
-
                         android:textSize="15sp"
                         android:textColor="@color/col_White"
                         android:textStyle="bold"
                         android:textAlignment="textEnd"
+                        android:paddingEnd="5dp"
                         android:background="@color/col_naranja"
                         >
                     </TextView>

@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
@@ -30,16 +29,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasProductos;
-import com.example.tiendaclient.adapter.VistasPuestos;
 import com.example.tiendaclient.models.compra.Compra;
-import com.example.tiendaclient.models.compra.ProductosCompra;
+import com.example.tiendaclient.models.compra.CompraProductos;
 import com.example.tiendaclient.models.compra.PuestosCompra;
 import com.example.tiendaclient.models.recibido.Producto;
-import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
 import com.example.tiendaclient.models.recibido.Vendedor;
 import com.example.tiendaclient.utils.Global;
-import com.google.android.material.snackbar.Snackbar;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.text.DecimalFormat;
@@ -117,6 +113,14 @@ llenarDatos();
                 Subtotal.setText("$"+product.getPrecio().toString());
                 DescripProduct.setText(product.getDescripcion());
                 CantidadCar.setNumber("1");
+
+                Glide
+                        .with(getActivity())
+                        .load(Global.Url+"productos/"+product.getId()+"/foto")
+                        .placeholder(R.drawable.placeholder_mercado)
+                        .error(R.drawable.portada_mercado)
+                        .into(FotoProducto);
+
                 final double precio=product.getPrecio();
                  //final double subtotal=0;
                 CantidadCar.setRange( 1,  1000);
@@ -187,7 +191,7 @@ private void llenarDatos(){
 
     private void animacion_compra(){
         myDialog = new Dialog(getActivity());
-        myDialog.setContentView(R.layout.compra);
+        myDialog.setContentView(R.layout.dialog_compra);
         myDialog.setCancelable(true);
 
       NombreProducto=myDialog.findViewById(R.id.TVProducNombre);
@@ -205,8 +209,8 @@ private void llenarCarrito(Producto product){
     Compra nuevoC = new Compra();
     List<PuestosCompra> pues = new ArrayList<>();
     PuestosCompra PuestComp = new PuestosCompra();
-    List<ProductosCompra> lstprod=new ArrayList<>();
-    ProductosCompra prod= new ProductosCompra();
+    List<CompraProductos> lstprod=new ArrayList<>();
+    CompraProductos prod= new CompraProductos();
 
     prod.setNombre(product.getNombre());
     prod.setDescripcion(product.getDescripcion());
@@ -307,7 +311,8 @@ private void llenarCarrito(Producto product){
     }
 
     public void filtro(String S){
-        adapter.getFilter().filter(S);
+        if(ls_listado.size()>0)
+            adapter.getFilter().filter(S);
     }
 
 
