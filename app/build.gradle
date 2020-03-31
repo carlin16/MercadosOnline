@@ -129,9 +129,11 @@ dependencies {
     //placeholder recylcer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     //spinners
-    implementation "com.github.skydoves:powerspinner:1.0.5"
+   // implementation "com.github.skydoves:powerspinner:1.0.5"
+   //
+    implementation 'com.github.ganfra:material-spinner:2.0.0'
 
 
 //
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+   // implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

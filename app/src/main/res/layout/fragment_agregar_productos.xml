@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:orientation="vertical"
@@ -99,7 +99,7 @@
             android:id="@+id/TINPNomPro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:theme="@style/TextInputLayoutHint"
             android:visibility="visible">
 
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:theme="@style/TextInputLayoutHint">
 
             <EditText
@@ -148,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             >
 
 
@@ -199,6 +199,25 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+                android:layout_weight="1"
+                android:id="@+id/NPUnidadMed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:ms_alignLabels="false"
+                android:background="@color/col_gris"
+                app:ms_arrowColor="@color/col_negrosolida"
+                app:ms_arrowSize="16dp"
+                app:ms_enableErrorLabel="false"
+                app:ms_enableFloatingLabel="false"
+                app:ms_errorColor="@color/col_rojo"
+                app:ms_floatingLabelText="floating label"
+                app:ms_hint="Escoje una"
+                app:ms_hintColor="@color/col_grissuave"
+                app:ms_multiline="false"
+                app:ms_thickness="2dp" />
+
         </LinearLayout>
 
 
@@ -217,8 +236,9 @@
             <TextView
                 android:layout_weight="2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/geo"
+                android:layout_gravity="center"
                 android:text="Categoria:"
                 android:paddingLeft="10dp"
                 android:imeActionId="6"
@@ -233,135 +253,37 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <com.skydoves.powerspinner.PowerSpinnerView
-                android:layout_weight="1"
+
+
+            <fr.ganfra.materialspinner.MaterialSpinner
+
                 android:id="@+id/NPCategoria"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/col_White"
-                android:gravity="center"
-                android:padding="10dp"
-                android:textColor="@color/col_negrosolida"
-                android:textColorHint="@color/col_grissuave"
-                android:textSize="14.5sp"
-                app:spinner_arrow_gravity="end"
-                app:spinner_arrow_padding="8dp"
-                app:spinner_divider_color="@color/col_gris"
-                app:spinner_divider_show="true"
-                app:spinner_divider_size="0.4dp"
-                app:spinner_item_array="@array/Unidades"
-                app:spinner_popup_animation="dropdown"
-                app:spinner_popup_background="@color/col_White"
-                app:spinner_popup_elevation="14dp" />
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+
+
+                app:ms_alignLabels="false"
+                app:ms_arrowColor="@color/col_negrosolida"
+                app:ms_arrowSize="16dp"
+                app:ms_baseColor="@color/col_White"
+                app:ms_enableErrorLabel="false"
+                app:ms_enableFloatingLabel="false"
+                app:ms_errorColor="@color/col_rojo"
+                app:ms_floatingLabelColor="@color/col_White"
+
+                app:ms_floatingLabelText="floating label"
+                app:ms_highlightColor="@color/col_grissuave"
+                app:ms_hint="Escoje una"
+                app:ms_hintColor="@color/col_grissuave"
+                app:ms_multiline="false"
+                app:ms_thickness="2dp" />
 
 
         </LinearLayout>
 
-        <com.skydoves.powerspinner.PowerSpinnerView
-            android:id="@+id/NPUnidadMed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/col_White"
-            android:gravity="center"
-            android:hint="Se vende por:"
-            android:padding="10dp"
-            android:textColor="@color/col_negrosolida"
-            android:textColorHint="@color/col_grissuave"
-            android:textSize="14.5sp"
-            app:spinner_arrow_gravity="end"
-            app:spinner_arrow_padding="8dp"
-            app:spinner_divider_color="@color/col_gris"
-            app:spinner_divider_show="true"
-            app:spinner_divider_size="0.4dp"
-            app:spinner_item_array="@array/Unidades"
-            app:spinner_popup_animation="dropdown"
-            app:spinner_popup_background="@color/col_White"
-            app:spinner_popup_elevation="14dp" />
 
-        <LinearLayout
-            android:id="@+id/contenedor_mercado"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                >
-
-
-                <TextView
-                    android:layout_weight="2"
-                    android:id="@+id/txNomMerca"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/geo"
-                    android:text="Mercado"
-                    android:paddingLeft="10dp"
-                    android:imeActionId="6"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="text"
-                    android:maxLines="3"
-                    android:singleLine="true"
-                    android:textColor="@color/col_naranja"
-                    android:textColorHint="@color/col_negro"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/spn_Mercado"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:entries="@array/Roles"
-                    android:fontFamily="@font/geo"
-                    android:textAlignment="center"
-                    android:textColor="@color/col_negro"
-                    android:textColorHint="@color/col_naranja"
-                    android:textSize="12sp"
-                    android:textStyle="bold"></Spinner>
-            </LinearLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TINPuesto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:theme="@style/TextInputLayoutHint"
-                >
-
-
-                <EditText
-                    android:id="@+id/registro_NumPuesto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
-                    android:gravity="left"
-                    android:hint="Nro de puesto"
-                    android:imeActionId="6"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/col_negro"
-                    android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
 
 
 
