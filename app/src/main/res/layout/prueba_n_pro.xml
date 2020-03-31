@@ -95,55 +95,54 @@
 
 
         </RelativeLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINPNomPro"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
+            >
 
 
-            <EditText
-                android:id="@+id/ETNPNomPro"
+            <TextView
+                android:layout_weight="2"
+                android:id="@+id/txtRol"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Nombre"
+                android:text="Medido en: "
+                android:paddingLeft="10dp"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+
+
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="22sp"
+                android:textColor="@color/col_naranja"
+                android:textColorHint="@color/col_negro"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <Spinner
 
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINPDescrip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:theme="@style/TextInputLayoutHint">
-
-            <EditText
-                android:id="@+id/ETNPDescrip"
+                android:id="@+id/NPUnidadMed"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/border_login"
+
+                android:entries="@array/Unidades"
+
                 android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Descripción"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textAlignment="center"
+                android:textColor="@color/col_naranja"
+                android:textColorHint="@color/col_rojo"
+                android:textSize="12sp"
 
-
-        </com.google.android.material.textfield.TextInputLayout>
+                android:textStyle="bold"></Spinner>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -200,83 +199,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
-
-
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            >
-
-
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:text="Categoria:"
-                android:paddingLeft="10dp"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-
-
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_negro"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <com.skydoves.powerspinner.PowerSpinnerView
-                android:layout_weight="1"
-                android:id="@+id/NPCategoria"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/col_White"
-                android:gravity="center"
-                android:padding="10dp"
-                android:textColor="@color/col_negrosolida"
-                android:textColorHint="@color/col_grissuave"
-                android:textSize="14.5sp"
-                app:spinner_arrow_gravity="end"
-                app:spinner_arrow_padding="8dp"
-                app:spinner_divider_color="@color/col_gris"
-                app:spinner_divider_show="true"
-                app:spinner_divider_size="0.4dp"
-                app:spinner_item_array="@array/Unidades"
-                app:spinner_popup_animation="dropdown"
-                app:spinner_popup_background="@color/col_White"
-                app:spinner_popup_elevation="14dp" />
-
-
-        </LinearLayout>
-
-        <com.skydoves.powerspinner.PowerSpinnerView
-            android:id="@+id/NPUnidadMed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/col_White"
-            android:gravity="center"
-            android:hint="Se vende por:"
-            android:padding="10dp"
-            android:textColor="@color/col_negrosolida"
-            android:textColorHint="@color/col_grissuave"
-            android:textSize="14.5sp"
-            app:spinner_arrow_gravity="end"
-            app:spinner_arrow_padding="8dp"
-            app:spinner_divider_color="@color/col_gris"
-            app:spinner_divider_show="true"
-            app:spinner_divider_size="0.4dp"
-            app:spinner_item_array="@array/Unidades"
-            app:spinner_popup_animation="dropdown"
-            app:spinner_popup_background="@color/col_White"
-            app:spinner_popup_elevation="14dp" />
 
         <LinearLayout
             android:id="@+id/contenedor_mercado"
@@ -363,7 +285,57 @@
 
         </LinearLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TINPDescrip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayoutHint">
 
+            <EditText
+                android:id="@+id/ETNPDescrip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/geo"
+                android:gravity="left"
+                android:hint="Descripción"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TINPNomPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:theme="@style/TextInputLayoutHint"
+            android:visibility="visible">
+
+
+            <EditText
+                android:id="@+id/ETNPNomPro"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/geo"
+                android:gravity="left"
+                android:hint="Nombre"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <RelativeLayout

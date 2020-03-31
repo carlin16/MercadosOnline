@@ -116,11 +116,10 @@ public interface ApiService {
     Observable<Response<List<ResponseCategorias>>>VerCategorias();
 
 
-    @Headers({"Content-Type: application/json", "multipart/form-data"})
+    //@Headers({"Content-Type: application/json", "multipart/form-data"})
     @Multipart
     @POST("productos")
-    Observable<Response<ResponseUpdateImagen>>RegistrarProducto(@Path(value = "user_id", encoded = true) String userId,
-                                                          @Part MultipartBody.Part imageFile);
+    Observable<Response<ResponseUpdateImagen>>RegistrarProducto(@Part MultipartBody.Part imageFile, @Body JsonObject ObjectJson);
 
 
 //pedidos?type=CLIENTE&id=16

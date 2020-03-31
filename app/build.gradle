@@ -43,6 +43,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+
     implementation 'com.android.support:design:29.1.0'
     //Circle Imageview
     implementation 'de.hdodenhof:circleimageview:3.0.1'
@@ -123,5 +126,9 @@ dependencies {
 
     //placeholder recylcer
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    //spinners
+    implementation "com.github.skydoves:powerspinner:1.0.5"
 
+
+//
 }

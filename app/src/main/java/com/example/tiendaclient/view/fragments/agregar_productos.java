@@ -35,6 +35,7 @@ import com.example.tiendaclient.models.enviado.PeticionNuevoProducto;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
@@ -42,11 +43,16 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.skydoves.powerspinner.IconSpinnerAdapter;
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
+import com.skydoves.powerspinner.PowerSpinnerView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.lang.reflect.Array;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +61,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -81,7 +90,7 @@ public class agregar_productos extends Fragment {
     EditText ETNPNomPro , ETNPPrecio, ETNPDescrip;
     TextInputLayout TINPNomPro , TINPPrecio, TINPDescrip;
     RelativeLayout NPBTNRegistProd;
-    Spinner NPCategoria, NPUnidadMed;
+    PowerSpinnerView NPCategoria, NPUnidadMed;
 
     Retrofit retrofit;
     ApiService retrofitApi;
@@ -92,6 +101,8 @@ public class agregar_productos extends Fragment {
    ArrayList<String> listNomCategorias = new ArrayList<String>();
     List<ResponseCategorias> categoria =new ArrayList<>();
     ArrayAdapter<String> spinnerArrayAdapter;
+
+    IconSpinnerAdapter iconSpinnerAdapter;
 
 
     public agregar_productos() {
@@ -111,10 +122,10 @@ public class agregar_productos extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        peticion_categorias();
         UI();
         validar2Decimales();
-        peticion_categorias();
+
         Click();
     }
 
@@ -141,11 +152,17 @@ public class agregar_productos extends Fragment {
         NPRelativeImagen=vista.findViewById(R.id.NPRelativeImagen);
         NP_Esconder=vista.findViewById(R.id.NP_Esconder);
         //Cargar categorias desde consumo de API-REST
-        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item ,listNomCategorias);
-        spinnerArrayAdapter.setDropDownViewResource( R.layout.spinner_dropdown_item);
+/*
+        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,listNomCategorias);
+        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         NPCategoria.setAdapter(spinnerArrayAdapter);
+*/
 
-
+        iconSpinnerAdapter = new IconSpinnerAdapter(NPCategoria);
+        NPCategoria.setSpinnerAdapter(iconSpinnerAdapter);
+        NPCategoria.setItems(listNomCategorias);
+    //    NPCategoria.selectItemByIndex(0);
+        NPCategoria.setLifecycleOwner(getActivity());
        // NPCategoria.setBackgroundColor(12);
 
 
@@ -154,7 +171,7 @@ public class agregar_productos extends Fragment {
 
 
     private void llenar_subida(){
-        Glide.with(this).load(NPimagen_product).apply(RequestOptions.circleCropTransform()).into(NPImage);
+        Glide.with(this).load(NPimagen_product).into(NPImage);
         NP_Esconder.setVisibility(View.GONE);
         NPImage.setVisibility(View.VISIBLE);
 
@@ -253,7 +270,15 @@ public class agregar_productos extends Fragment {
 
         });
 
-        NPUnidadMed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+ /*       NPUnidadMed.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<String>() {
+            @Override public void onItemSelected(int position, String item) {
+                posUnidadMedida =position;
+                //toast(item + " selected!");
+            }
+        });*/
+
+  /*      NPUnidadMed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 posUnidadMedida =position;
@@ -264,7 +289,7 @@ public class agregar_productos extends Fragment {
 
                 // sometimes you need nothing here
             }
-        });
+        });*/
 
 
 
@@ -315,17 +340,17 @@ public class agregar_productos extends Fragment {
         NuevoProducto.setPrecio(Double.parseDouble(ETNPPrecio.getText().toString()));
         NuevoProducto.setIdCategoria(1);
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
-        NuevoProducto.setIdCategoria(categoria.get(NPCategoria.getSelectedItemPosition()).getId());
+        NuevoProducto.setIdCategoria(categoria.get(NPCategoria.getSelectedIndex()).getId());
         NuevoProducto.setIdPuesto(1);
 
         Log.e("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
 
          Gson gson = new Gson();
-         String JPetUser= gson.toJson(NuevoProducto);
-          Log.e("json",JPetUser);
+         String JPetProducto= gson.toJson(NuevoProducto);
+          Log.e("json",JPetProducto);
         //  animacion_registro();
-        //peticion_Registro(JPetUser);
+      //  subir_ProductoConImagen(JPetProducto);
     }
     private void validar2Decimales(){
         ETNPPrecio.setFilters(new InputFilter[]{new InputFilter() {
@@ -406,7 +431,9 @@ public class agregar_productos extends Fragment {
                             if(continuar){
                                 for (ResponseCategorias x:categoria){
                                     listNomCategorias.add(x.getNombre());
-                                    spinnerArrayAdapter.notifyDataSetChanged();
+                                   // spinnerArrayAdapter.notifyDataSetChanged();
+                                    iconSpinnerAdapter.notifyDataSetChanged();
+
 
                                 }
 
@@ -477,5 +504,60 @@ public class agregar_productos extends Fragment {
                     }
                 });
     }*/
+
+
+
+    public void subir_ProductoConImagen(String jsonConf){
+
+        File file = new File(NPimagen_product.getPath());
+        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+        //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.RegistrarProducto(imagen, convertedObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
+                    @Override
+                    public void onNext(Response<ResponseUpdateImagen> response) {
+
+                        if (response.isSuccessful()) {
+                           // cambio_pantalla =true;
+                            mensaje=response.body().getMensaje();
+                            Log.e("normal",mensaje);
+                        } else  if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        } else{
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("Completado foto","registrado");
+
+                    }
+                });
+
+
+    }
 
 }
