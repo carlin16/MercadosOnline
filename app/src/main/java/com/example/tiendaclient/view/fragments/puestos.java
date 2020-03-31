@@ -63,6 +63,7 @@ public class puestos extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
+
     TextView NombreMercado;
 
     ImageView compra;

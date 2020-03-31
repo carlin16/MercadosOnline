@@ -26,6 +26,8 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+
+
         getSupportFragmentManager().beginTransaction()
                 //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
         .replace(R.id.Contenedor_Fragments, new agregar_productos()).commit();

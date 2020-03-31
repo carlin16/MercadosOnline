@@ -44,6 +44,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.skydoves.powerspinner.IconSpinnerAdapter;
+import com.skydoves.powerspinner.IconSpinnerItem;
 import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 import com.skydoves.powerspinner.PowerSpinnerView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -98,13 +99,11 @@ public class agregar_productos extends Fragment {
 
     String mensaje="";
     PeticionNuevoProducto NuevoProducto= new PeticionNuevoProducto();
-   ArrayList<String> listNomCategorias = new ArrayList<String>();
+   List<IconSpinnerItem> listNomCategorias = new ArrayList<>();
     List<ResponseCategorias> categoria =new ArrayList<>();
     ArrayAdapter<String> spinnerArrayAdapter;
 
     IconSpinnerAdapter iconSpinnerAdapter;
-
-
     public agregar_productos() {
         // Required empty public constructor
     }
@@ -152,17 +151,18 @@ public class agregar_productos extends Fragment {
         NPRelativeImagen=vista.findViewById(R.id.NPRelativeImagen);
         NP_Esconder=vista.findViewById(R.id.NP_Esconder);
         //Cargar categorias desde consumo de API-REST
-/*
-        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,listNomCategorias);
-        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-        NPCategoria.setAdapter(spinnerArrayAdapter);
-*/
+/**/
+       /* spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,listNomCategorias);
+        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);*/
+
+      //  NPCategoria.setAdapter(spinnerArrayAdapter);
+
+
 
         iconSpinnerAdapter = new IconSpinnerAdapter(NPCategoria);
-        NPCategoria.setSpinnerAdapter(iconSpinnerAdapter);
         NPCategoria.setItems(listNomCategorias);
-    //    NPCategoria.selectItemByIndex(0);
-        NPCategoria.setLifecycleOwner(getActivity());
+       // NPCategoria.selectItemByIndex(0);
+        NPCategoria.setLifecycleOwner(this);
        // NPCategoria.setBackgroundColor(12);
 
 
@@ -430,12 +430,13 @@ public class agregar_productos extends Fragment {
 
                             if(continuar){
                                 for (ResponseCategorias x:categoria){
-                                    listNomCategorias.add(x.getNombre());
+                                    listNomCategorias.add(new IconSpinnerItem(getActivity().getResources().getDrawable(R.drawable.ic_add),""+x.getNombre()));
                                    // spinnerArrayAdapter.notifyDataSetChanged();
-                                    iconSpinnerAdapter.notifyDataSetChanged();
+                                   iconSpinnerAdapter.notifyDataSetChanged();
 
 
                                 }
+
 
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
