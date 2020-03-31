@@ -231,7 +231,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:entries="@array/Roles"
+                android:entries="@array/Unidades"
                 android:fontFamily="@font/geo"
                 android:textAlignment="center"
                 android:textColor="@color/col_negro"
