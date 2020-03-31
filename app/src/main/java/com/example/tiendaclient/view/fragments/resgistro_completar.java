@@ -121,7 +121,7 @@ LinearLayout contenedor_mercado;
 
 
         TENPuest=vista.findViewById(R.id.registro_NumPuesto);
-        TENPuest.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "5" )}) ;
+        TENPuest.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "99999" )}) ;
 
         TIDir.setVisibility(View.VISIBLE);
         spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,list_tiendas);

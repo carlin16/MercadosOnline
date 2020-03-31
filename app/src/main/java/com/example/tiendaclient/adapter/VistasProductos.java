@@ -77,8 +77,8 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         Glide
                 .with(holder.imagen.getContext())
                 .load(Global.Url+"productos/"+lst_normal.get(position).getId()+"/foto")
-                .placeholder(R.drawable.placeholder_mercado)
-                .error(R.drawable.portada_mercado)
+                .placeholder(R.drawable.ic_place_productos)
+                .error(R.drawable.ic_place_productos)
                 .into(holder.imagen);
 
 

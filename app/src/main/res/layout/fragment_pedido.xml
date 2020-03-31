@@ -27,6 +27,44 @@
             android:textColor="#1D1C1A"
             android:textSize="28sp"
             android:textStyle="bold"></TextView>
+        <RelativeLayout
+            android:id="@+id/RelativeVacio"
+            android:background="@color/col_grishueso"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                >
+
+                <ImageView
+                    android:id="@+id/StockSeleccion"
+                    android:layout_gravity="center"
+                    android:layout_width="125dp"
+                    android:src="@drawable/ic_no_pedidos"
+                    android:layout_height="125dp">
+
+                </ImageView>
+                <TextView
+                    android:textColor="@color/col_gris"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Su carrito esta vació"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    >
+
+
+                </TextView>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_marginTop="20dp"

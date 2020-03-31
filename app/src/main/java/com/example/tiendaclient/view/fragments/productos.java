@@ -56,7 +56,8 @@ public class productos extends Fragment {
 
     TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
     ElegantNumberButton CantidadCar;
-    RoundedImageView FotoProducto,FotoPuesto;
+    RoundedImageView FotoPuesto;
+    ImageView FotoProducto;
     Button AgregarCarrito;
 
     ImageView compra;
@@ -73,7 +74,7 @@ public class productos extends Fragment {
     VistasProductos adapter;
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
     public String idPuesto;
-    String LinkImagenP=Global.Url+"usuarios/"+idPuesto+"/foto";
+    public String ImageVendedor;
     public  String categorias;
     public int ID=0;
     Dialog myDialog;
@@ -84,11 +85,13 @@ public class productos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-UI();
-llenarDatos();
+       UI();
+       Log.e("esta es el del vendedor","------>"+ImageVendedor);
         animacion_compra();
         iniciar_recycler();
         click();
+        llenarDatos();
+
     }
 
     @Override
@@ -117,8 +120,8 @@ llenarDatos();
                 Glide
                         .with(getActivity())
                         .load(Global.Url+"productos/"+product.getId()+"/foto")
-                        .placeholder(R.drawable.placeholder_mercado)
-                        .error(R.drawable.portada_mercado)
+                        .placeholder(R.drawable.ic_place_productos)
+                        .error(R.drawable.ic_place_productos)
                         .into(FotoProducto);
 
                 final double precio=product.getPrecio();
@@ -168,7 +171,7 @@ private void llenarDatos(){
     Idpuesto.setText(idPuesto);
     Glide
             .with(getActivity())
-            .load(LinkImagenP)
+            .load(ImageVendedor)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)

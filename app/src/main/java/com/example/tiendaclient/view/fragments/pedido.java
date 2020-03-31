@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.tiendaclient.R;
@@ -48,6 +49,7 @@ public class pedido extends Fragment {
     ApiService retrofitApi;
     Boolean continuar=false;
     String mensaje="";
+    RelativeLayout RelativeVacio;
 
     public pedido() {
         // Required empty public constructor
@@ -66,6 +68,7 @@ public class pedido extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
        recyclerView=vista.findViewById(R.id.Recycler_pedidos);
+        RelativeVacio=vista.findViewById(R.id.RelativeVacio);
         peticion_pedidos();
 
     }
@@ -134,7 +137,13 @@ public class pedido extends Fragment {
 
 
                             if(continuar){
-                                iniciar_recycler();
+                                if(listado.size()<1){
+                                    RelativeVacio.setVisibility(View.VISIBLE);
+                                    ///  getFragmentManager().popBackStack();
+                                }else{
+                                    RelativeVacio.setVisibility(View.GONE);
+                                    iniciar_recycler();
+                                }
                             }
                             else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();

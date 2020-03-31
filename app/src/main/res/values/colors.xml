@@ -18,7 +18,6 @@
     <color name="col_negrosolida">#000000</color>
     <color name="col_rojo">#DF3E3E</color>
     <color name="col_purpura_claro">#5754D7</color>
-
+    <color name="col_grishueso">#FAF9F9</color>
     <color name="col_placeholder">#dddddd</color>
-
 </resources>

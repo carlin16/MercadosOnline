@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="2dp"
+    tools:context=".view.fragments.mercado">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:background="@color/col_White"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <RelativeLayout
+                android:id="@+id/superior"
+                android:layout_alignParentTop="true"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:background="@color/col_White"
+                    android:backgroundTint="@color/col_White"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:background="@color/col_White"
+                        android:layout_height="40dp"
+                        >
+
+
+                        <TextView
+                            android:id="@+id/NumeroPedido"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nuevo Producto"
+                            android:textStyle="bold"
+                            android:textColor="@color/col_negrosolida"
+                            android:textSize="28sp"                            >
+                        </TextView>
+
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/atras_detalle_pedido"
+                            android:layout_width="16dp"
+                            android:layout_height="17dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="18dp"
+                            android:layout_weight="0"
+                            android:background="@color/col_White"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/ic_left_arrow"
+                            app:riv_mutate_background="true"
+
+
+                            app:riv_oval="true" />
+
+                        <View
+                            android:layout_marginTop="2dp"
+                            android:layout_alignParentBottom="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="1.5dp"
+                            android:background="@color/col_gris"
+                            >
+
+                        </View>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:background="@drawable/border_dashed"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/ic_place_productos"
+        android:layout_height="125dp">
+
+
+
+    </ImageView>
+
+
+
+
+
+</LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
