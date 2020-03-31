@@ -94,6 +94,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
+
                 android:textSize="12sp"
                 android:textStyle="bold"></Spinner>
         </LinearLayout>

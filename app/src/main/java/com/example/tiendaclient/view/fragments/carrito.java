@@ -62,12 +62,12 @@ public class carrito extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=vista.findViewById(R.id.Recycler_CompaMercados);
         StockSeleccion=vista.findViewById(R.id.StockSeleccion);
-        RelativeVacio=vista.findViewById(R.id.StockSeleccion);
+        RelativeVacio=vista.findViewById(R.id.RelativeVacio);
 
 
         if(Global.VerCompras.size()<1){
             RelativeVacio.setVisibility(View.VISIBLE);
-            Toast.makeText(getActivity(),"Ningun roducto Agregado a su Carrito",Toast.LENGTH_LONG ).show();
+          //  Toast.makeText(getActivity(),"Ningun producto Agregado a su Carrito",Toast.LENGTH_LONG ).show();
 
           ///  getFragmentManager().popBackStack();
         }else{

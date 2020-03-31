@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.os.Looper;
 import android.util.Log;
@@ -41,6 +42,7 @@ import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.service.RetrofitclienteMaps;
 import com.example.tiendaclient.utils.ConnectivityStatus;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.view.Principal;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -323,15 +325,22 @@ List<Detalle> pro= new ArrayList<>();
         disposable = retrofitApi.traerGeo(true, lat, "AIzaSyBrqlSYGXnmHVsp8yw90cnmi7GvGgjxB50")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<DatosDireccion>() {
+                .subscribeWith(new DisposableObserver<Response<DatosDireccion>>() {
                     @Override
-                    public void onNext(DatosDireccion respuesta) {
-                        Log.e("Carlos Caguana", "" + respuesta.getResults().get(0).getAddressComponents().get(1).getLongName());
-                        Log.e("Carlos Caguana: ", respuesta.getResults().get(0).getAddressComponents().get(2).getShortName());
-                        Log.e("Carlos Caguana: ", respuesta.getResults().get(0).getFormattedAddress());
+                    public void onNext(Response<DatosDireccion> respuesta) {
+
+                        if(respuesta.isSuccessful()){
+                            try {
+                                if(respuesta.body().getResults().size()>0)
+                                direccion = respuesta.body().getResults().get(0).getFormattedAddress();
+                            }catch (Exception e){
+
+                                direccion();
+                            }
+
+                        } else direccion();
 
 
-                        direccion = respuesta.getResults().get(0).getFormattedAddress();
 
                        /* //todo cambio
                         for (AddressComponent address : respuesta.getResults().get(0).getAddressComponents()) {
@@ -384,6 +393,8 @@ List<Detalle> pro= new ArrayList<>();
 
         try {
             addresses = geocoder.getFromLocation(nuevo.latitude, nuevo.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+           if(addresses.size()>0){
+
             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
             String city = addresses.get(0).getLocality();
             String state = addresses.get(0).getAdminArea();
@@ -404,7 +415,13 @@ List<Detalle> pro= new ArrayList<>();
             Log.e("lugar","-"+knownName3);
             Log.e("lugar","-"+knownName4);
             Log.e("lugar","-"+knownName5);
+            direccion=address;
+            UbicacionDireccion.setText(direccion);
+           }else{
 
+               direccion="Direccion No Especificada ";
+               UbicacionDireccion.setText(direccion);
+           }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -462,8 +479,14 @@ List<Detalle> pro= new ArrayList<>();
                         Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         if(correcto){
                             Global.VerCompras.remove(PosicionListaArray);
-                            getFragmentManager().popBackStack(id_del_fragment,0);
+                            //getFragmentManager().popBackStack(id_del_fragment,0);
+                            //redireccion a pedidos
+                           // clearFragmentBackStack();
+                            getFragmentManager().beginTransaction()
+                                    .replace(R.id.Contenedor_Fragments, new pedido()).commit();
+                            ((Principal) getActivity()).clearFragmentBackStack();
 
+                            ((Principal) getActivity()).cambiar_tab(1);
 
                         }
 
@@ -482,5 +505,11 @@ List<Detalle> pro= new ArrayList<>();
 
 
     }
-
+/*    public void clearFragmentBackStack() {
+        FragmentManager fm = getFragmentManager();
+        Log.e("cuantos fragments",""+fm.getBackStackEntryCount());
+        for (int i = 0; i < fm.getBackStackEntryCount() - 1; i++) {
+            fm.popBackStack();
+        }
+    }*/
 }

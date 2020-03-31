@@ -6,6 +6,7 @@ import com.example.tiendaclient.models.ApiMaps.DatosDireccion;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -21,7 +22,7 @@ public interface ApiService2 {
 
 
     @POST("geocode/json?")
-    Observable<DatosDireccion> traerGeo(@Query("sensor") boolean sensor, @Query("latlng") String latlong, @Query("key") String Key);
+    Observable<Response<DatosDireccion>> traerGeo(@Query("sensor") boolean sensor, @Query("latlng") String latlong, @Query("key") String Key);
 
 
 /*

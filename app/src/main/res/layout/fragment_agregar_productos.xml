@@ -97,6 +97,7 @@
 
 
 <RelativeLayout
+    android:id="@+id/NPRelativeImagen"
     android:layout_marginStart="20dp"
     android:layout_marginEnd="20dp"
     android:layout_marginTop="20dp"
@@ -106,6 +107,7 @@
     android:layout_height="135dp">
 
     <ImageView
+        android:id="@+id/NPImage"
         android:visibility="gone"
         android:src="@drawable/perfil_mercado"
         android:layout_width="match_parent"
@@ -150,188 +152,206 @@
 
 
 </RelativeLayout>
-<LinearLayout
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginTop="5dp"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:theme="@style/TextInputLayoutHint"
-        android:visibility="visible"
-        >
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/geo"
-            android:gravity="left"
-            android:hint="Nombre"
-            android:maxLines="1"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:singleLine="true"
-            android:textColor="@color/col_negro"
-            android:textColorHint="@color/col_naranja" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <com.google.android.material.textfield.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible"
-            >
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
 
 
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Precio"
-                android:maxLines="1"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/col_White"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingTop="5dp"
+                        android:text="$"
+                        android:textColor="@color/col_negro"
+                        android:textSize="22sp"></TextView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/TINPPrecio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:theme="@style/TextInputLayoutHint"
+                        android:visibility="visible">
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+                        <EditText
+                            android:id="@+id/ETNPPrecio"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/geo"
+                            android:gravity="left"
+                            android:hint="Precio"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColor="@color/col_negro"
+                            android:textColorHint="@color/col_naranja"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:theme="@style/TextInputLayoutHint"
-            >
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+
+                <Spinner
+
+                    android:id="@+id/NPUnidadMed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+
+                    android:entries="@array/Unidades"
+
+                    android:fontFamily="@font/geo"
+                    android:textAlignment="center"
+                    android:textColor="@color/col_naranja"
+                    android:textColorHint="@color/col_rojo"
+                    android:textSize="12sp"
+
+                    android:textStyle="bold"></Spinner>
+
+
+            </LinearLayout>
+
+
+
+
 
             <Spinner
+
+                android:id="@+id/NPCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:entries="@array/Unidades"
+                android:layout_marginTop="20dp"
+
                 android:fontFamily="@font/geo"
                 android:textAlignment="center"
                 android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
+                android:textColorHint="@color/col_negro"
                 android:textSize="12sp"
+
                 android:textStyle="bold"></Spinner>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TINPDescrip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:theme="@style/TextInputLayoutHint">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/ETNPDescrip"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Descripción"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
 
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TINPNomPro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:theme="@style/TextInputLayoutHint"
+                android:visibility="visible">
 
 
-    <Spinner
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fontFamily="@font/geo"
-        android:textAlignment="center"
-        android:textColor="@color/col_negro"
-        android:textColorHint="@color/col_naranja"
-        android:textSize="12sp"
-        android:textStyle="bold"></Spinner>
+                <EditText
+                    android:id="@+id/ETNPNomPro"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/geo"
+                    android:gravity="left"
+                    android:hint="Nombre"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:theme="@style/TextInputLayoutHint"
-        >
 
-        <EditText
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/NPBTNRegistProd"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/geo"
-            android:gravity="left"
-            android:hint="Descripción"
-            android:maxLines="1"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:singleLine="true"
-            android:textColor="@color/col_negro"
-            android:textColorHint="@color/col_naranja" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <RelativeLayout
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/border_boton"
-        >
-        <Button
-
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:visibility="invisible"
-            android:text="Continuar"
-            android:textColor="@color/col_White"
-            android:textSize="8dp"
-            android:textStyle="bold"
-
-            >
-
-
-
-        </Button>
-
-        <TextView
-
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Continuar"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
 
-            android:textSize="15sp"
-            android:textColor="@color/col_White"
-            android:textStyle="bold"
-            android:textAlignment="textEnd"
-            android:background="@color/col_naranja"
-            >
-        </TextView>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/border_boton"
+            android:orientation="horizontal">
+
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Continuar"
+                android:textColor="@color/col_White"
+                android:textSize="8dp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+
+                >
 
 
-    </RelativeLayout>
-</LinearLayout>
+            </Button>
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:background="@color/col_naranja"
+
+                android:text="Continuar"
+                android:textAlignment="textEnd"
+                android:textColor="@color/col_White"
+                android:textSize="15sp"
+                android:textStyle="bold"></TextView>
+
+
+        </RelativeLayout>
 
 
     </LinearLayout>

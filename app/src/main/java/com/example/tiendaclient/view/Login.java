@@ -303,6 +303,7 @@ public class Login extends AppCompatActivity {
                             if(myDialog != null || myDialog.isShowing())
                                 myDialog.dismiss();
                             Snackbar.make(findViewById(android.R.id.content), "Ingrese credenciales correctas", Snackbar.LENGTH_LONG).show();
+                            BtnLoginIngresar.setEnabled(true);
                         }
 
                     }

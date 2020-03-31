@@ -99,6 +99,7 @@ public class pedido extends Fragment {
                             Log.e("Pedido",""+response.code());
                             Log.e("Resp Pedido", Global.convertObjToString(response.body()));
                             listado.addAll(response.body());
+                            mensaje=""+response.code();
                             continuar=true;
                         }else{
                             try {
@@ -120,7 +121,7 @@ public class pedido extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("CodPetiEroor","error");
+                        Log.e("CodPetiPEdidos","error"+ e.toString());
 
                     }
 
@@ -160,6 +161,9 @@ public class pedido extends Fragment {
                     }
                 });
     }
+
+
+
 
 
 }

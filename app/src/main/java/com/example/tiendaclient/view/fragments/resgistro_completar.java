@@ -184,6 +184,7 @@ LinearLayout contenedor_mercado;
             public void onFocusChange(View view, boolean hasFocus) {
                 //spn_rolUser
                 if (hasFocus) {
+
                     TIDir.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
                 } else {
                     TIDir.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));

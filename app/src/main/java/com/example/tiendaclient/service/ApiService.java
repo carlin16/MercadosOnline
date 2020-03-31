@@ -1,6 +1,7 @@
 package com.example.tiendaclient.service;
 
 
+import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
 import com.example.tiendaclient.models.recibido.ResponseRegistrarPedido;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
@@ -99,7 +100,7 @@ public interface ApiService {
 
 
 
-    @Headers("Content-Type: application/json")
+    @Headers("Content-Type: application/json")//FULL
     @GET("pedidos/{user_id}")
     Observable<Response<ResponseDetallesPedidos>>VerDetallePedidos(@Path(value = "user_id", encoded = true) String userId, @Query("type") String type);
 
@@ -108,6 +109,18 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("pedidos")
     Observable<Response<ResponseRegistrarPedido>>RegistrarPedidos(@Body JsonObject object);
+
+    @Headers("Content-Type: application/json")
+    //cambiar y pasar por parametros, en list poner la clase q cojo de pojo
+    @GET("productos/categorias")
+    Observable<Response<List<ResponseCategorias>>>VerCategorias();
+
+
+    @Headers({"Content-Type: application/json", "multipart/form-data"})
+    @Multipart
+    @POST("productos")
+    Observable<Response<ResponseUpdateImagen>>RegistrarProducto(@Path(value = "user_id", encoded = true) String userId,
+                                                          @Part MultipartBody.Part imageFile);
 
 
 //pedidos?type=CLIENTE&id=16

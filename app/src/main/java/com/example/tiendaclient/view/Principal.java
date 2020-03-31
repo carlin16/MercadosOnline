@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.utils.Vista_tabs;
+import com.example.tiendaclient.view.fragments.agregar_productos;
 import com.example.tiendaclient.view.fragments.mercado;
 import com.example.tiendaclient.view.fragments.pedido;
 import com.example.tiendaclient.view.fragments.perfil_usuario;
@@ -18,7 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class Principal extends AppCompatActivity {
 
-    TabLayout tabLayout;
+   public static TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,8 @@ public class Principal extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+        .replace(R.id.Contenedor_Fragments, new agregar_productos()).commit();
         iniciar_tabs();
     }
 
@@ -39,6 +41,12 @@ public class Principal extends AppCompatActivity {
        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
        seleccion_tabs();
     }
+
+    public   void cambiar_tab(int position){
+        tabLayout.getTabAt(position).select();
+
+    }
+
 
     private void seleccion_tabs(){
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
