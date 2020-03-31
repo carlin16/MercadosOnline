@@ -213,8 +213,7 @@
                 app:ms_enableFloatingLabel="false"
                 app:ms_errorColor="@color/col_rojo"
                 app:ms_floatingLabelText="floating label"
-                app:ms_hint="Escoje una"
-                app:ms_hintColor="@color/col_grissuave"
+
                 app:ms_multiline="false"
                 app:ms_thickness="2dp" />
 
@@ -274,9 +273,7 @@
                 app:ms_floatingLabelColor="@color/col_White"
 
                 app:ms_floatingLabelText="floating label"
-                app:ms_highlightColor="@color/col_grissuave"
-                app:ms_hint="Escoje una"
-                app:ms_hintColor="@color/col_grissuave"
+                app:ms_highlightColor="@color/col_White"
                 app:ms_multiline="false"
                 app:ms_thickness="2dp" />
 

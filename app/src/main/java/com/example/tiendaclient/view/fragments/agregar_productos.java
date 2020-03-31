@@ -159,14 +159,16 @@ public class agregar_productos extends Fragment {
 /**/
          Unidades = Arrays.asList( UnidadesM );
 
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, listNomCategorias);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, listNomCategorias);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+
         NPCategoria.setAdapter(adapter);
 
 
         adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_selectable_list_item, Unidades);
       //  adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         NPUnidadMed.setAdapter(adapter2);
+        NPCategoria.setSelection(0);
     }
 
 
