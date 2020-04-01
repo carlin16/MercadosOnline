@@ -13,55 +13,46 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionNuevoProducto;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseError;
-import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
-import com.example.tiendaclient.utils.NumberTextWatcher;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import com.skydoves.powerspinner.PowerSpinnerView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONObject;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import fr.ganfra.materialspinner.MaterialSpinner;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import me.abhinay.input.CurrencyEditText;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -69,7 +60,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.tiendaclient.utils.Global.RegisU;
 import static com.example.tiendaclient.utils.Global.verificar_vacio;
 
 /**
@@ -88,26 +78,22 @@ public class agregar_productos extends Fragment {
     ImageView NPImage;
     LinearLayout NP_Esconder;
 
-    EditText ETNPNomPro , ETNPPrecio, ETNPDescrip;
+    EditText ETNPNomPro , ETNPDescrip;
+    CurrencyEditText  ETNPPrecio;
     TextInputLayout TINPNomPro , TINPPrecio, TINPDescrip;
     RelativeLayout NPBTNRegistProd;
-    MaterialSpinner NPCategoria, NPUnidadMed;
 
     Retrofit retrofit;
     ApiService retrofitApi;
 
+    PowerSpinnerView SpUnidad,SPCategoria ;
 
     String mensaje="";
     PeticionNuevoProducto NuevoProducto= new PeticionNuevoProducto();
    List<String> listNomCategorias = new ArrayList<>();
     List<String> Unidades;
     List<ResponseCategorias> categoria =new ArrayList<>();
-    ArrayAdapter<String> spinnerArrayAdapter;
 
-    ArrayAdapter<String> adapter;
-    ArrayAdapter<String> spinnerArrayAdapter2;
-
-    ArrayAdapter<String> adapter2;
 
     public agregar_productos() {
         // Required empty public constructor
@@ -128,15 +114,24 @@ public class agregar_productos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         peticion_categorias();
         UI();
-        validar2Decimales();
 
         Click();
     }
 
     private void UI(){
+
+
+
+        SpUnidad=vista.findViewById(R.id.SpUnidad);
+
         UnidadesM= getResources().getStringArray(R.array.Unidades);
         ETNPNomPro=vista.findViewById(R.id.ETNPNomPro);
         ETNPPrecio=vista.findViewById(R.id.ETNPPrecio);
+
+
+        //Make sure that Decimals is set as false if a custom Separator is used
+        ETNPPrecio.setCurrency("$");
+
 
         ETNPDescrip=vista.findViewById(R.id.ETNPDescrip);
 
@@ -149,26 +144,19 @@ public class agregar_productos extends Fragment {
 
         NPBTNRegistProd=vista.findViewById(R.id.NPBTNRegistProd);
 
-        NPUnidadMed=vista.findViewById(R.id.NPUnidadMed);
-        NPCategoria=vista.findViewById(R.id.NPCategoria);
+        SPCategoria =vista.findViewById(R.id.NPCategoria);
 
         NPImage =vista.findViewById(R.id.NPImage);
         NPRelativeImagen=vista.findViewById(R.id.NPRelativeImagen);
         NP_Esconder=vista.findViewById(R.id.NP_Esconder);
         //Cargar categorias desde consumo de API-REST
 /**/
-         Unidades = Arrays.asList( UnidadesM );
-
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, listNomCategorias);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
-        NPCategoria.setAdapter(adapter);
+        Unidades = Arrays.asList( UnidadesM );
+        SpUnidad.setItems(Unidades);
 
 
-        adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_selectable_list_item, Unidades);
-      //  adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        NPUnidadMed.setAdapter(adapter2);
-        NPCategoria.setSelection(0);
+
+
     }
 
 
@@ -273,26 +261,6 @@ public class agregar_productos extends Fragment {
         });
 
 
- /*       NPUnidadMed.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<String>() {
-            @Override public void onItemSelected(int position, String item) {
-                posUnidadMedida =position;
-                //toast(item + " selected!");
-            }
-        });*/
-
-  /*      NPUnidadMed.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                posUnidadMedida =position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-                // sometimes you need nothing here
-            }
-        });*/
-
 
 
     }
@@ -335,45 +303,28 @@ public class agregar_productos extends Fragment {
 
     }
 
-    public  void llenarDatos(){
 
+
+
+
+
+    public  void llenarDatos(){
         NuevoProducto.setNombre(ETNPNomPro.getText().toString());
         NuevoProducto.setDescripcion(ETNPDescrip.getText().toString());
-        NuevoProducto.setPrecio(Double.parseDouble(ETNPPrecio.getText().toString()));
+        NuevoProducto.setPrecio(ETNPPrecio.getCleanDoubleValue());
         NuevoProducto.setIdCategoria(1);
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
-        NuevoProducto.setIdCategoria(categoria.get(NPCategoria.getSelectedItemPosition()).getId());
+        NuevoProducto.setIdCategoria(categoria.get(SpUnidad.getSelectedIndex()).getId());
         NuevoProducto.setIdPuesto(1);
-
         Log.e("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
-
          Gson gson = new Gson();
          String JPetProducto= gson.toJson(NuevoProducto);
           Log.e("json",JPetProducto);
         //  animacion_registro();
       //  subir_ProductoConImagen(JPetProducto);
     }
-    private void validar2Decimales(){
 
-        ETNPPrecio.addTextChangedListener(new NumberTextWatcher(ETNPPrecio, "#,###"));
-        ETNPPrecio.setFilters(new InputFilter[]{new InputFilter() {
-            DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
-
-            @Override
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                int indexPoint = dest.toString().indexOf(',');
-
-                if (indexPoint == -1)
-                    return source;
-
-                int decimals = dend - (indexPoint+1);
-                return decimals < 2 ? source : "";
-            }
-        }
-        });
-
-    }
 
     private void peticion_categorias(){
         Log.e("peticionCategorias","estoy en categorias");
@@ -434,11 +385,11 @@ public class agregar_productos extends Fragment {
                             if(continuar){
                                 for (ResponseCategorias x:categoria){
                                     listNomCategorias.add(x.getNombre());
-                                    adapter.notifyDataSetChanged();
+                                  //  adapter.notifyDataSetChanged();
 
 
                                 }
-
+                                SPCategoria.setItems(listNomCategorias);
 
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();

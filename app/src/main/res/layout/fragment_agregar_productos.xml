@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -144,6 +144,9 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,37 +155,16 @@
             >
 
 
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="center"
-                android:text="Precio. "
-                android:paddingLeft="10dp"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-
-
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_negro"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/TINPPrecio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
                 android:layout_weight="1"
-
                 android:theme="@style/TextInputLayoutHint"
                 android:visibility="visible">
 
-
-                <EditText
+                <me.abhinay.input.CurrencyEditText
                     android:gravity="center"
                     android:id="@+id/ETNPPrecio"
                     android:layout_width="match_parent"
@@ -198,30 +180,35 @@
                     android:textStyle="bold" />
 
 
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:layout_weight="1"
-                android:id="@+id/NPUnidadMed"
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/SpUnidad"
+                android:layout_marginStart="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:ms_alignLabels="false"
-                android:background="@color/col_gris"
-                app:ms_arrowColor="@color/col_negrosolida"
-                app:ms_arrowSize="16dp"
-                app:ms_enableErrorLabel="false"
-                app:ms_enableFloatingLabel="false"
-                app:ms_errorColor="@color/col_rojo"
-                app:ms_floatingLabelText="floating label"
+                android:background="@color/col_White"
+                android:gravity="center"
+                android:hint="Medido en"
+                android:padding="10dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:textColor="@color/col_negrosolida"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="14.5sp"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_divider_color="@color/col_negro"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Unidades"
+                app:spinner_popup_animation="fade"
+                app:spinner_popup_elevation="14dp" />
 
-                app:ms_multiline="false"
-                app:ms_thickness="2dp" />
 
         </LinearLayout>
-
-
-
-
 
 
         <LinearLayout
@@ -233,52 +220,54 @@
 
 
             <TextView
-                android:layout_weight="2"
+                android:id="@+id/txtRol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/geo"
+                android:layout_weight="2"
                 android:layout_gravity="center"
-                android:text="Categoria:"
-                android:paddingLeft="10dp"
+                android:textAlignment="center"
+                android:fontFamily="@font/geo"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
-
-
                 android:maxLines="1"
+                android:paddingLeft="10dp"
+
                 android:singleLine="true"
+                android:text="Categoria"
                 android:textColor="@color/col_naranja"
                 android:textColorHint="@color/col_negro"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-
-
-            <fr.ganfra.materialspinner.MaterialSpinner
-
+            <com.skydoves.powerspinner.PowerSpinnerView
                 android:id="@+id/NPCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:background="@color/col_White"
+                android:gravity="center"
+                android:hint="Elija la Categoria"
+                android:padding="10dp"
                 android:layout_weight="1"
 
-
-                app:ms_alignLabels="false"
-                app:ms_arrowColor="@color/col_negrosolida"
-                app:ms_arrowSize="16dp"
-                app:ms_baseColor="@color/col_White"
-                app:ms_enableErrorLabel="false"
-                app:ms_enableFloatingLabel="false"
-                app:ms_errorColor="@color/col_rojo"
-                app:ms_floatingLabelColor="@color/col_White"
-
-                app:ms_floatingLabelText="floating label"
-                app:ms_highlightColor="@color/col_White"
-                app:ms_multiline="false"
-                app:ms_thickness="2dp" />
-
+                android:layout_gravity="center"
+                android:textColor="@color/col_negrosolida"
+                android:textColorHint="@color/col_gris"
+                android:textSize="14.5sp"
+                app:spinner_arrow_gravity="start"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_divider_color="@color/col_negro"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_item_array="@array/Unidades"
+                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_elevation="14dp" />
 
         </LinearLayout>
+
+
+
+
 
 
 
@@ -322,7 +311,7 @@
                 android:layout_weight="1"
                 android:background="@color/col_naranja"
 
-                android:text="Continuar"
+                android:text="Registrar"
                 android:textAlignment="textEnd"
                 android:textColor="@color/col_White"
                 android:textSize="15sp"
@@ -335,4 +324,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
