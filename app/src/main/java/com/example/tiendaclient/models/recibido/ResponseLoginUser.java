@@ -29,6 +29,19 @@ public class ResponseLoginUser {
     @SerializedName("token")
     @Expose
     private String token;
+    @SerializedName("id_puesto")
+    @Expose
+    private int id_puesto=1;
+
+    public int getId_puesto() {
+        return id_puesto;
+    }
+
+    public void setId_puesto(int id_puesto) {
+        this.id_puesto = id_puesto;
+    }
+
+
 
     public int getid() { return id;}
 

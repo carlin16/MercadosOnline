@@ -49,7 +49,8 @@ import retrofit2.Retrofit;
  */
 public class puestos extends Fragment {
 
-
+    public int IdPuestoVendedor;
+    public int banderaRol=1;
     public List<ResponseVerAllPuesto> ls_listado= new ArrayList<>();
     public ResponseVerMercado Mercado= new ResponseVerMercado();
 

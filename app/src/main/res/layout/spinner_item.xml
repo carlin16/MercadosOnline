@@ -8,5 +8,6 @@
     android:textSize="20sp"
     android:gravity="left"
     android:textColor="@color/col_negrosolida"
+    android:textColorHint="@color/col_negrosolida"
     android:padding="5dip"
     />

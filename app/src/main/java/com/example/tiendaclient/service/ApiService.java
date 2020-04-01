@@ -121,8 +121,14 @@ public interface ApiService {
     @POST("productos")
     Observable<Response<ResponseUpdateImagen>>RegistrarProducto(@Part MultipartBody.Part imageFile, @Body JsonObject ObjectJson);
 
+    @Headers("Content-Type: application/json")
+    //cambiar y pasar por parametros, en list poner la clase q cojo de pojo
+    @GET("puestos/{idPuesto}")
+    Observable<Response<ResponseVerAllPuesto>>VerProductosPorPuesto(@Path(value = "idPuesto", encoded = true) String idPuest,
+                                                                       @Query("childs") String Hijos);
 
-//pedidos?type=CLIENTE&id=16
+
+///puestos/3?childs=si
 
 
 

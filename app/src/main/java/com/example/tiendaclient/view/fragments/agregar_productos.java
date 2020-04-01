@@ -190,7 +190,6 @@ public class agregar_productos extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e("Foto", "Entre a ver foto");
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 NPimagen_product=result.getUri();

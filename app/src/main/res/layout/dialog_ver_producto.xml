@@ -15,7 +15,7 @@
 
 
     <ImageView
-        android:id="@+id/TVPuestoFotoV"
+        android:id="@+id/TVFotoProduct"
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:layout_marginStart="10dp"
@@ -32,86 +32,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_marginTop="5dp"
-        android:orientation="vertical">
-
-
-
-
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        >
         <TextView
-            android:id="@+id/TVProducNombre"
+            android:id="@+id/TVProducNombreV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
+            android:textAlignment="textStart"
             android:text="Jabon Perla "
             android:maxLines="2"
             android:textColor="@color/col_negrosolida"
             android:textSize="18sp"
             />
+        <TextView
 
-
-
-
-        <LinearLayout
-
-
+            android:id="@+id/TVCategoriaV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <TextView
-                android:id="@+id/TVProducUnidades"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:text="Unidades"
-                android:textAlignment="center"
-                android:textColor="@color/col_grissuave"
-                android:textSize="15sp"
-                />
-
-
-
-
-
-
-
-
-            <TextView
-                android:id="@+id/TVProducValor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:text="$5.00"
-                android:textColor="@color/col_negrosolida"
-                android:textSize="17sp" />
-
-        </LinearLayout>
-
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:text="Frutas "
+            android:maxLines="2"
+            android:textColor="@color/col_grissuave"
+            android:textSize="15sp"
+            />
 
 
     </LinearLayout>
 
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:paddingStart="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Descripción"
-        android:textColor="@color/col_grissuave"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/TVCompDescripcion"
+        android:id="@+id/TVCompDescripcionV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -122,6 +80,7 @@
         android:maxLines="3"
         android:textSize="16sp" />
     <LinearLayout
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_marginStart="20dp"
@@ -147,7 +106,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="right"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             >
 
 
@@ -164,6 +123,7 @@
                 />
 
             <TextView
+                android:id="@+id/TVUnidadMedidaP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Unidades"
@@ -187,7 +147,7 @@
                     android:textStyle="bold"
                     />
                 <TextView
-                    android:id="@+id/TVCompSubtotal"
+                    android:id="@+id/TVCompSubtotalV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="$ 14.20"
@@ -209,6 +169,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/TVBtnEditar"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -224,6 +185,7 @@
             </Button>
 
             <Button
+                android:id="@+id/TVBtnElimiar"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_weight="1"

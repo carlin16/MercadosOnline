@@ -7,4 +7,5 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
 android:ellipsize="marquee"
     android:background="@color/col_White"
+    android:textColorHint="@color/col_negrosolida"
     android:textColor="@color/col_negro" />

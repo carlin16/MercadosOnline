@@ -10,14 +10,18 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.utils.Vista_tabs;
 import com.example.tiendaclient.view.fragments.agregar_productos;
 import com.example.tiendaclient.view.fragments.mercado;
 import com.example.tiendaclient.view.fragments.pedido;
 import com.example.tiendaclient.view.fragments.perfil_usuario;
+import com.example.tiendaclient.view.fragments.productos;
+import com.example.tiendaclient.view.fragments.puestos;
 import com.google.android.material.tabs.TabLayout;
 
 public class Principal extends AppCompatActivity {
+
 
    public static TabLayout tabLayout;
 
@@ -26,11 +30,29 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+        if(Global.LoginU.getRol().equals("CLIENTE")){
+            getSupportFragmentManager().beginTransaction()
+                    //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                    .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+            Global.Modo=1;
+            Log.e("Modo", "CLIENTE");
 
+        }else if(Global.LoginU.getRol().equals("VENDEDOR")){
+            productos productin= new productos();
+            //productin.idPuesto=Global.LoginU.getId_puesto();
+           // puestito.banderaRol=2;
+            getSupportFragmentManager().beginTransaction()
+                    //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                    .replace(R.id.Contenedor_Fragments, productin).commit();
+            Global.Modo=2;
+            Log.e("Modo", "VENDEDOR");
+        }
 
-        getSupportFragmentManager().beginTransaction()
+       /* getSupportFragmentManager().beginTransaction()
                 //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-        .replace(R.id.Contenedor_Fragments, new agregar_productos()).commit();
+        .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+*/
+
         iniciar_tabs();
     }
 
@@ -85,9 +107,21 @@ public class Principal extends AppCompatActivity {
             case 0:
                 Log.e("posicion",""+position);
 
+                if(Global.LoginU.getRol().equals("CLIENTE")){
+                    getSupportFragmentManager().beginTransaction()
+                            //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                            .replace(R.id.Contenedor_Fragments, new mercado()).commit();
 
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                }else if(Global.LoginU.getRol().equals("VENDEDOR")){
+                    productos productin= new productos();
+                    //productin.idPuesto=Global.LoginU.getId_puesto();
+                    // puestito.banderaRol=2;
+                    getSupportFragmentManager().beginTransaction()
+                            //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                            .replace(R.id.Contenedor_Fragments, productin).commit();
+                }
+
+
                 break;
 
             case 1:

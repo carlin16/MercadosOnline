@@ -1,3 +1,4 @@
+
 package com.example.tiendaclient.models.recibido;
 
 import com.google.gson.annotations.Expose;
@@ -10,7 +11,7 @@ public class Producto {
     private Integer id;
     @SerializedName("id_puesto")
     @Expose
-    private Integer idPuesto;
+    private String idPuesto;
     @SerializedName("nombre")
     @Expose
     private String nombre;
@@ -19,22 +20,25 @@ public class Producto {
     private String descripcion;
     @SerializedName("id_categoria")
     @Expose
-    private Integer idCategoria;
+    private String idCategoria;
     @SerializedName("precio")
     @Expose
-    private Double precio;
+    private String precio;
     @SerializedName("url_imagen")
     @Expose
     private Object urlImagen;
     @SerializedName("estado")
     @Expose
-    private Integer estado;
+    private String estado;
     @SerializedName("fecha_registro")
     @Expose
     private String fechaRegistro;
     @SerializedName("fecha_actualiza")
     @Expose
     private Object fechaActualiza;
+    @SerializedName("nombre_categoria")
+    @Expose
+    private String nombreCategoria;
 
     public Integer getId() {
         return id;
@@ -44,11 +48,11 @@ public class Producto {
         this.id = id;
     }
 
-    public Integer getIdPuesto() {
+    public String getIdPuesto() {
         return idPuesto;
     }
 
-    public void setIdPuesto(Integer idPuesto) {
+    public void setIdPuesto(String idPuesto) {
         this.idPuesto = idPuesto;
     }
 
@@ -68,19 +72,19 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public Integer getIdCategoria() {
+    public String getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(Integer idCategoria) {
+    public void setIdCategoria(String idCategoria) {
         this.idCategoria = idCategoria;
     }
 
-    public Double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 
@@ -92,11 +96,11 @@ public class Producto {
         this.urlImagen = urlImagen;
     }
 
-    public Integer getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(Integer estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -115,4 +119,13 @@ public class Producto {
     public void setFechaActualiza(Object fechaActualiza) {
         this.fechaActualiza = fechaActualiza;
     }
+
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
+
 }

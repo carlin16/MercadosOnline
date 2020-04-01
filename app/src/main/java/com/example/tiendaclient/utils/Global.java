@@ -24,6 +24,8 @@ public class Global {
     public static ResponseUserPorID UserGlobal=new ResponseUserPorID();
     public static String Url="http://mercados-online.com/public/api/";
 
+    public static int Modo;
+
 
     public static List<Compra> VerCompras= new ArrayList<>();
 
