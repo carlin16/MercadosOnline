@@ -1,6 +1,7 @@
 package com.example.tiendaclient.view.fragments;
 
 import android.app.Dialog;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -79,7 +80,7 @@ public class productos extends Fragment {
 
     //Elementos de Dialog Ver producto en modo VENDEDOR
     TextView TVProducNombreV, TVCategoriaV, TVCompDescripcionV, TVUnidadMedidaP, TVCompSubtotalV;
-    ImageView TVFotoProduct;
+    ImageView TVFotoProduct, Carrito;
     Button TVBtnEditar,TVBtnElimiar;
 
     Button AgregarCarrito;
@@ -89,6 +90,8 @@ public class productos extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
+
+
 
 
     String mensaje="";
@@ -162,6 +165,7 @@ public class productos extends Fragment {
     }
 
     private void seleccionar_producto(Producto product){
+
         Log.e("selccionar","estoy aqui");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
@@ -240,8 +244,6 @@ public class productos extends Fragment {
             public void onClick(View v) {
 
 
-
-
                 Toast.makeText(getActivity(), "Se agrego al Carrito", Toast.LENGTH_SHORT).show();
                 llenarCarrito(product);
                 myDialog.dismiss();
@@ -283,6 +285,10 @@ private void llenarDatos(){
         DescripcionPuesto.setText(categorias);
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
+        if(Global.Modo==2) {
+            Resources resources = getResources();
+            compra.setImageDrawable(resources.getDrawable(R.drawable.ic_add));
+        }
 
     }
 
@@ -308,7 +314,6 @@ private void llenarDatos(){
         myDialog.setContentView(R.layout.dialog_ver_producto);
         myDialog.setCancelable(true);
         //TextView TVProducNombreV, TVCategoriaV, TVCompDescripcionV, TVUnidadMedidaP, TVCompSubtotalV;
-
         TVProducNombreV=myDialog.findViewById(R.id.TVProducNombreV);
         TVCategoriaV=myDialog.findViewById(R.id.TVCategoriaV);
         TVCompDescripcionV=myDialog.findViewById(R.id.TVCompDescripcionV);
@@ -402,12 +407,26 @@ private void llenarCarrito(Producto product){
             public void onClick(View v) {
                 //Toast.makeText(getActivity(),"La busqueda esta opcional pero esta puesto el prototipo si pide un update $ ",Toast.LENGTH_LONG).show();
 
-                carrito car = new carrito();
-                car.id_del_fragment="frag_car";
-                FragmentTransaction fragmentTransaction;
-                fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, car).addToBackStack("frag_car");
-                fragmentTransaction.commit();
+
+
+                if(Global.Modo==1){
+                    carrito car = new carrito();
+                    car.id_del_fragment="frag_car";
+                    FragmentTransaction fragmentTransaction;
+                    fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.Contenedor_Fragments, car).addToBackStack("frag_car");
+                    fragmentTransaction.commit();
+                }else if(Global.Modo==2){
+                   // add_pro.id_del_fragment="frag_car";
+
+
+                    FragmentTransaction fragmentTransaction;
+                    fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.Contenedor_Fragments, new agregar_productos()).addToBackStack(null);
+                    fragmentTransaction.commit();
+
+                }
+
 
 
             }

@@ -31,7 +31,7 @@ public class ResponseLoginUser {
     private String token;
     @SerializedName("id_puesto")
     @Expose
-    private int id_puesto=1;
+    private int id_puesto;
 
     public int getId_puesto() {
         return id_puesto;

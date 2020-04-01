@@ -110,10 +110,14 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         ImageView imagen;
         TextView nombre, precio;
         public MultiHolder(@NonNull View itemView) {
+
             super(itemView);
-            imagen=itemView.findViewById(R.id.TVPuestoFotoV);
-            nombre=itemView.findViewById(R.id.TVProducNombre);
-            precio=itemView.findViewById(R.id.TVProducValor);
+          //  if(Global.Modo==1){
+                imagen=itemView.findViewById(R.id.TVPuestoFotoV);
+                nombre=itemView.findViewById(R.id.TVProducNombre);
+                precio=itemView.findViewById(R.id.TVProducValor);
+           // }
+
 
             ///aqui instancias
 
