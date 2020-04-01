@@ -370,7 +370,7 @@ public class agregar_productos extends Fragment {
 
             subir_ProductoConImagen(JPetProducto);
         }else{
-
+///
 ///funcion editar que es un put para los datos
            // y un post para subir imagen
             //tienes que crear esos dos api rest
