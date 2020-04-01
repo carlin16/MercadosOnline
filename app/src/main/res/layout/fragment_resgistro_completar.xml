@@ -62,20 +62,20 @@
 
 
             <TextView
-                android:layout_weight="4"
                 android:id="@+id/txtRol"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
                 android:fontFamily="@font/geo"
-                android:text="Soy"
-                android:paddingLeft="10dp"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
-
-
                 android:maxLines="1"
+                android:paddingLeft="10dp"
+
+
                 android:singleLine="true"
+                android:text="Soy"
                 android:textColor="@color/col_naranja"
                 android:textColorHint="@color/col_negro"
                 android:textSize="20sp"
