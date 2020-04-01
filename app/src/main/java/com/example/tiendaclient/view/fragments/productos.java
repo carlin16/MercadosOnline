@@ -422,7 +422,7 @@ private void llenarCarrito(Producto product){
 
                     FragmentTransaction fragmentTransaction;
                     fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Contenedor_Fragments, new agregar_productos()).addToBackStack(null);
+                    fragmentTransaction.replace(R.id.Contenedor_Fragments, new agregar_productos()).addToBackStack("frag_agg");
                     fragmentTransaction.commit();
 
                 }
@@ -465,7 +465,7 @@ private void llenarCarrito(Producto product){
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
 
-        disposable = (Disposable) retrofitApi.VerProductosPorPuesto(""+1, "si")
+        disposable = (Disposable) retrofitApi.VerProductosPorPuesto(""+Global.LoginU.getId_puesto(), "si")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseVerAllPuesto>>() {

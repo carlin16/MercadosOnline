@@ -50,7 +50,7 @@ public class Principal extends AppCompatActivity {
         if(Global.LoginU.getRol().equals("CLIENTE")){
             getSupportFragmentManager().beginTransaction()
                     //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-                    .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                    .replace(R.id.Contenedor_Fragments, new mercado()).addToBackStack("frag_puestos").commit();
             Global.Modo=1;
             Log.e("Modo", "CLIENTE");
 
@@ -136,7 +136,7 @@ public class Principal extends AppCompatActivity {
                     // puestito.banderaRol=2;
                     getSupportFragmentManager().beginTransaction()
                             //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-                            .replace(R.id.Contenedor_Fragments, productin).commit();
+                            .replace(R.id.Contenedor_Fragments, productin).addToBackStack("frag_puestos").commit();
                 }
 
 

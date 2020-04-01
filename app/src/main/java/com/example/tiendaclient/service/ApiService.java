@@ -3,6 +3,7 @@ package com.example.tiendaclient.service;
 
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
+import com.example.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.example.tiendaclient.models.recibido.ResponseRegistrarPedido;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
@@ -17,6 +18,7 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -119,7 +121,7 @@ public interface ApiService {
     //@Headers({"Content-Type: application/json", "multipart/form-data"})
     @Multipart
     @POST("productos")
-    Observable<Response<ResponseUpdateImagen>>RegistrarProducto(@Part MultipartBody.Part imageFile, @Body JsonObject ObjectJson);
+    Observable<Response<ResponseRegistarProducto>>RegistrarProducto(@Part MultipartBody.Part imageFile,@Part ("payload") RequestBody ObjectJson);
 
     @Headers("Content-Type: application/json")
     //cambiar y pasar por parametros, en list poner la clase q cojo de pojo

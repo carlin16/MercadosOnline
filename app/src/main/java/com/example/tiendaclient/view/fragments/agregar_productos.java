@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -30,10 +31,12 @@ import com.example.tiendaclient.models.enviado.PeticionNuevoProducto;
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.view.Principal;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -50,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -100,6 +104,8 @@ public class agregar_productos extends Fragment {
     List<ResponseCategorias> categoria =Global.categorias;
 
     TextView NombButton;
+
+    SweetAlertDialog pDialog;
     public agregar_productos() {
         // Required empty public constructor
     }
@@ -119,6 +125,8 @@ public class agregar_productos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         UI();
         Click();
+        animacion_cargando();
+
         if(bandera==2){
             llenar_edicion();
             elegir_categoria();
@@ -141,7 +149,7 @@ public class agregar_productos extends Fragment {
 
 
         //Make sure that Decimals is set as false if a custom Separator is used
-        ETNPPrecio.setCurrency("$");
+       // ETNPPrecio.setCurrency("$");
 
 
         ETNPDescrip=vista.findViewById(R.id.ETNPDescrip);
@@ -177,7 +185,7 @@ public class agregar_productos extends Fragment {
         NPImage.setVisibility(View.VISIBLE);
         ETNPNomPro.setText(product.getNombre());
         ETNPDescrip.setText(product.getDescripcion());
-        ETNPPrecio.setText("$"+product.getPrecio());
+       // ETNPPrecio.setText("$"+product.getPrecio());
     }
 
 
@@ -353,11 +361,11 @@ public class agregar_productos extends Fragment {
     public  void llenarDatos(){
         NuevoProducto.setNombre(ETNPNomPro.getText().toString());
         NuevoProducto.setDescripcion(ETNPDescrip.getText().toString());
-        NuevoProducto.setPrecio(ETNPPrecio.getCleanDoubleValue());
+        NuevoProducto.setPrecio(1.00);
         NuevoProducto.setIdCategoria(1);
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
         NuevoProducto.setIdCategoria(categoria.get(SpUnidad.getSelectedIndex()).getId());
-        NuevoProducto.setIdPuesto(1);
+        NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
         Log.e("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
          Gson gson = new Gson();
@@ -365,7 +373,7 @@ public class agregar_productos extends Fragment {
           Log.e("json",JPetProducto);
         //  animacion_registro();
       //  subir_ProductoConImagen(JPetProducto);
-
+        pDialog.show();
         if(bandera==1){
 
             subir_ProductoConImagen(JPetProducto);
@@ -441,19 +449,22 @@ public class agregar_productos extends Fragment {
     public void subir_ProductoConImagen(String jsonConf){
 
         File file = new File(NPimagen_product.getPath());
-        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+        RequestBody payload = RequestBody.create(MediaType.parse("text/plain"),jsonConf);
+
         //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+
+
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.RegistrarProducto(imagen, convertedObject)
+        disposable = (Disposable) retrofitApi.RegistrarProducto(imagen, payload)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
+                .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
                     @Override
-                    public void onNext(Response<ResponseUpdateImagen> response) {
+                    public void onNext(Response<ResponseRegistarProducto> response) {
 
                         if (response.isSuccessful()) {
                            // cambio_pantalla =true;
@@ -483,10 +494,23 @@ public class agregar_productos extends Fragment {
 
                     @Override
                     public void onComplete() {
+                        pDialog.dismiss();
+
                         Log.e("Completado foto","registrado");
+                        ((Principal) getActivity()).cambiar_tab(0);
 
                     }
                 });
+
+
+    }
+
+    private void animacion_cargando(){
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
+        pDialog.setTitleText("Registrando");
+        pDialog.setCancelable(false);
+
 
 
     }
