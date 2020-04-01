@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -72,6 +73,7 @@ public class agregar_productos extends Fragment {
     Retrofit retrofit;
     ApiService retrofitApi;
    public  Producto product;
+   public int bandera=1;
 
     Boolean continuar=false;
     int posUnidadMedida;
@@ -97,7 +99,7 @@ public class agregar_productos extends Fragment {
     List<String> Unidades;
     List<ResponseCategorias> categoria =Global.categorias;
 
-
+    TextView NombButton;
     public agregar_productos() {
         // Required empty public constructor
     }
@@ -117,7 +119,11 @@ public class agregar_productos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         UI();
         Click();
-
+        if(bandera==2){
+            llenar_edicion();
+            elegir_categoria();
+            NombButton.setText("Terminar Edición");
+        }
 
 
 
@@ -126,7 +132,7 @@ public class agregar_productos extends Fragment {
     private void UI(){
 
 
-
+        NombButton=vista.findViewById(R.id.NombButton);
         SpUnidad=vista.findViewById(R.id.SpUnidad);
 
         UnidadesM= getResources().getStringArray(R.array.Unidades);
@@ -158,12 +164,8 @@ public class agregar_productos extends Fragment {
 /**/
         Unidades = Arrays.asList( UnidadesM );
         SpUnidad.setItems(Unidades);
-        
-        SPCategoria.setItems(listNomCategorias);
+        SPCategoria.setItems(Global.Nombres_Categoria);
 
-
-
-        elegir_categoria();
 
     }
 
@@ -176,17 +178,25 @@ public class agregar_productos extends Fragment {
         ETNPNomPro.setText(product.getNombre());
         ETNPDescrip.setText(product.getDescripcion());
         ETNPPrecio.setText("$"+product.getPrecio());
-
-
-
     }
 
 
 
     private void elegir_categoria(){
 
-        Log.e("Unidad",""+Unidades.indexOf("Libra"));
+       // SPCategoria.selectItemByIndex(Global.Nombres_Categoria.indexOf());
+        SpUnidad.selectItemByIndex(Unidades.indexOf("Libra"));
 
+
+         int indice=0;
+        for(ResponseCategorias c : Global.categorias){
+            if(c.getId()==Integer.parseInt(product.getIdCategoria())){
+
+                indice=Global.categorias.indexOf(c);
+            }
+        }
+
+        SpUnidad.selectItemByIndex(indice);
 
     }
 
@@ -355,6 +365,18 @@ public class agregar_productos extends Fragment {
           Log.e("json",JPetProducto);
         //  animacion_registro();
       //  subir_ProductoConImagen(JPetProducto);
+
+        if(bandera==1){
+
+            subir_ProductoConImagen(JPetProducto);
+        }else{
+
+///funcion editar que es un put para los datos
+           // y un post para subir imagen
+            //tienes que crear esos dos api rest
+        }
+
+
     }
 
 
