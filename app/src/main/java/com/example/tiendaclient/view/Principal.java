@@ -8,8 +8,13 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.recibido.ResponseCategorias;
+import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.service.ApiService;
+import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.utils.Vista_tabs;
 import com.example.tiendaclient.view.fragments.agregar_productos;
@@ -19,6 +24,18 @@ import com.example.tiendaclient.view.fragments.perfil_usuario;
 import com.example.tiendaclient.view.fragments.productos;
 import com.example.tiendaclient.view.fragments.puestos;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class Principal extends AppCompatActivity {
 
@@ -45,6 +62,7 @@ public class Principal extends AppCompatActivity {
                     //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
                     .replace(R.id.Contenedor_Fragments, productin).commit();
             Global.Modo=2;
+            peticion_categorias();
             Log.e("Modo", "VENDEDOR");
         }
 
@@ -154,6 +172,58 @@ public class Principal extends AppCompatActivity {
         for (int i = 0; i < fm.getBackStackEntryCount() - 1; i++) {
             fm.popBackStack();
         }
+    }
+
+
+    private void peticion_categorias(){
+        Retrofit retrofit;
+        ApiService retrofitApi;
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.VerCategorias()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<ResponseCategorias>>>() {
+                    @Override
+                    public void onNext(Response<List<ResponseCategorias>> response) {
+
+
+                        if(response.isSuccessful()){
+
+                            Log.e("code Categoria",""+response.code());
+                            Log.e("respuest Categoria",Global.convertObjToString(response.body()));
+                            Global.categorias=response.body();
+
+                        }else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                Log.e("normal-->400",staff.getMensaje());
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
+
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("code Categoria","error");
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                        Global.llenar_categoria();
+                    }
+                });
     }
 
 }

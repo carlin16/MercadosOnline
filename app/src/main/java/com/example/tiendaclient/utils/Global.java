@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.tiendaclient.models.compra.Compra;
 import com.example.tiendaclient.models.enviado.PeticionRegistroUser;
+import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
@@ -23,6 +24,20 @@ public class Global {
     //objeto global para los datos q se presentan en el perfil de usuario
     public static ResponseUserPorID UserGlobal=new ResponseUserPorID();
     public static String Url="http://mercados-online.com/public/api/";
+
+
+    public static  List<ResponseCategorias> categorias = new ArrayList<>();
+    public static  List<String> Nombres_Categoria = new ArrayList<>();
+
+
+
+    public static void llenar_categoria(){
+        for (ResponseCategorias x:categorias){
+            Nombres_Categoria.add(x.getNombre());
+        }
+
+
+    }
 
     public static int Modo;
 

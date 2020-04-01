@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionNuevoProducto;
+import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
@@ -68,6 +69,10 @@ import static com.example.tiendaclient.utils.Global.verificar_vacio;
 public class agregar_productos extends Fragment {
     Context context;
 
+    Retrofit retrofit;
+    ApiService retrofitApi;
+   public  Producto product;
+
     Boolean continuar=false;
     int posUnidadMedida;
     String[] UnidadesM;
@@ -83,8 +88,6 @@ public class agregar_productos extends Fragment {
     TextInputLayout TINPNomPro , TINPPrecio, TINPDescrip;
     RelativeLayout NPBTNRegistProd;
 
-    Retrofit retrofit;
-    ApiService retrofitApi;
 
     PowerSpinnerView SpUnidad,SPCategoria ;
 
@@ -92,7 +95,7 @@ public class agregar_productos extends Fragment {
     PeticionNuevoProducto NuevoProducto= new PeticionNuevoProducto();
    List<String> listNomCategorias = new ArrayList<>();
     List<String> Unidades;
-    List<ResponseCategorias> categoria =new ArrayList<>();
+    List<ResponseCategorias> categoria =Global.categorias;
 
 
     public agregar_productos() {
@@ -112,10 +115,12 @@ public class agregar_productos extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        peticion_categorias();
         UI();
-
         Click();
+
+
+
+
     }
 
     private void UI(){
@@ -153,11 +158,39 @@ public class agregar_productos extends Fragment {
 /**/
         Unidades = Arrays.asList( UnidadesM );
         SpUnidad.setItems(Unidades);
+        
+        SPCategoria.setItems(listNomCategorias);
 
+
+
+        elegir_categoria();
+
+    }
+
+
+    private void llenar_edicion(){
+        String url=Global.Url+"productos/"+product.getId()+"/foto";
+        Glide.with(this).load(url).placeholder(R.drawable.ic_place_productos).error(R.drawable.ic_place_productos).into(NPImage);
+        NP_Esconder.setVisibility(View.GONE);
+        NPImage.setVisibility(View.VISIBLE);
+        ETNPNomPro.setText(product.getNombre());
+        ETNPDescrip.setText(product.getDescripcion());
+        ETNPPrecio.setText("$"+product.getPrecio());
 
 
 
     }
+
+
+
+    private void elegir_categoria(){
+
+        Log.e("Unidad",""+Unidades.indexOf("Libra"));
+
+
+    }
+
+
 
 
     private void llenar_subida(){
@@ -325,83 +358,6 @@ public class agregar_productos extends Fragment {
     }
 
 
-    private void peticion_categorias(){
-        Log.e("peticionCategorias","estoy en categorias");
-        retrofit = RetrofitCliente.getInstance();
-        retrofitApi = retrofit.create(ApiService.class);
-        Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerCategorias()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<List<ResponseCategorias>>>() {
-                    @Override
-                    public void onNext(Response<List<ResponseCategorias>> response) {
-
-
-                        if(response.isSuccessful()){
-
-                            Log.e("code Categoria",""+response.code());
-                            Log.e("respuest Categoria",Global.convertObjToString(response.body()));
-                            categoria=response.body();
-                            continuar=true;
-
-                        }else {
-
-                            try {
-                                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
-                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-                                mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
-
-                            } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
-                            }
-
-
-                        }
-
-
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("code Categoria","error");
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                        Log.e("code Categoria","completado");
-                        // adapter.notifyDataSetChanged();
-                        if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido de la actividad nuevo producto");
-                            return;
-                        }else{
-
-
-
-                            if(continuar){
-                                for (ResponseCategorias x:categoria){
-                                    listNomCategorias.add(x.getNombre());
-                                  //  adapter.notifyDataSetChanged();
-
-
-                                }
-                                SPCategoria.setItems(listNomCategorias);
-
-                            }else{
-                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
-                            }
-
-
-                        }
-
-
-
-                    }
-                });
-    }
 
     /*private void peticion_PegistroNP(String jsonConf){
         retrofit = RetrofitCliente.getInstance();
