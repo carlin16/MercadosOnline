@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,6 +16,10 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +54,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,10 +97,10 @@ public class agregar_productos extends Fragment {
     LinearLayout NP_Esconder;
 
     EditText ETNPNomPro , ETNPDescrip;
-    CurrencyEditText  ETNPPrecio;
+    EditText  ETNPPrecio;
     TextInputLayout TINPNomPro , TINPPrecio, TINPDescrip;
     RelativeLayout NPBTNRegistProd;
-
+    TextView TitutloAggP;
 
     PowerSpinnerView SpUnidad,SPCategoria ;
 
@@ -131,6 +138,7 @@ public class agregar_productos extends Fragment {
             llenar_edicion();
             elegir_categoria();
             NombButton.setText("Terminar Edición");
+            TitutloAggP.setText("Editar Producto");
         }
 
 
@@ -147,15 +155,17 @@ public class agregar_productos extends Fragment {
         ETNPNomPro=vista.findViewById(R.id.ETNPNomPro);
         ETNPPrecio=vista.findViewById(R.id.ETNPPrecio);
 
-
         //Make sure that Decimals is set as false if a custom Separator is used
-       // ETNPPrecio.setCurrency("$");
 
+        ETNPPrecio.addTextChangedListener(moneda);
+
+       //  ETNPPrecio.setText(d);
 
         ETNPDescrip=vista.findViewById(R.id.ETNPDescrip);
 
         TINPNomPro=vista.findViewById(R.id.TINPNomPro);
         TINPPrecio=vista.findViewById(R.id.TINPPrecio);
+        TitutloAggP=vista.findViewById(R.id.TitutloAggP);
 
 
         TINPDescrip=vista.findViewById(R.id.TINPDescrip);
@@ -185,7 +195,15 @@ public class agregar_productos extends Fragment {
         NPImage.setVisibility(View.VISIBLE);
         ETNPNomPro.setText(product.getNombre());
         ETNPDescrip.setText(product.getDescripcion());
-       // ETNPPrecio.setText("$"+product.getPrecio());
+
+
+      ETNPPrecio.setText("$"+product.getPrecio());
+
+      /*  Bitmap bitmap = ((BitmapDrawable)NPImage.getDrawable()).getBitmap();
+        NPimagen_product=getImageUri(getActivity(),bitmap);
+*/
+        elegir_categoria();
+
     }
 
 
@@ -193,7 +211,7 @@ public class agregar_productos extends Fragment {
     private void elegir_categoria(){
 
        // SPCategoria.selectItemByIndex(Global.Nombres_Categoria.indexOf());
-        SpUnidad.selectItemByIndex(Unidades.indexOf("Libra"));
+        SpUnidad.selectItemByIndex(Unidades.indexOf(product.getUnidades()));
 
 
          int indice=0;
@@ -204,7 +222,9 @@ public class agregar_productos extends Fragment {
             }
         }
 
-        SpUnidad.selectItemByIndex(indice);
+
+        SPCategoria.selectItemByIndex(indice);
+     //   SpUnidad.selectItemByIndex(indice);
 
     }
 
@@ -249,8 +269,14 @@ public class agregar_productos extends Fragment {
         NPBTNRegistProd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validar_campos();
-                Log.e("boton registar", "se dio clic ");
+
+            //    double cleanOutput = ETNPPrecio.getCleanDoubleValue();
+/*
+                if(bandera==1)
+               validar_campos();
+                else
+                    Toast.makeText(getActivity(),"PROXIMAMENTE",Toast.LENGTH_LONG).show();*/
+                Log.e("boton registar", ""+categoria.get(SpUnidad.getSelectedIndex()).getId());
             }
         });
 
@@ -361,8 +387,9 @@ public class agregar_productos extends Fragment {
     public  void llenarDatos(){
         NuevoProducto.setNombre(ETNPNomPro.getText().toString());
         NuevoProducto.setDescripcion(ETNPDescrip.getText().toString());
-        NuevoProducto.setPrecio(1.00);
-        NuevoProducto.setIdCategoria(1);
+        Double precio = Double.parseDouble(ETNPPrecio.getText().toString().replace("$" ,""));
+        NuevoProducto.setPrecio(precio);
+
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
         NuevoProducto.setIdCategoria(categoria.get(SpUnidad.getSelectedIndex()).getId());
         NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
@@ -514,5 +541,52 @@ public class agregar_productos extends Fragment {
 
 
     }
+    TextWatcher moneda = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+            if (!s.toString().matches("^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$")) {
+                String userInput = "" + s.toString().replaceAll("[^\\d]", "");
+                StringBuilder cashAmountBuilder = new StringBuilder(userInput);
+
+                while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
+                    cashAmountBuilder.deleteCharAt(0);
+                }
+                while (cashAmountBuilder.length() < 3) {
+                    cashAmountBuilder.insert(0, '0');
+                }
+                cashAmountBuilder.insert(cashAmountBuilder.length() - 2, '.');
+
+                ETNPPrecio.removeTextChangedListener(this);
+                ETNPPrecio.setText(cashAmountBuilder.toString());
+
+                ETNPPrecio.setTextKeepState("$" + cashAmountBuilder.toString());
+                Selection.setSelection(ETNPPrecio.getText(), cashAmountBuilder.toString().length() + 1);
+
+                ETNPPrecio.addTextChangedListener(this);
+            }
+        }
+    };
+
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+
+
+
 
 }

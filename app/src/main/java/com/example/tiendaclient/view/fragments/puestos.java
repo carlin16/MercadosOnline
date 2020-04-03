@@ -157,17 +157,8 @@ public class puestos extends Fragment {
                         }else{
 
                             if(continuar){
-/*
-                                for(ResponseVerAllPuesto res:ls_listado){
-
-                                    if(Integer.parseInt(res.getEstado())<=0){
 
 
-                                        ls_listado.remove(res);
-                                    }
-
-
-                                }*/
                                 iniciar_recycler();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();

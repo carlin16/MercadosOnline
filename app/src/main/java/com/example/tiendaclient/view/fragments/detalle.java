@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,8 +49,6 @@ public class detalle extends Fragment {
     ScaleInRightAnimator animator1 = new ScaleInRightAnimator();
     RecyclerView recyclerView;
     VistasDetalleProductos adapter;
-
-
 
     SweetAlertDialog dialog_permisos;
     SweetAlertDialog dialog_manual;
@@ -143,6 +142,48 @@ public class detalle extends Fragment {
         }
     }
 
+
+
+
+
+    private void editar_productos(CompraProductos productos,int position,int cantidad ,int tipo){
+
+        int indice_puesto=0;
+        int indice_final=0;
+
+        for (PuestosCompra p : Global.VerCompras.get(PosicionListaArray).getPuestos()) {
+
+
+            if(p.getId()==productos.getIdPuesto()){
+
+                indice_final=indice_puesto;
+            }
+            indice_puesto++;
+        }
+
+        int indice_producto=Global.VerCompras.get(PosicionListaArray).getPuestos().get(indice_final).getProductos().indexOf(productos);
+        double total= Global.formatearDecimales(cantidad*productos.getPrecio(),2);
+
+        if(tipo==1){
+            Global.VerCompras.get(PosicionListaArray).setTotal(Global.formatearDecimales(Global.VerCompras.get(PosicionListaArray).getTotal()+total,2));
+            productos.setId_cantidad((productos.getId_cantidad()+(cantidad)));
+            Global.VerCompras.get(PosicionListaArray).setCantidad( Global.VerCompras.get(PosicionListaArray).getCantidad()+(cantidad));
+            productos.setTotal(Global.formatearDecimales(productos.getTotal()+total,2));
+
+        }else{
+            Global.VerCompras.get(PosicionListaArray).setTotal(Global.formatearDecimales(Global.VerCompras.get(PosicionListaArray).getTotal()-total,2));
+            productos.setId_cantidad((productos.getId_cantidad()-(cantidad)));
+            Global.VerCompras.get(PosicionListaArray).setCantidad( Global.VerCompras.get(PosicionListaArray).getCantidad()-(cantidad));
+            productos.setTotal(Global.formatearDecimales(productos.getTotal()-total,2));
+        }
+        Global.VerCompras.get(PosicionListaArray).getPuestos().get(indice_final).getProductos().set(indice_producto,productos);
+        LstPro.set(position,productos);
+        adapter.notifyDataSetChanged();
+        llenar_Detalle();
+
+    }
+
+
     private  void eliminar_producto(CompraProductos product){
 
         int indice_puesto=0;
@@ -161,12 +202,9 @@ public class detalle extends Fragment {
 
 
         Global.VerCompras.get(PosicionListaArray).getPuestos().get(indice_final).getProductos().remove(product);
-
         Global.VerCompras.get(PosicionListaArray).setCantidad(Global.VerCompras.get(PosicionListaArray).getCantidad()-product.getId_cantidad());
         Global.VerCompras.get(PosicionListaArray).setTotal(Global.formatearDecimales((Global.VerCompras.get(PosicionListaArray).getTotal()-product.getTotal()),2));
-
         if(Global.VerCompras.get(PosicionListaArray).getCantidad()<=0){
-
             Global.VerCompras.remove(PosicionListaArray);
             getFragmentManager().popBackStack();
         }else{
@@ -192,7 +230,23 @@ public class detalle extends Fragment {
             @Override
             public void onItemClickLong(CompraProductos product, int position) {
                 borrar_producto(position);
-                eliminar_producto(product);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        eliminar_producto(product);
+                    }
+                }, 1100);
+            }
+        }, new VistasDetalleProductos.OnItemAdd() {
+            @Override
+            public void onItemClickLong(CompraProductos product, int position) {
+                editar_productos(product,position,1,1);
+            }
+        }, new VistasDetalleProductos.OnItemDelete() {
+            @Override
+            public void onItemClickLong(CompraProductos product, int position) {
+                if(product.getId_cantidad()>1)
+                editar_productos(product,position,1,2);
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -202,8 +256,11 @@ public class detalle extends Fragment {
     }
 
 
+
+
+
     private void borrar_producto(int position){
-        animator1.setRemoveDuration(1000);
+        animator1.setRemoveDuration(500);
         recyclerView.setItemAnimator(animator1);
         // eliminar("http://learn4win.com/WebServices/eliminar_alarma.php",malarma.get(position));
         LstPro.remove(position);

@@ -8,7 +8,6 @@
     android:elevation="2dp"
     android:backgroundTint="@color/col_White"
     android:background="@color/col_White"
-    android:layout_marginTop="10dp"
     app:cardUseCompatPadding="true"
     android:layout_marginBottom="10dp"
     android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
                         android:orientation="vertical"
                         >
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:gravity="center_vertical"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
@@ -65,6 +64,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:maxLines="2"
+                                android:layout_weight="1"
                                 android:layout_centerVertical="true"
                                 android:text="Pedido # 1 "
                                 android:layout_alignParentLeft="true"
@@ -73,35 +73,35 @@
                                 android:textStyle="bold" />
 
                             <LinearLayout
+                                android:layout_weight="1"
                                 android:layout_marginStart="5dp"
+                                android:layout_marginEnd="5dp"
                                 android:layout_centerHorizontal="true"
                                 android:id="@+id/PedidoStatus"
                                 android:layout_width="wrap_content"
-                                android:layout_height="20dp"
+                                android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:layout_centerVertical="true"
-
                                 android:background="@drawable/border_estatus_naranja"
-                                android:paddingEnd="10dp"
-                                android:paddingStart="10dp"
-
                                 >
 
                                 <TextView
                                     android:id="@+id/PedidoTxtStatus"
-                                    android:gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:text="En espera
-"                                    android:textColor="@color/col_White"
-                                    android:textStyle="bold"
-                                    android:textSize="15sp"
+                                    android:layout_gravity="center"
+                                    android:text="En espera"
+                                    android:layout_margin="2dp"
 
-                                    ></TextView>
+                                    android:textColor="@color/col_White"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold">
+
+                                </TextView>
 
                             </LinearLayout>
 
                             <TextView
+                                android:layout_weight="1"
                                 android:id="@+id/PedidoFecha"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -113,7 +113,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="italic"></TextView>
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
 
 

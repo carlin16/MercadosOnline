@@ -7,6 +7,7 @@
     android:elevation="2dp"
     tools:context=".view.fragments.mercado">
 
+
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:background="@color/col_White"
@@ -109,12 +110,12 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:maxLines="2"
-                                android:layout_centerVertical="true"
-                                android:text="Transportista"
                                 android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:maxLines="2"
+                                android:text="Transportista"
                                 android:textColor="@color/col_negrosolida"
-                                android:textSize="16sp"
+                                android:textSize="18sp"
                                 android:textStyle="bold" />
 
 
@@ -132,7 +133,7 @@
 
                         </RelativeLayout>
 
-                        <RelativeLayout
+                        <LinearLayout
                             android:layout_marginStart="5dp"
                             android:layout_marginEnd="5dp"
                             android:layout_marginTop="2dp"
@@ -146,20 +147,22 @@
 
                             <TextView
                                 android:id="@+id/NombreTrasnportista"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:maxLines="2"
                                 android:layout_centerVertical="true"
-                                android:text=""
+                                android:text="hola"
+                                android:layout_weight="1"
                                 android:layout_alignParentLeft="true"
                                 android:textColor="@color/col_negrosolida"
-                                android:textSize="20sp"
+                                android:textSize="17sp"
                                 android:textStyle="bold" />
 
 
                             <TextView
+                                android:layout_weight="2"
                                 android:id="@+id/PedidoCelular"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
@@ -169,7 +172,7 @@
                                 android:textSize="14sp"
                                 android:textStyle="italic"></TextView>
 
-                        </RelativeLayout>
+                        </LinearLayout>
 
 
                         <RelativeLayout
@@ -189,24 +192,26 @@
                                 android:layout_centerHorizontal="true"
                                 android:id="@+id/PedidoStatus"
                                 android:layout_width="wrap_content"
-                                android:layout_height="20dp"
+                                android:layout_height="wrap_content"
+
                                 android:orientation="vertical"
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentLeft="true"
                                 android:background="@drawable/border_estatus_naranja"
-                                android:paddingEnd="10dp"
-                                android:paddingStart="10dp"
+                                android:paddingEnd="5dp"
+                                android:paddingStart="5dp"
 
                                 >
 
                                 <TextView
                                     android:id="@+id/PedidoTxtStatus"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:gravity="center"
+                                    android:layout_gravity="center"
                                     android:text="Cargando"
                                     android:textColor="@color/col_White"
-                                    android:textSize="15sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold"
 
                                     ></TextView>
@@ -246,8 +251,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
+                    android:padding="5dp"
                     android:background="@drawable/border_redondon"
                     android:id="@+id/Recycler_Detalles"
                     android:layout_width="match_parent"
@@ -325,8 +329,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-
-
+                            android:id="@+id/Costo_Comision"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -402,6 +405,50 @@
                         >
 
                     </View>
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/DetaEntregado"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/border_boton"
+                        >
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:visibility="invisible"
+                            android:text="Continuar"
+                            android:textColor="@color/col_White"
+                            android:textSize="8dp"
+                            android:textStyle="bold"
+
+                            >
+
+
+                        </Button>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Entregado"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="15dp"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_White"
+                            android:textStyle="bold"
+                            android:textAlignment="textEnd"
+                            android:background="@color/col_naranja"
+                            >
+                        </TextView>
+
+
+                    </RelativeLayout>
 
 
                 </LinearLayout>
@@ -429,5 +476,4 @@
 
 
     </LinearLayout>
-
 </RelativeLayout>

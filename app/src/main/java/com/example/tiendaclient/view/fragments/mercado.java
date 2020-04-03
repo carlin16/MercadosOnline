@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -114,7 +115,7 @@ return vista;
 
 
                         if(response.isSuccessful()){
-
+                           listado.clear();
                             Log.e("code VM",""+response.code());
                             Log.e("respuest VM",Global.convertObjToString(response.body()));
                             listado.addAll(response.body());
@@ -153,16 +154,12 @@ return vista;
                             Log.e("activity","removido de la actividad mercado");
                             return;
                         }else{
-
-
-
                             if(continuar){
+
                                 iniciar_recycler();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                             }
-
-
                         }
 
 

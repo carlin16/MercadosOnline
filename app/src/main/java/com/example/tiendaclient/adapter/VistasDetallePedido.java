@@ -3,6 +3,7 @@ package com.example.tiendaclient.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.compra.CompraProductos;
 import com.example.tiendaclient.models.recibido.DetallesP;
+import com.example.tiendaclient.utils.Global;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedido.Holder>  {
 
@@ -27,6 +31,10 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
 
 
     public VistasDetallePedido(List<DetallesP> lst_normal, FragmentManager fragmentManager, String id_del_fragment) {
+
+
+
+
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
         this.id_del_fragment = id_del_fragment;
@@ -69,7 +77,9 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
         holder.CantidadProductos.setText(""+lst_normal.get(position).getCantidad());
         holder.SubtotalProduct.setText("$"+lst_normal.get(position).getSubtotal());
 
-
+        holder.Contenedor_EliminarDetallePro.setVisibility(View.GONE);
+        holder.agregarProducto.setVisibility(View.GONE);
+        holder.quitarProducto.setVisibility(View.GONE);
     }
 
     @Override
@@ -82,7 +92,8 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
     public class Holder extends RecyclerView.ViewHolder {
 
         TextView Nombreproduct,UnidadMedida, CantidadProductos,SubtotalProduct;
-
+        CircleImageView eliminarDetalleProducto,quitarProducto,agregarProducto;
+        RelativeLayout Contenedor_EliminarDetallePro;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -90,6 +101,14 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
             UnidadMedida=itemView.findViewById(R.id.DPUnidadMedida);
             CantidadProductos=itemView.findViewById(R.id.DPCantidadPro);
             SubtotalProduct=itemView.findViewById(R.id.DPSubtotalProduc);
+
+            eliminarDetalleProducto=itemView.findViewById(R.id.eliminarDetalleProducto);
+            Contenedor_EliminarDetallePro=itemView.findViewById(R.id.Contenedor_EliminarDetallePro);
+
+            agregarProducto=itemView.findViewById(R.id.agregarProducto);
+            quitarProducto=itemView.findViewById(R.id.quitarProducto);
+
+
         }
     }
 

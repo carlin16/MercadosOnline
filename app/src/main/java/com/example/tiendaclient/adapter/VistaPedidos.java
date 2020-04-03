@@ -69,12 +69,22 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
     public void onBindViewHolder(@NonNull VistaPedidos.Holder holder, final int position) {
         //ENTREGADA //WAITING //IN_PROGRESS
 
-        if(lst_normal.get(position).getEstado().equals("ENTREGADA")) holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_purpura));
-        if(lst_normal.get(position).getEstado().equals("WAITING")) holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_naranja));
-        if(lst_normal.get(position).getEstado().equals("IN_PROGRESS")) holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_rojo));
+        if(lst_normal.get(position).getEstado().equals("ENTREGADA")){
+            holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_purpura));
+            holder.Status.setText("ENTREGADA");
+
+        }
+        if(lst_normal.get(position).getEstado().equals("WAITING")) {
+            holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_naranja));
+            holder.Status.setText("EN ESPERA");
+
+        }
+        if(lst_normal.get(position).getEstado().equals("IN_PROGRESS")) {
+            holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_rojo));
+            holder.Status.setText("EN PROGRESO");
+        }
 
        // holder.RellenoStatus.setBackgroundColor(R.drawable.border_estatus_purpura);
-        holder.Status.setText(lst_normal.get(position).getEstado());
         holder.NumPedido.setText("Pedido # "+lst_normal.get(position).getId());
         holder.DirMercado.setText(lst_normal.get(position).getNombreMercado());
         holder.FechayHoraPedido.setText(lst_normal.get(position).getFechaRegistro().replace(" ","\n"));

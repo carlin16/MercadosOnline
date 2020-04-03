@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +25,7 @@
 
 
         <TextView
-            android:id="@+id/NumeroPedido"
+            android:id="@+id/TitutloAggP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nuevo Producto"
@@ -41,9 +41,6 @@
 
         <RelativeLayout
             android:id="@+id/NPRelativeImagen"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:background="@drawable/border_dashed"
             android:orientation="vertical"
@@ -164,7 +161,7 @@
                 android:theme="@style/TextInputLayoutHint"
                 android:visibility="visible">
 
-                <me.abhinay.input.CurrencyEditText
+                <EditText
                     android:gravity="center"
                     android:id="@+id/ETNPPrecio"
                     android:layout_width="match_parent"
@@ -197,7 +194,7 @@
                 android:layout_gravity="center"
                 android:textColor="@color/col_negrosolida"
                 android:textColorHint="@color/col_naranja"
-                android:textSize="14.5sp"
+                android:textSize="16.5sp"
                 app:spinner_arrow_gravity="end"
                 app:spinner_arrow_padding="8dp"
                 app:spinner_divider_color="@color/col_negro"

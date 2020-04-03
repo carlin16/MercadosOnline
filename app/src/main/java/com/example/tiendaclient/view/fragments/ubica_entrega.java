@@ -73,7 +73,7 @@ import retrofit2.Retrofit;
 public class ubica_entrega extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMapClickListener {
     ApiService2 retrofitApi;
     Retrofit retrofit;
-    String direccion;
+    String direccion="";
 
     SweetAlertDialog pDialog;
     TextView DetalleCancelarPedido,DetalleTotalUbica,UbicacionDireccion;
@@ -450,8 +450,10 @@ List<Detalle> pro= new ArrayList<>();
                             Log.e("respuest VM",Global.convertObjToString(response.body()));
                           mensaje="Pedido Registrado";
                          correcto=true;
-                        }else {
+                        }else  if (response.code()==500){
+                            mensaje="500 Internal Server Error";
 
+                        }else{
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                                 Gson gson =new Gson();
@@ -462,8 +464,6 @@ List<Detalle> pro= new ArrayList<>();
                             } catch (Exception e) {
                                 Log.e("error conversion json",""+e.getMessage());
                             }
-
-
                         }
 
                     }

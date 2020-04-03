@@ -98,7 +98,7 @@ public class perfil_usuario extends Fragment {
             public void onClick(View v) {
                 SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(getActivity());
                 DtsAlmacenados.edit().clear().commit();
-
+                Global.limpiar();
                 Intent intent = new Intent (getActivity().getApplicationContext(), Login.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -124,6 +124,7 @@ public class perfil_usuario extends Fragment {
                         Log.e("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             Global.UserGlobal=response.body();
+                            mensaje="Bienvenido "+Global.UserGlobal.getNombres();
                             continuar=true;
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
@@ -171,7 +172,7 @@ public class perfil_usuario extends Fragment {
         PerfilNombresCompletos.setText(""+Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos());
         PerfilUsuario.setText("@"+Global.UserGlobal.getUsuario());
         PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
-        PerfilCelular.setText(""+Global.UserGlobal.getCelular());
+        PerfilCelular.setText("+"+Global.UserGlobal.getCelular());
         PerfilCorreo.setText(""+Global.UserGlobal.getEmail());
         PerfilRol.setText(""+Global.UserGlobal.getRol());
     }

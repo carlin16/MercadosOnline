@@ -92,7 +92,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0"
                     android:scaleType="fitXY"
-                    android:src="@drawable/perfil_usuario"
+                    android:src="@drawable/placeholder_perfil"
                     app:riv_border_color="@android:color/transparent"
                     app:riv_border_width="0dip"
                     app:riv_corner_radius="10dp"
@@ -111,7 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:maxLines="1"
-                        android:text="Scarlet Brigigte Johanson Chicaisa"
+                        android:text=""
                         android:textStyle="bold"
                         android:layout_weight="1"
                         android:textColor="@color/col_negrosolida"
@@ -122,7 +122,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="Verduras, mariscos, Productos del hogar"
+                        android:text=""
                         android:maxLines="1"
                         android:textColor="@color/col_grissuave"
                         android:textSize="14sp"
@@ -144,7 +144,7 @@
                                 android:id="@+id/TVProCantidad"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="46"
+                                android:text=""
                                 android:textColor="@color/col_naranja"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
@@ -153,10 +153,9 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Productos"
+                                android:text=""
                                 android:textAlignment="textEnd"
                                 android:textColor="@color/col_grissuave"
-
                                 android:textSize="18sp" />
 
 

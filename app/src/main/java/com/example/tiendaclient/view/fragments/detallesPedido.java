@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.adapter.VistasDetallePedido;
+import com.example.tiendaclient.models.enviado.Detalle;
 import com.example.tiendaclient.models.recibido.DetallesP;
 import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
 import com.example.tiendaclient.models.recibido.ResponseError;
@@ -52,8 +54,9 @@ public class detallesPedido extends Fragment {
     String mensaje="";
     RecyclerView recyclerView;
     VistasDetallePedido adapter;
-    TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha;
+    TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha,Costo_Comision;
         LinearLayout PedidoStatus;
+        RelativeLayout DetaEntregado;
         RoundedImageView atras_detalle_pedido;
         View vista;
     @Override
@@ -83,6 +86,20 @@ public class detallesPedido extends Fragment {
         DetalleCostoEnvio=vista.findViewById(R.id.DetalleCostoEnvio);
         DetalleTotal=vista.findViewById(R.id.DetalleTotal);
         PedidoStatus=vista.findViewById(R.id.PedidoStatus);
+        DetaEntregado=vista.findViewById(R.id.DetaEntregado);
+        Costo_Comision=vista.findViewById(R.id.Costo_Comision);
+
+            if(Global.Modo==2){
+                Costo_Comision.setText("Comision");
+            }
+
+        DetaEntregado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         atras_detalle_pedido=vista.findViewById(R.id.atras_detalle_pedido);
         atras_detalle_pedido.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +110,10 @@ public class detallesPedido extends Fragment {
     }
 
 
+
+    Double subTotal=0.0;
+    Double comision=0.0;
+
     private void llenarDatos(){
 
         NumeroPedido.setText("Pedido # "+pedido.getId().toString());
@@ -100,16 +121,47 @@ public class detallesPedido extends Fragment {
         if(pedido.getTransportista()!=null){
             NombreTrasnportista.setText(""+pedido.getTransportista().getNombres()+" "+pedido.getTransportista().getApellidos());
             PedidoCelular.setText(""+pedido.getTransportista().getCelular());
+        }else{
+              NombreTrasnportista.setText("No asignado");
         }
 
-        PedidoTxtStatus.setText(""+pedido.getEstado());
-        DetalleSubtotal.setText("$"+pedido.getCostoVenta());
-        DetalleCostoEnvio.setText("$"+pedido.getCostoEnvio());
+
+        if(Global.Modo==1){
+            DetalleSubtotal.setText("$"+pedido.getCostoVenta());
+            DetalleCostoEnvio.setText("$"+Global.formatearDecimales(Double.parseDouble(pedido.getCostoEnvio()),2));
+            DetalleTotal.setText("$"+pedido.getTotal());
+
+        }else{
+            ///cambiar
+            DetalleSubtotal.setText("$"+subTotal);
+            DetalleCostoEnvio.setText("$"+comision);
+            DetalleTotal.setText("$"+Global.formatearDecimales(subTotal+comision,2));
+        }
+
         PedidoFecha.setText(pedido.getFechaRegistro());
-        DetalleTotal.setText("$"+pedido.getTotal());
-        if(pedido.getEstado().equals("ENTREGADA"))PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_purpura));
-        if(pedido.getEstado().equals("WAITING")) PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_naranja));
-        if(pedido.getEstado().equals("IN_PROGRESS")) PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
+
+
+        if(pedido.getEstado().equals("ENTREGADA")){
+            PedidoStatus.setVisibility(View.VISIBLE);
+            PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_purpura));
+            PedidoTxtStatus.setText("ENTREGADA");
+
+            if(Global.Modo==1){
+                DetaEntregado.setVisibility(View.VISIBLE);
+            }
+
+
+        }
+        if(pedido.getEstado().equals("WAITING")){
+            PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_naranja));
+            PedidoTxtStatus.setText("EN ESPERA");
+
+        }
+        if(pedido.getEstado().equals("IN_PROGRESS")) {
+            PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
+            PedidoTxtStatus.setText("EN PROGRESO");
+
+        }
 
     }
 
@@ -137,8 +189,6 @@ public class detallesPedido extends Fragment {
                         if(response.isSuccessful()){
                             pedido=response.body();
                             Log.e("Detalles",Global.convertObjToString(pedido));
-
-                            LstPro.addAll(response.body().getDetallesPS());
                             continuar=true;
                         }else{
                             try {
@@ -177,6 +227,22 @@ public class detallesPedido extends Fragment {
 
 
                             if(continuar){
+
+                                if(Global.Modo==2){
+                                    for(DetallesP p:pedido.getDetallesPS()){
+
+                                        if(Integer.parseInt(p.getIdVendedor())==Global.LoginU.getid() && Integer.parseInt(p.getIdPuesto())==Global.LoginU.getId_puesto()){
+                                            LstPro.add(p);
+                                            subTotal=Global.formatearDecimales(subTotal+Double.parseDouble(p.getSubtotal()),2);
+                                        }
+
+                                    }
+
+
+                                    comision=Global.formatearDecimales((subTotal*5)/100,2);
+                                }else {
+                                    LstPro.addAll(pedido.getDetallesPS());
+                                }
                                 iniciar_recycler();
                                 llenarDatos();
                             }

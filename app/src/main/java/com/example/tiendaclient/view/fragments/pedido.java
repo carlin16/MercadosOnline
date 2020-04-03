@@ -82,11 +82,16 @@ public class pedido extends Fragment {
     }
 
     private void peticion_pedidos(){
+
+        String tipo="";
+        if(Global.Modo==1)tipo="CLIENTE";
+         if(Global.Modo==2)tipo="VENDEDOR";
+
         Log.e("Pedidos","Se consumio");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerPedidosClientes( "CLIENTE", ""+Global.LoginU.getid())
+        disposable = (Disposable) retrofitApi.VerPedidosClientes( tipo, ""+Global.LoginU.getid())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseVerPedido>>>() {
@@ -101,6 +106,8 @@ public class pedido extends Fragment {
                             listado.addAll(response.body());
                             mensaje=""+response.code();
                             continuar=true;
+                        }else if(response.code()==500){
+                           mensaje="500 Internal Server Error";
                         }else{
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());

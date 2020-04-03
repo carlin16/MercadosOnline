@@ -9,12 +9,6 @@
     android:orientation="vertical"
     >
 
-
-
-
-
-
-
     <LinearLayout
         android:id="@+id/contenedor_busqueda"
         android:visibility="visible"
@@ -23,13 +17,8 @@
         android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
-        android:layout_height="34dp"
+        android:layout_height="wrap_content"
         >
-
-
-
-
 
         <LinearLayout
             android:id="@+id/busqueda"
@@ -41,7 +30,6 @@
             android:background="@drawable/border_buscar"
             >
 
-
             <ImageView
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0"
@@ -51,8 +39,6 @@
                 android:layout_height="15dp"
                 android:src="@drawable/ic_search"
                 android:scaleType="centerInside"
-
-
                 />
 
 
@@ -61,9 +47,13 @@
                 android:id="@+id/escribir_busqueda"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:textColor="@color/col_gris"
                 android:background="@android:color/transparent"
                 android:hint="Buscar "
-
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textColorHint="@color/col_gris"
                 >
             </EditText>
         </LinearLayout>

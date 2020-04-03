@@ -3,6 +3,7 @@ package com.example.tiendaclient.service;
 
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
+import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.example.tiendaclient.models.recibido.ResponseRegistrarPedido;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
@@ -21,6 +22,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -131,6 +133,13 @@ public interface ApiService {
 
 
 ///puestos/3?childs=si
+
+
+    @Headers("Content-Type: application/json")
+    @DELETE("productos/{user_id}")
+    Observable<Response<ResponseError>>EliminarProducto( @Path("user_id") String x);
+
+
 
 
 

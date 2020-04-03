@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.compra.CompraProductos;
+import com.example.tiendaclient.models.compra.PuestosCompra;
 import com.example.tiendaclient.utils.Global;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetalleProductos.Holder>  implements Filterable {
 
@@ -26,7 +30,17 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
     FragmentManager fragmentManager;
     String id_del_fragment;
     private OnItemLongClicListener itemLongClicListener;
+    private OnItemAdd itemAdd;
+    private OnItemDelete itemDelete;
 
+    public VistasDetalleProductos(List<CompraProductos> lst_normal, FragmentManager fragmentManager, String id_del_fragment, OnItemLongClicListener itemLongClicListener, OnItemAdd itemAdd, OnItemDelete itemDelete) {
+        this.lst_normal = lst_normal;
+        this.fragmentManager = fragmentManager;
+        this.id_del_fragment = id_del_fragment;
+        this.itemLongClicListener = itemLongClicListener;
+        this.itemAdd = itemAdd;
+        this.itemDelete = itemDelete;
+    }
 
     public VistasDetalleProductos(List<CompraProductos> lst_normal, FragmentManager fragmentManager, String id_del_fragment, OnItemLongClicListener itemLongClicListener) {
         this.lst_normal = lst_normal;
@@ -74,16 +88,35 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
     public void onBindViewHolder(@NonNull VistasDetalleProductos.Holder holder, final int position) {
        holder.Nombreproduct.setText(lst_normal.get(position).getNombre());
         String plb=" Producto";
-        holder.UnidadMedida.setText(plb);
+        holder.UnidadMedida.setText(""+lst_normal.get(position).getUnidades());
         holder.CantidadProductos.setText(""+lst_normal.get(position).getId_cantidad());
         holder.SubtotalProduct.setText("$"+ Global.formatearDecimales(lst_normal.get(position).getTotal(),2));
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+
+
+        holder.eliminarDetalleProducto.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View v) {
+
+                ///click normal para eliminar el detalle
                 itemLongClicListener.onItemClickLong(lst_normal.get(position),position);
 
-                return true;
+            }
+        });
+
+
+       holder.agregarProducto.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               itemAdd.onItemClickLong(lst_normal.get(position),position);
+           }
+       });
+
+        holder.quitarProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemDelete.onItemClickLong(lst_normal.get(position),position);
+
             }
         });
 
@@ -102,7 +135,8 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
     public class Holder extends RecyclerView.ViewHolder {
 
         TextView Nombreproduct,UnidadMedida, CantidadProductos,SubtotalProduct;
-
+       CircleImageView eliminarDetalleProducto,quitarProducto,agregarProducto;
+        RelativeLayout Contenedor_EliminarDetallePro;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -110,6 +144,15 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
             UnidadMedida=itemView.findViewById(R.id.DPUnidadMedida);
             CantidadProductos=itemView.findViewById(R.id.DPCantidadPro);
             SubtotalProduct=itemView.findViewById(R.id.DPSubtotalProduc);
+
+
+            eliminarDetalleProducto=itemView.findViewById(R.id.eliminarDetalleProducto);
+            Contenedor_EliminarDetallePro=itemView.findViewById(R.id.Contenedor_EliminarDetallePro);
+
+            agregarProducto=itemView.findViewById(R.id.agregarProducto);
+            quitarProducto=itemView.findViewById(R.id.quitarProducto);
+
+
         }
     }
 
@@ -158,6 +201,17 @@ private Filter mercados_filter =new Filter() {
     public  interface OnItemLongClicListener{
         void onItemClickLong(CompraProductos product, int position);
     }
+
+
+    public  interface OnItemAdd{
+        void onItemClickLong(CompraProductos product, int position);
+    }
+
+
+    public  interface OnItemDelete{
+        void onItemClickLong(CompraProductos product, int position);
+    }
+
 
 
 }

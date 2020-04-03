@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -51,10 +52,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import jp.wasabeef.recyclerview.animators.ScaleInRightAnimator;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -90,6 +93,7 @@ public class productos extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
+    ScaleInRightAnimator animator1 = new ScaleInRightAnimator();
 
 
 
@@ -106,11 +110,12 @@ public class productos extends Fragment {
     RecyclerView recyclerView;
     VistasProductos adapter;
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
-    public String idPuesto;
-    public String ImageVendedor;
-    public  String categorias;
+    public String idPuesto="";
+    public String ImageVendedor="";
+    public  String categorias="";
     public int ID=0;
     Dialog myDialog;
+    SweetAlertDialog pDialog;
 
 
     @Override
@@ -121,6 +126,7 @@ public class productos extends Fragment {
 
         UI();
         click();
+        animacion_cargando();
 
         if(Global.Modo==1){
 
@@ -153,7 +159,7 @@ public class productos extends Fragment {
             public void onItemClick(final Producto product, int position) {
 
                 if(Global.Modo==1){comprar_productos(product);}
-                else if(Global.Modo==2){seleccionar_producto(product);}
+                else if(Global.Modo==2){seleccionar_producto(product,position);}
             }
         });
        /* RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -164,7 +170,7 @@ public class productos extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void seleccionar_producto(Producto product){
+    private void seleccionar_producto(Producto product,int position){
 
         Log.e("selccionar","estoy aqui");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -185,7 +191,16 @@ public class productos extends Fragment {
         TVBtnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "editar producto", Toast.LENGTH_SHORT).show();
+                agregar_productos prod = new agregar_productos();
+
+                prod.product=product;
+                prod.bandera=2;
+
+
+                FragmentTransaction fragmentTransaction;
+                fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, prod).addToBackStack(null);
+                fragmentTransaction.commit();
                 //llenarCarrito(product);
                 myDialog.dismiss();
 
@@ -194,9 +209,10 @@ public class productos extends Fragment {
         TVBtnElimiar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "elimiar producto", Toast.LENGTH_SHORT).show();
                 //llenarCarrito(product);
                 myDialog.dismiss();
+                pDialog.show();
+                EliminarProducto(product,position);
 
             }
         });
@@ -212,8 +228,8 @@ public class productos extends Fragment {
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //
 
-        NombreProducto.setText(product.getNombre());
-        UnidadesProd.setText("Precio Unidad");
+        NombreProducto.setText(product.getNombre().toUpperCase());
+        UnidadesProd.setText("Precio por "+product.getUnidades());
         Valorproduct.setText("$"+product.getPrecio().toString());
         Subtotal.setText("$"+product.getPrecio().toString());
         DescripProduct.setText(product.getDescripcion());
@@ -260,7 +276,7 @@ public class productos extends Fragment {
 
 private void llenarDatos(){
 
-    NombreDueno.setText(vendedor.getNombres()+" "+vendedor.getApellidos());
+    NombreDueno.setText(vendedor.getNombres().toUpperCase()+" "+vendedor.getApellidos().toUpperCase());
 
     Cantidadpro.setText(""+(ls_listado.size()));
 
@@ -274,6 +290,10 @@ private void llenarDatos(){
             .fitCenter()
             .into(FotoPuesto);
 }
+
+
+
+
     private void UI(){
 
 
@@ -282,7 +302,7 @@ private void llenarDatos(){
         DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
         Cantidadpro= vista.findViewById(R.id.TVProCantidad);
         FotoPuesto= vista.findViewById(R.id.TVPuestoFotoV);
-        DescripcionPuesto.setText(categorias);
+        DescripcionPuesto.setText(categorias.toUpperCase());
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         if(Global.Modo==2) {
@@ -325,18 +345,7 @@ private void llenarDatos(){
         TVBtnEditar=myDialog.findViewById(R.id.TVBtnEditar);
         TVBtnElimiar=myDialog.findViewById(R.id.TVBtnElimiar);
 
-        TVBtnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("BtnEdita", "se dio clic");
-            }
-        });
-        TVBtnElimiar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("BtnElimiar", "se dio clic");
-            }
-        });
+
     }
 
 
@@ -359,6 +368,7 @@ private void llenarCarrito(Producto product){
     prod.setIdPuesto(Integer.parseInt(product.getIdPuesto()));
     prod.setIdVendedor(vendedor.getId().toString());
     prod.setPrecio(Double.parseDouble(product.getPrecio()));
+    prod.setUnidades(""+product.getUnidades());
 
     Double multi=prod.getId_cantidad()*prod.getPrecio();
 
@@ -503,7 +513,7 @@ private void llenarCarrito(Producto product){
                     public void onComplete() {
                         Log.e("Completado",Global.convertObjToString(TiendaPorId));
 
-
+                        ls_listado.clear();
 
                        for (Producto x:TiendaPorId.getProductos()){
 
@@ -511,9 +521,13 @@ private void llenarCarrito(Producto product){
                           // ListProdcutsPorPuesto.add(x.getProductos());
                            // adapter.notifyDataSetChanged();
 
-
                         }
                        iniciar_recycler();
+
+                       if(Global.Modo==2){
+                            llenar_Vendedor();
+
+                       }
 
 /*                        if(!cambio_pantalla){
 
@@ -529,5 +543,104 @@ private void llenarCarrito(Producto product){
                 });
     }
 
+private void llenar_Vendedor(){
 
+    NombreDueno.setText(Global.LoginU.getNombres().toUpperCase()+" "+Global.LoginU.getApellidos().toUpperCase());
+
+    Cantidadpro.setText(""+(ls_listado.size()));
+
+    Idpuesto.setText(TiendaPorId.getCodigo());
+
+    String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
+
+    Glide
+            .with(this)
+            .load(LinkImagenP)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .placeholder(R.drawable.placeholder_perfil)
+            .error(R.drawable.placeholder_perfil)
+            .fitCenter()
+            .into(FotoPuesto);
+    String cate=""+TiendaPorId.getMaxCategorias();
+    DescripcionPuesto.setText(""+cate.toUpperCase());
+
+}
+
+
+
+
+    Boolean confirmacion=false;
+    private void EliminarProducto(Producto produc,int position){
+        mensaje="Servidor";
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.EliminarProducto(""+produc.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseError>>() {
+                    @Override
+                    public void onNext(Response<ResponseError> response) {
+
+                        if (response.isSuccessful()) {
+                            // cambio_pantalla =true;
+                            mensaje=response.body().getMensaje();
+                            confirmacion=true;
+                            Log.e("normal",mensaje);
+                        } else  if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        } else{
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                        if(confirmacion){
+
+                            borrar_producto(position);
+
+                        }
+                            pDialog.dismiss();
+
+                        Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                    }
+                });
+
+    }
+
+
+    private void animacion_cargando(){
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
+        pDialog.setTitleText("Eliminando");
+        pDialog.setCancelable(false);
+
+
+
+    }
+
+    private void borrar_producto(int position){
+        animator1.setRemoveDuration(500);
+        recyclerView.setItemAnimator(animator1);
+        // eliminar("http://learn4win.com/WebServices/eliminar_alarma.php",malarma.get(position));
+        ls_listado.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
 }

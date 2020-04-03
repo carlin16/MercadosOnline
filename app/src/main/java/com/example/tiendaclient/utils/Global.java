@@ -28,6 +28,20 @@ public class Global {
 
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
+    public static List<Compra> VerCompras= new ArrayList<>();
+
+
+
+    public static void limpiar(){
+        RegisU= new PeticionRegistroUser();
+        LoginU= new ResponseLoginUser();
+        RegisUser= new ResponseRegistroUser();
+        UserGlobal=new ResponseUserPorID();
+        categorias = new ArrayList<>();
+        Nombres_Categoria = new ArrayList<>();
+        VerCompras= new ArrayList<>();
+
+    }
 
 
 
@@ -42,7 +56,6 @@ public class Global {
     public static int Modo;
 
 
-    public static List<Compra> VerCompras= new ArrayList<>();
 
 
 

@@ -310,6 +310,11 @@ public class Login extends AppCompatActivity {
                 });
     }
 
+
+
+
+
+
     private void animacion_cargando(){
         myDialog = new Dialog(this, R.style.NewDialog);
         myDialog.setContentView(R.layout.animacion_login);
@@ -334,12 +339,10 @@ public class Login extends AppCompatActivity {
                         tokensito.setCorreo(correo);
                         tokensito.setToken(token);
 
-
                         db.collection("CHAT").document().set(tokensito).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 //  Toast.makeText(getContext(),"enviado",Toast.LENGTH_LONG).show();
-
                                 Log.e("exito", "exito");
 
                             }
@@ -348,11 +351,8 @@ public class Login extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                             Log.e("falla", ""+e.toString());
 
-
-
                             }
                         });
-
 
                        // Toast.makeText(Login.this,token,Toast.LENGTH_LONG).show();
 

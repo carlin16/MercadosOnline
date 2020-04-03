@@ -47,6 +47,16 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
     }
 
     public VistasPuestos(List<ResponseVerAllPuesto> lst_normal, FragmentManager fragmentManager, ResponseVerMercado Mercado) {
+        List<ResponseVerAllPuesto> filtro=new ArrayList<>();
+/*
+
+        for(ResponseVerAllPuesto res:lst_normal){
+            if(res.getProductos().size()>0 ){
+                filtro.add(res);
+            }
+        }
+*/
+
         this.lst_normal = lst_normal;
         this.fragmentManager = fragmentManager;
         this.Mercado=Mercado;
@@ -67,7 +77,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
-        holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres()+" "+lst_normal.get(position).getVendedor().getApellidos());
+        holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres().toUpperCase()+" "+lst_normal.get(position).getVendedor().getApellidos().toUpperCase());
         holder.CodigoPuesto.setText(lst_normal.get(position).getCodigo());
         holder.DescripcionPuesto.setText(lst_normal.get(position).getMaxCategorias());
     //  aqui guia te y setea acvtualiza el response
@@ -93,7 +103,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         pro.idPuesto=""+lst_normal.get(position).getCodigo();
         pro.ImageVendedor=Global.Url+"usuarios/"+lst_normal.get(position).getIdVendedor()+"/foto";
         pro.ID=lst_normal.get(position).getId();
-        pro.categorias=lst_normal.get(position).getMaxCategorias();
+        pro.categorias=""+lst_normal.get(position).getMaxCategorias();
         pro.Mercado=Mercado;
 
 

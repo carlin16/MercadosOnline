@@ -31,7 +31,7 @@ public class ResponseVerAllPuesto {
     private Object fechaActualiza;
     @SerializedName("max_categorias")
     @Expose
-    private String maxCategorias;
+    private String maxCategorias="";
     @SerializedName("vendedor")
     @Expose
     private Vendedor vendedor;

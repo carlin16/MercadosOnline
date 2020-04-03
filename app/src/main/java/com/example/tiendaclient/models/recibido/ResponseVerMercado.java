@@ -1,6 +1,7 @@
 
 package com.example.tiendaclient.models.recibido;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -41,7 +42,7 @@ public class ResponseVerMercado {
     private String urlImagen;
     @SerializedName("puestos")
     @Expose
-    private List<Puesto> puestos = null;
+    private List<Puesto> puestos = new ArrayList<>();
 
     public Integer getId() {
         return id;

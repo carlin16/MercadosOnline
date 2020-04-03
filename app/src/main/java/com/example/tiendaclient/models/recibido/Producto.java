@@ -36,6 +36,9 @@ public class Producto {
     @SerializedName("fecha_actualiza")
     @Expose
     private Object fechaActualiza;
+    @SerializedName("unidades")
+    @Expose
+    private Object unidades;
     @SerializedName("nombre_categoria")
     @Expose
     private String nombreCategoria;
@@ -120,6 +123,14 @@ public class Producto {
         this.fechaActualiza = fechaActualiza;
     }
 
+    public Object getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Object unidades) {
+        this.unidades = unidades;
+    }
+
     public String getNombreCategoria() {
         return nombreCategoria;
     }
@@ -127,5 +138,4 @@ public class Producto {
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
     }
-
 }

@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="40dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,369 +19,130 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.157">
 
-
-
-
-
-        <TextView
-            android:id="@+id/NumeroPedido"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nuevo Producto"
+        <LinearLayout
+            android:background="#FFF"
+            android:padding="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/col_negro"
-            android:textSize="30sp"
-
-            android:textStyle="bold"></TextView
-            >
-
-
-
-
-        <RelativeLayout
-            android:id="@+id/NPRelativeImagen"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:background="@drawable/border_dashed"
-            android:orientation="vertical"
-            android:layout_height="135dp">
-
-            <ImageView
-                android:id="@+id/NPImage"
-                android:visibility="gone"
-                android:src="@drawable/perfil_mercado"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                >
-
-            </ImageView>
-
-            <LinearLayout
-                android:id="@+id/NP_Esconder"
-                android:visibility="visible"
-
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="150dp"
-                    android:scaleType="fitXY"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_place_productos"
-                    android:layout_height="60dp">
-
-                </ImageView>
-                <TextView
-                    android:text="Subir una Imagen"
-                    android:textSize="18sp"
-                    android:textColor="@color/col_gris"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-
-                </TextView>
-
-
-            </LinearLayout>
-
-
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            >
-
-
-            <TextView
-                android:layout_weight="2"
-                android:id="@+id/txtRol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/geo"
-                android:text="Medido en: "
-                android:paddingLeft="10dp"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-
-
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_negro"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <Spinner
-
-                android:id="@+id/NPUnidadMed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="@drawable/border_login"
-
-                android:entries="@array/Unidades"
-
-                android:fontFamily="@font/geo"
-                android:textAlignment="center"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_rojo"
-                android:textSize="12sp"
-
-                android:textStyle="bold"></Spinner>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            >
-
-
-            <TextView
-                android:layout_weight="2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="center"
-                android:text="Precio. "
-                android:paddingLeft="10dp"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-
-
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_negro"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TINPPrecio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:theme="@style/TextInputLayoutHint"
-                android:visibility="visible">
-
-
-                <EditText
-                    android:gravity="center"
-                    android:id="@+id/ETNPPrecio"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
-                    android:hint="Precio"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:singleLine="true"
-                    android:textColor="@color/col_negro"
-                    android:textColorHint="@color/col_naranja"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/contenedor_mercado"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:orientation="vertical"
             >
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
                 >
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/TVPuestoFotoV"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/perfil_usuario"
+                    app:riv_border_color="@android:color/transparent"
+                    app:riv_border_width="0dip"
+                    app:riv_corner_radius="10dp"
+                    app:riv_oval="false" />
 
-
-                <TextView
-                    android:layout_weight="2"
-                    android:id="@+id/txNomMerca"
+                <LinearLayout
+                    android:layout_marginStart="4dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/geo"
-                    android:text="Mercado"
-                    android:paddingLeft="10dp"
-                    android:imeActionId="6"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="text"
-                    android:maxLines="3"
-                    android:singleLine="true"
-                    android:textColor="@color/col_naranja"
-                    android:textColorHint="@color/col_negro"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <Spinner
-                    android:id="@+id/spn_Mercado"
-                    android:layout_width="match_parent"
 
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
-                    android:entries="@array/Roles"
-                    android:fontFamily="@font/geo"
-                    android:textAlignment="center"
-                    android:textColor="@color/col_negro"
-                    android:textColorHint="@color/col_naranja"
-                    android:textSize="12sp"
-                    android:textStyle="bold"></Spinner>
+
+                    <LinearLayout
+                        android:layout_weight="0"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/TVPuestoNombre"
+                            android:layout_width="match_parent"
+                            android:layout_marginEnd="5dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Scarlet Brigigte Johanson Chicaisa"
+                            android:textStyle="bold"
+                            android:textColor="@color/col_negrosolida"
+                            android:textSize="19sp" />
+
+                        <TextView
+                            android:id="@+id/TVPuestoCodP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="P-1000"
+                            android:textColor="@color/col_grissuave"
+                            android:layout_gravity="top"
+                            android:layout_weight="0"
+                            android:gravity="end"
+                            android:textSize="18sp" />
+
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/TVPuestoDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Verduras, mariscos, Productos del hogar"
+                        android:maxLines="1"
+                        android:textColor="@color/col_grissuave"
+                        android:textSize="14sp"
+                        android:textStyle="italic" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            >
+
+
+                            <TextView
+                                android:id="@+id/TVProCantidad"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="46"
+                                android:textColor="@color/col_naranja"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_marginStart="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Productos"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/col_grissuave"
+
+                                android:textSize="18sp" />
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TINPuesto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:theme="@style/TextInputLayoutHint"
-                >
 
 
-                <EditText
-                    android:id="@+id/registro_NumPuesto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
-                    android:gravity="left"
-                    android:hint="Nro de puesto"
-                    android:imeActionId="6"
-                    android:imeOptions="actionUnspecified"
-                    android:inputType="number"
-                    android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
-                    android:singleLine="true"
-                    android:textColor="@color/col_negro"
-                    android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINPDescrip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:theme="@style/TextInputLayoutHint">
-
-            <EditText
-                android:id="@+id/ETNPDescrip"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Descripción"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TINPNomPro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:theme="@style/TextInputLayoutHint"
-            android:visibility="visible">
-
-
-            <EditText
-                android:id="@+id/ETNPNomPro"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
-                android:gravity="left"
-                android:hint="Nombre"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/NPBTNRegistProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/border_boton"
-            android:orientation="horizontal">
-
-            <Button
-
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Continuar"
-                android:textColor="@color/col_White"
-                android:textSize="8dp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-
-                >
-
-
-            </Button>
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="15dp"
-                android:layout_weight="1"
-                android:background="@color/col_naranja"
-
-                android:text="Continuar"
-                android:textAlignment="textEnd"
-                android:textColor="@color/col_White"
-                android:textSize="15sp"
-                android:textStyle="bold"></TextView>
-
-
-        </RelativeLayout>
 
 
     </LinearLayout>

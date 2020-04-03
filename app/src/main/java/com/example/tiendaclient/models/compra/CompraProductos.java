@@ -16,6 +16,17 @@ public class CompraProductos {
     @SerializedName("id_cantidad")
     @Expose
     private int id_cantidad;
+    @SerializedName("unidades")
+    @Expose
+    private Object unidades;
+
+    public Object getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Object unidades) {
+        this.unidades = unidades;
+    }
 
     public Double getTotal() {
         return Total;

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,7 +36,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.enviado.PeticionLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
@@ -417,6 +421,14 @@ LinearLayout contenedor_mercado;
                             Snackbar.make(vista,""+mensaje, Snackbar.LENGTH_LONG).show();
                            pDialog.dismiss();
                         }else{
+                            PeticionLoginUser Credenciales = new PeticionLoginUser();
+                            Credenciales.setUsuario(RegisU.getUsuario());
+                            Credenciales.setPassword(RegisU.getPassword());
+                            Gson gson = new Gson();
+                            String JPetCredenciales= gson.toJson(Credenciales);
+                            Log.e("json",JPetCredenciales);
+                            peticion_Login(JPetCredenciales);
+                            guardarPreferences(RegisU.getUsuario(),RegisU.getPassword());
                             subir_foto();
                         }
 
@@ -562,6 +574,56 @@ LinearLayout contenedor_mercado;
                         }
 
 
+
+                    }
+                });
+    }
+
+
+
+    public void guardarPreferences(String Use, String Pass){
+        SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor MyEditorDts=DtsAlmacenados.edit();
+        MyEditorDts.putString("UsuarioS", Use);
+        MyEditorDts.putString("PasswordS", Pass);
+        MyEditorDts.apply();
+
+    }
+
+
+
+    private void peticion_Login(String jsonConf){
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        disposable = (Disposable) retrofitApi.LoginUser(convertedObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseLoginUser>>() {
+                    @Override
+                    public void onNext(Response<ResponseLoginUser> response) {
+
+                        if (response.isSuccessful()) {
+                            Global.LoginU=response.body();
+                            // mensaje=response.body().getMensaje();
+                        } else if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                            // myDialog.dismiss();
+                        }else{
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+
+                        //myDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
 
                     }
                 });

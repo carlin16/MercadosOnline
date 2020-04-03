@@ -1,5 +1,6 @@
 package com.example.tiendaclient.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -68,10 +69,12 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         MultiHolder th= new MultiHolder(view);
         return th;    }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
-       holder.nombre.setText(lst_normal.get(position).getNombre());
+       holder.nombre.setText(lst_normal.get(position).getNombre().toUpperCase());
         holder.precio.setText("$"+lst_normal.get(position).getPrecio());
+        holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
     //  aqui guia te y setea acvtualiza el response
 
         Glide
@@ -108,7 +111,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     public class MultiHolder extends RecyclerView.ViewHolder {
 // instancia la scosas que faltan aqui creas lo que hay en la vista
         ImageView imagen;
-        TextView nombre, precio;
+        TextView nombre, precio,Unidades;
         public MultiHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -116,7 +119,9 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
                 imagen=itemView.findViewById(R.id.TVPuestoFotoV);
                 nombre=itemView.findViewById(R.id.TVProducNombre);
                 precio=itemView.findViewById(R.id.TVProducValor);
-           // }
+             Unidades=itemView.findViewById(R.id.TVProducUnidades);
+
+            // }
 
 
             ///aqui instancias
