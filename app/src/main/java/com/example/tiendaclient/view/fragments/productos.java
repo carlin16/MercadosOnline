@@ -172,22 +172,28 @@ public class productos extends Fragment {
 
     private void seleccionar_producto(Producto product,int position){
 
-        Log.e("selccionar","estoy aqui");
+        Log.e("selccionar","estoy aqui cambiar foto");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TVProducNombreV.setText(product.getNombre());
         TVCategoriaV.setText(product.getNombreCategoria());
         TVCompDescripcionV.setText(product.getDescripcion());
-        TVUnidadMedidaP.setText("Libras");
+        TVUnidadMedidaP.setText(product.getUnidades().toString());
         TVCompSubtotalV.setText(product.getPrecio());
+
+        Log.e("el producto",""+product.getId());
         //cargar foto
+
+        String url=Global.Url+"productos/"+product.getId()+"/foto";
+
         Glide
-                .with(getActivity())
-                .load(Global.Url+"productos/"+product.getId()+"/foto")
+                .with(TVFotoProduct.getContext())
+                .load(url)
                 .placeholder(R.drawable.ic_place_productos)
                 .error(R.drawable.ic_place_productos)
+                .diskCacheStrategy(DiskCacheStrategy.NONE )
                 .into(TVFotoProduct);
-
+        Log.e("la url de foto",url);
         TVBtnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,7 +290,7 @@ private void llenarDatos(){
     Glide
             .with(getActivity())
             .load(ImageVendedor)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
             .fitCenter()
@@ -340,7 +346,7 @@ private void llenarDatos(){
         TVUnidadMedidaP=myDialog.findViewById(R.id.TVUnidadMedidaP);
         TVCompSubtotalV=myDialog.findViewById(R.id.TVCompSubtotalV);
 
-        TVFotoProduct =myDialog.findViewById(R.id.TVFotoProduct);
+        TVFotoProduct =myDialog.findViewById(R.id.TVFotoProductVer);
 
         TVBtnEditar=myDialog.findViewById(R.id.TVBtnEditar);
         TVBtnElimiar=myDialog.findViewById(R.id.TVBtnElimiar);
@@ -556,7 +562,7 @@ private void llenar_Vendedor(){
     Glide
             .with(this)
             .load(LinkImagenP)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
             .fitCenter()

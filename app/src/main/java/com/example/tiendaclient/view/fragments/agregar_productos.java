@@ -270,13 +270,18 @@ public class agregar_productos extends Fragment {
             @Override
             public void onClick(View v) {
 
+                llenarDatos();
+
+
             //    double cleanOutput = ETNPPrecio.getCleanDoubleValue();
 /*
                 if(bandera==1)
                validar_campos();
+
+
                 else
                     Toast.makeText(getActivity(),"PROXIMAMENTE",Toast.LENGTH_LONG).show();*/
-                Log.e("boton registar", ""+categoria.get(SpUnidad.getSelectedIndex()).getId());
+               // Log.e("boton registar", ""+categoria.get(SpUnidad.getSelectedIndex()).getId());
             }
         });
 
@@ -405,6 +410,7 @@ public class agregar_productos extends Fragment {
 
             subir_ProductoConImagen(JPetProducto);
         }else{
+            peticion_EdicionProduct(JPetProducto, product.getId().toString());
 ///
 ///funcion editar que es un put para los datos
            // y un post para subir imagen
@@ -416,24 +422,24 @@ public class agregar_productos extends Fragment {
 
 
 
-    /*private void peticion_PegistroNP(String jsonConf){
+    private void peticion_EdicionProduct(String jsonConf, String id_product){
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
 
-        disposable = (Disposable) retrofitApi.RegistroUser(convertedObject)
+        disposable = (Disposable) retrofitApi.EditarProducto(id_product, convertedObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<ResponseRegistroUser>>() {
+                .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
                     @Override
-                    public void onNext(Response<ResponseRegistroUser> response) {
+                    public void onNext(Response<ResponseRegistarProducto> response) {
 
                         Log.e("code PU",""+response.code());
                         if (response.isSuccessful()) {
                            // cambio_pantalla=true;
-                            Global.RegisUser=response.body();
-                            Global.LoginU.setid(response.body().getId());
+                           // Global.RegisUser=response.body();
+                           // Global.LoginU.setid(response.body().getId());
                             mensaje=response.body().getMensaje();
                         } else {
 
@@ -451,25 +457,18 @@ public class agregar_productos extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        pDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado","registrado");
-                        if(!cambio_pantalla){
-
-                            Snackbar.make(vista,""+mensaje, Snackbar.LENGTH_LONG).show();
-                            pDialog.dismiss();
-                        }else{
-                            subir_foto();
-                        }
-
-
+                        Log.e("edicion","exito");
+                        cambiar_fotoProdct(product.getId().toString());
+                        pDialog.dismiss();
+                        getFragmentManager().popBackStack();
 
                     }
                 });
-    }*/
+    }
 
 
 
@@ -521,6 +520,7 @@ public class agregar_productos extends Fragment {
 
                     @Override
                     public void onComplete() {
+
                         pDialog.dismiss();
 
                         Log.e("Completado foto","registrado");
@@ -585,7 +585,56 @@ public class agregar_productos extends Fragment {
         return Uri.parse(path);
     }
 
+    public void cambiar_fotoProdct(String idProducto){
+        File file = new File(NPimagen_product.getPath());
 
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.CambiarFoto(idProducto, imagen)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
+                    @Override
+                    public void onNext(Response<ResponseRegistarProducto> response) {
+
+                        if (response.isSuccessful()) {
+
+                            mensaje=response.body().getMensaje();
+                            Log.e("normal",mensaje);
+                        } else  if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        } else{
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("foto","cambiada");
+
+                    }
+                });
+
+
+    }
 
 
 

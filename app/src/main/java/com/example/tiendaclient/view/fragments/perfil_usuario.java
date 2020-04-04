@@ -185,6 +185,7 @@ public class perfil_usuario extends Fragment {
                 .error(R.drawable.placeholder_perfil).apply(RequestOptions.circleCropTransform()).into(PerfilFoto);
 
 
+
     }
 
 

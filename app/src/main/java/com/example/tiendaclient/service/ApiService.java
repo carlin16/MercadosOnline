@@ -27,6 +27,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -139,6 +140,15 @@ public interface ApiService {
     @DELETE("productos/{user_id}")
     Observable<Response<ResponseError>>EliminarProducto( @Path("user_id") String x);
 
+
+    @Headers("Content-Type: application/json")
+    @PUT("productos/{user_id}")
+    Observable<Response<ResponseRegistarProducto>>EditarProducto( @Path("user_id") String x , @Body JsonObject object);
+
+    @Multipart
+    @POST("productos/{user_id}/foto")
+    Observable<Response<ResponseRegistarProducto>>CambiarFoto( @Path(value = "user_id", encoded = true) String userId,
+                                                                  @Part MultipartBody.Part imageFile);
 
 
 

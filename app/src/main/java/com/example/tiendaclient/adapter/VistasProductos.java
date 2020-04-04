@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.recibido.Producto;
 import com.example.tiendaclient.models.recibido.ResponseVerAllPuesto;
@@ -77,11 +78,13 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
     //  aqui guia te y setea acvtualiza el response
 
-        Glide
+        String url=Global.Url+"productos/"+lst_normal.get(position).getId()+"/foto";
+       Glide
                 .with(holder.imagen.getContext())
-                .load(Global.Url+"productos/"+lst_normal.get(position).getId()+"/foto")
+                .load(url)
                 .placeholder(R.drawable.ic_place_productos)
-                .error(R.drawable.ic_place_productos)
+               .diskCacheStrategy(DiskCacheStrategy.NONE )
+               .error(R.drawable.ic_place_productos)
                 .into(holder.imagen);
 
 
