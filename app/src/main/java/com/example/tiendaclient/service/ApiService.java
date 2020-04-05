@@ -153,4 +153,9 @@ public interface ApiService {
 
 
 
+    @Headers("Content-Type: application/json")
+    @PUT("pedidos/{id}/estado/ENTREGADA")
+    Observable<Response<ResponseRegistarProducto>>ActualizarPedido( @Path("id") String x);
+
+
 }

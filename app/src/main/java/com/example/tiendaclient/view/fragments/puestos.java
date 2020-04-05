@@ -206,14 +206,8 @@ public class puestos extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
-
+Log.e("PALABRA",""+editable);
                 filtro(editable.toString());
-
-
-
-
-
-
 
 
 
@@ -224,7 +218,6 @@ public class puestos extends Fragment {
 
     }
     public void filtro(String S){
-        if(ls_listado.size()>0)
             adapter.getFilter().filter(S);
     }
 

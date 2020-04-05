@@ -65,6 +65,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -113,7 +114,7 @@ public class agregar_productos extends Fragment {
     RelativeLayout NPBTNRegistProd;
     TextView TitutloAggP;
 
-    PowerSpinnerView SPCategoria ;
+    Spinner SPCategoria ;
     Spinner SPUnidad;
 
     String mensaje="";
@@ -194,31 +195,46 @@ public class agregar_productos extends Fragment {
         //Cargar categorias desde consumo de API-REST
         /**/
         Unidades = Arrays.asList( UnidadesM );
-        SPCategoria.setItems(Global.Nombres_Categoria);
 
 
 
-        SPCategoria.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<String>() {
-            @Override public void onItemSelected(int position, String item) {
-                posCategoria=position;
-            }
-        });
+
 
 
         ArrayAdapter<String> spinnerArrayAdapter;
-        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.spinner_item,Unidades);
+        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,Unidades);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         SPUnidad.setAdapter(spinnerArrayAdapter);
-         SPUnidad.setSelection(Unidades.size()-1);
         SPUnidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == spinnerArrayAdapter.getCount()) {
+               /* if (position == spinnerArrayAdapter.getCount()) {
                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_gris));
                 } else {
-                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_negrosolida));
+                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_negrosolida));*/
                     posUnidadMedida=position;
-                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter<String> spinnerArrayAdapte2;
+        spinnerArrayAdapte2 = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,Global.Nombres_Categoria);
+        spinnerArrayAdapte2.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        SPCategoria.setAdapter(spinnerArrayAdapte2);
+        SPCategoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               /* if (position == spinnerArrayAdapter.getCount()) {
+                   ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_gris));
+                } else {
+                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_negrosolida));*/
+                posCategoria=position;
+
             }
 
             @Override
@@ -229,7 +245,7 @@ public class agregar_productos extends Fragment {
 
 
 
-}
+    }
 
 
 
@@ -240,7 +256,9 @@ public class agregar_productos extends Fragment {
         NPImage.setVisibility(View.VISIBLE);
         ETNPNomPro.setText(product.getNombre());
         ETNPDescrip.setText(product.getDescripcion());
-        ETNPPrecio.setText("$"+product.getPrecio());
+
+        DecimalFormat f = new DecimalFormat("##.00");
+        ETNPPrecio.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
         elegir_categoria();
 
     }
@@ -250,7 +268,7 @@ public class agregar_productos extends Fragment {
     private void elegir_categoria(){
 
         // SPCategoria.selectItemByIndex(Global.Nombres_Categoria.indexOf());
-    //    SpUnidad.selectItemByIndex(Unidades.indexOf(product.getUnidades()));
+       SPUnidad.setSelection(Unidades.indexOf(product.getUnidades()));
 
 
         int indice=0;
@@ -262,7 +280,7 @@ public class agregar_productos extends Fragment {
         }
 
 
-        SPCategoria.selectItemByIndex(indice);
+        SPCategoria.setSelection(indice);
         //   SpUnidad.selectItemByIndex(indice);
 
     }
@@ -279,7 +297,8 @@ public class agregar_productos extends Fragment {
     }
     public void funcion_cortar() {
         CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
+                .setAspectRatio(4, 4)
+                .setFixAspectRatio(true)
                 .start(getContext(),this);
     }
 

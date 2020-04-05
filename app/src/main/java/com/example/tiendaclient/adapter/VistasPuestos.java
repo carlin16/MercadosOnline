@@ -152,6 +152,8 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
             List<ResponseVerAllPuesto> filtro=new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
+                Log.e("lista","es nulo o es cero");
+
                 filtro.addAll(lst_full);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();

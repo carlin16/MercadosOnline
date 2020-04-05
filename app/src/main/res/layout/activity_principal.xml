@@ -8,11 +8,11 @@
     >
 
     <FrameLayout
+        android:background="@color/col_White"
         android:id="@+id/Contenedor_Fragments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?android:attr/actionBarSize"
-        android:background="@android:color/transparent"
         >
     </FrameLayout>
 
@@ -37,7 +37,7 @@
                 android:layout_height="?android:attr/actionBarSize"
                 android:layout_gravity="bottom"
                 android:visibility="visible"
-                android:background="#ffffff"
+                android:background="@drawable/tab_shadow"
                 app:tabIndicatorColor="@android:color/transparent"
                 app:tabIndicatorHeight="3dp"
                 app:tabTextColor="#D32222"></com.google.android.material.tabs.TabLayout>
@@ -82,16 +82,6 @@ app:layout_anchor="@+id/bottomAppBar"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
         >
-
-
-
-
-        <include
-            layout="@layout/item_puestos"
-            >
-
-
-        </include>
 
 
     </androidx.core.widget.NestedScrollView>

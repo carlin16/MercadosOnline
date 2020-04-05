@@ -25,6 +25,7 @@ import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.productos;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +75,8 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
        holder.nombre.setText(lst_normal.get(position).getNombre());
-        holder.precio.setText("$"+lst_normal.get(position).getPrecio());
+        DecimalFormat f = new DecimalFormat("##.00");
+        holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
         holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
     //  aqui guia te y setea acvtualiza el response
 

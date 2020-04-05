@@ -157,7 +157,6 @@
                 android:id="@+id/TINPPrecio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
                 android:layout_weight="1"
                 android:theme="@style/TextInputLayoutHint"
                 android:visibility="visible">
@@ -182,20 +181,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <Spinner
-                android:id="@+id/SPUnidad"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+            <RelativeLayout
                 android:layout_weight="1"
-                android:entries="@array/Roles"
-                android:fontFamily="@font/geo"
-                android:textAlignment="center"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="12sp"
-                android:textStyle="bold"></Spinner>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Spinner
+                    android:id="@+id/SPUnidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:entries="@array/Roles"
+                    android:fontFamily="@font/geo"
+                    android:textAlignment="center"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></Spinner>
+            </RelativeLayout>
+
+
 
 
         </LinearLayout>
@@ -209,49 +213,54 @@
             >
 
 
-            <TextView
-                android:id="@+id/txtRol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_gravity="center"
-                android:textAlignment="center"
-                android:fontFamily="@font/geo"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="10dp"
 
-                android:singleLine="true"
-                android:text="Categoria"
-                android:textColor="@color/col_naranja"
-                android:textColorHint="@color/col_negro"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <com.skydoves.powerspinner.PowerSpinnerView
-                android:id="@+id/NPCategoria"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/col_White"
-                android:gravity="center"
-                android:hint="Elija la Categoria"
-                android:padding="10dp"
+            <RelativeLayout
                 android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/txtRol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/geo"
+                    android:imeActionId="6"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="Categoria"
+                    android:textColor="@color/col_naranja"
+                    android:textColorHint="@color/col_negro"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-                android:layout_gravity="center"
-                android:textColor="@color/col_negrosolida"
-                android:textColorHint="@color/col_gris"
-                android:textSize="14.5sp"
-                app:spinner_arrow_gravity="start"
-                app:spinner_arrow_padding="8dp"
-                app:spinner_divider_color="@color/col_negro"
-                app:spinner_divider_show="true"
-                app:spinner_divider_size="0.4dp"
-                app:spinner_item_array="@array/Unidades"
-                app:spinner_popup_animation="fade"
-                app:spinner_popup_elevation="14dp" />
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Spinner
+                    android:id="@+id/NPCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/Roles"
+                    android:fontFamily="@font/geo"
+                    android:textAlignment="center"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></Spinner>
+            </RelativeLayout>
+
 
         </LinearLayout>
 

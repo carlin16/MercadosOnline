@@ -245,6 +245,8 @@ public class detallesPedido extends Fragment {
                                 }
                                 iniciar_recycler();
                                 llenarDatos();
+
+                                Global.convertObjToString(pedido);
                             }
                             else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();

@@ -3,20 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="2dp"
+    android:background="@color/col_White"
     tools:context=".view.fragments.mercado">
 
     <!-- TODO: Update blank fragment layout -->
 <LinearLayout
-    android:background="#FFF"
+    android:background="@color/col_White"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
     <include layout="@layout/app_busqueda"></include>
     <TextView
-        android:layout_marginStart="20dp"
-        android:layout_width="wrap_content"
+        android:paddingStart="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mercados"
         android:textColor="#1D1C1A"
@@ -25,8 +25,7 @@
         android:textStyle="bold"></TextView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+     android:paddingHorizontal="20dp"
         android:layout_below="@+id/cantidad_mercados"
         android:background="@color/col_White"
         android:id="@+id/Recycler_mercados"

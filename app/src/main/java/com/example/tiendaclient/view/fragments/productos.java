@@ -180,7 +180,8 @@ public class productos extends Fragment {
         TVCategoriaV.setText(""+product.getNombreCategoria().toUpperCase());
         TVCompDescripcionV.setText(""+product.getDescripcion().toUpperCase());
         TVUnidadMedidaP.setText(""+product.getUnidades());
-        TVCompSubtotalV.setText("$"+product.getPrecio());
+        DecimalFormat f = new DecimalFormat("##.00");
+        TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
 
         Log.e("el producto",""+product.getId());
         //cargar foto
@@ -481,7 +482,6 @@ private void llenarCarrito(Producto product){
     }
 
     public void filtro(String S){
-        if(ls_listado.size()>0)
             adapter.getFilter().filter(S);
     }
 

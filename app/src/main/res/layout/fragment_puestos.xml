@@ -19,7 +19,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:background="@color/col_White"
-        android:layout_marginEnd="20dp"
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <TextView
@@ -40,6 +39,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
             android:background="@color/col_White"
             android:layout_gravity="end"
             android:layout_weight="1">
@@ -71,8 +71,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/Recycler_puestos"
         android:paddingTop="5dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:paddingHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/col_White"
