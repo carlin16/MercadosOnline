@@ -1,9 +1,11 @@
 package com.example.tiendaclient.view.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +37,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -51,6 +54,8 @@ public class detallesPedido extends Fragment {
     public String id_pedido;
     ApiService retrofitApi;
     Boolean continuar=false;
+    SweetAlertDialog pDialog;
+
     String mensaje="detalle pedidos";
     RecyclerView recyclerView;
     VistasDetallePedido adapter;
@@ -70,6 +75,7 @@ public class detallesPedido extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        animacion_cargando();
         UI();
         peticion_pedidos();
     }
@@ -96,7 +102,8 @@ public class detallesPedido extends Fragment {
         DetaEntregado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                peticion_estado_pedidos();
+                pDialog.show();
             }
         });
 
@@ -264,5 +271,59 @@ public class detallesPedido extends Fragment {
                 });
     }
 
+    private void peticion_estado_pedidos(){
+        Log.e("Pedidos","Detalles");
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.ActualizarPedido( id_pedido)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseError>>() {
+                    @Override
+                    public void onNext(Response<ResponseError> response) {
 
+
+                        if(response.isSuccessful()){
+
+                        }else{
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                Log.e("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                Log.e("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
+
+
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        pDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        pDialog.dismiss();
+                        getFragmentManager().popBackStack();
+                    }
+                });
+    }
+
+
+    private void animacion_cargando(){
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
+        pDialog.setTitleText("Loading..");
+        pDialog.setCancelable(false);
+
+    }
 }

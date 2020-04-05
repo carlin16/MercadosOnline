@@ -64,7 +64,7 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
     @Override
     public VistasDetallePedido.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detalle_productos,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detalle_pedidos,
                 parent, false);
         return new Holder(v);
     }
@@ -77,9 +77,6 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
         holder.CantidadProductos.setText(""+lst_normal.get(position).getCantidad());
         holder.SubtotalProduct.setText("$"+lst_normal.get(position).getSubtotal());
 
-        holder.Contenedor_EliminarDetallePro.setVisibility(View.GONE);
-        holder.agregarProducto.setVisibility(View.GONE);
-        holder.quitarProducto.setVisibility(View.GONE);
     }
 
     @Override
@@ -92,7 +89,6 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
     public class Holder extends RecyclerView.ViewHolder {
 
         TextView Nombreproduct,UnidadMedida, CantidadProductos,SubtotalProduct;
-        CircleImageView eliminarDetalleProducto,quitarProducto,agregarProducto;
         RelativeLayout Contenedor_EliminarDetallePro;
 
         public Holder(@NonNull View itemView) {
@@ -102,11 +98,6 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
             CantidadProductos=itemView.findViewById(R.id.DPCantidadPro);
             SubtotalProduct=itemView.findViewById(R.id.DPSubtotalProduc);
 
-            eliminarDetalleProducto=itemView.findViewById(R.id.eliminarDetalleProducto);
-            Contenedor_EliminarDetallePro=itemView.findViewById(R.id.Contenedor_EliminarDetallePro);
-
-            agregarProducto=itemView.findViewById(R.id.agregarProducto);
-            quitarProducto=itemView.findViewById(R.id.quitarProducto);
 
 
         }

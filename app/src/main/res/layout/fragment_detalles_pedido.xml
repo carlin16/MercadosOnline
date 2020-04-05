@@ -298,8 +298,8 @@
                             android:layout_weight="1"
                             android:text="Subtotal"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/col_grissuave"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
 
                             android:layout_alignParentRight="true"
                             >
@@ -313,8 +313,8 @@
                             android:layout_weight="1"
                             android:text="$"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/col_grissuave"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
                             android:layout_alignParentRight="true"
                             android:textAlignment="textEnd"
                             >
@@ -335,8 +335,8 @@
                             android:layout_weight="1"
                             android:text="Costo envio"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-                            android:textStyle="bold"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
                             android:layout_alignParentRight="true"
                             >
                         </TextView>
@@ -349,8 +349,8 @@
                             android:layout_weight="1"
                             android:text="$"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/col_grissuave"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
                             android:layout_alignParentRight="true"
                             android:textAlignment="textEnd"
                             >
@@ -371,8 +371,8 @@
                             android:layout_weight="1"
                             android:text="Total"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
-                            android:textStyle="bold"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
                             android:layout_alignParentRight="true"
                             >
                         </TextView>
@@ -385,8 +385,8 @@
                             android:layout_weight="1"
                             android:text="$"
                             android:textSize="15sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/col_grissuave"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
                             android:layout_alignParentRight="true"
                             android:textAlignment="textEnd"
                             >
