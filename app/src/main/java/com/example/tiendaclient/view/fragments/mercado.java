@@ -102,7 +102,7 @@ return vista;
     }
 
     private void peticion_mercado(){
-        Log.e("peticion","mercado");
+        //("peticion","mercado");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -116,8 +116,8 @@ return vista;
 
                         if(response.isSuccessful()){
                            listado.clear();
-                            Log.e("code VM",""+response.code());
-                            Log.e("respuest VM",Global.convertObjToString(response.body()));
+                            //("code VM",""+response.code());
+                            //("respuest VM",Global.convertObjToString(response.body()));
                             listado.addAll(response.body());
                             continuar=true;
 
@@ -128,10 +128,10 @@ return vista;
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
 
@@ -141,17 +141,17 @@ return vista;
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("code VM","error");
+                        //("code VM","error");
 
                     }
 
                     @Override
                     public void onComplete() {
 
-                        Log.e("code VM","completado");
+                        //("code VM","completado");
                        // adapter.notifyDataSetChanged();
                         if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido de la actividad mercado");
+                            //("activity","removido de la actividad mercado");
                             return;
                         }else{
                             if(continuar){

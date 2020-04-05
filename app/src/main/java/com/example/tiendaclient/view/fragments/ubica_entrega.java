@@ -140,7 +140,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             //    FragmentManager.popBackStack(id_del_fragment, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                  Global.VerCompras.remove(PosicionListaArray);
-                 Log.e("posicion",""+PosicionListaArray);
+                 //("posicion",""+PosicionListaArray);
                  getFragmentManager().popBackStack(id_del_fragment,0);
             }
         });
@@ -178,7 +178,7 @@ List<Detalle> pro= new ArrayList<>();
         pedido.setDetalle(pro);
         Gson gson = new Gson();
         String JSONPedido= gson.toJson(pedido);
-        Log.e("json",JSONPedido);
+        //("json",JSONPedido);
         pDialog.show();
         peticion_Registrar(JSONPedido);
 
@@ -231,7 +231,7 @@ List<Detalle> pro= new ArrayList<>();
 
     @Override
     public void onMapClick(LatLng latLng) {
-        Log.e("click","click");
+        //("click","click");
         agregar_marcador(latLng.latitude,latLng.longitude);
     }
 
@@ -299,7 +299,7 @@ List<Detalle> pro= new ArrayList<>();
     LocationListener locListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
-            Log.e("actualizar","ubicacion");
+            //("actualizar","ubicacion");
              actualizarUbicacion(location);
         }
 
@@ -352,7 +352,7 @@ List<Detalle> pro= new ArrayList<>();
 
 
                             for (String s : address.getTypes()) {
-                                Log.e("Carlin:", "---" + s);
+                                //("Carlin:", "---" + s);
 
 
                                 datos_ubicacion(s, address.getLongName());
@@ -378,11 +378,11 @@ List<Detalle> pro= new ArrayList<>();
 
                     @Override
                     public void onComplete() {
-                       /* Log.e("Ciudadela", "-" + tienda.getCiudadela());
-                        Log.e("Provincia", tienda.getProvincia());
-                        Log.e("Calle", "-" + tienda.getCalle());
-                        Log.e("Ciudad", tienda.getCiudad());
-                        Log.e("Pais", tienda.getPais());*/
+                       /* //("Ciudadela", "-" + tienda.getCiudadela());
+                        //("Provincia", tienda.getProvincia());
+                        //("Calle", "-" + tienda.getCalle());
+                        //("Ciudad", tienda.getCiudad());
+                        //("Pais", tienda.getPais());*/
 
                         UbicacionDireccion.setText(direccion);
 
@@ -410,16 +410,16 @@ List<Detalle> pro= new ArrayList<>();
             String knownName3 = addresses.get(0).getSubAdminArea();
             String knownName4 = addresses.get(0).getSubLocality();
             String knownName5 = addresses.get(0).getSubThoroughfare();
-            Log.e("addess","-"+address);
-            Log.e("city","-"+city);
-            Log.e("state","-"+state);
-            Log.e("country","-"+country);
-            Log.e("postalCode","-"+postalCode);
-            Log.e("lugar","-"+knownName);
-            Log.e("lugar","-"+knownName2);
-            Log.e("lugar","-"+knownName3);
-            Log.e("lugar","-"+knownName4);
-            Log.e("lugar","-"+knownName5);
+            //("addess","-"+address);
+            //("city","-"+city);
+            //("state","-"+state);
+            //("country","-"+country);
+            //("postalCode","-"+postalCode);
+            //("lugar","-"+knownName);
+            //("lugar","-"+knownName2);
+            //("lugar","-"+knownName3);
+            //("lugar","-"+knownName4);
+            //("lugar","-"+knownName5);
             direccion=address;
             UbicacionDireccion.setText(direccion);
            }else{
@@ -430,7 +430,7 @@ List<Detalle> pro= new ArrayList<>();
 
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("lugar","-"+e.toString());
+            //("lugar","-"+e.toString());
 
         }
 
@@ -451,8 +451,8 @@ List<Detalle> pro= new ArrayList<>();
 
                         if(response.isSuccessful()){
 
-                            Log.e("code VM",""+response.code());
-                            Log.e("respuest VM",Global.convertObjToString(response.body()));
+                            //("code VM",""+response.code());
+                            //("respuest VM",Global.convertObjToString(response.body()));
                           mensaje="Pedido Registrado";
                          correcto=true;
                         }else  if (response.code()==500){
@@ -464,10 +464,10 @@ List<Detalle> pro= new ArrayList<>();
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                         }
 
@@ -520,7 +520,7 @@ List<Detalle> pro= new ArrayList<>();
     }
 /*    public void clearFragmentBackStack() {
         FragmentManager fm = getFragmentManager();
-        Log.e("cuantos fragments",""+fm.getBackStackEntryCount());
+        //("cuantos fragments",""+fm.getBackStackEntryCount());
         for (int i = 0; i < fm.getBackStackEntryCount() - 1; i++) {
             fm.popBackStack();
         }

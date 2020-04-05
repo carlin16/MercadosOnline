@@ -49,7 +49,7 @@ public class carrito extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Log.e("volvi a crear","carrito");
+        //("volvi a crear","carrito");
 
         vista= inflater.inflate(R.layout.fragment_carrito, container, false);
         return vista;
@@ -74,7 +74,7 @@ public class carrito extends Fragment {
             RelativeVacio.setVisibility(View.GONE);
             iniciar_recycler();
         }
-        Log.e("volvi a crear vista","carrito");
+        //("volvi a crear vista","carrito");
 
     }
 

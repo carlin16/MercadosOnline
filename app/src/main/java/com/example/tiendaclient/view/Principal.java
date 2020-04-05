@@ -1,5 +1,6 @@
 package com.example.tiendaclient.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,11 +13,15 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.enviado.RequestGCToken;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.models.recibido.ResponseRegistarProducto;
+import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
+import com.example.tiendaclient.utils.Notificaciones.DtsToken;
 import com.example.tiendaclient.utils.Vista_tabs;
 import com.example.tiendaclient.view.fragments.agregar_productos;
 import com.example.tiendaclient.view.fragments.mercado;
@@ -24,8 +29,15 @@ import com.example.tiendaclient.view.fragments.pedido;
 import com.example.tiendaclient.view.fragments.perfil_usuario;
 import com.example.tiendaclient.view.fragments.productos;
 import com.example.tiendaclient.view.fragments.puestos;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -38,10 +50,13 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.example.tiendaclient.utils.Global.RegisU;
+
 public class Principal extends AppCompatActivity {
 
 
    public static TabLayout tabLayout;
+   RequestGCToken ReqGcToken= new RequestGCToken();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +69,7 @@ public class Principal extends AppCompatActivity {
                     //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
                     .replace(R.id.Contenedor_Fragments, new mercado()).addToBackStack("frag_puestos").commit();
             Global.Modo=1;
-            Log.e("Modo", "CLIENTE");
+            //("Modo", "CLIENTE");
 
         }else if(Global.LoginU.getRol().equals("VENDEDOR")){
             productos productin= new productos();
@@ -65,7 +80,7 @@ public class Principal extends AppCompatActivity {
                     .replace(R.id.Contenedor_Fragments, productin).commit();
             Global.Modo=2;
             peticion_categorias();
-            Log.e("Modo", "VENDEDOR");
+            //("Modo", "VENDEDOR");
         }
 
        /* getSupportFragmentManager().beginTransaction()
@@ -74,6 +89,7 @@ public class Principal extends AppCompatActivity {
 */
 
         iniciar_tabs();
+        generar_token();
     }
 
 
@@ -104,14 +120,14 @@ public class Principal extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Log.e("seleccion ","antiguo");
+                //("seleccion ","antiguo");
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
               //  int position = tab.getPosition();
-                Log.e("seleccion ","nuevo");
+                //("seleccion ","nuevo");
                 elegir(tab.getPosition());
             }
         });
@@ -125,7 +141,7 @@ public class Principal extends AppCompatActivity {
         clearFragmentBackStack();
         switch (position) {
             case 0:
-                Log.e("posicion",""+position);
+                //("posicion",""+position);
 
                 if(Global.LoginU.getRol().equals("CLIENTE")){
                     getSupportFragmentManager().beginTransaction()
@@ -145,14 +161,14 @@ public class Principal extends AppCompatActivity {
                 break;
 
             case 1:
-                Log.e("posicion",""+position);
+                //("posicion",""+position);
 
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.Contenedor_Fragments, new pedido()).commit();
                 break;
 
             case 2:
-                Log.e("posicion",""+position);
+                //("posicion",""+position);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.Contenedor_Fragments, new perfil_usuario()).commit();
                 break;
@@ -170,7 +186,7 @@ public class Principal extends AppCompatActivity {
 
     public void clearFragmentBackStack() {
         FragmentManager fm = getSupportFragmentManager();
-        Log.e("cuantos fragments",""+fm.getBackStackEntryCount());
+        //("cuantos fragments",""+fm.getBackStackEntryCount());
         for (int i = 0; i < fm.getBackStackEntryCount() - 1; i++) {
             fm.popBackStack();
         }
@@ -193,8 +209,8 @@ public class Principal extends AppCompatActivity {
 
                         if(response.isSuccessful()){
 
-                            Log.e("code Categoria",""+response.code());
-                            Log.e("respuest Categoria",Global.convertObjToString(response.body()));
+                            //("code Categoria",""+response.code());
+                            //("respuest Categoria",Global.convertObjToString(response.body()));
                             Global.categorias=response.body();
 
                         }else {
@@ -203,10 +219,10 @@ public class Principal extends AppCompatActivity {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-                                Log.e("normal-->400",staff.getMensaje());
+                                //("normal-->400",staff.getMensaje());
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
 
@@ -216,7 +232,7 @@ public class Principal extends AppCompatActivity {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("code Categoria","error");
+                        //("code Categoria","error");
 
                     }
 
@@ -227,5 +243,92 @@ public class Principal extends AppCompatActivity {
                     }
                 });
     }
+
+    private void generar_tokenNotis(String Token){
+        ReqGcToken.setIdUsuario(Global.LoginU.getid());
+        ReqGcToken.setToken(Token);
+
+        Gson gson = new Gson();
+        String JPTok= gson.toJson(ReqGcToken);
+        //("json",JPTok);
+        peticion_RegistrarToken(JPTok);
+
+    }
+
+    private void peticion_RegistrarToken(String jsonConf){
+        Retrofit retrofit;
+        ApiService retrofitApi;
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi.RegistrarGCToken(convertedObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
+                    @Override
+                    public void onNext(Response<ResponseUpdateImagen> response) {
+
+
+                        if(response.isSuccessful()){
+
+                            //("GC token",""+response.code());
+                            //("GC token","ok");
+
+
+                        }else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                //("normal-->400",staff.getMensaje());
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
+
+
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        //("code Categoria","error");
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    private void generar_token(){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            //("falla", "getInstanceId failed"+task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        generar_tokenNotis(token);
+
+                        // Toast.makeText(Login.this,token,Toast.LENGTH_LONG).show();
+
+                        // Log and toast
+                        //("token", token);
+                    }
+                });
+
+    }
+
 
 }

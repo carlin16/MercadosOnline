@@ -98,7 +98,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         holder.itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        Log.e("click","Tienda");
+        //("click","Tienda");
         productos pro= new productos();
         pro.ls_listado=lst_normal.get(position).getProductos();
         pro.vendedor=lst_normal.get(position).getVendedor();
@@ -152,7 +152,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
             List<ResponseVerAllPuesto> filtro=new ArrayList<>();
 
             if (constraint == null || constraint.length() == 0) {
-                Log.e("lista","es nulo o es cero");
+                //("lista","es nulo o es cero");
 
                 filtro.addAll(lst_full);
             } else {
@@ -164,13 +164,13 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
                    String comparar= item.getMaxCategorias().toLowerCase().trim();
 
                     List<String> list = new ArrayList<String>(Arrays.asList(comparar.split(" , ")));
-                    Log.e("lista",Global.convertObjToString(list));
+                    //("lista",Global.convertObjToString(list));
 
 
                     boolean encontre=false;
                     for(String s:list){
-                        Log.e("buscar",s+"");
-                        Log.e("buscando",""+filterPattern+"--"+s.contains(filterPattern));
+                        //("buscar",s+"");
+                        //("buscando",""+filterPattern+"--"+s.contains(filterPattern));
 
                         if(s.toLowerCase().contains(filterPattern)){
                             encontre=true;

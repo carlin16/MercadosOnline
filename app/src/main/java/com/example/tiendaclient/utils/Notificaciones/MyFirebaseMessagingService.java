@@ -60,11 +60,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.e("notificacion", "Titulo notificacion: " + remoteMessage.getNotification().getTitle());
-            Log.e("notificacion", "Titulo notificacion: " + remoteMessage.getNotification().getBody());
-            Log.e("notificacion", "TAG localizacion: " + remoteMessage.getNotification().getTitleLocalizationKey());
-            Log.e("notificacion", "TAG body: " + remoteMessage.getNotification().getBodyLocalizationKey());
-            Log.e("notificacion", "TAG url: " + remoteMessage.getNotification().getImageUrl());
+            //("notificacion", "Titulo notificacion: " + remoteMessage.getNotification().getTitle());
+            //("notificacion", "Titulo notificacion: " + remoteMessage.getNotification().getBody());
+            //("notificacion", "TAG localizacion: " + remoteMessage.getNotification().getTitleLocalizationKey());
+            //("notificacion", "TAG body: " + remoteMessage.getNotification().getBodyLocalizationKey());
+            //("notificacion", "TAG url: " + remoteMessage.getNotification().getImageUrl());
 
 
             //   Toast.makeText(getApplicationContext(), (CharSequence) remoteMessage.getNotification().getImageUrl(),Toast.LENGTH_SHORT).show();
@@ -95,7 +95,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onNewToken(@NonNull String Token) {
 
-            Log.e("actualizacion",""+Token);
+            //("actualizacion",""+Token);
 
 
 
@@ -136,7 +136,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-        Log.e("notificacion","Notificacion recibida");
+        //("notificacion","Notificacion recibida");
         NotificationCompat.Builder  mBuilder=new NotificationCompat.Builder(this,null);
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
             CharSequence alerta="Now";

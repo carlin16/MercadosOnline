@@ -94,7 +94,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         holder.itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-       // Log.e("click","Tienda");
+       // //("click","Tienda");
         itemClicListener.onItemClick(lst_normal.get(position),position);
 
 

@@ -1,9 +1,11 @@
+
 package com.example.tiendaclient.models.enviado;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PeticionRToken {
+public class RequestGCToken {
+
     @SerializedName("token")
     @Expose
     private String token;

@@ -85,7 +85,7 @@ public class Global {
 
               C.setCantidad(C.getCantidad()+nueva.getCantidad());
               C.setTotal(formatearDecimales(C.getTotal()+nueva.getTotal(),2));
-                Log.e("totalGlobal" , "------------->"+C.getTotal());
+                //("totalGlobal" , "------------->"+C.getTotal());
                 C.agregar_producto(nueva.getPuestos().get(0));
                 encontre=true;
             }
@@ -96,7 +96,7 @@ public class Global {
         VerCompras.add(nueva);
 
 
-        Log.e("lista",convertObjToString(VerCompras));
+        //("lista",convertObjToString(VerCompras));
 
     }
 

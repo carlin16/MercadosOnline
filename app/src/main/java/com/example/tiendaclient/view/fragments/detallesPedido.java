@@ -174,7 +174,7 @@ public class detallesPedido extends Fragment {
         recyclerView.setAdapter(adapter);
     }
     private void peticion_pedidos(){
-        Log.e("Pedidos","Detalles");
+        //("Pedidos","Detalles");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -188,7 +188,7 @@ public class detallesPedido extends Fragment {
 
                         if(response.isSuccessful()){
                             pedido=response.body();
-                            Log.e("Detalles",Global.convertObjToString(pedido));
+                            //("Detalles",Global.convertObjToString(pedido));
                             continuar=true;
                         }else{
                             try {
@@ -196,10 +196,10 @@ public class detallesPedido extends Fragment {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
 
@@ -210,17 +210,17 @@ public class detallesPedido extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("CodPetiEroor",""+e.toString());
+                        //("CodPetiEroor",""+e.toString());
 
                     }
 
                     @Override
                     public void onComplete() {
 
-                        Log.e("CodPetiEroor","completado");
+                        //("CodPetiEroor","completado");
                         // adapter.notifyDataSetChanged();
                         if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido ");
+                            //("activity","removido ");
                             return;
                         }else{
 

@@ -106,7 +106,7 @@ public class puestos extends Fragment {
     }
 
     private void peticio_puestos(){
-        Log.e("peticion","de puestos");
+        //("peticion","de puestos");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -120,8 +120,8 @@ public class puestos extends Fragment {
 
                         if(response.isSuccessful()){
                             ls_listado.clear();
-                            Log.e("code VP",""+response.code());
-                            Log.e("respuest VP", Global.convertObjToString(response.body()));
+                            //("code VP",""+response.code());
+                            //("respuest VP", Global.convertObjToString(response.body()));
                             ls_listado.addAll(response.body());
                             continuar=true;
 
@@ -132,10 +132,10 @@ public class puestos extends Fragment {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
                         }
@@ -143,16 +143,16 @@ public class puestos extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("code VP","error"+e.toString());
+                        //("code VP","error"+e.toString());
 
                     }
 
                     @Override
                     public void onComplete() {
 
-                        Log.e("code VP","completado");
+                        //("code VP","completado");
                         if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido de la actividad mercado");
+                            //("activity","removido de la actividad mercado");
                             return;
                         }else{
 
@@ -206,7 +206,7 @@ public class puestos extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
 
-Log.e("PALABRA",""+editable);
+//("PALABRA",""+editable);
                 filtro(editable.toString());
 
 

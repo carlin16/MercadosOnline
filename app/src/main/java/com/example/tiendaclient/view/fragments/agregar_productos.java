@@ -39,7 +39,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.dev.materialspinner.MaterialSpinner;
+
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionNuevoProducto;
 import com.example.tiendaclient.models.recibido.Producto;
@@ -305,19 +305,19 @@ public class agregar_productos extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("Foto", "Entre a ver foto");
+        //("Foto", "Entre a ver foto");
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 NPimagen_product=result.getUri();
-                Log.e("obtuve imagen",""+NPimagen_product);
+                //("obtuve imagen",""+NPimagen_product);
                 cambio=true;
 
 
                 llenar_subida();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-                Log.e("error imagen",result.getError().toString());
+                //("error imagen",result.getError().toString());
             }
         }
     }
@@ -396,7 +396,7 @@ public class agregar_productos extends Fragment {
     }
 
     private void validar_campos(){
-        Log.e("VC", "estoy en validar campos ");
+        //("VC", "estoy en validar campos ");
         if(verificar_vacio(ETNPNomPro.getText().toString())) {
             ETNPNomPro.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
@@ -466,11 +466,11 @@ public class agregar_productos extends Fragment {
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
         NuevoProducto.setIdCategoria(categoria.get(posCategoria).getId());
         NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
-        Log.e("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
+        //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
         Gson gson = new Gson();
         String JPetProducto= gson.toJson(NuevoProducto);
-        Log.e("json",JPetProducto);
+        //("json",JPetProducto);
         //  animacion_registro();
         //  subir_ProductoConImagen(JPetProducto);
         pDialog.show();
@@ -503,7 +503,7 @@ public class agregar_productos extends Fragment {
                     @Override
                     public void onNext(Response<ResponseRegistarProducto> response) {
 
-                        Log.e("code PU",""+response.code());
+                        //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             // cambio_pantalla=true;
                             // Global.RegisUser=response.body();
@@ -518,7 +518,7 @@ public class agregar_productos extends Fragment {
                                 mensaje=staff.getMensaje();
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                         }
                     }
@@ -529,7 +529,7 @@ public class agregar_productos extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        Log.e("edicion","exito");
+                        //("edicion","exito");
 
                         if(cambio)
                         cambiar_fotoProdct(product.getId().toString());
@@ -566,7 +566,7 @@ public class agregar_productos extends Fragment {
                         if (response.isSuccessful()) {
                             // cambio_pantalla =true;
                             mensaje=response.body().getMensaje();
-                            Log.e("normal",mensaje);
+                            //("normal",mensaje);
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
                         } else{
@@ -576,10 +576,10 @@ public class agregar_productos extends Fragment {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
                         }
@@ -594,7 +594,7 @@ public class agregar_productos extends Fragment {
 
                         pDialog.dismiss();
 
-                        Log.e("Completado foto","registrado");
+                        //("Completado foto","registrado");
                         ((Principal) getActivity()).cambiar_tab(0);
 
                     }
@@ -674,7 +674,7 @@ public class agregar_productos extends Fragment {
                         if (response.isSuccessful()) {
 
                             mensaje=response.body().getMensaje();
-                            Log.e("normal",mensaje);
+                            //("normal",mensaje);
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
                         } else{
@@ -684,10 +684,10 @@ public class agregar_productos extends Fragment {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
                         }
@@ -699,7 +699,7 @@ public class agregar_productos extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        Log.e("foto","cambiada");
+                        //("foto","cambiada");
                         pDialog.dismiss();
                         getFragmentManager().popBackStack();
 

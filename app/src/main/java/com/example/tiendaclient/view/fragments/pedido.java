@@ -87,7 +87,7 @@ public class pedido extends Fragment {
         if(Global.Modo==1)tipo="CLIENTE";
          if(Global.Modo==2)tipo="VENDEDOR";
 
-        Log.e("Pedidos","Se consumio");
+        //("Pedidos","Se consumio");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -101,8 +101,8 @@ public class pedido extends Fragment {
 
                         if(response.isSuccessful()){
                             listado.clear();
-                            Log.e("Pedido",""+response.code());
-                            Log.e("Resp Pedido", Global.convertObjToString(response.body()));
+                            //("Pedido",""+response.code());
+                            //("Resp Pedido", Global.convertObjToString(response.body()));
                             listado.addAll(response.body());
                             mensaje=""+response.code();
                             continuar=true;
@@ -114,10 +114,10 @@ public class pedido extends Fragment {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
 
                             }
 
@@ -129,17 +129,17 @@ public class pedido extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("CodPetiPEdidos","error"+ e.toString());
+                        //("CodPetiPEdidos","error"+ e.toString());
 
                     }
 
                     @Override
                     public void onComplete() {
 
-                        Log.e("CodPetiEroor","completado");
+                        //("CodPetiEroor","completado");
                         // adapter.notifyDataSetChanged();
                         if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido ");
+                            //("activity","removido ");
                             return;
                         }else{
 

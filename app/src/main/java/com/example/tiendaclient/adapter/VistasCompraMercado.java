@@ -124,24 +124,24 @@ private Filter mercados_filter =new Filter() {
     @Override
     protected FilterResults performFiltering(CharSequence constraint) {
 
-        Log.e("adapter","filtro llegar" +constraint);
+        //("adapter","filtro llegar" +constraint);
         List<Compra> filtro=new ArrayList<>();
 
         if (constraint == null || constraint.length() == 0) {
-            Log.e("adapter","filtro sin cambios");
+            //("adapter","filtro sin cambios");
 
             filtro.addAll(list_full);
         } else {
             String filterPattern = constraint.toString().toLowerCase().trim();
-            Log.e("adapter","probar-->" + filterPattern);
-            Log.e("adapter","tamaño lista -->" + list_full.size());
+            //("adapter","probar-->" + filterPattern);
+            //("adapter","tamaño lista -->" + list_full.size());
 
             for (Compra item : list_full) {
-                Log.e("adapter","recorro" + item.getNombre());
+                //("adapter","recorro" + item.getNombre());
 
 
                 if (item.getNombre().toLowerCase().contains(filterPattern) ) {
-                    Log.e("adapter","filtro" +item.toString());
+                    //("adapter","filtro" +item.toString());
                     filtro.add(item);
                 }
             }
@@ -155,7 +155,7 @@ private Filter mercados_filter =new Filter() {
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
         lst_normal.clear();
         lst_normal.addAll((List) filterResults.values);
-        Log.e("adapter","cambio");
+        //("adapter","cambio");
         notifyDataSetChanged();
     }
 };

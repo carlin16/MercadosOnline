@@ -155,7 +155,7 @@ LinearLayout contenedor_mercado;
             @Override
             public void onClick(View view) {
                 validar_campos();
-                Log.e("boton registar", "se dio clic ");
+                //("boton registar", "se dio clic ");
             }
         });
 
@@ -264,20 +264,20 @@ LinearLayout contenedor_mercado;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("Foto", "Entre a ver foto");
+        //("Foto", "Entre a ver foto");
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (resultCode == RESULT_OK) {
                 imagen_perfil=result.getUri();
-                Log.e("obtuve imagen",""+imagen_perfil);
+                //("obtuve imagen",""+imagen_perfil);
 
 
                 llenar_subida();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-                Log.e("error imagen",result.getError().toString());
+                //("error imagen",result.getError().toString());
             }
 
 
@@ -308,7 +308,7 @@ LinearLayout contenedor_mercado;
 
     }
     private void validar_campos(){
-        Log.e("VC", "estoy en validar campos ");
+        //("VC", "estoy en validar campos ");
 
 
 
@@ -358,10 +358,10 @@ LinearLayout contenedor_mercado;
         }
 
 
-        Log.e("Llenar todos dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
+        //("Llenar todos dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
         Gson gson = new Gson();
         String JPetUser= gson.toJson(RegisU);
-        Log.e("json",JPetUser);
+        //("json",JPetUser);
         pDialog.show();
         peticion_Registro(JPetUser);
     }
@@ -393,7 +393,7 @@ LinearLayout contenedor_mercado;
                     @Override
                     public void onNext(Response<ResponseRegistroUser> response) {
 
-                        Log.e("code PU",""+response.code());
+                        //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             cambio_pantalla=true;
                             Global.RegisUser=response.body();
@@ -409,7 +409,7 @@ LinearLayout contenedor_mercado;
                                 mensaje=staff.getMensaje();
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                         }
                     }
@@ -420,7 +420,7 @@ LinearLayout contenedor_mercado;
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado","registrado");
+                        //("Completado","registrado");
                         if(!cambio_pantalla){
 
                             Snackbar.make(vista,""+mensaje, Snackbar.LENGTH_LONG).show();
@@ -431,7 +431,7 @@ LinearLayout contenedor_mercado;
                             Credenciales.setPassword(RegisU.getPassword());
                             Gson gson = new Gson();
                             String JPetCredenciales= gson.toJson(Credenciales);
-                            Log.e("json",JPetCredenciales);
+                            //("json",JPetCredenciales);
                             peticion_Login(JPetCredenciales);
                             guardarPreferences(RegisU.getUsuario(),RegisU.getPassword());
                             subir_foto();
@@ -464,7 +464,7 @@ LinearLayout contenedor_mercado;
                         if (response.isSuccessful()) {
                             cambio_pantalla =true;
                             mensaje=response.body().getMensaje();
-                            Log.e("normal",mensaje);
+                            //("normal",mensaje);
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
                         } else{
@@ -474,10 +474,10 @@ LinearLayout contenedor_mercado;
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                             iniciar_sesion();
                         }
@@ -490,7 +490,7 @@ LinearLayout contenedor_mercado;
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado foto","registrado");
+                        //("Completado foto","registrado");
 
                      iniciar_sesion();
                                 pDialog.dismiss();
@@ -509,7 +509,7 @@ LinearLayout contenedor_mercado;
 
 
     private void peticion_mercado(){
-        Log.e("peticion","mercado");
+        //("peticion","mercado");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -523,8 +523,8 @@ LinearLayout contenedor_mercado;
 
                         if(response.isSuccessful()){
 
-                            Log.e("code VM",""+response.code());
-                            Log.e("respuest VM",Global.convertObjToString(response.body()));
+                            //("code VM",""+response.code());
+                            //("respuest VM",Global.convertObjToString(response.body()));
                             mercadito=response.body();
                             continuar=true;
 
@@ -535,10 +535,10 @@ LinearLayout contenedor_mercado;
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
 
@@ -548,17 +548,17 @@ LinearLayout contenedor_mercado;
                     }
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("code VM","error");
+                        //("code VM","error");
 
                     }
 
                     @Override
                     public void onComplete() {
 
-                        Log.e("code VM","completado");
+                        //("code VM","completado");
                         // adapter.notifyDataSetChanged();
                         if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido de la actividad mercado");
+                            //("activity","removido de la actividad mercado");
                             return;
                         }else{
 

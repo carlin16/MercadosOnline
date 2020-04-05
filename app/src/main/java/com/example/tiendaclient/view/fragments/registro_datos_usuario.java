@@ -111,7 +111,7 @@ public class registro_datos_usuario extends Fragment {
             @Override
             public void onClick(View view) {
                 validar_campos();
-                Log.e("boton registar", "se dio clic ");
+                //("boton registar", "se dio clic ");
             }
         });
         //Mejora en foco del TexImput
@@ -229,7 +229,7 @@ public class registro_datos_usuario extends Fragment {
     }
 
     private void validar_campos(){
-        Log.e("VC", "estoy en validar campos ");
+        //("VC", "estoy en validar campos ");
         if(verificar_vacio(Nombres.getText().toString())) {
             Nombres.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
@@ -287,12 +287,12 @@ public class registro_datos_usuario extends Fragment {
         RegisU.setEmail(Email.getText().toString());
         RegisU.setUsuario(Usuario.getText().toString());
         RegisU.setPassword(Pass.getText().toString());
-        Log.e("Llenar dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
+        //("Llenar dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
         siguiente_paantalla();
 
        // Gson gson = new Gson();
        // String JPetUser= gson.toJson(User);
-     //   Log.e("json",JPetUser);
+     //   //("json",JPetUser);
       //  animacion_registro();
         //peticion_Registro(JPetUser);
     }

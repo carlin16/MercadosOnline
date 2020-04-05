@@ -121,7 +121,7 @@ public class perfil_usuario extends Fragment {
                     @Override
                     public void onNext(Response<ResponseUserPorID> response) {
 
-                        Log.e("code PU",""+response.code());
+                        //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             Global.UserGlobal=response.body();
                             mensaje="Bienvenido "+Global.UserGlobal.getNombres();
@@ -134,10 +134,10 @@ public class perfil_usuario extends Fragment {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
                         }
@@ -149,7 +149,7 @@ public class perfil_usuario extends Fragment {
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado","Se cargo usuario");
+                        //("Completado","Se cargo usuario");
                         if(continuar){
                             llenaDts();
 
@@ -165,7 +165,7 @@ public class perfil_usuario extends Fragment {
 
     private  void llenaDts(){
         if(getActivity()==null || isRemoving() || isDetached()){
-            Log.e("activity","removido de la actividad ");
+            //("activity","removido de la actividad ");
             return;
         }
         llenar_subida();

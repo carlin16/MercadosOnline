@@ -123,7 +123,7 @@ public class productos extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.e("modo",""+Global.Modo);
+        //("modo",""+Global.Modo);
 
         UI();
         click();
@@ -131,7 +131,7 @@ public class productos extends Fragment {
 
         if(Global.Modo==1){
 
-            Log.e("esta es el del vendedor","------>"+ImageVendedor);
+            //("esta es el del vendedor","------>"+ImageVendedor);
             animacion_compra();
             iniciar_recycler();
             llenarDatos();
@@ -173,7 +173,7 @@ public class productos extends Fragment {
 
     private void seleccionar_producto(Producto product,int position){
 
-        Log.e("selccionar","estoy aqui cambiar foto");
+        //("selccionar","estoy aqui cambiar foto");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         TVProducNombreV.setText(""+product.getNombre().toUpperCase());
@@ -183,7 +183,7 @@ public class productos extends Fragment {
         DecimalFormat f = new DecimalFormat("##.00");
         TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
 
-        Log.e("el producto",""+product.getId());
+        //("el producto",""+product.getId());
         //cargar foto
 
         String url=Global.Url+"productos/"+product.getId()+"/foto";
@@ -197,7 +197,7 @@ public class productos extends Fragment {
         .skipMemoryCache(true)
                 .centerCrop()
                 .into(TVFotoProduct);
-        Log.e("la url de foto",url);
+        //("la url de foto",url);
         TVBtnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -234,7 +234,7 @@ public class productos extends Fragment {
 
     private void comprar_productos(Producto product){
 
-        Log.e("hey producto","click");
+        //("hey producto","click");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //
 
@@ -262,7 +262,7 @@ public class productos extends Fragment {
         CantidadCar.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
             @Override
             public void onValueChange(ElegantNumberButton view, int oldValue, int newValue) {
-                Log.e("Elegante btn", String.format("oldValue: %d   newValue: %d", oldValue, newValue));
+                //("Elegante btn", String.format("oldValue: %d   newValue: %d", oldValue, newValue));
 
 
                 Subtotal.setText("$"+df.format(precio*newValue));
@@ -394,7 +394,7 @@ private void llenarCarrito(Producto product){
     try {
         total=DecimalFormat.getNumberInstance().parse(f).doubleValue();
 
-        Log.e("total" , "------------->"+total);
+        //("total" , "------------->"+total);
     } catch (ParseException e) {
         e.printStackTrace();
     }
@@ -497,7 +497,7 @@ private void llenarCarrito(Producto product){
                     @Override
                     public void onNext(Response<ResponseVerAllPuesto> response) {
 
-                        Log.e("code PU",""+response.code());
+                        //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             TiendaPorId=response.body();
                            // cambio_pantalla=true;
@@ -514,23 +514,23 @@ private void llenarCarrito(Producto product){
                                 mensaje=staff.getMensaje();
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                         }
                     }
                     @Override
                     public void onError(Throwable e) {
                       //  pDialog.dismiss();
-                        Log.e("ProductosTienda", "fallo");
+                        //("ProductosTienda", "fallo");
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado",Global.convertObjToString(TiendaPorId));
+                        //("Completado",Global.convertObjToString(TiendaPorId));
 
 
                         if(getActivity()==null || isRemoving() || isDetached()){
-                            Log.e("activity","removido ");
+                            //("activity","removido ");
                             return;
                         }else{
 
@@ -613,7 +613,7 @@ private void llenar_Vendedor(){
                             // cambio_pantalla =true;
                             mensaje=response.body().getMensaje();
                             confirmacion=true;
-                            Log.e("normal",mensaje);
+                            //("normal",mensaje);
                         } else  if (response.code()==500) {
                             mensaje = "Internal Server Error";
                         } else{
@@ -623,10 +623,10 @@ private void llenar_Vendedor(){
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
 
                         }

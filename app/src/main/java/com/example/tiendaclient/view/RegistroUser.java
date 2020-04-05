@@ -129,7 +129,7 @@ public class RegistroUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 validar_campos();
-                Log.e("clic", "se dio clic");
+                //("clic", "se dio clic");
             }
         });
 
@@ -276,7 +276,7 @@ public class RegistroUser extends AppCompatActivity {
         User.setPassword(Pass.getText().toString());
         Gson gson = new Gson();
         String JPetUser= gson.toJson(User);
-        Log.e("json",JPetUser);
+        //("json",JPetUser);
         animacion_registro();
         peticion_Registro(JPetUser);
     }
@@ -294,7 +294,7 @@ public class RegistroUser extends AppCompatActivity {
                     @Override
                     public void onNext(Response<ResponseRegistroUser> response) {
 
-                        Log.e("code PU",""+response.code());
+                        //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             cambio_pantalla=true;
                             Global.RegisUser=response.body();
@@ -309,7 +309,7 @@ public class RegistroUser extends AppCompatActivity {
                                 mensaje=staff.getMensaje();
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                         }
                     }
@@ -330,7 +330,7 @@ public class RegistroUser extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado","registrado");
+                        //("Completado","registrado");
                         if(!cambio_pantalla){
                             datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
                             fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
@@ -390,13 +390,13 @@ public class RegistroUser extends AppCompatActivity {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 imagen_perfil=result.getUri();
-                Log.e("obtuve imagen",""+imagen_perfil);
+                //("obtuve imagen",""+imagen_perfil);
 
 
                 llenar_subida();
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
-                Log.e("error imagen",result.getError().toString());
+                //("error imagen",result.getError().toString());
             }
         }
     }
@@ -445,7 +445,7 @@ public class RegistroUser extends AppCompatActivity {
                             fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_check));
                             cambio_pantalla =true;
                             mensaje=response.body().getMensaje();
-                            Log.e("normal",mensaje);
+                            //("normal",mensaje);
                         } else {
                             fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
 
@@ -455,10 +455,10 @@ public class RegistroUser extends AppCompatActivity {
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
                                 mensaje=staff.getMensaje();
-                                Log.e("normal-->400",mensaje);
+                                //("normal-->400",mensaje);
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                             iniciar_sesion();
                         }
@@ -479,7 +479,7 @@ public class RegistroUser extends AppCompatActivity {
 
                     @Override
                     public void onComplete() {
-                        Log.e("Completado","registrado");
+                        //("Completado","registrado");
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override

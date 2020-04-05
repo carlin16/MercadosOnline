@@ -213,7 +213,7 @@ public class detalle extends Fragment {
 
 
 
-        Log.e("removido", Global.convertObjToString(Global.VerCompras));
+        //("removido", Global.convertObjToString(Global.VerCompras));
 
     }
 
@@ -289,11 +289,11 @@ private void ir_ubicacion(){
             if (grantResults.length == 2
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                Log.e("permisos ", "defecto");
+                //("permisos ", "defecto");
 
                 ir_ubicacion();
             } else {
-                Log.e("permisos", "manual");
+                //("permisos", "manual");
 
                 solicitarPermisosManual();
             }
@@ -307,18 +307,18 @@ private boolean validar_permisos() {
         return true;
     }
     if (ActivityCompat.checkSelfPermission(getActivity().getApplication(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-        Log.e("tengo permisos", "bien");
+        //("tengo permisos", "bien");
         if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) ||
                 ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
             //Todo no tiene permisos y le sale para dar
             cargarDialogoRecomendacion();
-            Log.e("dialogo", "recomendacion");
+            //("dialogo", "recomendacion");
         } else {
             //Todo no tiene permisos por que los nego y puso no volver a presentar asi que  mandamos de nuevo  a pedir y entrara
             //Todo a permisos manual
             //  requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-            Log.e("dialogo", "else");
+            //("dialogo", "else");
         }
         return false;
     }

@@ -152,7 +152,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                // validar_campos();
-                Log.e("clic", "Clic Inicio sesion");
 
                validar_campos();
 
@@ -197,7 +196,7 @@ public class Login extends AppCompatActivity {
         Credenciales.setPassword(ETLoginPass.getText().toString());
         Gson gson = new Gson();
         String JPetCredenciales= gson.toJson(Credenciales);
-        Log.e("json",JPetCredenciales);
+        //("json",JPetCredenciales);
         myDialog.show();
         peticion_Login(JPetCredenciales);
 
@@ -210,8 +209,8 @@ public class Login extends AppCompatActivity {
         MyEditorDts.putString("UsuarioS", Use);
         MyEditorDts.putString("PasswordS", Pass);
         MyEditorDts.apply();
-        Log.e("Datos g", Use);
-        Log.e("Datos g", Pass);
+        //("Datos g", Use);
+        //("Datos g", Pass);
 
     }
     public void llamarPreferences(){
@@ -248,7 +247,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onNext(Response<ResponseLoginUser> response) {
 
-                        Log.e("code PU",""+response.code());
+                        //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             cambio_pantalla=true;
                             Global.LoginU=response.body();
@@ -266,7 +265,7 @@ public class Login extends AppCompatActivity {
                                 mensaje=staff.getMensaje();
 
                             } catch (Exception e) {
-                                Log.e("error conversion json",""+e.getMessage());
+                                //("error conversion json",""+e.getMessage());
                             }
                         }
                     }
@@ -299,7 +298,7 @@ public class Login extends AppCompatActivity {
                             generar_token(ETLoginUser.getText().toString());
                             iniciar_sesion();
 
-                            Log.e("Completado","Login exitoso");
+                            //("Completado","Login exitoso");
                             guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString());
 
                         }else{
@@ -332,7 +331,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-                            Log.e("falla", "getInstanceId failed"+task.getException());
+                            //("falla", "getInstanceId failed"+task.getException());
                             return;
                         }
 
@@ -346,13 +345,13 @@ public class Login extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 //  Toast.makeText(getContext(),"enviado",Toast.LENGTH_LONG).show();
-                                Log.e("exito", "exito");
+                                //("exito", "exito");
 
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                            Log.e("falla", ""+e.toString());
+                            //("falla", ""+e.toString());
 
                             }
                         });
@@ -360,7 +359,7 @@ public class Login extends AppCompatActivity {
                        // Toast.makeText(Login.this,token,Toast.LENGTH_LONG).show();
 
                         // Log and toast
-                        Log.e("token", token);
+                        //("token", token);
                     }
                 });
 
