@@ -195,7 +195,7 @@ public class productos extends Fragment {
                 .error(R.drawable.ic_place_productos)
                 .diskCacheStrategy(DiskCacheStrategy.NONE )
         .skipMemoryCache(true)
-                .centerCrop()
+                .fitCenter()
                 .into(TVFotoProduct);
         //("la url de foto",url);
         TVBtnEditar.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +253,7 @@ public class productos extends Fragment {
                 .error(R.drawable.ic_place_productos)
                 . skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE )
-                .centerCrop()
+                .fitCenter()
 
                 .into(FotoProducto);
 
@@ -304,7 +304,7 @@ private void llenarDatos(){
             .error(R.drawable.placeholder_perfil)
             .skipMemoryCache(true)
 
-            .centerCrop()
+            .fitCenter()
             .into(FotoPuesto);
 }
 
@@ -583,7 +583,7 @@ private void llenar_Vendedor(){
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
-            .centerCrop()
+            .fitCenter()
             .into(FotoPuesto);
     String cate=""+TiendaPorId.getMaxCategorias();
     if(ls_listado.size()<1)
