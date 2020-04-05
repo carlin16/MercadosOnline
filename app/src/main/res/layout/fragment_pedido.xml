@@ -22,12 +22,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:text="Mis Pedidos"
             android:textColor="#1D1C1A"
             android:textSize="28sp"
             android:textStyle="bold"></TextView>
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/RelativeVacio"
             android:background="@color/col_grishueso"
             android:layout_width="match_parent"
@@ -67,10 +68,9 @@
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="12dp"
-            android:padding="2dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginTop="15dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="12dp"
 
             android:background="#FBFBFB"
             android:id="@+id/Recycler_pedidos"

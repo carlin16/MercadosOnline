@@ -324,7 +324,7 @@ private void llenarDatos(){
         buscar=vista.findViewById(R.id.escribir_busqueda);
         if(Global.Modo==2) {
             Resources resources = getResources();
-            compra.setImageDrawable(resources.getDrawable(R.drawable.ic_add));
+            compra.setImageDrawable(resources.getDrawable(R.drawable.ic_plus));
         }
 
     }
@@ -491,7 +491,7 @@ private void llenarCarrito(Producto product){
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
 
-        disposable = (Disposable) retrofitApi.VerProductosPorPuesto(""+Global.LoginU.getId_puesto(), "si")
+        disposable = (Disposable) retrofitApi.VerProductosPorPuesto(""+Global.LoginU.getId_puesto(), "si",Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseVerAllPuesto>>() {
@@ -603,7 +603,7 @@ private void llenar_Vendedor(){
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.EliminarProducto(""+produc.getId())
+        disposable = (Disposable) retrofitApi.EliminarProducto(""+produc.getId(),Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseError>>() {

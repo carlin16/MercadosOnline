@@ -182,7 +182,7 @@
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                   />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -215,7 +215,7 @@
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                />
 
 
         </com.google.android.material.textfield.TextInputLayout>

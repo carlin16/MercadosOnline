@@ -18,7 +18,10 @@ import com.example.tiendaclient.models.recibido.ResponseVerPedido;
 import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.fragments.detallesPedido;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
@@ -71,23 +74,25 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
 
         if(lst_normal.get(position).getEstado().equals("ENTREGADA")){
             holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_purpura));
-            holder.Status.setText("ENTREGADA");
+            holder.Status.setText("Entregada");
 
         }
         if(lst_normal.get(position).getEstado().equals("WAITING")) {
             holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_naranja));
-            holder.Status.setText("EN ESPERA");
+            holder.Status.setText("En Espera");
 
         }
         if(lst_normal.get(position).getEstado().equals("IN_PROGRESS")) {
             holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_rojo));
-            holder.Status.setText("EN PROGRESO");
+            holder.Status.setText("En Progreso");
         }
 
        // holder.RellenoStatus.setBackgroundColor(R.drawable.border_estatus_purpura);
         holder.NumPedido.setText("Pedido # "+lst_normal.get(position).getId());
         holder.DirMercado.setText(lst_normal.get(position).getNombreMercado());
-        holder.FechayHoraPedido.setText(lst_normal.get(position).getFechaRegistro().replace(" ","\n"));
+
+
+        holder.FechayHoraPedido.setText(""+lst_normal.get(position).getFechaRegistro());
 
         holder.TotalPedido.setText("$"+ Global.formatearDecimales(Double.parseDouble(lst_normal.get(position).getTotal()),2));
         holder.itemView.setOnClickListener(new View.OnClickListener() {

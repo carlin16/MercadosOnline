@@ -59,10 +59,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Mercado Mascote"
+                        android:fontFamily="@font/segoeuib"
+
                         android:maxLines="2"
                         android:textColor="@color/col_negrosolida"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                         />
 
                     <RelativeLayout
                         android:layout_gravity="center"

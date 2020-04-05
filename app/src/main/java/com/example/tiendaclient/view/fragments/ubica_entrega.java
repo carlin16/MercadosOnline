@@ -442,7 +442,7 @@ List<Detalle> pro= new ArrayList<>();
         Disposable disposable;
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
 
-        disposable = (Disposable) retrofitApi.RegistrarPedidos(convertedObject)
+        disposable = (Disposable) retrofitApi.RegistrarPedidos(convertedObject,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseRegistrarPedido>>() {

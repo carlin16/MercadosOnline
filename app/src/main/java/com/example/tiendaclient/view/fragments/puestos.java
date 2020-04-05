@@ -110,7 +110,7 @@ public class puestos extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerAllPuestos("si",""+Mercado.getId())
+        disposable = (Disposable) retrofitApi.VerAllPuestos("si",""+Mercado.getId(),Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseVerAllPuesto>>>() {

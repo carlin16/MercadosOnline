@@ -55,7 +55,7 @@ public class detallesPedido extends Fragment {
     ApiService retrofitApi;
     Boolean continuar=false;
     SweetAlertDialog pDialog;
-
+View linea_entregado ;
     String mensaje="detalle pedidos";
     RecyclerView recyclerView;
     VistasDetallePedido adapter;
@@ -93,10 +93,12 @@ public class detallesPedido extends Fragment {
         DetalleTotal=vista.findViewById(R.id.DetalleTotal);
         PedidoStatus=vista.findViewById(R.id.PedidoStatus);
         DetaEntregado=vista.findViewById(R.id.DetaEntregado);
+
+        linea_entregado=vista.findViewById(R.id.linea_entregado);
         Costo_Comision=vista.findViewById(R.id.Costo_Comision);
 
             if(Global.Modo==2){
-                Costo_Comision.setText("Comision");
+                Costo_Comision.setText("Comisión");
             }
 
         DetaEntregado.setOnClickListener(new View.OnClickListener() {
@@ -150,23 +152,24 @@ public class detallesPedido extends Fragment {
 
         if(pedido.getEstado().equals("ENTREGADA")){
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_purpura));
-            PedidoTxtStatus.setText("ENTREGADA");
+            PedidoTxtStatus.setText("Entregada");
         }
 
         if(pedido.getEstado().equals("IN_PROGRESS")){
             PedidoStatus.setVisibility(View.VISIBLE);
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
-            PedidoTxtStatus.setText("EN PROGRESO");
+            PedidoTxtStatus.setText("En Progresso");
 
             if(Global.Modo==1){
                 DetaEntregado.setVisibility(View.VISIBLE);
+                linea_entregado.setVisibility(View.VISIBLE);
             }
 
 
         }
         if(pedido.getEstado().equals("WAITING")){
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_naranja));
-            PedidoTxtStatus.setText("EN ESPERA");
+            PedidoTxtStatus.setText("En Espera");
 
         }
 
@@ -186,7 +189,7 @@ public class detallesPedido extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerDetallePedidos( id_pedido, "FULL")
+        disposable = (Disposable) retrofitApi.VerDetallePedidos( id_pedido, "FULL",Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseDetallesPedidos>>() {
@@ -277,7 +280,7 @@ public class detallesPedido extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.ActualizarPedido( id_pedido)
+        disposable = (Disposable) retrofitApi.ActualizarPedido( id_pedido,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseError>>() {

@@ -114,7 +114,7 @@ public class perfil_usuario extends Fragment {
         Disposable disposable;
         //JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
 
-        disposable = (Disposable) retrofitApi.ObtenerUsuarioporID(""+id)
+        disposable = (Disposable) retrofitApi.ObtenerUsuarioporID(""+id,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseUserPorID>>() {

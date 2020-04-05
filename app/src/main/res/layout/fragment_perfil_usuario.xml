@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,9 +40,9 @@
                 android:id="@+id/sesionoff"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_width="20dp"
+                android:layout_width="30dp"
                 android:src="@drawable/ic_off"
-                android:layout_height="20dp">
+                android:layout_height="30dp">
 
 
 
@@ -121,6 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dirección preferida"
+                android:fontFamily="@font/segoeui"
                 android:textColor="@color/col_grissuave"
                 android:textSize="16sp"
                 >
@@ -132,8 +133,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:fontFamily="@font/seguisb"
                 android:textColor="@color/col_negrosolida"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 >
 
             </TextView>
@@ -160,6 +162,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Celular"
+                android:fontFamily="@font/segoeui"
+
                 android:textColor="@color/col_grissuave"
                 android:textSize="16sp"
                 >
@@ -171,8 +175,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
+                android:fontFamily="@font/seguisb"
+
                 android:textColor="@color/col_negrosolida"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 >
 
             </TextView>
@@ -194,6 +200,8 @@
 
 
             <TextView
+                android:fontFamily="@font/segoeui"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Correo"
@@ -209,7 +217,9 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/col_negrosolida"
-                android:textSize="20sp"
+                android:textSize="22sp"
+                android:fontFamily="@font/seguisb"
+
                 >
 
             </TextView>
@@ -231,6 +241,7 @@
 
 
             <TextView
+                android:fontFamily="@font/segoeui"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Soy"
@@ -246,7 +257,9 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/col_negrosolida"
-                android:textSize="20sp"
+                android:textSize="22sp"
+                android:fontFamily="@font/seguisb"
+
                 >
 
             </TextView>

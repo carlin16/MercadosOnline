@@ -296,6 +296,7 @@ public class Login extends AppCompatActivity {
                             if(myDialog != null || myDialog.isShowing())
                                 myDialog.dismiss();
                             generar_token(ETLoginUser.getText().toString());
+                            Global.llenarToken();
                             iniciar_sesion();
 
                             //("Completado","Login exitoso");

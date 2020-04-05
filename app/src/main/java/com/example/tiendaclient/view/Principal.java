@@ -55,14 +55,14 @@ import static com.example.tiendaclient.utils.Global.RegisU;
 public class Principal extends AppCompatActivity {
 
 
-   public static TabLayout tabLayout;
-   RequestGCToken ReqGcToken= new RequestGCToken();
+    public static TabLayout tabLayout;
+    RequestGCToken ReqGcToken= new RequestGCToken();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-       this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         if(Global.LoginU.getRol().equals("CLIENTE")){
             getSupportFragmentManager().beginTransaction()
@@ -74,7 +74,7 @@ public class Principal extends AppCompatActivity {
         }else if(Global.LoginU.getRol().equals("VENDEDOR")){
             productos productin= new productos();
             //productin.idPuesto=Global.LoginU.getId_puesto();
-           // puestito.banderaRol=2;
+            // puestito.banderaRol=2;
             getSupportFragmentManager().beginTransaction()
                     //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
                     .replace(R.id.Contenedor_Fragments, productin).commit();
@@ -98,8 +98,8 @@ public class Principal extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mercados")));
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_product2, R.drawable.ic_product, "Pedidos")));
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_user2, R.drawable.ic_user, "Perfil")));
-       tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-       seleccion_tabs();
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        seleccion_tabs();
     }
 
     public   void cambiar_tab(int position){
@@ -113,7 +113,7 @@ public class Principal extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
-              //  tabLayout.getTabAt(position).select();
+                //  tabLayout.getTabAt(position).select();
 
                 elegir(tab.getPosition());
             }
@@ -126,7 +126,7 @@ public class Principal extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-              //  int position = tab.getPosition();
+                //  int position = tab.getPosition();
                 //("seleccion ","nuevo");
                 elegir(tab.getPosition());
             }
@@ -199,7 +199,7 @@ public class Principal extends AppCompatActivity {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerCategorias()
+        disposable = (Disposable) retrofitApi.VerCategorias(Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseCategorias>>>() {
@@ -263,7 +263,7 @@ public class Principal extends AppCompatActivity {
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
 
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.RegistrarGCToken(convertedObject)
+        disposable = (Disposable) retrofitApi.RegistrarGCToken(convertedObject,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {

@@ -30,7 +30,9 @@ public class Global {
     public static  List<String> Nombres_Categoria = new ArrayList<>();
     public static List<Compra> VerCompras= new ArrayList<>();
 
-
+public static void llenarToken(){
+    LoginU.setToken("Bearer "+ LoginU.getToken());
+}
 
     public static void limpiar(){
         RegisU= new PeticionRegistroUser();

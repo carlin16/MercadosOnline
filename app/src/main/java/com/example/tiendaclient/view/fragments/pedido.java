@@ -91,7 +91,7 @@ public class pedido extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerPedidosClientes( tipo, ""+Global.LoginU.getid())
+        disposable = (Disposable) retrofitApi.VerPedidosClientes( tipo, ""+Global.LoginU.getid(),Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseVerPedido>>>() {

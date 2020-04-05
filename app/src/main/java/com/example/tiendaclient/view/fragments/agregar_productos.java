@@ -496,7 +496,7 @@ public class agregar_productos extends Fragment {
         Disposable disposable;
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
 
-        disposable = (Disposable) retrofitApi.EditarProducto(id_product, convertedObject)
+        disposable = (Disposable) retrofitApi.EditarProducto(id_product, convertedObject,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
@@ -556,7 +556,7 @@ public class agregar_productos extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.RegistrarProducto(imagen, payload)
+        disposable = (Disposable) retrofitApi.RegistrarProducto(imagen, payload,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
@@ -664,7 +664,7 @@ public class agregar_productos extends Fragment {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.CambiarFoto(idProducto, imagen)
+        disposable = (Disposable) retrofitApi.CambiarFoto(idProducto, imagen,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
