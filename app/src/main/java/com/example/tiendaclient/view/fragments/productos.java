@@ -240,8 +240,9 @@ public class productos extends Fragment {
 
         NombreProducto.setText(product.getNombre().toUpperCase());
         UnidadesProd.setText("Precio por "+product.getUnidades());
-        Valorproduct.setText("$"+product.getPrecio().toString());
-        Subtotal.setText("$"+product.getPrecio().toString());
+        DecimalFormat f = new DecimalFormat("##.00");
+        Valorproduct.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
         DescripProduct.setText(product.getDescripcion());
         CantidadCar.setNumber("1");
 
