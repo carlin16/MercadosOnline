@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.tiendaclient.R;
@@ -24,8 +23,6 @@ import com.example.tiendaclient.utils.Global;
 import com.example.tiendaclient.view.Login;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
-import com.makeramen.roundedimageview.RoundedImageView;
 import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import br.com.simplepass.loadingbutton.customViews.CircularProgressButton;
@@ -303,7 +300,7 @@ public class registro_datos_usuario extends Fragment {
     private  void siguiente_paantalla(){
         FragmentTransaction fragmentTransaction;
         fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.Contenedor_Registro, new resgistro_completar()).addToBackStack(null);
+        fragmentTransaction.replace(R.id.Contenedor_Registro, new registro_completar()).addToBackStack(null);
         fragmentTransaction.commit();
 
     }

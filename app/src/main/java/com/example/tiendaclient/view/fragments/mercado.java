@@ -69,7 +69,7 @@ public class mercado extends Fragment {
     EditText buscar;
     ApiService retrofitApi;
     Boolean continuar=false;
-    String mensaje="";
+    String mensaje="mercado";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -170,7 +170,7 @@ return vista;
 
     public void filtro(String S){
 
-    if(listado.size()>0)
+    if(listado.size()>0 )
         adapter.getFilter().filter(S);
     }
 

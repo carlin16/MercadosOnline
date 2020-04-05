@@ -30,7 +30,8 @@
             android:layout_gravity="start"
             android:text="Puestos"
             android:gravity="start"
-            android:background="@color/col_White" android:textColor="#1D1C1A"
+            android:background="@color/col_White"
+            android:textColor="@color/col_negro"
             android:textSize="28sp"
             android:textStyle="bold">
 

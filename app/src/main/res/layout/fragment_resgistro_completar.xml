@@ -25,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mercados Online"
+            android:fontFamily="@font/segoeui"
             android:textColor="@color/col_grissuave"
             android:textSize="17sp"></TextView>
 
@@ -36,7 +37,8 @@
             android:layout_marginBottom="10dp"
             android:textColor="@color/col_negro"
             android:textSize="30sp"
-
+            android:layout_marginTop="-10dp"
+            android:fontFamily="@font/segoeuib"
             android:textStyle="bold"></TextView
             >
 
@@ -86,11 +88,11 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
                 android:layout_weight="1"
                 android:entries="@array/Roles"
-                android:fontFamily="@font/geo"
+                android:fontFamily="@font/segoeui"
                 android:textAlignment="center"
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
@@ -133,19 +135,22 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+
+
                 <Spinner
                     android:id="@+id/spn_Mercado"
                     android:layout_width="match_parent"
 
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="8dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:layout_weight="1"
                     android:entries="@array/Roles"
-                    android:fontFamily="@font/geo"
+                    android:fontFamily="@font/segoeui"
                     android:textAlignment="center"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
+
                     android:textSize="12sp"
                     android:textStyle="bold"></Spinner>
             </LinearLayout>
@@ -164,15 +169,15 @@
                     android:id="@+id/registro_NumPuesto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
                     android:gravity="left"
                     android:hint="Nro de puesto"
                     android:imeActionId="6"
                     android:imeOptions="actionUnspecified"
                     android:inputType="number"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
+                    android:fontFamily="@font/segoeui"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
@@ -197,15 +202,15 @@
                 android:id="@+id/registro_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
                 android:gravity="left"
                 android:hint="Direccion"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/segoeui"
                 android:singleLine="true"
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"

@@ -272,6 +272,9 @@ public class Login extends AppCompatActivity {
                     }
                     @Override
                     public void onError(Throwable e) {
+                        BtnLoginIngresar.setEnabled(true);
+                        Snackbar.make(findViewById(android.R.id.content), e.toString(), Snackbar.LENGTH_LONG).show();
+
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override

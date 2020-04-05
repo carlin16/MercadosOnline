@@ -53,6 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -78,7 +79,7 @@ public class productos extends Fragment {
     TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
 
     ElegantNumberButton CantidadCar;
-    RoundedImageView FotoPuesto;
+    CircleImageView FotoPuesto;
     ImageView FotoProducto;
 
     //Elementos de Dialog Ver producto en modo VENDEDOR
@@ -98,7 +99,7 @@ public class productos extends Fragment {
 
 
 
-    String mensaje="";
+    String mensaje="productos";
 
     DecimalFormat df = new DecimalFormat("#.00");//formatear  a 2 decimales
 
@@ -175,11 +176,11 @@ public class productos extends Fragment {
         Log.e("selccionar","estoy aqui cambiar foto");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        TVProducNombreV.setText(product.getNombre());
-        TVCategoriaV.setText(product.getNombreCategoria());
-        TVCompDescripcionV.setText(product.getDescripcion());
-        TVUnidadMedidaP.setText(product.getUnidades().toString());
-        TVCompSubtotalV.setText(product.getPrecio());
+        TVProducNombreV.setText(""+product.getNombre().toUpperCase());
+        TVCategoriaV.setText(""+product.getNombreCategoria().toUpperCase());
+        TVCompDescripcionV.setText(""+product.getDescripcion().toUpperCase());
+        TVUnidadMedidaP.setText(""+product.getUnidades());
+        TVCompSubtotalV.setText("$"+product.getPrecio());
 
         Log.e("el producto",""+product.getId());
         //cargar foto
@@ -192,6 +193,8 @@ public class productos extends Fragment {
                 .placeholder(R.drawable.ic_place_productos)
                 .error(R.drawable.ic_place_productos)
                 .diskCacheStrategy(DiskCacheStrategy.NONE )
+        .skipMemoryCache(true)
+                .centerCrop()
                 .into(TVFotoProduct);
         Log.e("la url de foto",url);
         TVBtnEditar.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +249,10 @@ public class productos extends Fragment {
                 .load(Global.Url+"productos/"+product.getId()+"/foto")
                 .placeholder(R.drawable.ic_place_productos)
                 .error(R.drawable.ic_place_productos)
+                . skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE )
+                .centerCrop()
+
                 .into(FotoProducto);
 
         final double precio=Double.parseDouble(product.getPrecio());
@@ -282,9 +289,9 @@ public class productos extends Fragment {
 
 private void llenarDatos(){
 
-    NombreDueno.setText(vendedor.getNombres().toUpperCase()+" "+vendedor.getApellidos().toUpperCase());
+    NombreDueno.setText(vendedor.getNombres()+" "+vendedor.getApellidos());
 
-    Cantidadpro.setText(""+(ls_listado.size()));
+    Cantidadpro.setText(""+(ls_listado.size()) + " Productos");
 
     Idpuesto.setText(idPuesto);
     Glide
@@ -293,7 +300,9 @@ private void llenarDatos(){
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
-            .fitCenter()
+            .skipMemoryCache(true)
+
+            .centerCrop()
             .into(FotoPuesto);
 }
 
@@ -308,7 +317,7 @@ private void llenarDatos(){
         DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
         Cantidadpro= vista.findViewById(R.id.TVProCantidad);
         FotoPuesto= vista.findViewById(R.id.TVPuestoFotoV);
-        DescripcionPuesto.setText(categorias.toUpperCase());
+        DescripcionPuesto.setText(categorias);
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         if(Global.Modo==2) {
@@ -519,6 +528,12 @@ private void llenarCarrito(Producto product){
                     public void onComplete() {
                         Log.e("Completado",Global.convertObjToString(TiendaPorId));
 
+
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            Log.e("activity","removido ");
+                            return;
+                        }else{
+
                         ls_listado.clear();
 
                        for (Producto x:TiendaPorId.getProductos()){
@@ -529,6 +544,7 @@ private void llenarCarrito(Producto product){
 
                         }
                        iniciar_recycler();
+                       adapter.notifyDataSetChanged();
 
                        if(Global.Modo==2){
                             llenar_Vendedor();
@@ -544,6 +560,7 @@ private void llenarCarrito(Producto product){
                         }*/
 
 
+                        }
 
                     }
                 });
@@ -551,9 +568,9 @@ private void llenarCarrito(Producto product){
 
 private void llenar_Vendedor(){
 
-    NombreDueno.setText(Global.LoginU.getNombres().toUpperCase()+" "+Global.LoginU.getApellidos().toUpperCase());
+    NombreDueno.setText(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos());
 
-    Cantidadpro.setText(""+(ls_listado.size()));
+    Cantidadpro.setText(""+(ls_listado.size()) +" Productos");
 
     Idpuesto.setText(TiendaPorId.getCodigo());
 
@@ -565,10 +582,14 @@ private void llenar_Vendedor(){
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
-            .fitCenter()
+            .centerCrop()
             .into(FotoPuesto);
     String cate=""+TiendaPorId.getMaxCategorias();
-    DescripcionPuesto.setText(""+cate.toUpperCase());
+    if(ls_listado.size()<1)
+   DescripcionPuesto.setText("");
+
+    else
+    DescripcionPuesto.setText(""+cate);
 
 }
 

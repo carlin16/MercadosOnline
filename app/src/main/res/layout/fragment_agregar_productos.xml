@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/col_White"
+
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -44,7 +45,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/border_dashed"
             android:orientation="vertical"
-            android:layout_height="135dp">
+            android:layout_height="150dp">
 
             <ImageView
                 android:id="@+id/NPImage"
@@ -181,28 +182,20 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.skydoves.powerspinner.PowerSpinnerView
-                android:id="@+id/SpUnidad"
-                android:layout_marginStart="5dp"
+            <Spinner
+                android:id="@+id/SPUnidad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/col_White"
-                android:gravity="center"
-                android:hint="Medido en"
-                android:padding="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
-                android:layout_gravity="center"
-                android:textColor="@color/col_negrosolida"
+                android:entries="@array/Roles"
+                android:fontFamily="@font/geo"
+                android:textAlignment="center"
+                android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
-                android:textSize="16.5sp"
-                app:spinner_arrow_gravity="end"
-                app:spinner_arrow_padding="8dp"
-                app:spinner_divider_color="@color/col_negro"
-                app:spinner_divider_show="true"
-                app:spinner_divider_size="0.4dp"
-                app:spinner_item_array="@array/Unidades"
-                app:spinner_popup_animation="fade"
-                app:spinner_popup_elevation="14dp" />
+                android:textSize="12sp"
+                android:textStyle="bold"></Spinner>
 
 
         </LinearLayout>
@@ -257,7 +250,7 @@
                 app:spinner_divider_show="true"
                 app:spinner_divider_size="0.4dp"
                 app:spinner_item_array="@array/Unidades"
-                app:spinner_popup_animation="dropdown"
+                app:spinner_popup_animation="fade"
                 app:spinner_popup_elevation="14dp" />
 
         </LinearLayout>

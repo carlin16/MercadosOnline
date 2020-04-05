@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolder>  implements Filterable {
 
 
@@ -77,7 +79,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
-        holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres().toUpperCase()+" "+lst_normal.get(position).getVendedor().getApellidos().toUpperCase());
+        holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres()+" "+lst_normal.get(position).getVendedor().getApellidos());
         holder.CodigoPuesto.setText(lst_normal.get(position).getCodigo());
         holder.DescripcionPuesto.setText(lst_normal.get(position).getMaxCategorias());
     //  aqui guia te y setea acvtualiza el response
@@ -129,7 +131,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     public class MultiHolder extends RecyclerView.ViewHolder {
 // instancia la scosas que faltan aqui creas lo que hay en la vista
-        RoundedImageView imagen;
+        CircleImageView imagen;
         TextView nombre, CodigoPuesto, DescripcionPuesto;
         public MultiHolder(@NonNull View itemView) {
             super(itemView);

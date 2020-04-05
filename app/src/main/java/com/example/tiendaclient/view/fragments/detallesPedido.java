@@ -51,7 +51,7 @@ public class detallesPedido extends Fragment {
     public String id_pedido;
     ApiService retrofitApi;
     Boolean continuar=false;
-    String mensaje="";
+    String mensaje="detalle pedidos";
     RecyclerView recyclerView;
     VistasDetallePedido adapter;
     TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha,Costo_Comision;
@@ -135,13 +135,13 @@ public class detallesPedido extends Fragment {
             ///cambiar
             DetalleSubtotal.setText("$"+subTotal);
             DetalleCostoEnvio.setText("$"+comision);
-            DetalleTotal.setText("$"+Global.formatearDecimales(subTotal+comision,2));
+            DetalleTotal.setText("$"+Global.formatearDecimales(subTotal-comision,2));
         }
 
         PedidoFecha.setText(pedido.getFechaRegistro());
 
 
-        if(pedido.getEstado().equals("ENTREGADA")){
+        if(pedido.getEstado().equals("IN_PROGRESS")){
             PedidoStatus.setVisibility(View.VISIBLE);
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_purpura));
             PedidoTxtStatus.setText("ENTREGADA");

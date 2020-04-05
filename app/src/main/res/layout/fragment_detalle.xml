@@ -3,19 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="2dp"
+    android:backgroundTint="@color/col_White"
+    android:background="@color/col_White"
     tools:context=".view.fragments.mercado">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
-    android:background="#FFF"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-    <include layout="@layout/app_busqueda"></include>
+        android:background="#FFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <include layout="@layout/app_busqueda"></include>
 
         <RelativeLayout
+            android:background="@color/col_White"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -29,70 +31,81 @@
                 android:layout_marginEnd="10dp"
                 android:layout_height="40dp">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
 
-    >
-    <TextView
-        android:paddingLeft="10dp"
-        android:id="@+id/NombreCArro"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text="Carrito"
-        android:gravity="left"
-        android:textColor="@color/col_negrosolida"
-        android:textSize="28sp"
-        android:textStyle="bold">
-
-
-    </TextView>
+                    >
+                    <TextView
+                        android:paddingLeft="10dp"
+                        android:id="@+id/NombreCArro"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Carrito"
+                        android:gravity="left"
+                        android:textColor="@color/col_negrosolida"
+                        android:textSize="28sp"
+                        android:textStyle="bold">
 
 
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/DetalleCancelarPedido"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Cancelar pedido"
-        android:textSize="15sp"
-        android:textColor="@color/col_rojo"
-        android:textStyle="bold"
-        android:gravity="center|end"
+                    </TextView>
 
 
-        >
-    </TextView>
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/DetalleCancelarPedido"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Cancelar pedido"
+                        android:textSize="15sp"
+                        android:textColor="@color/col_rojo"
+                        android:textStyle="bold"
+                        android:gravity="center|end"
 
-</LinearLayout>
+
+                        >
+                    </TextView>
+
+                </LinearLayout>
 
 
 
             </RelativeLayout>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:elevation="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_above="@+id/inferior"
-                android:layout_below="@+id/superior"
-                android:padding="5dp"
-                android:background="@drawable/border_redondon"
-                android:id="@+id/Recycler_Detalles"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/item_detalle_productos"
-                >
+<LinearLayout
+    android:layout_above="@+id/inferior"
+    android:layout_below="@+id/superior"
+    android:background="@color/col_grishueso"
+    android:layout_width="match_parent"
+    android:padding="15dp"
+    android:layout_height="wrap_content">
+
+    <androidx.recyclerview.widget.RecyclerView
 
 
 
-            </androidx.recyclerview.widget.RecyclerView>
+        android:background="@drawable/redondin"
+        android:id="@+id/Recycler_Detalles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_detalle_productos"
+        >
+
+
+
+    </androidx.recyclerview.widget.RecyclerView
+
+
+>
+
+
+</LinearLayout>
+
+
 
             <LinearLayout
 
@@ -104,9 +117,8 @@
                 android:orientation="vertical"
                 >
                 <View
-                    android:layout_marginTop="1dp"
                     android:layout_width="match_parent"
-                    android:layout_height="2dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/col_gris"
                     >
 
@@ -122,6 +134,7 @@
 
 
                     <LinearLayout
+                        android:layout_marginTop="8dp"
                         android:layout_gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -134,7 +147,8 @@
                             android:layout_weight="1"
                             android:text="Subtotal"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
 
                             android:layout_alignParentRight="true"
                             >
@@ -148,7 +162,9 @@
                             android:layout_weight="1"
                             android:text="$50.00"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
+                            android:fontFamily="@font/seguisb"
+
+                            android:textColor="@color/col_grisfuerte"
                             android:layout_alignParentRight="true"
                             android:textAlignment="textEnd"
                             >
@@ -168,7 +184,8 @@
                             android:layout_weight="1"
                             android:text="Costo envio"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
 
                             android:layout_alignParentRight="true"
                             >
@@ -182,7 +199,9 @@
                             android:layout_weight="1"
                             android:text="$2.00"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
+                            android:fontFamily="@font/seguisb"
+
+                            android:textColor="@color/col_grisfuerte"
                             android:layout_alignParentRight="true"
                             android:textAlignment="textEnd"
                             >
@@ -202,7 +221,9 @@
                             android:layout_weight="1"
                             android:text="Total"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
+                            android:fontFamily="@font/seguisb"
+
+                            android:textColor="@color/col_grisfuerte"
 
                             android:layout_alignParentRight="true"
                             >
@@ -216,7 +237,8 @@
                             android:layout_weight="1"
                             android:text="$52.00"
                             android:textSize="15sp"
-                            android:textColor="@color/col_grissuave"
+                            android:fontFamily="@font/seguisb"
+                            android:textColor="@color/col_grisfuerte"
                             android:layout_alignParentRight="true"
                             android:textAlignment="textEnd"
                             >
@@ -228,9 +250,9 @@
                     </LinearLayout>
 
                     <View
-                        android:layout_marginTop="2dp"
+                        android:layout_marginTop="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="3dp"
+                        android:layout_height="1dp"
                         android:background="@color/col_gris"
                         >
 
@@ -242,7 +264,7 @@
                         android:layout_marginEnd="20dp"
 
                         android:layout_marginBottom="20dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -326,6 +348,6 @@
 
 
 
-</LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

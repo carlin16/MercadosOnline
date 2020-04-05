@@ -82,7 +82,7 @@ import static com.example.tiendaclient.utils.Global.verificar_vacio;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class resgistro_completar extends Fragment {
+public class registro_completar extends Fragment {
 
     Uri imagen_perfil;
 
@@ -128,8 +128,8 @@ LinearLayout contenedor_mercado;
         TENPuest.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "99999" )}) ;
 
         TIDir.setVisibility(View.VISIBLE);
-        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,list_tiendas);
-        spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item,list_tiendas);
+        //spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         Mercado.setAdapter(spinnerArrayAdapter);
 
 
@@ -246,7 +246,7 @@ LinearLayout contenedor_mercado;
     }
 
 
-    public resgistro_completar() {
+    public registro_completar() {
         // Required empty public constructor
     }
 
@@ -268,6 +268,7 @@ LinearLayout contenedor_mercado;
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
             if (resultCode == RESULT_OK) {
                 imagen_perfil=result.getUri();
                 Log.e("obtuve imagen",""+imagen_perfil);
@@ -278,6 +279,8 @@ LinearLayout contenedor_mercado;
                 Exception error = result.getError();
                 Log.e("error imagen",result.getError().toString());
             }
+
+
         }
     }
     private void llenar_subida(){
@@ -287,9 +290,11 @@ LinearLayout contenedor_mercado;
 
 
     }
+
     public void funcion_cortar() {
         CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
+            .setAspectRatio(4, 4)
+                .setFixAspectRatio(true)
                 .start(getContext(),this);
     }
 
@@ -343,7 +348,7 @@ LinearLayout contenedor_mercado;
 
     }
     public  void llenarDatos(){
-        RegisU.setRol(Roles[posRol]);
+        RegisU.setRol(Roles[posRol].toUpperCase());
         RegisU.setDireccion(Direccion.getText().toString());
 
 

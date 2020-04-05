@@ -29,6 +29,7 @@
             android:theme="@style/AppFullScreenTheme"></activity>
         <activity
             android:name=".view.Principal"
+            android:windowSoftInputMode="adjustPan|adjustNothing"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".view.Login"
@@ -41,7 +42,7 @@
         </activity>
         <activity
             android:name=".view.RegistroUser"
-            android:theme="@style/AppFullScreenTheme" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"  />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

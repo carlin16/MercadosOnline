@@ -70,7 +70,7 @@ public class puestos extends Fragment {
     ImageView compra;
     EditText buscar;
     Boolean continuar=false;
-    String mensaje="";
+    String mensaje="puestos";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -85,7 +85,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
     public List<CompraProductos> productos =new ArrayList<>();
     public String id_del_fragment;
     public Double Total_precio;
-    String mensaje;
+    String mensaje="ubicacion";
     Boolean correcto=false;
     public int PosicionListaArray = 0;
     public ubica_entrega() {
@@ -268,7 +268,7 @@ List<Detalle> pro= new ArrayList<>();
         // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100,0,locListener);
     }
 
-
+    Boolean move =true;
     private void agregar_marcador(double lat, double lng) {
         nuevo = new LatLng(lat, lng);
         //CameraUpdate miubicacion = CameraUpdateFactory.newLatLngZoom(nuevo, 14);
@@ -276,7 +276,12 @@ List<Detalle> pro= new ArrayList<>();
         marcador = mMap.addMarker(new MarkerOptions().position(nuevo).draggable(true));
         //marcador = gmap.addMarker(new MarkerOptions().position(nuevo).draggable(true).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
        // mMap.animateCamera(miubicacion);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,mMap.getCameraPosition().zoom));
+        if(move){
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,18));
+            move=false;
+        }
+        else
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,mMap.getCameraPosition().zoom));
         consulta_ubicacion();
         //direccion();
 
@@ -476,7 +481,6 @@ List<Detalle> pro= new ArrayList<>();
                     @Override
                     public void onComplete() {
                         pDialog.dismiss();
-                        Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                         if(correcto){
                             Global.VerCompras.remove(PosicionListaArray);
                             //getFragmentManager().popBackStack(id_del_fragment,0);
@@ -485,8 +489,17 @@ List<Detalle> pro= new ArrayList<>();
                             getFragmentManager().beginTransaction()
                                     .replace(R.id.Contenedor_Fragments, new pedido()).commit();
                             ((Principal) getActivity()).clearFragmentBackStack();
-
                             ((Principal) getActivity()).cambiar_tab(1);
+                            Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+
+
+                        }else{
+                            if(mensaje.length()<2)
+                            Toast.makeText(getActivity(),"Ocurrio un Error de Conexi",Toast.LENGTH_LONG).show();
+                            else{
+                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+
+                            }
 
                         }
 

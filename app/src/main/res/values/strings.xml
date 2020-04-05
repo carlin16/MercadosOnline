@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Municipio Online</string>
+    <string name="app_name">Mercados Online</string>
     <string name="Rol">Rol de usuario</string>
     <string name="tipoTienda">Escoja tipo de tienda</string>
 
@@ -7,19 +7,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string name="Registrarse"><u>Resgistrarse</u></string>
+    <string name="Registrarse"><u>Registrarse</u></string>
 
 
-    <string name="IniciarSesion"><u>Iniciar Sesion</u></string>
+    <string name="IniciarSesion"><u>Iniciar Sesión</u></string>
     <string-array name="Roles">
-        <item>CLIENTE</item>
-        <item>VENDEDOR</item>
+        <item>Cliente</item>
+        <item>Vendedor</item>
     </string-array>
 
 
     <string-array name="Unidades">
         <item>Unidad</item>
         <item>Libra</item>
+        <item>Medido en</item>
+
     </string-array>
 
 </resources>

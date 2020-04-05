@@ -48,7 +48,7 @@ public class pedido extends Fragment {
     Retrofit retrofit;
     ApiService retrofitApi;
     Boolean continuar=false;
-    String mensaje="";
+    String mensaje="pedidos";
     RelativeLayout RelativeVacio;
 
     public pedido() {
@@ -118,6 +118,7 @@ public class pedido extends Fragment {
 
                             } catch (Exception e) {
                                 Log.e("error conversion json",""+e.getMessage());
+
                             }
 
 

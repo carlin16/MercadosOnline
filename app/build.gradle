@@ -131,11 +131,11 @@ dependencies {
     //spinners
     // implementation "com.github.skydoves:powerspinner:1.0.5"
     //
-    implementation 'com.github.ganfra:material-spinner:2.0.0'
 
     implementation "com.github.skydoves:powerspinner:1.0.5"
-    implementation 'me.abhinay.input:currency-edittext:1.1'
 
+
+    implementation'com.github.devdhar04:MaterialSpinner:v0.1.2'
 //
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

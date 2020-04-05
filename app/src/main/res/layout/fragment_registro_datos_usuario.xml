@@ -12,9 +12,9 @@
             android:layout_width="match_parent"
             android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginTop="40dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mercados Online"
+                android:fontFamily="@font/segoeui"
                 android:textColor="@color/col_grissuave"
                 android:textSize="17sp"></TextView>
 
@@ -40,6 +41,8 @@
                 android:text="Registrarse"
                 android:textColor="@color/col_negro"
                 android:textSize="30sp"
+                android:layout_marginTop="-10dp"
+                android:fontFamily="@font/segoeuib"
                 android:textStyle="bold"></TextView>
 
 
@@ -58,21 +61,20 @@
                     android:id="@+id/registro_nombre"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
+                    android:fontFamily="@font/segoeui"
                     android:gravity="left"
                     android:hint="Nombres"
                     android:imeActionId="1"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
-
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                  />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -90,20 +92,20 @@
                     android:id="@+id/registro_apellido"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
+                    android:fontFamily="@font/segoeui"
                     android:gravity="left"
                     android:hint="Apellidos"
                     android:imeActionId="2"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                     />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -121,20 +123,20 @@
                     android:id="@+id/registro_usuario"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
+                    android:fontFamily="@font/segoeui"
                     android:gravity="left"
                     android:hint="Usuario"
                     android:imeActionId="3"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -150,6 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+
                     app:ccp_countryPreference="US,EC,ME,CO,PE"
 
                     app:ccp_defaultCode="593"
@@ -169,14 +172,14 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center"
-                        android:hint="Telefono"
+                        android:fontFamily="@font/segoeui"
+                        android:hint="Teléfono"
                         android:imeOptions="actionUnspecified"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingBottom="10dp"
                         android:singleLine="true"
                         android:textColorHint="@color/colorSecondaryText"
-
                         android:textSize="16sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -200,20 +203,20 @@
                     android:id="@+id/registro_email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/geo"
                     android:gravity="left"
                     android:hint="Email"
                     android:imeActionId="4"
+                    android:fontFamily="@font/segoeui"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -239,13 +242,14 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
-
+                    android:textSize="16sp"
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
+                    android:fontFamily="@font/segoeui"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
+
                     android:textStyle="bold" />
 
 
@@ -271,14 +275,14 @@
                     android:imeActionId="6"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
+                    android:fontFamily="@font/segoeui"
                     android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="15dp"
-
+                    android:paddingLeft="5dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="16sp"
                     android:singleLine="true"
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
-                    android:textSize="20sp"
                     android:textStyle="bold" />
 
 

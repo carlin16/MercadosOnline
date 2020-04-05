@@ -8,6 +8,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -24,14 +25,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.dev.materialspinner.MaterialSpinner;
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionNuevoProducto;
 import com.example.tiendaclient.models.recibido.Producto;
@@ -48,6 +56,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener;
 import com.skydoves.powerspinner.PowerSpinnerView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -59,13 +68,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import me.abhinay.input.CurrencyEditText;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -83,11 +92,13 @@ public class agregar_productos extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
-   public  Producto product;
-   public int bandera=1;
+    public  Producto product;
+    public int bandera=1;
+    boolean cambio=false;
 
     Boolean continuar=false;
-    int posUnidadMedida;
+    int posUnidadMedida=0;
+    int posCategoria=0;
     String[] UnidadesM;
 
     View vista;
@@ -102,11 +113,12 @@ public class agregar_productos extends Fragment {
     RelativeLayout NPBTNRegistProd;
     TextView TitutloAggP;
 
-    PowerSpinnerView SpUnidad,SPCategoria ;
+    PowerSpinnerView SPCategoria ;
+    Spinner SPUnidad;
 
     String mensaje="";
     PeticionNuevoProducto NuevoProducto= new PeticionNuevoProducto();
-   List<String> listNomCategorias = new ArrayList<>();
+    List<String> listNomCategorias = new ArrayList<>();
     List<String> Unidades;
     List<ResponseCategorias> categoria =Global.categorias;
 
@@ -149,7 +161,8 @@ public class agregar_productos extends Fragment {
 
 
         NombButton=vista.findViewById(R.id.NombButton);
-        SpUnidad=vista.findViewById(R.id.SpUnidad);
+
+        SPUnidad=vista.findViewById(R.id.SPUnidad);
 
         UnidadesM= getResources().getStringArray(R.array.Unidades);
         ETNPNomPro=vista.findViewById(R.id.ETNPNomPro);
@@ -159,7 +172,7 @@ public class agregar_productos extends Fragment {
 
         ETNPPrecio.addTextChangedListener(moneda);
 
-       //  ETNPPrecio.setText(d);
+        //  ETNPPrecio.setText(d);
 
         ETNPDescrip=vista.findViewById(R.id.ETNPDescrip);
 
@@ -179,29 +192,55 @@ public class agregar_productos extends Fragment {
         NPRelativeImagen=vista.findViewById(R.id.NPRelativeImagen);
         NP_Esconder=vista.findViewById(R.id.NP_Esconder);
         //Cargar categorias desde consumo de API-REST
-/**/
+        /**/
         Unidades = Arrays.asList( UnidadesM );
-        SpUnidad.setItems(Unidades);
         SPCategoria.setItems(Global.Nombres_Categoria);
 
 
-    }
+
+        SPCategoria.setOnSpinnerItemSelectedListener(new OnSpinnerItemSelectedListener<String>() {
+            @Override public void onItemSelected(int position, String item) {
+                posCategoria=position;
+            }
+        });
+
+
+        ArrayAdapter<String> spinnerArrayAdapter;
+        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.spinner_item,Unidades);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        SPUnidad.setAdapter(spinnerArrayAdapter);
+         SPUnidad.setSelection(Unidades.size()-1);
+        SPUnidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == spinnerArrayAdapter.getCount()) {
+                   ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_gris));
+                } else {
+                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_negrosolida));
+                    posUnidadMedida=position;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+}
+
 
 
     private void llenar_edicion(){
         String url=Global.Url+"productos/"+product.getId()+"/foto";
-        Glide.with(this).load(url).placeholder(R.drawable.ic_place_productos).error(R.drawable.ic_place_productos).into(NPImage);
+        Glide.with(this).load(url).placeholder(R.drawable.ic_place_productos).error(R.drawable.ic_place_productos).fitCenter().into(NPImage);
         NP_Esconder.setVisibility(View.GONE);
         NPImage.setVisibility(View.VISIBLE);
         ETNPNomPro.setText(product.getNombre());
         ETNPDescrip.setText(product.getDescripcion());
-
-
-      ETNPPrecio.setText("$"+product.getPrecio());
-
-      /*  Bitmap bitmap = ((BitmapDrawable)NPImage.getDrawable()).getBitmap();
-        NPimagen_product=getImageUri(getActivity(),bitmap);
-*/
+        ETNPPrecio.setText("$"+product.getPrecio());
         elegir_categoria();
 
     }
@@ -210,11 +249,11 @@ public class agregar_productos extends Fragment {
 
     private void elegir_categoria(){
 
-       // SPCategoria.selectItemByIndex(Global.Nombres_Categoria.indexOf());
-        SpUnidad.selectItemByIndex(Unidades.indexOf(product.getUnidades()));
+        // SPCategoria.selectItemByIndex(Global.Nombres_Categoria.indexOf());
+    //    SpUnidad.selectItemByIndex(Unidades.indexOf(product.getUnidades()));
 
 
-         int indice=0;
+        int indice=0;
         for(ResponseCategorias c : Global.categorias){
             if(c.getId()==Integer.parseInt(product.getIdCategoria())){
 
@@ -224,7 +263,7 @@ public class agregar_productos extends Fragment {
 
 
         SPCategoria.selectItemByIndex(indice);
-     //   SpUnidad.selectItemByIndex(indice);
+        //   SpUnidad.selectItemByIndex(indice);
 
     }
 
@@ -253,6 +292,7 @@ public class agregar_productos extends Fragment {
             if (resultCode == RESULT_OK) {
                 NPimagen_product=result.getUri();
                 Log.e("obtuve imagen",""+NPimagen_product);
+                cambio=true;
 
 
                 llenar_subida();
@@ -269,19 +309,9 @@ public class agregar_productos extends Fragment {
         NPBTNRegistProd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                llenarDatos();
-
-
-            //    double cleanOutput = ETNPPrecio.getCleanDoubleValue();
-/*
-                if(bandera==1)
+                //    double cleanOutput = ETNPPrecio.getCleanDoubleValue();
                validar_campos();
 
-
-                else
-                    Toast.makeText(getActivity(),"PROXIMAMENTE",Toast.LENGTH_LONG).show();*/
-               // Log.e("boton registar", ""+categoria.get(SpUnidad.getSelectedIndex()).getId());
             }
         });
 
@@ -351,18 +381,38 @@ public class agregar_productos extends Fragment {
         if(verificar_vacio(ETNPNomPro.getText().toString())) {
             ETNPNomPro.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+            return;
         }else if(verificar_vacio(ETNPPrecio.getText().toString())) {
             ETNPPrecio.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+            return;
         }else if(verificar_vacio(ETNPDescrip.getText().toString())) {
             ETNPDescrip.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+            return;
+        } else if(posUnidadMedida<0){
+            Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+            return;
+        }else if(posCategoria<0){
+            Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
 
-        } else if (NPimagen_product==null) {
+            return;
+        }
+
+
+
+        if(bandera==2){
+            llenarDatos();
+
+        }else{
+
+            if (NPimagen_product==null) {
                 mensaje();
             }else {
-               llenarDatos();
+                llenarDatos();
             }
+        }
+
 
 
 
@@ -394,17 +444,16 @@ public class agregar_productos extends Fragment {
         NuevoProducto.setDescripcion(ETNPDescrip.getText().toString());
         Double precio = Double.parseDouble(ETNPPrecio.getText().toString().replace("$" ,""));
         NuevoProducto.setPrecio(precio);
-
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
-        NuevoProducto.setIdCategoria(categoria.get(SpUnidad.getSelectedIndex()).getId());
+        NuevoProducto.setIdCategoria(categoria.get(posCategoria).getId());
         NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
         Log.e("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
-         Gson gson = new Gson();
-         String JPetProducto= gson.toJson(NuevoProducto);
-          Log.e("json",JPetProducto);
+        Gson gson = new Gson();
+        String JPetProducto= gson.toJson(NuevoProducto);
+        Log.e("json",JPetProducto);
         //  animacion_registro();
-      //  subir_ProductoConImagen(JPetProducto);
+        //  subir_ProductoConImagen(JPetProducto);
         pDialog.show();
         if(bandera==1){
 
@@ -413,7 +462,7 @@ public class agregar_productos extends Fragment {
             peticion_EdicionProduct(JPetProducto, product.getId().toString());
 ///
 ///funcion editar que es un put para los datos
-           // y un post para subir imagen
+            // y un post para subir imagen
             //tienes que crear esos dos api rest
         }
 
@@ -437,9 +486,9 @@ public class agregar_productos extends Fragment {
 
                         Log.e("code PU",""+response.code());
                         if (response.isSuccessful()) {
-                           // cambio_pantalla=true;
-                           // Global.RegisUser=response.body();
-                           // Global.LoginU.setid(response.body().getId());
+                            // cambio_pantalla=true;
+                            // Global.RegisUser=response.body();
+                            // Global.LoginU.setid(response.body().getId());
                             mensaje=response.body().getMensaje();
                         } else {
 
@@ -447,7 +496,6 @@ public class agregar_productos extends Fragment {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
                                 Gson gson =new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-
                                 mensaje=staff.getMensaje();
 
                             } catch (Exception e) {
@@ -457,15 +505,19 @@ public class agregar_productos extends Fragment {
                     }
                     @Override
                     public void onError(Throwable e) {
+                        pDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         Log.e("edicion","exito");
-                        cambiar_fotoProdct(product.getId().toString());
-                        pDialog.dismiss();
-                        getFragmentManager().popBackStack();
 
+                        if(cambio)
+                        cambiar_fotoProdct(product.getId().toString());
+                        else {
+                            pDialog.dismiss();
+                            getFragmentManager().popBackStack();
+                        }
                     }
                 });
     }
@@ -493,7 +545,7 @@ public class agregar_productos extends Fragment {
                     public void onNext(Response<ResponseRegistarProducto> response) {
 
                         if (response.isSuccessful()) {
-                           // cambio_pantalla =true;
+                            // cambio_pantalla =true;
                             mensaje=response.body().getMensaje();
                             Log.e("normal",mensaje);
                         } else  if (response.code()==500) {
@@ -581,7 +633,7 @@ public class agregar_productos extends Fragment {
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        String path = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), inImage, UUID.randomUUID().toString() + ".png", "drawing");
         return Uri.parse(path);
     }
 
@@ -629,6 +681,8 @@ public class agregar_productos extends Fragment {
                     @Override
                     public void onComplete() {
                         Log.e("foto","cambiada");
+                        pDialog.dismiss();
+                        getFragmentManager().popBackStack();
 
                     }
                 });

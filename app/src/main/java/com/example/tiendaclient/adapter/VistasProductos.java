@@ -73,7 +73,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
-       holder.nombre.setText(lst_normal.get(position).getNombre().toUpperCase());
+       holder.nombre.setText(lst_normal.get(position).getNombre());
         holder.precio.setText("$"+lst_normal.get(position).getPrecio());
         holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
     //  aqui guia te y setea acvtualiza el response
@@ -85,6 +85,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
                 .placeholder(R.drawable.ic_place_productos)
                .diskCacheStrategy(DiskCacheStrategy.NONE )
                .error(R.drawable.ic_place_productos)
+               . skipMemoryCache(true)
                 .into(holder.imagen);
 
 

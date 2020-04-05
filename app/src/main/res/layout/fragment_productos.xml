@@ -73,12 +73,12 @@
 
         <LinearLayout
             android:background="#FFF"
-            android:padding="8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             >
             <LinearLayout
@@ -86,17 +86,13 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 >
-                <com.makeramen.roundedimageview.RoundedImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/TVPuestoFotoV"
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0"
-                    android:scaleType="fitXY"
                     android:src="@drawable/placeholder_perfil"
-                    app:riv_border_color="@android:color/transparent"
-                    app:riv_border_width="0dip"
-                    app:riv_corner_radius="10dp"
-                    app:riv_oval="false" />
+                     />
 
                 <LinearLayout
                     android:layout_marginStart="4dp"
@@ -112,10 +108,10 @@
                         android:layout_height="match_parent"
                         android:maxLines="1"
                         android:text=""
-                        android:textStyle="bold"
+                        android:fontFamily="@font/seguisb"
                         android:layout_weight="1"
                         android:textColor="@color/col_negrosolida"
-                        android:textSize="16sp" />
+                        android:textSize="19sp" />
 
                     <TextView
                         android:id="@+id/TVPuestoDescripcion"
@@ -124,9 +120,10 @@
                         android:layout_weight="1"
                         android:text=""
                         android:maxLines="1"
+                        android:fontFamily="@font/segoeuisl"
                         android:textColor="@color/col_grissuave"
-                        android:textSize="14sp"
-                        android:textStyle="italic" />
+                        android:textSize="17sp"
+                        />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -177,14 +174,13 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+
             android:id="@+id/Recycler_productos"
+            android:paddingHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            android:layout_marginTop="5dp"
             android:background="#FBFBFB"
             tools:listitem="@layout/item_productos"
           >

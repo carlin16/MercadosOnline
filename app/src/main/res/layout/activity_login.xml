@@ -23,15 +23,20 @@
             android:layout_height="wrap_content"
             android:text="Mercados Online"
             android:textColor="@color/col_grissuave"
+            android:fontFamily="@font/segoeui"
             android:textSize="17sp"
             ></TextView>
 
         <TextView
+            android:gravity="top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Iniciar Sesión"
+            android:layout_marginTop="-10dp"
+            android:fontFamily="@font/segoeuib"
+
             android:textColor="@color/col_negro"
-            android:textSize="30sp"
+            android:textSize="32sp"
             android:textStyle="bold"></TextView>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -39,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/segoeui"
             android:theme="@style/TextInputLayoutHint"
             android:visibility="visible"
             >
@@ -48,17 +54,16 @@
                 android:id="@+id/LoginUser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
                 android:gravity="left"
                 android:hint="Usuario"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/segoeui"
                 android:singleLine="true"
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja" />
@@ -73,8 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/siguiente_login_kt"
             android:layout_marginTop="10dp"
-            android:fontFamily="@font/pesta1"
-            android:theme="@style/TextLabel"            android:visibility="visible">
+            android:theme="@style/TextLabel"
+            android:visibility="visible">
 
 
             <in.anshul.libray.PasswordEditText
@@ -87,13 +92,12 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
                 android:maxLines="1"
-                android:paddingLeft="10dp"
-                android:paddingBottom="15dp"
-
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/segoeui"
                 android:singleLine="true"
                 android:textColor="@color/col_negro"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:textColorHint="@color/col_naranja" />
 
 
@@ -121,13 +125,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:text="Aun no estas registrado"
+            android:text="Aún no estas registrado"
             android:textColor="@color/col_negro"
             android:textSize="15sp"></TextView>
 
         <TextView
             android:id="@+id/registrarme_login"
-            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
