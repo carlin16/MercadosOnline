@@ -148,10 +148,15 @@ public class detallesPedido extends Fragment {
         PedidoFecha.setText(pedido.getFechaRegistro());
 
 
-        if(pedido.getEstado().equals("IN_PROGRESS")){
-            PedidoStatus.setVisibility(View.VISIBLE);
+        if(pedido.getEstado().equals("ENTREGADA")){
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_purpura));
             PedidoTxtStatus.setText("ENTREGADA");
+        }
+
+        if(pedido.getEstado().equals("IN_PROGRESS")){
+            PedidoStatus.setVisibility(View.VISIBLE);
+            PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
+            PedidoTxtStatus.setText("EN PROGRESO");
 
             if(Global.Modo==1){
                 DetaEntregado.setVisibility(View.VISIBLE);
@@ -164,11 +169,7 @@ public class detallesPedido extends Fragment {
             PedidoTxtStatus.setText("EN ESPERA");
 
         }
-        if(pedido.getEstado().equals("IN_PROGRESS")) {
-            PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
-            PedidoTxtStatus.setText("EN PROGRESO");
 
-        }
 
     }
 
