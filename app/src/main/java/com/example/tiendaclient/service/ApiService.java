@@ -157,5 +157,8 @@ public interface ApiService {
     @PUT("pedidos/{id}/estado/ENTREGADA")
     Observable<Response<ResponseError>>ActualizarPedido( @Path("id") String x);
 
+    @Headers("Content-Type: application/json")
+    @POST("auth/gc_token")
+    Observable<Response<ResponseUpdateImagen>>RegistrarGCToken(@Body JsonObject object);
 
 }
