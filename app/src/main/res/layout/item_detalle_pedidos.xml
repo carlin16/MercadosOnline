@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <LinearLayout
+        android:background="#FFF"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+            <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginEnd="5dp"
+
+            >
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/DPNombrePro"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:fontFamily="@font/seguisb"
+                            android:text="carne de res"
+                            android:textColor="@color/col_grisfuerte"
+                            android:textSize="18sp"
+
+                            ></TextView>
+
+                        <TextView
+                            android:id="@+id/DPUnidadMedida"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Libra"
+                            android:textColor="@color/col_grissuave"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/segoeuisl"
+
+
+                            ></TextView>
+
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout
+                        android:layout_weight="1"
+                        android:layout_gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <LinearLayout
+                            android:layout_centerVertical="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+
+                            >
+
+
+
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Cantidad"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/seguisb"
+
+                                    android:textColor="@color/col_naranja"
+                                    android:textSize="10sp"
+                                    ></TextView>
+
+                                <TextView
+                                    android:id="@+id/DPCantidadPro"
+                                    android:layout_marginTop="-7dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="478"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/seguisb"
+
+                                    android:textColor="@color/col_grisfuerte"
+                                    android:textSize="17sp"
+                                    ></TextView>
+                            </LinearLayout>
+
+
+
+
+
+
+                            <TextView
+                                android:id="@+id/DPSubtotalProduc"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="$15.50"
+                                android:layout_gravity="center"
+                                android:paddingRight="5dp"
+                                android:fontFamily="@font/seguisb"
+                                android:textColor="@color/col_grisfuerte"
+                                android:textSize="17sp"
+                                android:layout_weight="1"
+                                android:textAlignment="textEnd"
+
+                                ></TextView>
+
+
+                        </LinearLayout>
+
+
+
+
+                    </RelativeLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
+        <View
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/col_gris"
+            >
+
+        </View>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
