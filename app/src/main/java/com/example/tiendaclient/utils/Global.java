@@ -115,4 +115,18 @@ public static void llenarToken(){
     }
 
 
+    public static String PrimeraMayusculaNP(String texto){
+
+        String[] datos = texto.toLowerCase().split(" ");
+String Completo="";
+        for(String item : datos)
+        {
+            //  Log.e("las palabras son>", item);
+            //  Log.e("Palabra", PrimerMayuscula);
+            Completo=Completo +" "+ Global.ucFirst(item);
+        }
+
+        return Completo;
+    }
+
 }

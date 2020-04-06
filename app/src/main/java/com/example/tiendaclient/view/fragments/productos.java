@@ -61,6 +61,8 @@ import jp.wasabeef.recyclerview.animators.ScaleInRightAnimator;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.example.tiendaclient.utils.Global.PrimeraMayusculaNP;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -298,7 +300,8 @@ public class productos extends Fragment {
 
 private void llenarDatos(){
 
-    NombreDueno.setText(vendedor.getNombres()+" "+vendedor.getApellidos());
+    NombreDueno.setText(PrimeraMayusculaNP(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos()));
+
 
     Cantidadpro.setText(""+(ls_listado.size()) + " Productos");
 
@@ -578,7 +581,7 @@ private void llenarCarrito(Producto product){
 
 private void llenar_Vendedor(){
 
-    NombreDueno.setText(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos());
+    NombreDueno.setText(PrimeraMayusculaNP(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos()));
 
     Cantidadpro.setText(""+(ls_listado.size()) +" Productos");
 
