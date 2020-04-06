@@ -180,7 +180,9 @@ public class productos extends Fragment {
         TVCompDescripcionV.setText(""+product.getDescripcion());
         TVUnidadMedidaP.setText(""+product.getUnidades());
         DecimalFormat f = new DecimalFormat("##.00");
-        TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        if(Double.parseDouble(product.getPrecio())<1.0) TVCompSubtotalV.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
+            else TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        //TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
 
         //("el producto",""+product.getId());
         //cargar foto
@@ -246,7 +248,9 @@ public class productos extends Fragment {
         if(Double.parseDouble(product.getPrecio())<1.0) Subtotal.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
             else Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
       //  Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
-        CategoriaDelProduct.setText(product.getNombreCategoria());
+        if(product.getNombreCategoria()=="null") CategoriaDelProduct.setText("");
+            else CategoriaDelProduct.setText(product.getNombreCategoria());
+
         DescripProduct.setText(product.getDescripcion());
         CantidadCar.setNumber("1");
 

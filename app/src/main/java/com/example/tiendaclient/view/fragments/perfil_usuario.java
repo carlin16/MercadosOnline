@@ -37,6 +37,8 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
 
+import java.util.StringTokenizer;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,6 +60,7 @@ public class perfil_usuario extends Fragment {
     TextView PerfilNombresCompletos, PerfilUsuario,PerfilDireccion, PerfilCelular, PerfilCorreo, PerfilRol;
     ImageView PerfilFoto;
     String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
+    String Nombrecompleto="";
     Boolean continuar=false;
     String mensaje="";
     CircleImageView sesionoff;
@@ -169,7 +172,19 @@ public class perfil_usuario extends Fragment {
             return;
         }
         llenar_subida();
-        PerfilNombresCompletos.setText(""+Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos());
+       String UnionNombre=(Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos()).toLowerCase();
+        String[] datos = UnionNombre.split(" ");
+
+        for(String item : datos)
+        {
+            String PrimerMayuscula= convierte(item);
+          //  Log.e("las palabras son>", item);
+          //  Log.e("Palabra", PrimerMayuscula);
+            Nombrecompleto=Nombrecompleto +" "+PrimerMayuscula;
+        }
+
+
+        PerfilNombresCompletos.setText(Nombrecompleto);
         PerfilUsuario.setText("@"+Global.UserGlobal.getUsuario());
         PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
         PerfilCelular.setText("+"+Global.UserGlobal.getCelular());
@@ -186,6 +201,22 @@ public class perfil_usuario extends Fragment {
 
 
 
+    }
+    public static String convierte(String string) {
+        if (string == null) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        StringTokenizer st = new StringTokenizer(string," ");
+        while (st.hasMoreElements()) {
+            String ne = (String)st.nextElement();
+            if (ne.length()>0) {
+                builder.append(ne.substring(0, 1).toUpperCase());
+                builder.append(ne.substring(1).toLowerCase()); //agregado
+                builder.append(' ');
+            }
+        }
+        return builder.toString();
     }
 
 

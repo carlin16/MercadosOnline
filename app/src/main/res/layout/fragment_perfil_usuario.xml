@@ -118,7 +118,7 @@
 
 
             <TextView
-                android:layout_marginTop="-2dp"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dirección preferida"
@@ -130,6 +130,7 @@
             </TextView>
 
             <TextView
+                android:layout_marginTop="-5dp"
                 android:id="@+id/TVPerfilDireccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -160,7 +161,7 @@
 
 
             <TextView
-                android:layout_marginTop="-2dp"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Celular"
@@ -173,6 +174,7 @@
             </TextView>
 
             <TextView
+                android:layout_marginTop="-5dp"
                 android:id="@+id/TVPerfilCelular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -202,7 +204,6 @@
 
 
             <TextView
-                android:layout_marginTop="-2dp"
                 android:fontFamily="@font/segoeui"
 
                 android:layout_width="wrap_content"
@@ -216,7 +217,7 @@
 
             <TextView
                 android:id="@+id/TVPerfilCorreo"
-
+                android:layout_marginTop="-5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
@@ -245,7 +246,7 @@
 
 
             <TextView
-                android:layout_marginTop="-2dp"
+
                 android:fontFamily="@font/segoeui"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -257,6 +258,7 @@
             </TextView>
 
             <TextView
+                android:layout_marginTop="-5dp"
                 android:id="@+id/TVPerfilRol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
