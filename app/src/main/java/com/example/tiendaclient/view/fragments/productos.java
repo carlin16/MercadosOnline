@@ -75,7 +75,7 @@ public class productos extends Fragment {
     public ResponseVerAllPuesto TiendaPorId= new ResponseVerAllPuesto();
 
 
-    TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
+    TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal, CategoriaDelProduct;
 
     ElegantNumberButton CantidadCar;
     ImageView FotoPuesto;
@@ -175,9 +175,9 @@ public class productos extends Fragment {
         //("selccionar","estoy aqui cambiar foto");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        TVProducNombreV.setText(""+product.getNombre().toUpperCase());
-        TVCategoriaV.setText(""+product.getNombreCategoria().toUpperCase());
-        TVCompDescripcionV.setText(""+product.getDescripcion().toUpperCase());
+        TVProducNombreV.setText(""+product.getNombre());
+        TVCategoriaV.setText(""+product.getNombreCategoria());
+        TVCompDescripcionV.setText(""+product.getDescripcion());
         TVUnidadMedidaP.setText(""+product.getUnidades());
         DecimalFormat f = new DecimalFormat("##.00");
         TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
@@ -236,11 +236,17 @@ public class productos extends Fragment {
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         //
 
-        NombreProducto.setText(product.getNombre().toUpperCase());
+        NombreProducto.setText(product.getNombre());
         UnidadesProd.setText("Precio por "+product.getUnidades());
         DecimalFormat f = new DecimalFormat("##.00");
-        Valorproduct.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
-        Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        if(Double.parseDouble(product.getPrecio())<1.0)  Valorproduct.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
+            else Valorproduct.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+
+        //Valorproduct.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        if(Double.parseDouble(product.getPrecio())<1.0) Subtotal.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
+            else Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+      //  Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        CategoriaDelProduct.setText(product.getNombreCategoria());
         DescripProduct.setText(product.getDescripcion());
         CantidadCar.setNumber("1");
 
@@ -330,10 +336,11 @@ private void llenarDatos(){
         myDialog.setContentView(R.layout.dialog_compra);
         myDialog.setCancelable(true);
 
-      NombreProducto=myDialog.findViewById(R.id.TVProducNombre);
+        NombreProducto=myDialog.findViewById(R.id.TVProducNombre);
         UnidadesProd=myDialog.findViewById(R.id.TVProducUnidades);
         Valorproduct=myDialog.findViewById(R.id.TVProducValor);
         DescripProduct=myDialog.findViewById(R.id.TVCompDescripcion);
+        CategoriaDelProduct=myDialog.findViewById(R.id.TVCategoria);
         CantidadCar=myDialog.findViewById(R.id.TVCompCantidad);
         Subtotal=myDialog.findViewById(R.id.TVCompSubtotal);
         FotoProducto=myDialog.findViewById(R.id.TVPuestoFotoV);

@@ -91,7 +91,7 @@ public class VistasDetalleProductos extends RecyclerView.Adapter<VistasDetallePr
         holder.UnidadMedida.setText(""+lst_normal.get(position).getUnidades());
         holder.CantidadProductos.setText(""+lst_normal.get(position).getId_cantidad());
         holder.SubtotalProduct.setText("$"+ Global.formatearDecimales(lst_normal.get(position).getTotal(),2));
-
+       // holder.SubtotalProduct.setText("$"+lst_normal.get(position).getTotal());
 
 
         holder.eliminarDetalleProducto.setOnClickListener(new View.OnClickListener() {

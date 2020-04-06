@@ -74,9 +74,17 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
+        Log.e("vista produ", "estoy viendo uno");
        holder.nombre.setText(lst_normal.get(position).getNombre());
         DecimalFormat f = new DecimalFormat("##.00");
-        holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
+        if(Double.parseDouble(lst_normal.get(position).getPrecio())<1.0){
+            holder.precio.setText("$0"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
+            Log.e("Presentacion produ", "estoy aqui en < 0");
+        }else{
+            holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
+        }
+        //holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
+       // holder.precio.setText("$"+lst_normal.get(position).getPrecio());
         holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
     //  aqui guia te y setea acvtualiza el response
 
