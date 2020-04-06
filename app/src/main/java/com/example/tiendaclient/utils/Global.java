@@ -122,12 +122,12 @@ public static void llenarToken(){
 String Completo="";
         for(String item : datos)
         {
-            //  Log.e("las palabras son>", item);
-            //  Log.e("Palabra", PrimerMayuscula);
+
             Completo=Completo +" "+ Global.convierte(item);
         }
 
-        return Completo;
+        String x=Completo.substring(1);
+        return x;
     }
 
 

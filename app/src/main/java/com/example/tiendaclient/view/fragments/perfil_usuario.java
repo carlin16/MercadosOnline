@@ -48,6 +48,8 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static com.example.tiendaclient.utils.Global.PrimeraMayusculaNP;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -172,24 +174,15 @@ public class perfil_usuario extends Fragment {
             return;
         }
         llenar_subida();
-       String UnionNombre=(Global.UserGlobal.getNombres()+ " "+ Global.UserGlobal.getApellidos()).toLowerCase();
-        String[] datos = UnionNombre.split(" ");
-
-        for(String item : datos)
-        {
-          //  Log.e("las palabras son>", item);
-          //  Log.e("Palabra", PrimerMayuscula);
-            Nombrecompleto=Nombrecompleto +" "+ Global.ucFirst(item);
-        }
 
 
-        PerfilNombresCompletos.setText(Nombrecompleto);
+
+        PerfilNombresCompletos.setText(Global.PrimeraMayusculaNP(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos()));
         PerfilUsuario.setText("@"+Global.UserGlobal.getUsuario());
         PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
         PerfilCelular.setText("+"+Global.UserGlobal.getCelular());
         PerfilCorreo.setText(""+Global.UserGlobal.getEmail());
         PerfilRol.setText(""+Global.ucFirst(Global.UserGlobal.getRol().toLowerCase()));
-        Nombrecompleto="";
     }
 
     private void llenar_subida(){
