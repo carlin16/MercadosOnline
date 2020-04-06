@@ -139,26 +139,27 @@ private Filter mercados_filter =new Filter() {
 
         //("adapter","filtro llegar" +constraint);
         List<ResponseVerMercado> filtro=new ArrayList<>();
+    if (constraint == null || constraint.length() == 0) {
+        //("adapter","filtro sin cambios");
 
-        if (constraint == null || constraint.length() == 0) {
-            //("adapter","filtro sin cambios");
+        filtro.addAll(list_full);
+    } else {
+        String filterPattern = constraint.toString().toLowerCase().trim();
+        //("adapter","probar-->" + filterPattern);
+        //("adapter","tamaño lista -->" + list_full.size());
 
-            filtro.addAll(list_full);
-        } else {
-            String filterPattern = constraint.toString().toLowerCase().trim();
-            //("adapter","probar-->" + filterPattern);
-            //("adapter","tamaño lista -->" + list_full.size());
-
-            for (ResponseVerMercado item : list_full) {
-                //("adapter","recorro" + item.getNombre());
+        for (ResponseVerMercado item : list_full) {
+            //("adapter","recorro" + item.getNombre());
 
 
-                if (item.getNombre().toLowerCase().contains(filterPattern) ) {
-                    //("adapter","filtro" +item.toString());
-                    filtro.add(item);
-                }
+            if (item.getNombre().toLowerCase().contains(filterPattern) ) {
+                //("adapter","filtro" +item.toString());
+                filtro.add(item);
             }
         }
+    }
+
+
         FilterResults results = new FilterResults();
         results.values = filtro;
         return results;

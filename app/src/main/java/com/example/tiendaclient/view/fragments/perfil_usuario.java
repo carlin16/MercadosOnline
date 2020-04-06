@@ -96,7 +96,7 @@ public class perfil_usuario extends Fragment {
         sesionoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences DtsAlmacenados= getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
                 DtsAlmacenados.edit().clear().commit();
                 Global.limpiar();
                 Intent intent = new Intent (getActivity().getApplicationContext(), Login.class);

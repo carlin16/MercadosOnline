@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +18,11 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.tiendaclient.R;
+import com.example.tiendaclient.models.enviado.PeticionLoginUser;
 import com.example.tiendaclient.models.enviado.RequestGCToken;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.models.recibido.ResponseLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.service.ApiService;
@@ -36,6 +40,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -60,7 +65,8 @@ public class Principal extends AppCompatActivity {
 
     public static TabLayout tabLayout;
     RequestGCToken ReqGcToken= new RequestGCToken();
-
+boolean noti=false;
+int position=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,31 +77,42 @@ public class Principal extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
         if(bundle != null ){
-            if(llamarPreferences())
-            cambiar_tab(1);
+
+            Log.e("noti","traje noti");
+            if(llamarPreferences()){
+                Log.e("preferencias","traje");
+                position=1;
+
+                noti=true;
+            }
             else{
+                Log.e("preferencias","no tengo");
                 Intent intent2 = new Intent (getApplicationContext(), Login.class);
                 startActivity(intent2);
                 finish();
             }
+        }else{
+
         }
 
 
 
-        if(Global.LoginU.getRol().equals("CLIENTE")){
-            getSupportFragmentManager().beginTransaction()
-                    //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-                    .replace(R.id.Contenedor_Fragments, new mercado()).addToBackStack("frag_puestos").commit();
+        if(Global.LoginU.getRol().equals("CLIENTE") ){
+            if(!noti){
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+            }
+
             Global.Modo=1;
             //("Modo", "CLIENTE");
 
         }else if(Global.LoginU.getRol().equals("VENDEDOR")){
-            productos productin= new productos();
-            //productin.idPuesto=Global.LoginU.getId_puesto();
-            // puestito.banderaRol=2;
-            getSupportFragmentManager().beginTransaction()
-                    //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-                    .replace(R.id.Contenedor_Fragments, productin).commit();
+
+            if(!noti){
+                productos productin= new productos();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.Contenedor_Fragments, productin).commit();
+            }
             Global.Modo=2;
             peticion_categorias();
             //("Modo", "VENDEDOR");
@@ -106,7 +123,10 @@ public class Principal extends AppCompatActivity {
         .replace(R.id.Contenedor_Fragments, new mercado()).commit();
 */
 
+       /* iniciar_tabs();
+        elegir(position);*/
         iniciar_tabs();
+        elegir(position);
         generar_token();
     }
 
@@ -159,6 +179,7 @@ public class Principal extends AppCompatActivity {
 
 
     private void elegir(int position){
+        tabLayout.getTabAt(position).select();
         clearFragmentBackStack();
         switch (position) {
             case 0:
@@ -175,7 +196,7 @@ public class Principal extends AppCompatActivity {
                     // puestito.banderaRol=2;
                     getSupportFragmentManager().beginTransaction()
                             //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-                            .replace(R.id.Contenedor_Fragments, productin).addToBackStack("frag_puestos").commit();
+                            .replace(R.id.Contenedor_Fragments, productin).commit();
                 }
 
 
@@ -353,13 +374,75 @@ public class Principal extends AppCompatActivity {
 
 
     public Boolean llamarPreferences(){
-        SharedPreferences DtsRescatados= PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences DtsRescatados= getSharedPreferences("login", Context.MODE_PRIVATE);
      String    UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
-
+        String  PassSave=DtsRescatados.getString("PasswordS", "Password");
+        String  Modo=DtsRescatados.getString("ModoS", "Password");
+        Log.e("Usuario",UserSave);
         if(!UserSave.equals("Usuario")){
-          return true;
+
+            Global.LoginU.setRol(Modo);
+
+            PeticionLoginUser Credenciales = new PeticionLoginUser();
+            Credenciales.setUsuario(UserSave);
+            Credenciales.setPassword(PassSave);
+            Gson gson = new Gson();
+            String JPetCredenciales= gson.toJson(Credenciales);
+            //("json",JPetCredenciales);
+            peticion_Login(JPetCredenciales);
+
+            return true;
         }
             return false;
     }
+
+
+    private void peticion_Login(String jsonConf){
+        ApiService retrofitApi;
+        Retrofit retrofit;
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        disposable = (Disposable) retrofitApi.LoginUser(convertedObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseLoginUser>>() {
+                    @Override
+                    public void onNext(Response<ResponseLoginUser> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            Global.LoginU=response.body();
+                            // mensaje=response.body().getMensaje();
+                        } else if (response.code()==500) {
+                            // myDialog.dismiss();
+                        }else{
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        //myDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                            Global.llenarToken();
+
+                    }
+                });
+    }
+
 
 }

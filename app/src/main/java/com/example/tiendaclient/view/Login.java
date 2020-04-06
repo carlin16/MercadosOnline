@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -203,18 +204,23 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void guardarPreferences(String Use, String Pass){
-        SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(this);
+    public void guardarPreferences(String Use, String Pass,String Modo){
+
+
+        SharedPreferences DtsAlmacenados= getSharedPreferences("login", Context.MODE_PRIVATE);
         SharedPreferences.Editor MyEditorDts=DtsAlmacenados.edit();
         MyEditorDts.putString("UsuarioS", Use);
         MyEditorDts.putString("PasswordS", Pass);
+        MyEditorDts.putString("ModoS", Modo);
+        MyEditorDts.commit();//devuelve un booleano,hasta que se guarda todo
+
         MyEditorDts.apply();
         //("Datos g", Use);
         //("Datos g", Pass);
 
     }
     public void llamarPreferences(){
-        SharedPreferences DtsRescatados=PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences DtsRescatados=getSharedPreferences("login", Context.MODE_PRIVATE);
         UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
         PassSave=DtsRescatados.getString("PasswordS", "Password");
 
@@ -300,7 +306,7 @@ public class Login extends AppCompatActivity {
                             iniciar_sesion();
 
                             //("Completado","Login exitoso");
-                            guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString());
+                            guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString(),Global.LoginU.getRol());
 
                         }else{
                             if(myDialog != null || myDialog.isShowing())

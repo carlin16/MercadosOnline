@@ -87,6 +87,8 @@ return vista;
         recyclerView=vista.findViewById(R.id.Recycler_mercados);
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
+        buscar.clearFocus();
+
         peticion_mercado();
 
         click();
@@ -170,7 +172,7 @@ return vista;
 
     public void filtro(String S){
 
-    if(listado.size()>0 )
+    if(adapter!=null)
         adapter.getFilter().filter(S);
     }
 

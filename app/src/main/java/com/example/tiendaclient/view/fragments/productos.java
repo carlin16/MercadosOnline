@@ -324,6 +324,7 @@ private void llenarDatos(){
         DescripcionPuesto.setText(categorias);
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
+        buscar.clearFocus();
         if(Global.Modo==2) {
             Resources resources = getResources();
             compra.setImageDrawable(resources.getDrawable(R.drawable.ic_plus));
@@ -486,6 +487,7 @@ private void llenarCarrito(Producto product){
     }
 
     public void filtro(String S){
+        if(adapter!=null)
             adapter.getFilter().filter(S);
     }
 

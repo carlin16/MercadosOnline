@@ -88,6 +88,7 @@ public class puestos extends Fragment {
         NombreMercado.setText(Mercado.getNombre());
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
+        buscar.clearFocus();
 
 
     peticio_puestos();
@@ -218,6 +219,7 @@ public class puestos extends Fragment {
 
     }
     public void filtro(String S){
+        if(adapter!=null)
             adapter.getFilter().filter(S);
     }
 

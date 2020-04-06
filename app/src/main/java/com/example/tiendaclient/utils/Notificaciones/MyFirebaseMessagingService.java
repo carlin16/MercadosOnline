@@ -43,11 +43,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-        Log.d("notificacion", "DE: " + remoteMessage.getFrom());
+        Log.e("notificacion", "DE: " + remoteMessage.getFrom());
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d("notificacion", "Dato: " + remoteMessage.getData());
+            Log.e("notificacion", "Dato: " + remoteMessage.getData());
 
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
@@ -109,7 +109,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void notificacion(String Titulo,String Body,Bitmap imagen){
         NotificationManager Managernotify;
 
-        String channelid="NOW";
+        String channelid="Municipio";
 
        /* NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
@@ -124,8 +124,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .setTicker("Alerta!");*/
         Managernotify =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        Intent intent;
+
+        Intent notificationIntent = new Intent(this,
+                Principal.class);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_SINGLE_TOP |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        notificationIntent.putExtra("notificacion","activo");
+
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                this, 0, notificationIntent,
+                0);
+
+   /*     Intent intent;
         intent = new Intent(this, Principal.class);
+
+
        // intent.putExtras(noBundle);
         intent.putExtra("notificacion","activo");
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -133,12 +148,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         stackBuilder.addNextIntent(intent);
 
 
-
-
-
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_CANCEL_CURRENT);
-
+*/
         //("notificacion","Notificacion recibida");
         NotificationCompat.Builder  mBuilder=new NotificationCompat.Builder(this,null);
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
@@ -150,6 +162,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationChannel mChanel = new NotificationChannel(channelid,alerta,importancia);
             mChanel.setDescription(description);
             mChanel.enableLights(true);
+
             mChanel.setLightColor(Color.RED);
             mChanel.enableVibration(true);
             mChanel.setVibrationPattern(new long[] {100, 200, 300, 400,500,400,300,200,400});
@@ -165,6 +178,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         mBuilder.setSmallIcon(R.drawable.ic_add)
                 .setContentTitle(Titulo)
                 .setContentText(Body)
+                .setAutoCancel(true)
               //  .setLargeIcon(imagen)
 /*
                 .setLargeIcon((((BitmapDrawable)getResources()
@@ -177,7 +191,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setTicker("HEY TU !");
 
         mBuilder.setChannelId(channelid);
-        mBuilder.setContentIntent(pendingIntent);
+       // mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setContentIntent(contentIntent);
 
 
         Random r = new Random(); // id random para notificacion
