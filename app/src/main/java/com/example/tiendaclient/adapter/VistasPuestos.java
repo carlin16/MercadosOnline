@@ -79,7 +79,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
-        holder.nombre.setText(lst_normal.get(position).getVendedor().getNombres()+" "+lst_normal.get(position).getVendedor().getApellidos());
+        holder.nombre.setText(Global.PrimeraMayusculaNP(lst_normal.get(position).getVendedor().getNombres()+" "+lst_normal.get(position).getVendedor().getApellidos()));
         holder.CodigoPuesto.setText(lst_normal.get(position).getCodigo());
         holder.DescripcionPuesto.setText(lst_normal.get(position).getMaxCategorias());
     //  aqui guia te y setea acvtualiza el response

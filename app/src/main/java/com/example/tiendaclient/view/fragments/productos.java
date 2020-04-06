@@ -300,7 +300,7 @@ public class productos extends Fragment {
 
 private void llenarDatos(){
 
-    NombreDueno.setText(PrimeraMayusculaNP(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos()));
+    NombreDueno.setText(PrimeraMayusculaNP(vendedor.getNombres()+" "+vendedor.getApellidos()));
 
 
     Cantidadpro.setText(""+(ls_listado.size()) + " Productos");
@@ -328,7 +328,9 @@ private void llenarDatos(){
         DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
         Cantidadpro= vista.findViewById(R.id.TVProCantidad);
         FotoPuesto= vista.findViewById(R.id.TVPuestoFotoV);
-        DescripcionPuesto.setText(categorias);
+        if(categorias.length()<1 || categorias==null || categorias.equals("null")) DescripcionPuesto.setText("");
+            else  DescripcionPuesto.setText(categorias);
+
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
