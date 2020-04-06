@@ -202,22 +202,7 @@ public class perfil_usuario extends Fragment {
 
 
     }
-    public static String convierte(String string) {
-        if (string == null) {
-            return null;
-        }
-        StringBuilder builder = new StringBuilder();
-        StringTokenizer st = new StringTokenizer(string," ");
-        while (st.hasMoreElements()) {
-            String ne = (String)st.nextElement();
-            if (ne.length()>0) {
-                builder.append(ne.substring(0, 1).toUpperCase());
-                builder.append(ne.substring(1).toLowerCase()); //agregado
-                builder.append(' ');
-            }
-        }
-        return builder.toString();
-    }
+
 
 
 }
