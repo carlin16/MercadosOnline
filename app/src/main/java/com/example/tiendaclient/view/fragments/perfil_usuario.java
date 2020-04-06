@@ -177,10 +177,9 @@ public class perfil_usuario extends Fragment {
 
         for(String item : datos)
         {
-            String PrimerMayuscula= convierte(item);
           //  Log.e("las palabras son>", item);
           //  Log.e("Palabra", PrimerMayuscula);
-            Nombrecompleto=Nombrecompleto +" "+PrimerMayuscula;
+            Nombrecompleto=Nombrecompleto +" "+ Global.ucFirst(item);
         }
 
 
@@ -190,6 +189,7 @@ public class perfil_usuario extends Fragment {
         PerfilCelular.setText("+"+Global.UserGlobal.getCelular());
         PerfilCorreo.setText(""+Global.UserGlobal.getEmail());
         PerfilRol.setText(""+Global.ucFirst(Global.UserGlobal.getRol().toLowerCase()));
+        Nombrecompleto="";
     }
 
     private void llenar_subida(){
