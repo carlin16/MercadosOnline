@@ -434,10 +434,11 @@ LinearLayout contenedor_mercado;
                             Credenciales.setPassword(RegisU.getPassword());
                             Gson gson = new Gson();
                             String JPetCredenciales= gson.toJson(Credenciales);
+
+
                             //("json",JPetCredenciales);
                             peticion_Login(JPetCredenciales);
                             guardarPreferences(RegisU.getUsuario(),RegisU.getPassword());
-                            subir_foto();
                         }
 
 
@@ -633,7 +634,7 @@ LinearLayout contenedor_mercado;
                     @Override
                     public void onComplete() {
                         Global.llenarToken();
-
+                        subir_foto();
                     }
                 });
     }
