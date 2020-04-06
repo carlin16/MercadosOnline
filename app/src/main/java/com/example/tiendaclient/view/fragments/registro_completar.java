@@ -39,6 +39,7 @@ import com.example.tiendaclient.R;
 import com.example.tiendaclient.models.enviado.PeticionLoginUser;
 import com.example.tiendaclient.models.recibido.ResponseError;
 import com.example.tiendaclient.models.recibido.ResponseLoginUser;
+import com.example.tiendaclient.models.recibido.ResponseNombresMercado;
 import com.example.tiendaclient.models.recibido.ResponseRegistroUser;
 import com.example.tiendaclient.models.recibido.ResponseUpdateImagen;
 import com.example.tiendaclient.models.recibido.ResponseVerMercado;
@@ -100,7 +101,7 @@ public class registro_completar extends Fragment {
     Boolean continuar=false;
     ArrayList<String> list_tiendas = new ArrayList<String>();
     ArrayAdapter<String> spinnerArrayAdapter;
-List<ResponseVerMercado> mercadito =new ArrayList<>();
+List<ResponseNombresMercado> mercadito =new ArrayList<>();
     SweetAlertDialog pDialog;
     ImageView image;
 LinearLayout contenedor_mercado;
@@ -353,7 +354,9 @@ LinearLayout contenedor_mercado;
 
 
         if(posRol>0){
-            RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
+           RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
+
+          //  RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
             RegisU.setPuesto(TENPuest.getText().toString());
         }
 
@@ -513,12 +516,12 @@ LinearLayout contenedor_mercado;
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerMercados(Global.LoginU.getToken())
+        disposable = (Disposable) retrofitApi.TraerNombresMercado()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<List<ResponseVerMercado>>>() {
+                .subscribeWith(new DisposableObserver<Response<List<ResponseNombresMercado>>>() {
                     @Override
-                    public void onNext(Response<List<ResponseVerMercado>> response) {
+                    public void onNext(Response<List<ResponseNombresMercado>> response) {
 
 
                         if(response.isSuccessful()){
@@ -565,7 +568,7 @@ LinearLayout contenedor_mercado;
 
 
                             if(continuar){
-                                for (ResponseVerMercado x:mercadito){
+                                for (ResponseNombresMercado x:mercadito){
                                     list_tiendas.add(x.getNombre());
                                     spinnerArrayAdapter.notifyDataSetChanged();
 
@@ -629,6 +632,7 @@ LinearLayout contenedor_mercado;
 
                     @Override
                     public void onComplete() {
+                        Global.llenarToken();
 
                     }
                 });

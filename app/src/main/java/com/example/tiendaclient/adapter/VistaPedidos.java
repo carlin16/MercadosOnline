@@ -88,11 +88,13 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
         }
 
        // holder.RellenoStatus.setBackgroundColor(R.drawable.border_estatus_purpura);
-        holder.NumPedido.setText("Pedido # "+lst_normal.get(position).getId());
+        holder.NumPedido.setText("Pedido #"+lst_normal.get(position).getId());
         holder.DirMercado.setText(lst_normal.get(position).getNombreMercado());
 
+        String[] parts = lst_normal.get(position).getFechaRegistro().split(" ");
+        String fecha = parts[0]; //
 
-        holder.FechayHoraPedido.setText(""+lst_normal.get(position).getFechaRegistro());
+        holder.FechayHoraPedido.setText(""+fecha);
 
         holder.TotalPedido.setText("$"+ Global.formatearDecimales(Double.parseDouble(lst_normal.get(position).getTotal()),2));
         holder.itemView.setOnClickListener(new View.OnClickListener() {

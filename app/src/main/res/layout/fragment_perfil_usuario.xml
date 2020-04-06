@@ -135,7 +135,7 @@
                 android:text=""
                 android:fontFamily="@font/seguisb"
                 android:textColor="@color/col_negrosolida"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 >
 
             </TextView>
@@ -178,7 +178,7 @@
                 android:fontFamily="@font/seguisb"
 
                 android:textColor="@color/col_negrosolida"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 >
 
             </TextView>
@@ -217,7 +217,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/col_negrosolida"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/seguisb"
 
                 >
@@ -257,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/col_negrosolida"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/seguisb"
 
                 >

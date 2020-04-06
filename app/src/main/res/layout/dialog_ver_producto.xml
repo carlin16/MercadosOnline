@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
     android:orientation="vertical"
-    android:background="@drawable/redondin"
-    android:padding="5dp"
+    android:background="@drawable/border_redondon"
+    android:padding="20dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_gravity="center"
@@ -17,10 +16,7 @@
     <ImageView
         android:id="@+id/TVFotoProductVer"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_weight="0"
         android:scaleType="fitXY"
@@ -33,11 +29,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+
         android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+
         >
         <TextView
             android:id="@+id/TVProducNombreV"
@@ -46,22 +41,24 @@
             android:layout_weight="1"
             android:textAlignment="textStart"
             android:text="Jabon Perla "
+            android:fontFamily="@font/seguisb"
             android:maxLines="2"
             android:textColor="@color/col_negrosolida"
             android:textSize="18sp"
             />
+
         <TextView
 
             android:id="@+id/TVCategoriaV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="textEnd"
-            android:text="Frutas "
+            android:fontFamily="@font/segoeui"
             android:maxLines="2"
+            android:text="Frutas "
+            android:textAlignment="textEnd"
             android:textColor="@color/col_grissuave"
-            android:textSize="15sp"
-            />
+            android:textSize="15sp" />
 
 
     </LinearLayout>
@@ -72,35 +69,18 @@
         android:id="@+id/TVCompDescripcionV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textAlignment="center"
-        android:paddingStart="10dp"
+        android:textAlignment="textStart"
         android:text="Aqui se presenta toda la descripcion del producto seleccionado deberi verse mas opatra ver cim queda la des"
         android:textColor="@color/col_grissuave"
         android:maxLines="3"
+        android:fontFamily="@font/segoeui"
         android:textSize="16sp" />
     <LinearLayout
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginStart="20dp"
-        android:padding="5dp"
-        android:layout_marginEnd="20dp"
         android:layout_height="match_parent">
 
-
-        <TextView
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:text="Cantidad"
-            android:textColor="@color/col_grissuave"
-            android:textSize="18sp"
-            android:textStyle="bold"
-
-            />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,9 +96,8 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:text="Se vende por "
-                android:layout_marginBottom="5dp"
-                android:textStyle="bold"
-                android:textColor="@color/col_gris"
+                android:fontFamily="@font/segoeui"
+                android:textColor="@color/col_grisnuevo"
                 android:textSize="14sp"
                 />
 
@@ -127,8 +106,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Unidades"
+                android:fontFamily="@font/seguisb"
                 android:textAlignment="textEnd"
-                android:layout_marginBottom="5dp"
                 android:textColor="@color/col_negrosolida"
                 android:textSize="16sp"
                 />
@@ -141,9 +120,9 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Total:  "
+                    android:text="Precio:  "
                     android:textColor="@color/col_naranja"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     />
                 <TextView
@@ -151,9 +130,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="$ 14.20"
+                    android:fontFamily="@font/seguisb"
                     android:textColor="@color/col_negrosolida"
                     android:textSize="22sp"
-                    android:textStyle="bold"
                     />
 
 
@@ -175,6 +154,7 @@
                 android:layout_weight="1"
                 android:background="@color/col_negrosolida"
                 android:text="Editar"
+                android:textAllCaps="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
@@ -190,7 +170,8 @@
                 android:layout_height="35dp"
                 android:layout_weight="1"
                 android:background="@color/col_rojo"
-                android:text="ELIMINAR"
+                android:text="Eliminar"
+                android:textAllCaps="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"

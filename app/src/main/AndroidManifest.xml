@@ -29,8 +29,10 @@
             android:theme="@style/AppFullScreenTheme"></activity>
         <activity
             android:name=".view.Principal"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustNothing"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".view.Login"
             android:theme="@style/AppFullScreenTheme">

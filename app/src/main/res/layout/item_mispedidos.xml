@@ -74,45 +74,45 @@
                                 android:textStyle="bold" />
 
                             <LinearLayout
-                                android:layout_weight="0.5"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginEnd="2dp"
-                                android:layout_gravity="center"
-
+                                android:layout_marginHorizontal="10dp"
+                                android:layout_centerHorizontal="true"
                                 android:id="@+id/PedidoStatus"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+
                                 android:orientation="vertical"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentLeft="true"
                                 android:background="@drawable/border_estatus_naranja"
+                                android:paddingHorizontal="15dp"
                                 >
 
                                 <TextView
                                     android:id="@+id/PedidoTxtStatus"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_margin="2dp"
-                                    android:text="En espera"
+                                    android:text="Cargando"
+                                    android:paddingBottom="3dp"
+                                    android:fontFamily="@font/seguisb"
                                     android:textColor="@color/col_White"
-                                    android:textSize="11sp"
-                                    android:textStyle="bold">
+                                    android:textSize="10sp"
 
-                                </TextView>
+                                    ></TextView>
 
                             </LinearLayout>
+
 
                             <TextView
                                 android:layout_weight="1"
                                 android:id="@+id/PedidoFecha"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
                                 android:fontFamily="@font/segoeuisl"
                                 android:textAlignment="textEnd"
+                                android:maxLines="1"
                                 android:text="2020-03-29 15:30"
                                 android:textColor="@color/col_grissuave"
-                                android:textSize="14sp"
+                                android:textSize="12sp"
                                 android:textStyle="italic"></TextView>
 
                         </LinearLayout>

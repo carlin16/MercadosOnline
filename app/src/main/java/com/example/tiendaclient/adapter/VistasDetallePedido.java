@@ -72,10 +72,9 @@ public class VistasDetallePedido extends RecyclerView.Adapter<VistasDetallePedid
     @Override
     public void onBindViewHolder(@NonNull VistasDetallePedido.Holder holder, final int position) {
        holder.Nombreproduct.setText(lst_normal.get(position).getNombreProducto());
-        String plb=" Producto";
-        holder.UnidadMedida.setText(plb);
-        holder.CantidadProductos.setText(""+lst_normal.get(position).getCantidad());
-        holder.SubtotalProduct.setText("$"+lst_normal.get(position).getSubtotal());
+       holder.UnidadMedida.setText(""+lst_normal.get(position).getUnidades());
+       holder.CantidadProductos.setText(""+lst_normal.get(position).getCantidad());
+       holder.SubtotalProduct.setText("$"+lst_normal.get(position).getSubtotal());
 
     }
 

@@ -43,7 +43,6 @@ import com.example.tiendaclient.service.ApiService;
 import com.example.tiendaclient.service.RetrofitCliente;
 import com.example.tiendaclient.utils.Global;
 import com.google.gson.Gson;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONObject;
 
@@ -79,7 +78,7 @@ public class productos extends Fragment {
     TextView NombreProducto, UnidadesProd, Valorproduct,DescripProduct,Subtotal;
 
     ElegantNumberButton CantidadCar;
-    CircleImageView FotoPuesto;
+    ImageView FotoPuesto;
     ImageView FotoProducto;
 
     //Elementos de Dialog Ver producto en modo VENDEDOR
@@ -194,8 +193,7 @@ public class productos extends Fragment {
                 .placeholder(R.drawable.ic_place_productos)
                 .error(R.drawable.ic_place_productos)
                 .diskCacheStrategy(DiskCacheStrategy.NONE )
-        .skipMemoryCache(true)
-                .fitCenter()
+                .skipMemoryCache(true)
                 .into(TVFotoProduct);
         //("la url de foto",url);
         TVBtnEditar.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +251,6 @@ public class productos extends Fragment {
                 .error(R.drawable.ic_place_productos)
                 . skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE )
-                .fitCenter()
 
                 .into(FotoProducto);
 
@@ -304,7 +301,6 @@ private void llenarDatos(){
             .error(R.drawable.placeholder_perfil)
             .skipMemoryCache(true)
 
-            .fitCenter()
             .into(FotoPuesto);
 }
 
@@ -583,7 +579,6 @@ private void llenar_Vendedor(){
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
-            .fitCenter()
             .into(FotoPuesto);
     String cate=""+TiendaPorId.getMaxCategorias();
     if(ls_listado.size()<1)

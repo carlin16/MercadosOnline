@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nuevo Producto"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:textColor="@color/col_negro"
             android:textSize="30sp"
 
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:background="@drawable/border_dashed"
             android:orientation="vertical"
-            android:layout_height="150dp">
+            android:layout_height="180dp">
 
             <ImageView
                 android:id="@+id/NPImage"
@@ -69,19 +69,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:visibility="gone"
                     android:layout_width="150dp"
                     android:scaleType="fitXY"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_place_productos"
-                    android:layout_height="60dp">
+                    android:layout_height="70dp">
 
                 </ImageView>
                 <TextView
                     android:text="Subir una Imagen"
                     android:textSize="18sp"
                     android:textColor="@color/col_gris"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/seguisb"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
 
@@ -106,15 +107,17 @@
                 android:id="@+id/ETNPNomPro"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
                 android:gravity="left"
                 android:hint="Nombre"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/segoeui"
+                />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -130,18 +133,49 @@
                 android:id="@+id/ETNPDescrip"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/geo"
                 android:gravity="left"
                 android:hint="Descripción"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/segoeui" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TINPPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:theme="@style/TextInputLayoutHint"
+            android:visibility="visible">
+
+            <EditText
+                android:gravity="center"
+                android:id="@+id/ETNPPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Precio"
+                android:inputType="numberDecimal"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/segoeui"
+                />
+
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
 
 
@@ -153,32 +187,33 @@
             >
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TINPPrecio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:theme="@style/TextInputLayoutHint"
-                android:visibility="visible">
 
-                <EditText
-                    android:gravity="center"
-                    android:id="@+id/ETNPPrecio"
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
                     android:fontFamily="@font/geo"
-                    android:hint="Precio"
-                    android:inputType="numberDecimal"
+                    android:imeActionId="6"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
                     android:maxLines="1"
+                    android:paddingLeft="10dp"
                     android:singleLine="true"
-                    android:textColor="@color/col_negro"
-                    android:textColorHint="@color/col_naranja"
-                    android:textSize="22sp"
+                    android:text="Se vende por "
+                    android:textColor="@color/col_naranja"
+                    android:textColorHint="@color/col_negro"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
+            </RelativeLayout>
 
-
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <RelativeLayout
@@ -189,8 +224,8 @@
                     android:id="@+id/SPUnidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:entries="@array/Roles"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/Unidades"
                     android:fontFamily="@font/geo"
                     android:textAlignment="center"
                     android:textColor="@color/col_negro"
@@ -198,6 +233,17 @@
                     android:textSize="18sp"
                     android:textStyle="bold"></Spinner>
             </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
 
 
 
@@ -209,7 +255,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             >
 
 
@@ -277,10 +323,7 @@
             android:id="@+id/NPBTNRegistProd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/border_boton"
             android:orientation="horizontal">

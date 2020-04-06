@@ -23,6 +23,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.tiendaclient.R;
 import com.example.tiendaclient.view.Login;
+import com.example.tiendaclient.view.Principal;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -124,7 +125,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Managernotify =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         Intent intent;
-        intent = new Intent(this, Login.class);
+        intent = new Intent(this, Principal.class);
+       // intent.putExtras(noBundle);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
         stackBuilder.addNextIntent(intent);
@@ -139,8 +141,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //("notificacion","Notificacion recibida");
         NotificationCompat.Builder  mBuilder=new NotificationCompat.Builder(this,null);
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
-            CharSequence alerta="Now";
-            String description="Esta es una prueba";
+            CharSequence alerta="Municipio";
+            String description="Compras Online";
             int importancia = NotificationManager.IMPORTANCE_HIGH;
 
 

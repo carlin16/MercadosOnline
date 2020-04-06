@@ -128,7 +128,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:textAlignment="textEnd"
-                                android:text="2020-03-29 15:30"
+                                android:text=""
 
                                 android:textColor="@color/col_grissuave"
                                 android:textSize="14sp"
@@ -154,7 +154,7 @@
                                 android:layout_height="wrap_content"
                                 android:maxLines="2"
                                 android:layout_centerVertical="true"
-                                android:text="carloss "
+                                android:text=" "
                                 android:layout_weight="1"
                                 android:fontFamily="@font/seguisb"
                                 android:layout_alignParentLeft="true"
@@ -164,17 +164,16 @@
 
 
                             <TextView
-                                android:layout_weight="2"
                                 android:id="@+id/PedidoCelular"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
+                                android:layout_weight="2"
+                                android:text=""
                                 android:textAlignment="textEnd"
-                                android:text="03903"
                                 android:textColor="@color/col_negrosolida"
-                                android:textSize="14sp"
-                                ></TextView>
+                                android:textSize="14sp"></TextView>
 
                         </LinearLayout>
 

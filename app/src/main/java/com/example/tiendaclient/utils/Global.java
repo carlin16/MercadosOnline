@@ -23,9 +23,7 @@ public class Global {
     public static ResponseRegistroUser RegisUser= new ResponseRegistroUser();
     //objeto global para los datos q se presentan en el perfil de usuario
     public static ResponseUserPorID UserGlobal=new ResponseUserPorID();
-    public static String Url="http://mercados-online.com/public/api/";
-
-
+    public static String Url="http://mercados-online.com/api/";
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
     public static List<Compra> VerCompras= new ArrayList<>();
@@ -48,6 +46,7 @@ public static void llenarToken(){
 
 
     public static void llenar_categoria(){
+        Nombres_Categoria.clear();
         for (ResponseCategorias x:categorias){
             Nombres_Categoria.add(x.getNombre());
         }
@@ -107,6 +106,13 @@ public static void llenarToken(){
     }
 
 
+    public static String ucFirst(String str) {
+        if (str.isEmpty()) {
+            return str;
+        } else {
+            return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+        }
+    }
 
 
 }

@@ -174,7 +174,7 @@ public class perfil_usuario extends Fragment {
         PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
         PerfilCelular.setText("+"+Global.UserGlobal.getCelular());
         PerfilCorreo.setText(""+Global.UserGlobal.getEmail());
-        PerfilRol.setText(""+Global.UserGlobal.getRol());
+        PerfilRol.setText(""+Global.ucFirst(Global.UserGlobal.getRol().toLowerCase()));
     }
 
     private void llenar_subida(){

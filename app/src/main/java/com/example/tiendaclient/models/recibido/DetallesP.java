@@ -39,6 +39,19 @@ public class DetallesP {
     @SerializedName("vendedor")
     @Expose
     private Vendedor vendedor;
+    @SerializedName("unidades")
+    @Expose
+    private Object unidades;
+
+    public Object getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(Object unidades) {
+        this.unidades = unidades;
+    }
+
+
 
     public Integer getId() {
         return id;

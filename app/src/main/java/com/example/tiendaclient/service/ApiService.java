@@ -4,6 +4,7 @@ package com.example.tiendaclient.service;
 import com.example.tiendaclient.models.recibido.ResponseCategorias;
 import com.example.tiendaclient.models.recibido.ResponseDetallesPedidos;
 import com.example.tiendaclient.models.recibido.ResponseError;
+import com.example.tiendaclient.models.recibido.ResponseNombresMercado;
 import com.example.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.example.tiendaclient.models.recibido.ResponseRegistrarPedido;
 import com.example.tiendaclient.models.recibido.ResponseUserPorID;
@@ -175,5 +176,12 @@ public interface ApiService {
     Observable<Response<ResponseUpdateImagen>>RegistrarGCToken(@Body JsonObject object,
                                                                @Header("Authorization") String authorization
                                                                );
+
+
+
+    @Headers("Content-Type: application/json")
+    @GET("mercados/nombres")
+    Observable<Response<List<ResponseNombresMercado>>>TraerNombresMercado();
+
 
 }

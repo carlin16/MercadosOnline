@@ -297,7 +297,7 @@ public class agregar_productos extends Fragment {
     }
     public void funcion_cortar() {
         CropImage.activity()
-                .setAspectRatio(4, 4)
+                .setAspectRatio(10, 6)
                 .setFixAspectRatio(true)
                 .start(getContext(),this);
     }

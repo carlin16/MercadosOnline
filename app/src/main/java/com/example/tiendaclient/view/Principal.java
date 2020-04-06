@@ -95,7 +95,10 @@ public class Principal extends AppCompatActivity {
 
     private void iniciar_tabs() {
         tabLayout = findViewById(R.id.tab_layout);
+        if(Global.Modo==1)
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mercados")));
+        if(Global.Modo==2) tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mi Puesto")));
+
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_product2, R.drawable.ic_product, "Pedidos")));
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_user2, R.drawable.ic_user, "Perfil")));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
