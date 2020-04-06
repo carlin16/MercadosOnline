@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="textStart"
-                android:text="Jabon Perla "
+                android:text="Jabon Perla Bebe  para niño "
                 android:fontFamily="@font/seguisb"
                 android:maxLines="2"
                 android:textColor="@color/col_negrosolida"
@@ -79,7 +79,7 @@
 
 
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -87,9 +87,10 @@
 
 
                 <TextView
+                    android:layout_alignParentTop="true"
                     android:id="@+id/TVProducUnidades"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
                     android:layout_weight="1"
                     android:text="Unidades"
@@ -101,9 +102,10 @@
 
 
                     <TextView
+                        android:layout_below="@+id/TVProducUnidades"
                         android:id="@+id/TVProducValor"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:textAlignment="textEnd"
                         android:layout_weight="1"
 
@@ -116,7 +118,7 @@
 
 
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
 
