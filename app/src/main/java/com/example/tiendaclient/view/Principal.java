@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -63,6 +66,21 @@ public class Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        if(bundle != null ){
+            if(llamarPreferences())
+            cambiar_tab(1);
+            else{
+                Intent intent2 = new Intent (getApplicationContext(), Login.class);
+                startActivity(intent2);
+                finish();
+            }
+        }
+
+
 
         if(Global.LoginU.getRol().equals("CLIENTE")){
             getSupportFragmentManager().beginTransaction()
@@ -333,5 +351,15 @@ public class Principal extends AppCompatActivity {
 
     }
 
+
+    public Boolean llamarPreferences(){
+        SharedPreferences DtsRescatados= PreferenceManager.getDefaultSharedPreferences(this);
+     String    UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
+
+        if(!UserSave.equals("Usuario")){
+          return true;
+        }
+            return false;
+    }
 
 }
