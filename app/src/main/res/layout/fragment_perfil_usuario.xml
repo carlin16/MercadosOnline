@@ -134,7 +134,7 @@
                 android:id="@+id/TVPerfilDireccion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ccc"
+                android:text=""
                 android:fontFamily="@font/seguisb"
                 android:textColor="@color/col_negrosolida"
                 android:textSize="20sp"
