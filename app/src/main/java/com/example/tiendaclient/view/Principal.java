@@ -127,6 +127,7 @@ int position=0;
         elegir(position);*/
         iniciar_tabs();
         elegir(position);
+        cambiar_tab(position);
         generar_token();
     }
 
@@ -179,7 +180,6 @@ int position=0;
 
 
     private void elegir(int position){
-        tabLayout.getTabAt(position).select();
         clearFragmentBackStack();
         switch (position) {
             case 0:
