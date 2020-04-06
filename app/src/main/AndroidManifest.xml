@@ -29,15 +29,26 @@
             android:theme="@style/AppFullScreenTheme"></activity>
         <activity
             android:name=".view.Principal"
-            android:parentActivityName=".view.Login"
             android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
+            android:exported ="true"
             android:windowSoftInputMode="adjustPan|adjustNothing"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity" >
+
+            <intent-filter>
+                <action android:name=".view.Principal" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+
+
+
+        </activity>
+
+
+
         <activity
             android:name=".view.Login"
-            android:launchMode = "singleTop"
             android:theme="@style/AppFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -68,7 +79,7 @@ See README(https://goo.gl/l4GJaQ) for more.
 
         <service
             android:name=".utils.Notificaciones.MyFirebaseMessagingService"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

@@ -49,6 +49,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.e("notificacion", "Dato: " + remoteMessage.getData());
 
+
             if (/* Check if data needs to be processed by long running job */ true) {
                 // For long-running tasks (10 seconds or more) use WorkManager.
                 // scheduleJob();
@@ -125,32 +126,31 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Managernotify =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
 
-        Intent notificationIntent = new Intent(this,
+     /*   Intent notificationIntent = new Intent(this,
                 Principal.class);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                Intent.FLAG_ACTIVITY_SINGLE_TOP |
-                Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent.FLAG_ACTIVITY_SINGLE_TOP );
 
         notificationIntent.putExtra("notificacion","activo");
 
         PendingIntent contentIntent = PendingIntent.getActivity(
                 this, 0, notificationIntent,
-                0);
-
-   /*     Intent intent;
-        intent = new Intent(this, Principal.class);
-
-
-       // intent.putExtras(noBundle);
-        intent.putExtra("notificacion","activo");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
-        stackBuilder.addNextIntent(intent);
-
-
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 */
+        Intent intent;
+        intent = new Intent(this, Principal.class);
+        intent.putExtra("notificacion","activo");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+
+       /* TaskStackBuilder stackBuilder = TaskStackBuilder.create(getApplicationContext());
+        stackBuilder.addNextIntent(intent);*/
+
+        TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(getApplicationContext());
+        taskStackBuilder.addNextIntentWithParentStack(intent);
+        PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
         //("notificacion","Notificacion recibida");
         NotificationCompat.Builder  mBuilder=new NotificationCompat.Builder(this,null);
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
@@ -184,15 +184,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setLargeIcon((((BitmapDrawable)getResources()
                         .getDrawable(R.drawable.profile_icon)).getBitmap()))
                 */
-
-
                 .setVibrate(new long[] {100, 250, 100, 500})
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setTicker("HEY TU !");
-
         mBuilder.setChannelId(channelid);
-       // mBuilder.setContentIntent(pendingIntent);
-        mBuilder.setContentIntent(contentIntent);
+        mBuilder.setContentIntent(pendingIntent);
+    //    mBuilder.setContentIntent(contentIntent);
 
 
         Random r = new Random(); // id random para notificacion
