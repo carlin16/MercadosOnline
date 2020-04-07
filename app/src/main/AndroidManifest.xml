@@ -34,18 +34,11 @@
             android:windowSoftInputMode="adjustPan|adjustNothing"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             tools:ignore="LockedOrientationActivity" >
-
             <intent-filter>
                 <action android:name=".view.Principal" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
-
-
-
         </activity>
-
-
 
         <activity
             android:name=".view.Login"
@@ -56,6 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.RegistroUser"
             android:theme="@style/Theme.AppCompat.NoActionBar"  />

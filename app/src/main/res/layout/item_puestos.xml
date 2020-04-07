@@ -13,7 +13,7 @@
         android:id="@+id/TVPuestoFotoV"
         android:layout_width="120dp"
         android:layout_height="100dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="8dp"
         android:layout_weight="0"
         android:src="@drawable/perfil_usuario"
         />
@@ -33,10 +33,10 @@
                 android:id="@+id/TVPuestoNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="7dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/seguisb"
-                android:text="Scarle Chicaisa"
+                android:text="Scarle Chicaisa carlos alberto "
                 android:textColor="@color/col_negrosolida"
                 android:textSize="19sp"
                 />

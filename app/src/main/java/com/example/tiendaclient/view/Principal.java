@@ -62,6 +62,7 @@ import static com.example.tiendaclient.utils.Global.RegisU;
 
 public class Principal extends AppCompatActivity {
 
+    final Handler handler = new Handler();
 
     public static TabLayout tabLayout;
     RequestGCToken ReqGcToken= new RequestGCToken();
@@ -114,7 +115,14 @@ int position=0;
                         .replace(R.id.Contenedor_Fragments, productin).commit();
             }
             Global.Modo=2;
-            peticion_categorias();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Write whatever to want to do after delay specified (1 sec)
+                    peticion_categorias();
+
+                }
+            }, 1500);
             //("Modo", "VENDEDOR");
         }
 
@@ -126,8 +134,18 @@ int position=0;
        /* iniciar_tabs();
         elegir(position);*/
         iniciar_tabs();
-        elegir(position);
-        cambiar_tab(position);
+        if(noti){
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Write whatever to want to do after delay specified (1 sec)
+                    elegir(position);
+                    cambiar_tab(position);
+                }
+            }, 700);
+
+        }
+
         generar_token();
     }
 
@@ -378,10 +396,16 @@ int position=0;
      String    UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
         String  PassSave=DtsRescatados.getString("PasswordS", "Password");
         String  Modo=DtsRescatados.getString("ModoS", "Password");
+
+        String  Token=DtsRescatados.getString("TokenS", "Token");
+Log.e("traje",Token);
         Log.e("Usuario",UserSave);
         if(!UserSave.equals("Usuario")){
 
             Global.LoginU.setRol(Modo);
+            Global.LoginU.setToken(Token);
+            Global.llenarToken();
+            Log.e("token generado",""+Global.LoginU.getToken());
 
             PeticionLoginUser Credenciales = new PeticionLoginUser();
             Credenciales.setUsuario(UserSave);
@@ -389,7 +413,7 @@ int position=0;
             Gson gson = new Gson();
             String JPetCredenciales= gson.toJson(Credenciales);
             //("json",JPetCredenciales);
-            peticion_Login(JPetCredenciales);
+            peticion_Login(JPetCredenciales,Credenciales);
 
             return true;
         }
@@ -397,7 +421,7 @@ int position=0;
     }
 
 
-    private void peticion_Login(String jsonConf){
+    private void peticion_Login(String jsonConf, PeticionLoginUser Credenciales ){
         ApiService retrofitApi;
         Retrofit retrofit;
         retrofit = RetrofitCliente.getInstance();
@@ -438,11 +462,30 @@ int position=0;
 
                     @Override
                     public void onComplete() {
-                            Global.llenarToken();
+                        guardarPreferences(Credenciales.getUsuario(),Credenciales.getPassword(),Global.LoginU.getRol(),Global.LoginU.getToken());
+                        Global.llenarToken();
 
                     }
                 });
     }
 
+    public void guardarPreferences(String Use, String Pass,String Modo,String Token){
+
+
+        SharedPreferences DtsAlmacenados= getSharedPreferences("login", Context.MODE_PRIVATE);
+        SharedPreferences.Editor MyEditorDts=DtsAlmacenados.edit();
+        MyEditorDts.putString("UsuarioS", Use);
+        MyEditorDts.putString("PasswordS", Pass);
+        MyEditorDts.putString("ModoS", Modo);
+        MyEditorDts.putString("TokenS", Token);
+        Log.e("guardar",Token);
+
+        MyEditorDts.commit();//devuelve un booleano,hasta que se guarda todo
+
+        MyEditorDts.apply();
+        //("Datos g", Use);
+        //("Datos g", Pass);
+
+    }
 
 }

@@ -137,9 +137,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 this, 0, notificationIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 */
+
+
         Intent intent;
         intent = new Intent(this, Principal.class);
         intent.putExtra("notificacion","activo");
+
+
+
+
+
+
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
 

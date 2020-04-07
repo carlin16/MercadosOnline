@@ -204,7 +204,7 @@ public class Login extends AppCompatActivity {
     }
 
 
-    public void guardarPreferences(String Use, String Pass,String Modo){
+    public void guardarPreferences(String Use, String Pass,String Modo,String Token){
 
 
         SharedPreferences DtsAlmacenados= getSharedPreferences("login", Context.MODE_PRIVATE);
@@ -212,6 +212,8 @@ public class Login extends AppCompatActivity {
         MyEditorDts.putString("UsuarioS", Use);
         MyEditorDts.putString("PasswordS", Pass);
         MyEditorDts.putString("ModoS", Modo);
+        MyEditorDts.putString("TokenS",Token);
+        Log.e("guardando",Token);
         MyEditorDts.commit();//devuelve un booleano,hasta que se guarda todo
 
         MyEditorDts.apply();
@@ -301,12 +303,14 @@ public class Login extends AppCompatActivity {
                         if(cambio_pantalla){
                             if(myDialog != null || myDialog.isShowing())
                                 myDialog.dismiss();
+/*
                             generar_token(ETLoginUser.getText().toString());
+*/
+                            guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString(),Global.LoginU.getRol(),Global.LoginU.getToken());
                             Global.llenarToken();
                             iniciar_sesion();
 
                             //("Completado","Login exitoso");
-                            guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString(),Global.LoginU.getRol());
 
                         }else{
                             if(myDialog != null || myDialog.isShowing())

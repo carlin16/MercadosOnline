@@ -52,9 +52,8 @@
                             android:id="@+id/DPNombrePro"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLines="1"
                             android:fontFamily="@font/seguisb"
-                            android:text="carne de res"
+                            android:text="Ramo de Flores de la tienda  de  "
                             android:textColor="@color/col_grisfuerte"
                             android:textSize="18sp"
 
