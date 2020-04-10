@@ -22,7 +22,7 @@
                             app:riv_corner_radius="7dp"
                             app:riv_oval="false"
                             android:scaleType="fitXY"
-                            android:src="@drawable/portada_mercado"
+                            android:src="@drawable/placeholder_mercado"
                             >
                         </com.makeramen.roundedimageview.RoundedImageView>
 

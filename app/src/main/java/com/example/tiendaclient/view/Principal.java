@@ -97,34 +97,61 @@ int position=0;
         }
 
 
+        if(Global.LoginU.getRol()!=null){
 
-        if(Global.LoginU.getRol().equals("CLIENTE") ){
-            if(!noti){
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Contenedor_Fragments, new mercado()).commit();
-            }
-
-            Global.Modo=1;
-            //("Modo", "CLIENTE");
-
-        }else if(Global.LoginU.getRol().equals("VENDEDOR")){
-
-            if(!noti){
-                productos productin= new productos();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.Contenedor_Fragments, productin).commit();
-            }
-            Global.Modo=2;
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //Write whatever to want to do after delay specified (1 sec)
-                    peticion_categorias();
-
+            if(Global.LoginU.getRol().equals("CLIENTE") ){
+                if(!noti){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.Contenedor_Fragments, new mercado()).commit();
                 }
-            }, 1500);
-            //("Modo", "VENDEDOR");
+
+                Global.Modo=1;
+                //("Modo", "CLIENTE");
+
+            }else if(Global.LoginU.getRol().equals("VENDEDOR")){
+
+                if(!noti){
+                    productos productin= new productos();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.Contenedor_Fragments, productin).commit();
+                }
+                Global.Modo=2;
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Write whatever to want to do after delay specified (1 sec)
+                        peticion_categorias();
+
+                    }
+                }, 1500);
+                //("Modo", "VENDEDOR");
+            }
+            iniciar_tabs();
+            if(noti){
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Write whatever to want to do after delay specified (1 sec)
+                        elegir(position);
+                        cambiar_tab(position);
+                    }
+                }, 1000);
+
+            }
+
+            generar_token();
+        }else{
+
+            SharedPreferences DtsAlmacenados= getSharedPreferences("login", Context.MODE_PRIVATE);
+            DtsAlmacenados.edit().clear().commit();
+            Global.limpiar();
+            Intent intent2 = new Intent (this, Login.class);
+            Toast.makeText(this,"Inicie Sesion Nuevamente",Toast.LENGTH_SHORT).show();
+            startActivity(intent2);
+            finish();
+
         }
+
 
        /* getSupportFragmentManager().beginTransaction()
                 //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
@@ -133,20 +160,7 @@ int position=0;
 
        /* iniciar_tabs();
         elegir(position);*/
-        iniciar_tabs();
-        if(noti){
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    //Write whatever to want to do after delay specified (1 sec)
-                    elegir(position);
-                    cambiar_tab(position);
-                }
-            }, 700);
 
-        }
-
-        generar_token();
     }
 
 

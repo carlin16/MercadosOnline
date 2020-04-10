@@ -34,7 +34,7 @@
                             android:layout_gravity="center"
                             android:layout_margin="2dp"
                             android:scaleType="fitXY"
-                            android:src="@drawable/perfil_usuario"
+                            android:src="@drawable/placeholder_perfil"
                             app:riv_border_color="@android:color/transparent"
                             app:riv_border_width="0dip"
                             app:riv_corner_radius="10dp"

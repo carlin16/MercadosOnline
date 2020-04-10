@@ -313,6 +313,7 @@ private void llenarDatos(){
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
             .skipMemoryCache(true)
+            .fitCenter()
 
             .into(FotoPuesto);
 }
@@ -597,6 +598,7 @@ private void llenar_Vendedor(){
             .diskCacheStrategy(DiskCacheStrategy.NONE)
             .placeholder(R.drawable.placeholder_perfil)
             .error(R.drawable.placeholder_perfil)
+            .fitCenter()
             .into(FotoPuesto);
     String cate=""+TiendaPorId.getMaxCategorias();
     if(ls_listado.size()<1)

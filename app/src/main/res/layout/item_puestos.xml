@@ -15,7 +15,7 @@
         android:layout_height="100dp"
         android:layout_marginRight="8dp"
         android:layout_weight="0"
-        android:src="@drawable/perfil_usuario"
+        android:src="@drawable/placeholder_perfil"
         />
 
     <LinearLayout

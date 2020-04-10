@@ -29,7 +29,7 @@
         android:layout_gravity="center"
         android:layout_weight="0"
         android:scaleType="fitXY"
-        android:src="@drawable/perfil_usuario"
+        android:src="@drawable/placeholder_perfil"
        />
 
     <LinearLayout

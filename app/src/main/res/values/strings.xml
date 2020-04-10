@@ -19,7 +19,15 @@
 
     <string-array name="Unidades">
         <item>Unidad</item>
+        <item>Docena</item>
         <item>Libra</item>
+        <item>Gramo</item>
+        <item>Kilo</item>
+        <item>Litro</item>
+        <item>Quintal</item>
+        <item>Onzas</item>
+        <item>Caja</item>
+        <item>Otra</item>
 
     </string-array>
 

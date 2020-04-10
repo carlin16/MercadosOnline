@@ -12,6 +12,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
 
@@ -53,20 +54,30 @@
     </style>
     <style name="TextInputLayoutHint" parent="">
         <item name="android:textColorHint">@color/col_gris</item>
-        <item name="colorControlNormal">#000000</item>
-        <item name="colorControlHighlight">#000000</item>
-        <item name="colorAccent">#000000</item>
+        <item name="colorControlNormal">@color/col_negrosolida</item>
+        <item name="colorControlHighlight">@color/col_negrosolida</item>
+        <item name="colorAccent">@color/col_negrosolida</item>
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="TextLabel" parent="TextAppearance.AppCompat">
+    <style name="TextLabel" parent="">
         <!-- Hint color and label color in FALSE state -->
         <item name="android:textColorHint">@color/col_gris</item>
         <item name="android:textSize">14sp</item>
         <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
-        <item name="colorAccent">#000000</item>
-        <item name="colorControlActivated">#000000</item>
+        <item name="colorAccent">@color/col_negrosolida</item>
+        <item name="colorControlActivated">@color/col_negrosolida</item>
 
+
+    </style>
+    <style name="AppTheme.NoActionBar">
+
+        <item name="colorPrimaryDark">@color/col_negrosolida</item>
+        <item name="colorAccent">@color/col_White</item>
+
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
     </style>
 

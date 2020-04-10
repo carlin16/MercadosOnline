@@ -383,7 +383,8 @@ List<Detalle> pro= new ArrayList<>();
                         //("Calle", "-" + tienda.getCalle());
                         //("Ciudad", tienda.getCiudad());
                         //("Pais", tienda.getPais());*/
-
+                            if(direccion.length()>3)
+                                UbicaBtnContinuar.setVisibility(View.VISIBLE);
                         UbicacionDireccion.setText(direccion);
 
                     }
@@ -456,7 +457,7 @@ List<Detalle> pro= new ArrayList<>();
                           mensaje="Pedido Registrado";
                          correcto=true;
                         }else  if (response.code()==500){
-                            mensaje="500 Internal Server Error";
+                            mensaje="Ocurrio un error Inesperado";
 
                         }else{
                             try {

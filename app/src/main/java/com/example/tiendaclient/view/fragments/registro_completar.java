@@ -87,7 +87,7 @@ public class registro_completar extends Fragment {
 
     Uri imagen_perfil;
 
-
+    /////
     View vista;
     String[] Roles;
     int posicionRol=0;
@@ -101,10 +101,10 @@ public class registro_completar extends Fragment {
     Boolean continuar=false;
     ArrayList<String> list_tiendas = new ArrayList<String>();
     ArrayAdapter<String> spinnerArrayAdapter;
-List<ResponseNombresMercado> mercadito =new ArrayList<>();
+    List<ResponseNombresMercado> mercadito =new ArrayList<>();
     SweetAlertDialog pDialog;
     ImageView image;
-LinearLayout contenedor_mercado;
+    LinearLayout contenedor_mercado;
     Retrofit retrofit;
     ApiService retrofitApi;
 
@@ -219,19 +219,19 @@ LinearLayout contenedor_mercado;
         Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    posRol=position;
+                posRol=position;
                 switch (position) {
                     case 0:
                         //Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
-                      //  TIDir.setVisibility(View.VISIBLE);
+                        //  TIDir.setVisibility(View.VISIBLE);
 
                         contenedor_mercado.setVisibility(View.GONE);
 
                         break;
                     case 1:
                         contenedor_mercado.setVisibility(View.VISIBLE);
-                       // TIDir.setVisibility(View.GONE);
-                       // Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
+                        // TIDir.setVisibility(View.GONE);
+                        // Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
                         break;
 
                 }
@@ -294,7 +294,7 @@ LinearLayout contenedor_mercado;
 
     public void funcion_cortar() {
         CropImage.activity()
-            .setAspectRatio(4, 4)
+                .setAspectRatio(4, 4)
                 .setFixAspectRatio(true)
                 .start(getContext(),this);
     }
@@ -319,11 +319,11 @@ LinearLayout contenedor_mercado;
                 if(verificar_vacio(Direccion.getText().toString())) {
                     Direccion.requestFocus();
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-                  } else if (imagen_perfil==null) {
-                        mensaje();
-                    }else {
-                        llenarDatos();
-                    }
+                } else if (imagen_perfil==null) {
+                    mensaje();
+                }else {
+                    llenarDatos();
+                }
 
 
 
@@ -334,13 +334,13 @@ LinearLayout contenedor_mercado;
                     Direccion.requestFocus();
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
                 }  if(verificar_vacio(TENPuest.getText().toString())) {
-                    TENPuest.requestFocus();
-                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-                }else if (imagen_perfil==null) {
-                        mensaje();
-                    }else {
-                        llenarDatos();
-                    }
+                TENPuest.requestFocus();
+                Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+            }else if (imagen_perfil==null) {
+                mensaje();
+            }else {
+                llenarDatos();
+            }
 
                 break;
 
@@ -354,9 +354,9 @@ LinearLayout contenedor_mercado;
 
 
         if(posRol>0){
-           RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
+            RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
 
-          //  RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
+            //  RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
             RegisU.setPuesto(TENPuest.getText().toString());
         }
 
@@ -427,7 +427,7 @@ LinearLayout contenedor_mercado;
                         if(!cambio_pantalla){
 
                             Snackbar.make(vista,""+mensaje, Snackbar.LENGTH_LONG).show();
-                           pDialog.dismiss();
+                            pDialog.dismiss();
                         }else{
                             PeticionLoginUser Credenciales = new PeticionLoginUser();
                             Credenciales.setUsuario(RegisU.getUsuario());
@@ -488,16 +488,16 @@ LinearLayout contenedor_mercado;
                     }
                     @Override
                     public void onError(Throwable e) {
-                                iniciar_sesion();
-                                pDialog.dismiss();
+                        iniciar_sesion();
+                        pDialog.dismiss();
                     }
 
                     @Override
                     public void onComplete() {
                         //("Completado foto","registrado");
 
-                     iniciar_sesion();
-                                pDialog.dismiss();
+                        iniciar_sesion();
+                        pDialog.dismiss();
                     }
                 });
 

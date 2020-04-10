@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/col_White"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -74,7 +76,7 @@
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
                     android:textSize="16sp"
-                  />
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -105,7 +107,7 @@
                     android:textColor="@color/col_negro"
                     android:textColorHint="@color/col_naranja"
                     android:textSize="16sp"
-                     />
+                    />
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -228,7 +230,7 @@
                 android:layout_below="@+id/siguiente_login_kt"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/pesta1"
-                android:theme="@style/TextLabel"
+                android:theme="@style/TextInputLayoutHint"
                 android:visibility="visible">
 
 
@@ -262,7 +264,7 @@
 
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/pesta1"
-                android:theme="@style/TextLabel"
+                android:theme="@style/TextInputLayoutHint"
                 android:visibility="visible">
 
 

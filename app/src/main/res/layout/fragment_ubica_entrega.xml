@@ -102,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     >
@@ -142,11 +143,12 @@
 
                 <RelativeLayout
                     android:id="@+id/UbicaBtnContinuar"
+                    android:visibility="gone"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
 
                     android:layout_marginBottom="20dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

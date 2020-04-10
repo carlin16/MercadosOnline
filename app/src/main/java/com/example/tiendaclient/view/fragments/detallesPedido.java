@@ -158,7 +158,7 @@ View linea_entregado ;
         if(pedido.getEstado().equals("IN_PROGRESS")){
             PedidoStatus.setVisibility(View.VISIBLE);
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
-            PedidoTxtStatus.setText("En Progresso");
+            PedidoTxtStatus.setText("En Progreso");
 
             if(Global.Modo==1){
                 DetaEntregado.setVisibility(View.VISIBLE);

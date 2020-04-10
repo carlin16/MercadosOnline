@@ -36,13 +36,7 @@ import static com.example.tiendaclient.utils.Global.verificar_vacio;
  */
 public class registro_datos_usuario extends Fragment {
 
-    public registro_datos_usuario() {
-        // Required empty public constructor
-
-
-    }
-
-   View vista;
+    View vista;
     EditText Nombres, Apellidos, Direccion, Telefono,  Email,Usuario;
     TextInputLayout TINom, TIApell, TIDir, TITel, TIEma, TIUsua, TIPassw, TIRePass ;
     TextView IrLogin;
@@ -54,8 +48,14 @@ public class registro_datos_usuario extends Fragment {
     String mensaje="";
     CountryCodePicker codigo_pais;
     CircularProgressButton BtnRegistrar ,datos,fotos,credenciales;
-
+    //
     String numeroTelefono;
+    public registro_datos_usuario() {
+        // Required empty public constructor
+
+
+    }
+//
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +68,7 @@ public class registro_datos_usuario extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       // vista.findViewById();
+        // vista.findViewById();
         UI();
         CLick();
     }
@@ -290,10 +290,10 @@ public class registro_datos_usuario extends Fragment {
         //("Llenar dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
         siguiente_paantalla();
 
-       // Gson gson = new Gson();
-       // String JPetUser= gson.toJson(User);
-     //   //("json",JPetUser);
-      //  animacion_registro();
+        // Gson gson = new Gson();
+        // String JPetUser= gson.toJson(User);
+        //   //("json",JPetUser);
+        //  animacion_registro();
         //peticion_Registro(JPetUser);
     }
 

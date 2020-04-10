@@ -304,8 +304,9 @@ public class Login extends AppCompatActivity {
                             if(myDialog != null || myDialog.isShowing())
                                 myDialog.dismiss();
 /*
-                            generar_token(ETLoginUser.getText().toString());
+                         generar_token(ETLoginUser.getText().toString());
 */
+
                             guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString(),Global.LoginU.getRol(),Global.LoginU.getToken());
                             Global.llenarToken();
                             iniciar_sesion();

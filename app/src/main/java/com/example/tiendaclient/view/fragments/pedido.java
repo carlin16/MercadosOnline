@@ -107,7 +107,7 @@ public class pedido extends Fragment {
                             mensaje=""+response.code();
                             continuar=true;
                         }else if(response.code()==500){
-                           mensaje="500 Internal Server Error";
+                           mensaje="Ocurrio un error Insesperado";
                         }else{
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());

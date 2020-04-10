@@ -183,7 +183,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
 
 
-        mBuilder.setSmallIcon(R.drawable.ic_add)
+        mBuilder.setSmallIcon(R.drawable.ic_logo_noti)
                 .setContentTitle(Titulo)
                 .setContentText(Body)
                 .setAutoCancel(true)
@@ -193,8 +193,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         .getDrawable(R.drawable.profile_icon)).getBitmap()))
                 */
                 .setVibrate(new long[] {100, 250, 100, 500})
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setTicker("HEY TU !");
+                .setDefaults(Notification.DEFAULT_ALL);
+                //.setTicker("HEY TU !");
         mBuilder.setChannelId(channelid);
         mBuilder.setContentIntent(pendingIntent);
     //    mBuilder.setContentIntent(contentIntent);
