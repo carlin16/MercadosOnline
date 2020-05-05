@@ -118,7 +118,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 });
 
     }
-
+///
     @Override
     public int getItemCount() {
         return lst_normal.size();
