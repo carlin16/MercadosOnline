@@ -160,6 +160,8 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
 
                 for (ResponseVerAllPuesto item : lst_full) {
 
+                    if(item.getMaxCategorias()!=null){
+
 
                    String comparar= item.getMaxCategorias().toLowerCase().trim();
 
@@ -188,7 +190,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
                         filtro.add(item);
                     }*/
 
-
+                    }
                 }
             }
             FilterResults results = new FilterResults();
