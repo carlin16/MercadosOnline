@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:901189670132:android:89ee65cfa1bd51586dbaa1",
+        "mobilesdk_app_id": "1:901189670132:android:6ac22fce817829c76dbaa1",
         "android_client_info": {
-          "package_name": "com.example.tiendaclient"
+          "package_name": "com.mercadoonline.tiendaclient"
         }
       },
       "oauth_client": [

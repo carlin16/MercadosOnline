@@ -10,7 +10,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.example.tiendaclient"
+        applicationId "com.mercadoonline.tiendaclient"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -120,7 +120,7 @@ dependencies {
     //maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-    implementation 'com.google.maps.android:android-maps-utils:0.5'
+    implementation 'com.google.maps.android:android-maps-utils:1.2.1'
 
 //
     //animacion recycler

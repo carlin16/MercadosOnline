@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.tiendaclient">
+    package="com.mercadoonline.tiendaclient">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".utils.Aplicacion"
+        android:name="com.mercadoonline.tiendaclient.utils.Aplicacion"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_logo_round"
@@ -25,13 +25,13 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity
-            android:name=".view.RegistroUsuarios"
+            android:name="com.mercadoonline.tiendaclient.view.RegistroUsuarios"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize"></activity>
 
         <activity
-            android:name=".view.Principal"
+            android:name="com.mercadoonline.tiendaclient.view.Principal"
             android:screenOrientation="portrait"
             android:exported ="true"
             android:windowSoftInputMode="adjustPan|adjustNothing"
@@ -44,7 +44,7 @@
         </activity>
 
         <activity
-            android:name=".view.Login"
+            android:name="com.mercadoonline.tiendaclient.view.Login"
             android:theme="@style/AppFullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
         </activity>
 
         <activity
-            android:name=".view.RegistroUser"
+            android:name="com.mercadoonline.tiendaclient.view.RegistroUser"
             android:theme="@style/Theme.AppCompat.NoActionBar"  />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -75,7 +75,7 @@ See README(https://goo.gl/l4GJaQ) for more.
             android:resource="@color/col_naranja" />
 
         <service
-            android:name=".utils.Notificaciones.MyFirebaseMessagingService"
+            android:name="com.mercadoonline.tiendaclient.utils.Notificaciones.MyFirebaseMessagingService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
