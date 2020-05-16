@@ -18,7 +18,7 @@ import com.mercadoonline.tiendaclient.models.recibido.Puesto;
 
 import java.util.List;
 
-public class multitienda_adapter extends RecyclerView.Adapter<multitienda_adapter.MultiHolder> {
+public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.MultiHolder> {
 
 
     //Puesto
@@ -26,11 +26,11 @@ public class multitienda_adapter extends RecyclerView.Adapter<multitienda_adapte
     Context contex;
     FragmentManager fragmentManager;
 
-    public multitienda_adapter(List<Puesto> lstvistas_Puesto) {
+    public VistaMultitienda(List<Puesto> lstvistas_Puesto) {
         this.lstvistas_Puesto = lstvistas_Puesto;
     }
 
-    public multitienda_adapter(List<Puesto> lstvistas_Puesto, FragmentManager fragmentManager) {
+    public VistaMultitienda(List<Puesto> lstvistas_Puesto, FragmentManager fragmentManager) {
         this.lstvistas_Puesto = lstvistas_Puesto;
         this.fragmentManager = fragmentManager;
     }

@@ -328,7 +328,7 @@ List<Detalle> pro= new ArrayList<>();
         String lat = "" + nuevo.latitude + "," + nuevo.longitude;
 
         //Logger.addLogAdapter(new AndroidLogAdapter());
-        disposable = retrofitApi.traerGeo(true, lat, "AIzaSyBrqlSYGXnmHVsp8yw90cnmi7GvGgjxB50")
+        disposable = retrofitApi.traerGeo(true, lat, getString(R.string.google_maps_keyM))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<DatosDireccion>>() {
