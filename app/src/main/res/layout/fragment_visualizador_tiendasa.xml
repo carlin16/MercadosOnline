@@ -7,20 +7,29 @@
     android:layout_height="match_parent"
     android:background="#F4F4F4"
     >
+
+    <TextView
+        android:paddingStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mis Tiendas"
+        android:textColor="#1D1C1A"
+        android:layout_marginBottom="10dp"
+        android:textSize="28sp"
+        android:textStyle="bold"></TextView>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="#F4F4F4"
 
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
-
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-
+            android:paddingHorizontal="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="3"
-            tools:listitem="@layout/item_tiendas"
+            tools:listitem="@layout/item_mercados"
 
             android:id="@+id/recycler_view_multitienda"
             android:layout_width="match_parent"

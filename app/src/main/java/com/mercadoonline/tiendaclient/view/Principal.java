@@ -35,6 +35,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.mercadoonline.tiendaclient.view.fragments.visualizadorTiendasa;
 
 import org.json.JSONObject;
 
@@ -114,9 +115,9 @@ int position=0;
                 //("Modo", "VENDEDOR");
             }else  if(Global.LoginU.getRol().equals("TIENDERO")){
                 if(!noti){
-                    productos productin= new productos();
+                    visualizadorTiendasa tiendas= new visualizadorTiendasa();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.Contenedor_Fragments, productin).commit();
+                            .replace(R.id.Contenedor_Fragments, tiendas).commit();
                 }
                 Global.Modo=3;
                 handler.postDelayed(new Runnable() {
@@ -171,7 +172,7 @@ int position=0;
         if(Global.Modo==1 )
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mercados")));
         if(Global.Modo==2) tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mi Puesto")));
-        if(Global.Modo==3) tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mi Puesto")));
+        if(Global.Modo==3) tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_home2, R.drawable.ic_home, "Mi Tienda")));
 
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_product2, R.drawable.ic_product, "Pedidos")));
         tabLayout.addTab(tabLayout.newTab().setCustomView(new Vista_tabs(this, R.drawable.ic_user2, R.drawable.ic_user, "Perfil")));
@@ -232,6 +233,13 @@ int position=0;
                     getSupportFragmentManager().beginTransaction()
                             //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
                             .replace(R.id.Contenedor_Fragments, productin).commit();
+                }else if(Global.LoginU.getRol().equals("TIENDERO")){
+                    visualizadorTiendasa tiendas= new visualizadorTiendasa();
+                    //productin.idPuesto=Global.LoginU.getId_puesto();
+                    // puestito.banderaRol=2;
+                    getSupportFragmentManager().beginTransaction()
+                            //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                            .replace(R.id.Contenedor_Fragments, tiendas).commit();
                 }
 
 
