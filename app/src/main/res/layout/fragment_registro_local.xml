@@ -3,13 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/col_White"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:orientation="vertical"
@@ -36,7 +37,7 @@
             android:text="Registro de Puesto/Negocio"
             android:layout_marginBottom="10dp"
             android:textColor="@color/col_negro"
-            android:textSize="25sp"
+            android:textSize="23sp"
             android:layout_marginTop="-10dp"
             android:fontFamily="@font/segoeuib"
             android:textStyle="bold"></TextView
@@ -51,17 +52,24 @@
             android:scaleType="fitXY"
             android:layout_gravity="center"
             android:layout_width="150dp"
+            android:visibility="visible"
             android:layout_height="150dp"
             android:src="@drawable/market_120697"
             />
 
-
-
-
-
-
-
-
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imagenTiendaNueva"
+            android:layout_width="match_parent"
+            android:layout_height="137dp"
+            app:riv_border_color="@android:color/transparent"
+            app:riv_border_width="0dip"
+            app:riv_corner_radius="7dp"
+            app:riv_oval="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/placeholder_mercado"
+            android:visibility="gone"
+            >
+        </com.makeramen.roundedimageview.RoundedImageView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/TINombreNegocio"
@@ -108,7 +116,87 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="left"
-                android:hint="Telefono"
+                android:hint="Teléfono"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/segoeui"
+                android:singleLine="true"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+                android:textSize="20sp"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+
+            <TextView
+                android:layout_weight="2"
+                android:id="@+id/txtCategoriaTien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/geo"
+                android:text="Categoría"
+                android:paddingLeft="10dp"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="3"
+                android:singleLine="true"
+                android:textColor="@color/col_naranja"
+                android:textColorHint="@color/col_negro"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+
+
+
+
+            <Spinner
+                android:id="@+id/spn_catTienda"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_weight="1"
+                android:entries="@array/Roles"
+                android:fontFamily="@font/geo"
+                android:textAlignment="center"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+
+                android:textSize="12sp"
+                android:textStyle="bold"></Spinner>
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/TIDescripTienda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/TextInputLayoutHint"
+            >
+
+
+            <EditText
+                android:id="@+id/ETDescripTienda"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:hint="Descricción"
                 android:imeActionId="6"
                 android:imeOptions="actionUnspecified"
                 android:inputType="text"
@@ -133,7 +221,8 @@
             android:orientation="vertical"
 
             android:background="@drawable/border_transaparente"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
+
 
             >
 
@@ -221,7 +310,7 @@
             android:layout_height="38dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/border_ingresar"
             android:text="Registrar"
             android:textColor="@color/col_White"

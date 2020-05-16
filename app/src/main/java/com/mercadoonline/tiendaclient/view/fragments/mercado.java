@@ -227,7 +227,7 @@ llamarPreferences();
                 Log.e("contacto",PhoneNumberUtils.stripSeparators("+593993942225"));
 
                 Log.e("contacto",PhoneNumberUtils.stripSeparators("593993942225"));
-                mensaje();
+              //  mensaje();
                 AbrirWhatsApp("+593993942225");
                 //popupFiltro(v);
 

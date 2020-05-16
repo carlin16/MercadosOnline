@@ -88,8 +88,9 @@ GoogleMap gmap;
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(locationManager!=null)
                 locationManager.removeUpdates(locListener);
+
                 onItemOk.onItemClickok(nuevo);
                 dismiss();
             }

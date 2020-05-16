@@ -184,6 +184,10 @@ public interface ApiService {
     @GET("mercados/nombres")
     Observable<Response<List<ResponseNombresMercado>>>TraerNombresMercado();
 
+    @Headers("Content-Type: application/json")
+    @GET("tiendas/categorias")
+    Observable<Response<List<ResponseCategorias>>>TraerCategoriasTiendas();
+
 
 
 

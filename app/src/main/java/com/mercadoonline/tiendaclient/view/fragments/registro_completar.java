@@ -81,51 +81,52 @@ public class registro_completar extends Fragment {
     /////
     View vista;
     String[] Roles;
-    int posicionRol=0;
-    Boolean cambio_pantalla=false;
-    String mensaje="";
+    int posicionRol = 0;
+    Boolean cambio_pantalla = false;
+    String mensaje = "";
     Spinner Rol, Mercado;
-    EditText Direccion , TENMer,TENPuest;
+    EditText Direccion, TENMer, TENPuest;
     TextInputLayout TIDir, TINomMercado, TINPuesto;
     TextView Soy, IrLogin;
     CircularProgressButton BtnRegistrar2;
-    Boolean continuar=false;
+    Boolean continuar = false;
     ArrayList<String> list_tiendas = new ArrayList<String>();
     ArrayAdapter<String> spinnerArrayAdapter;
-    List<ResponseNombresMercado> mercadito =new ArrayList<>();
+    List<ResponseNombresMercado> mercadito = new ArrayList<>();
     SweetAlertDialog pDialog;
     ImageView image;
     LinearLayout contenedor_mercado;
     Retrofit retrofit;
     ApiService retrofitApi;
 
-    int posRol=0;
+    int posRol = 0;
 
 
-    private void UI(){
-        Roles= getResources().getStringArray(R.array.Roles);
-        Rol=vista.findViewById(R.id.spn_rolUser);
-        image=vista.findViewById(R.id.image);
-        Direccion=vista.findViewById(R.id.registro_direccion);
-        TIDir=vista.findViewById(R.id.TIDireccion);
-        Soy=vista.findViewById(R.id.txtRol);
-        BtnRegistrar2=vista.findViewById(R.id.btn_registro2);
-        IrLogin=vista.findViewById(R.id.ir_login2);
-        Mercado=vista.findViewById(R.id.spn_Mercado);
-        contenedor_mercado=vista.findViewById(R.id.contenedor_mercado);
-        TINPuesto=vista.findViewById(R.id.TINPuesto);
+    private void UI() {
+        Roles = getResources().getStringArray(R.array.Roles);
+        Rol = vista.findViewById(R.id.spn_rolUser);
+        image = vista.findViewById(R.id.image);
+        Direccion = vista.findViewById(R.id.registro_direccion);
+        TIDir = vista.findViewById(R.id.TIDireccion);
+        Soy = vista.findViewById(R.id.txtRol);
+        BtnRegistrar2 = vista.findViewById(R.id.btn_registro2);
+        IrLogin = vista.findViewById(R.id.ir_login2);
+        Mercado = vista.findViewById(R.id.spn_Mercado);
+        contenedor_mercado = vista.findViewById(R.id.contenedor_mercado);
+        TINPuesto = vista.findViewById(R.id.TINPuesto);
 
 
-        TENPuest=vista.findViewById(R.id.registro_NumPuesto);
-        TENPuest.setFilters( new InputFilter[]{ new MinMaxFilter( "1" , "99999" )}) ;
+        TENPuest = vista.findViewById(R.id.registro_NumPuesto);
+        TENPuest.setFilters(new InputFilter[]{new MinMaxFilter("1", "99999")});
 
         TIDir.setVisibility(View.VISIBLE);
-        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item,list_tiendas);
+        spinnerArrayAdapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_item, list_tiendas);
         //spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
         Mercado.setAdapter(spinnerArrayAdapter);
 
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -134,11 +135,12 @@ public class registro_completar extends Fragment {
         peticion_mercado();
         Click();
     }
-    public void Click(){
+
+    public void Click() {
         IrLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext(), Login.class);
+                Intent intent = new Intent(v.getContext(), Login.class);
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -164,7 +166,6 @@ public class registro_completar extends Fragment {
                 TENPuest.requestFocus();
             }
         });
-
 
 
         image.setOnClickListener(new View.OnClickListener() {
@@ -210,7 +211,7 @@ public class registro_completar extends Fragment {
         Rol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                posRol=position;
+                posRol = position;
                 switch (position) {
                     case 0:
                         //Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
@@ -252,7 +253,7 @@ public class registro_completar extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        vista= inflater.inflate(R.layout.fragment_resgistro_completar, container, false);
+        vista = inflater.inflate(R.layout.fragment_resgistro_completar, container, false);
         return vista;
     }
 
@@ -266,7 +267,7 @@ public class registro_completar extends Fragment {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
             if (resultCode == RESULT_OK) {
-                imagen_perfil=result.getUri();
+                imagen_perfil = result.getUri();
                 //("obtuve imagen",""+imagen_perfil);
 
 
@@ -279,7 +280,8 @@ public class registro_completar extends Fragment {
 
         }
     }
-    private void llenar_subida(){
+
+    private void llenar_subida() {
 
 
         Glide.with(this).load(imagen_perfil).apply(RequestOptions.circleCropTransform()).into(image);
@@ -291,22 +293,20 @@ public class registro_completar extends Fragment {
         CropImage.activity()
                 .setAspectRatio(4, 4)
                 .setFixAspectRatio(true)
-                .start(getContext(),this);
+                .start(getContext(), this);
     }
 
-    private void animacion_cargando(){
+    private void animacion_cargando() {
         pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#" + Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
         pDialog.setTitleText("Registrando");
         pDialog.setCancelable(false);
 
 
-
     }
-    private void validar_campos(){
+
+    private void validar_campos() {
         //("VC", "estoy en validar campos ");
-
-
 
 
         switch (posRol) {
@@ -316,12 +316,11 @@ public class registro_completar extends Fragment {
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
                 } else*/
 
-                    if (imagen_perfil==null) {
+                if (imagen_perfil == null) {
                     mensaje();
-                }else {
+                } else {
                     llenarDatos();
                 }
-
 
 
                 break;
@@ -332,23 +331,22 @@ public class registro_completar extends Fragment {
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
                 }  */
 
-                if(verificar_vacio(TENPuest.getText().toString())) {
-                TENPuest.requestFocus();
-                Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-            }else if (imagen_perfil==null) {
-                mensaje();
-            }else {
-                llenarDatos();
-            }
-
-                break;
-            case 2:
-                if (imagen_perfil==null) {
+                if (verificar_vacio(TENPuest.getText().toString())) {
+                    TENPuest.requestFocus();
+                    Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
+                } else if (imagen_perfil == null) {
                     mensaje();
-                }else {
+                } else {
                     llenarDatos();
                 }
 
+                break;
+            case 2:
+                if (imagen_perfil == null) {
+                    mensaje();
+                } else {
+                    llenarDatos();
+                }
 
 
                 break;
@@ -357,13 +355,14 @@ public class registro_completar extends Fragment {
 
 
     }
-    public  void llenarDatos(){
+
+    public void llenarDatos() {
         RegisU.setRol(Roles[posRol].toUpperCase());
         RegisU.setDireccion(Direccion.getText().toString());
 
 
-        if(posRol>0){
-           // RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
+        if (posRol > 0) {
+            // RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
             RegisU.setIdMercado(1);
             //  RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
             RegisU.setPuesto(TENPuest.getText().toString());
@@ -372,7 +371,7 @@ public class registro_completar extends Fragment {
 
         //("Llenar todos dts", "Se llenaron los datos en Global "+ Global.convertObjToString(RegisU));
         Gson gson = new Gson();
-        String JPetUser= gson.toJson(RegisU);
+        String JPetUser = gson.toJson(RegisU);
         //("json",JPetUser);
         pDialog.show();
         peticion_Registro(JPetUser);
@@ -392,7 +391,8 @@ public class registro_completar extends Fragment {
         dialog.show();
 
     }
-    private void peticion_Registro(String jsonConf){
+
+    private void peticion_Registro(String jsonConf) {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -407,24 +407,25 @@ public class registro_completar extends Fragment {
 
                         //("code PU",""+response.code());
                         if (response.isSuccessful()) {
-                            cambio_pantalla=true;
-                            Global.RegisUser=response.body();
+                            cambio_pantalla = true;
+                            Global.RegisUser = response.body();
                             Global.LoginU.setid(response.body().getId());
-                            mensaje=response.body().getMensaje();
+                            mensaje = response.body().getMensaje();
                         } else {
 
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
+                                Gson gson = new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
 
-                                mensaje=staff.getMensaje();
+                                mensaje = staff.getMensaje();
 
                             } catch (Exception e) {
                                 //("error conversion json",""+e.getMessage());
                             }
                         }
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         pDialog.dismiss();
@@ -433,23 +434,22 @@ public class registro_completar extends Fragment {
                     @Override
                     public void onComplete() {
                         //("Completado","registrado");
-                        if(!cambio_pantalla){
+                        if (!cambio_pantalla) {
 
-                            Snackbar.make(vista,""+mensaje, Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(vista, "" + mensaje, Snackbar.LENGTH_LONG).show();
                             pDialog.dismiss();
-                        }else{
+                        } else {
                             PeticionLoginUser Credenciales = new PeticionLoginUser();
                             Credenciales.setUsuario(RegisU.getUsuario());
                             Credenciales.setPassword(RegisU.getPassword());
                             Gson gson = new Gson();
-                            String JPetCredenciales= gson.toJson(Credenciales);
+                            String JPetCredenciales = gson.toJson(Credenciales);
 
 
                             //("json",JPetCredenciales);
                             peticion_Login(JPetCredenciales);
-                            guardarPreferences(RegisU.getUsuario(),RegisU.getPassword());
+                            guardarPreferences(RegisU.getUsuario(), RegisU.getPassword());
                         }
-
 
 
                     }
@@ -457,17 +457,16 @@ public class registro_completar extends Fragment {
     }
 
 
-
-    public void subir_foto(){
+    public void subir_foto() {
 
         File file = new File(imagen_perfil.getPath());
         //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+        MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto", file.getName(), requestFile);
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.UploadImage(""+Global.RegisUser.getId(),imagen,Global.LoginU.getToken())
+        disposable = (Disposable) retrofitApi.UploadImage("" + Global.RegisUser.getId(), imagen, Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseUpdateImagen>>() {
@@ -475,18 +474,18 @@ public class registro_completar extends Fragment {
                     public void onNext(Response<ResponseUpdateImagen> response) {
 
                         if (response.isSuccessful()) {
-                            cambio_pantalla =true;
-                            mensaje=response.body().getMensaje();
+                            cambio_pantalla = true;
+                            mensaje = response.body().getMensaje();
                             //("normal",mensaje);
-                        } else  if (response.code()==500) {
+                        } else if (response.code() == 500) {
                             mensaje = "Internal Server Error";
-                        } else{
+                        } else {
 
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
+                                Gson gson = new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-                                mensaje=staff.getMensaje();
+                                mensaje = staff.getMensaje();
                                 //("normal-->400",mensaje);
 
                             } catch (Exception e) {
@@ -495,6 +494,7 @@ public class registro_completar extends Fragment {
                             iniciar_sesion();
                         }
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         iniciar_sesion();
@@ -512,16 +512,15 @@ public class registro_completar extends Fragment {
 
 
     }
-    private void iniciar_sesion(){
-        Intent intent = new Intent (getActivity(), Principal.class);
+
+    private void iniciar_sesion() {
+        Intent intent = new Intent(getActivity(), Principal.class);
         startActivity(intent);
         getActivity().finish();
     }
 
 
-
-
-    private void peticion_mercado(){
+    private void peticion_mercado() {
         //("peticion","mercado");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
@@ -534,20 +533,20 @@ public class registro_completar extends Fragment {
                     public void onNext(Response<List<ResponseNombresMercado>> response) {
 
 
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
 
                             //("code VM",""+response.code());
                             //("respuest VM",Global.convertObjToString(response.body()));
-                            mercadito=response.body();
-                            continuar=true;
+                            mercadito = response.body();
+                            continuar = true;
 
-                        }else {
+                        } else {
 
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
+                                Gson gson = new Gson();
                                 ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-                                mensaje=staff.getMensaje();
+                                mensaje = staff.getMensaje();
                                 //("normal-->400",mensaje);
 
                             } catch (Exception e) {
@@ -559,6 +558,7 @@ public class registro_completar extends Fragment {
 
 
                     }
+
                     @Override
                     public void onError(Throwable e) {
                         //("code VM","error");
@@ -570,27 +570,25 @@ public class registro_completar extends Fragment {
 
                         //("code VM","completado");
                         // adapter.notifyDataSetChanged();
-                        if(getActivity()==null || isRemoving() || isDetached()){
+                        if (getActivity() == null || isRemoving() || isDetached()) {
                             //("activity","removido de la actividad mercado");
                             return;
-                        }else{
+                        } else {
 
 
-
-                            if(continuar){
-                                for (ResponseNombresMercado x:mercadito){
+                            if (continuar) {
+                                for (ResponseNombresMercado x : mercadito) {
                                     list_tiendas.add(x.getNombre());
                                     spinnerArrayAdapter.notifyDataSetChanged();
 
                                 }
 
-                            }else{
-                                Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getActivity(), mensaje, Toast.LENGTH_LONG).show();
                             }
 
 
                         }
-
 
 
                     }
@@ -598,10 +596,9 @@ public class registro_completar extends Fragment {
     }
 
 
-
-    public void guardarPreferences(String Use, String Pass){
-        SharedPreferences DtsAlmacenados= PreferenceManager.getDefaultSharedPreferences(getActivity());
-        SharedPreferences.Editor MyEditorDts=DtsAlmacenados.edit();
+    public void guardarPreferences(String Use, String Pass) {
+        SharedPreferences DtsAlmacenados = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor MyEditorDts = DtsAlmacenados.edit();
         MyEditorDts.putString("UsuarioS", Use);
         MyEditorDts.putString("PasswordS", Pass);
         MyEditorDts.apply();
@@ -609,8 +606,7 @@ public class registro_completar extends Fragment {
     }
 
 
-
-    private void peticion_Login(String jsonConf){
+    private void peticion_Login(String jsonConf) {
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -624,15 +620,16 @@ public class registro_completar extends Fragment {
                     public void onNext(Response<ResponseLoginUser> response) {
 
                         if (response.isSuccessful()) {
-                            Global.LoginU=response.body();
+                            Global.LoginU = response.body();
                             // mensaje=response.body().getMensaje();
-                        } else if (response.code()==500) {
+                        } else if (response.code() == 500) {
                             mensaje = "Internal Server Error";
                             // myDialog.dismiss();
-                        }else{
+                        } else {
 
                         }
                     }
+
                     @Override
                     public void onError(Throwable e) {
 
