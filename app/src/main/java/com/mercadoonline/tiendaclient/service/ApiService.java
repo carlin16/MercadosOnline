@@ -7,6 +7,7 @@ import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseNombresMercado;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistrarPedido;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseTiendas;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseUserPorID;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseLoginUser;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistroUser;
@@ -182,6 +183,18 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     @GET("mercados/nombres")
     Observable<Response<List<ResponseNombresMercado>>>TraerNombresMercado();
+
+
+
+
+    @Headers("Content-Type: application/json")
+    @GET("tiendas")
+    Observable<Response<List<ResponseTiendas>>>VerMisTiendas(@Query("id") String id,
+                                                       @Query("type") String type,
+                                                       @Header("Authorization") String authorization
+    );
+
+
 
 
 }

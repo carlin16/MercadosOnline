@@ -5,8 +5,11 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
+    android:background="@color/col_White"
     >
+
+    <include layout="@layout/app_busqueda"></include>
+
 
     <TextView
         android:paddingStart="20dp"
@@ -21,7 +24,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="#F4F4F4"
+        android:background="@color/col_White"
 
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
@@ -38,12 +41,13 @@
             android:horizontalSpacing="4dp"
             android:stretchMode="columnWidth"
             android:layout_marginTop="20dp"
-            android:background="#F4F4F4"
+            android:background="@color/col_White"
             android:verticalSpacing="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
   />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/agregar_tienda"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"

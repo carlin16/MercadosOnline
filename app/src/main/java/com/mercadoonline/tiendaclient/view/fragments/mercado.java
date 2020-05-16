@@ -54,8 +54,9 @@ public class mercado extends Fragment {
     VistasMercado adapter;
     List<ResponseVerMercado> listado= new ArrayList<>();
     Retrofit retrofit;
-    EditText buscar;
     ApiService retrofitApi;
+
+    EditText buscar;
     Boolean continuar=false;
     String mensaje="mercado";
     @Override
