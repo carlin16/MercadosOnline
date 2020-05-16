@@ -20,7 +20,7 @@ public class PeticionRegistroUser {
     private String apellidos;
     @SerializedName("direccion")
     @Expose
-    private String direccion;
+    private String direccion="";
     @SerializedName("celular")
     @Expose
     private String celular;

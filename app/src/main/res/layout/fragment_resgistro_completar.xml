@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:visibility="visible"
+            android:visibility="gone"
             >
 
 
@@ -157,7 +157,7 @@
 
         <LinearLayout
             android:id="@+id/contenedor_mercado"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -249,6 +249,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:theme="@style/TextInputLayoutHint"
+            android:visibility="gone"
             >
 
 
@@ -269,6 +270,7 @@
                 android:textColor="@color/col_negro"
                 android:textColorHint="@color/col_naranja"
                 android:textSize="20sp"
+                android:visibility="gone"
                 />
 
 

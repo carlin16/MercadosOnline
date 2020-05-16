@@ -174,7 +174,7 @@ public class registro_completar extends Fragment {
             }
         });
 
-        //validaciones para que al seleccionar campo, el texview cambien de color
+/*        //validaciones para que al seleccionar campo, el texview cambien de color
         Direccion.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
@@ -189,7 +189,7 @@ public class registro_completar extends Fragment {
             //validaciones para que al seleccionar campo, el texview cambien de color
 
 
-        });
+        });*/
 
         TENPuest.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -227,7 +227,7 @@ public class registro_completar extends Fragment {
                         break;
                     case 2:
                         //caso de tiendero
-                        //contenedor_mercado
+                        contenedor_mercado.setVisibility(View.GONE);
 
                 }
             }
@@ -311,10 +311,12 @@ public class registro_completar extends Fragment {
 
         switch (posRol) {
             case 0:
-                if(verificar_vacio(Direccion.getText().toString())) {
+/*                if(verificar_vacio(Direccion.getText().toString())) {
                     Direccion.requestFocus();
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-                } else if (imagen_perfil==null) {
+                } else*/
+
+                    if (imagen_perfil==null) {
                     mensaje();
                 }else {
                     llenarDatos();
@@ -325,10 +327,12 @@ public class registro_completar extends Fragment {
                 break;
             case 1:
 
-                if(verificar_vacio(Direccion.getText().toString())) {
+/*                if(verificar_vacio(Direccion.getText().toString())) {
                     Direccion.requestFocus();
                     Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-                }  if(verificar_vacio(TENPuest.getText().toString())) {
+                }  */
+
+                if(verificar_vacio(TENPuest.getText().toString())) {
                 TENPuest.requestFocus();
                 Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
             }else if (imagen_perfil==null) {
@@ -336,6 +340,16 @@ public class registro_completar extends Fragment {
             }else {
                 llenarDatos();
             }
+
+                break;
+            case 2:
+                if (imagen_perfil==null) {
+                    mensaje();
+                }else {
+                    llenarDatos();
+                }
+
+
 
                 break;
 
