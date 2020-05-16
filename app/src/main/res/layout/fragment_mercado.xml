@@ -15,6 +15,7 @@
     >
     <include layout="@layout/app_busqueda"></include>
     <TextView
+        android:id="@+id/TituloVista"
         android:paddingStart="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -82,6 +82,7 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
                 .with(holder.mercado_portada.getContext())
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
                 .placeholder(R.drawable.placeholder_mercado)
                 .error(R.drawable.placeholder_mercado)
                 .into(holder.mercado_portada);

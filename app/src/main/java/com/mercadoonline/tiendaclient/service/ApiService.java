@@ -195,6 +195,10 @@ public interface ApiService {
     );
 
 
-
+    @Headers("Content-Type: application/json")
+    @GET("tiendas")
+    Observable<Response<List<ResponseTiendas>>>VerTiendas(
+                                                             @Header("Authorization") String authorization
+    );
 
 }
