@@ -215,15 +215,19 @@ public class registro_completar extends Fragment {
                     case 0:
                         //Toast.makeText(parent.getContext(), "Spinner item 1!", Toast.LENGTH_SHORT).show();
                         //  TIDir.setVisibility(View.VISIBLE);
-
+                        //caso de ciente
                         contenedor_mercado.setVisibility(View.GONE);
 
                         break;
                     case 1:
+                        //caso de vendedor
                         contenedor_mercado.setVisibility(View.VISIBLE);
                         // TIDir.setVisibility(View.GONE);
                         // Toast.makeText(parent.getContext(), "Spinner item 2!", Toast.LENGTH_SHORT).show();
                         break;
+                    case 2:
+                        //caso de tiendero
+                        //contenedor_mercado
 
                 }
             }
