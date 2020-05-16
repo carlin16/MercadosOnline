@@ -207,6 +207,7 @@ public class Login extends AppCompatActivity {
         MyEditorDts.putString("ModoS", Modo);
         MyEditorDts.putString("TokenS",Token);
         Log.e("guardando",Token);
+        Log.e("El modo en guardar Pre", Modo);
         MyEditorDts.commit();//devuelve un booleano,hasta que se guarda todo
 
         MyEditorDts.apply();
@@ -218,13 +219,15 @@ public class Login extends AppCompatActivity {
         SharedPreferences DtsRescatados=getSharedPreferences("login", Context.MODE_PRIVATE);
         UserSave=DtsRescatados.getString("UsuarioS", "Usuario");
         PassSave=DtsRescatados.getString("PasswordS", "Password");
-
+        //Log.e("")
         if(!UserSave.equals("Usuario")){
             ETLoginUser.setText(UserSave);
             ETLoginPass.setText(PassSave);
             BtnLoginIngresar.setEnabled(false);
             llenarDatos();
         }
+
+
 
     }
 

@@ -83,6 +83,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+
+
             <Spinner
                 android:id="@+id/spn_rolUser"
                 android:layout_width="match_parent"
@@ -102,8 +104,60 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/contenedor_Tipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            >
+
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:fontFamily="@font/geo"
+                android:imeActionId="6"
+                android:imeOptions="actionUnspecified"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+
+
+                android:singleLine="true"
+                android:text="Tipo"
+                android:textColor="@color/col_naranja"
+                android:textColorHint="@color/col_negro"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+
+            <Spinner
+                android:id="@+id/spn_Tipo"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp"
+                android:layout_weight="1"
+                android:entries="@array/TipoNegocio"
+                android:fontFamily="@font/segoeui"
+                android:textAlignment="center"
+                android:textColor="@color/col_negro"
+                android:textColorHint="@color/col_naranja"
+
+                android:textSize="12sp"
+                android:textStyle="bold"></Spinner>
+        </LinearLayout>
+
+
+
+        <LinearLayout
             android:id="@+id/contenedor_mercado"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

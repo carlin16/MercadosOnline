@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="#F4F4F4"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="#F4F4F4"
+
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spanCount="3"
+            tools:listitem="@layout/item_tiendas"
+
+            android:id="@+id/recycler_view_multitienda"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:horizontalSpacing="4dp"
+            android:stretchMode="columnWidth"
+            android:layout_marginTop="20dp"
+            android:background="#F4F4F4"
+            android:verticalSpacing="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+  />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/agregar_tienda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="36dp"
+            android:background="@color/col_naranja"
+            android:backgroundTint="@color/col_naranja"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:src="@drawable/add_gv"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</LinearLayout>

@@ -9,11 +9,18 @@
 
     <string name="Registrarse"><u>Registrarse</u></string>
 
+    <string name="mensaje_ubicacion">Asegúrate que la ubicación sea la correcta, tus clientes vendrán a este punto.</string>
 
     <string name="IniciarSesion"><u>Iniciar Sesión</u></string>
     <string-array name="Roles">
         <item>Cliente</item>
         <item>Vendedor</item>
+        <item>Tiendero</item>
+    </string-array>
+
+    <string-array name="TipoNegocio">
+        <item>Puesto Mercado</item>
+        <item>Local Propio</item>
     </string-array>
 
 
