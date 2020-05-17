@@ -485,6 +485,7 @@ private void llenarCarrito(Producto product){
     if(Global.idFiltro==1){
         nuevoC.setId(tienda.getId());
         nuevoC.setNombre(tienda.getNombre());
+        nuevoC.setIdUsuario(tienda.getIdUsuario());
 
     }
 

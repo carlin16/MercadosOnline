@@ -10,9 +10,19 @@ import java.util.List;
 public class Compra {
     public Compra() {
     }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     @SerializedName("id")
     @Expose
     private Integer id;//Mercado o Tiendas
+    private int idUsuario; //esto es usado para el id vendedor de los tiendas
 
     public int getTipoCarro() {
         return tipoCarro;
