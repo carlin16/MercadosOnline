@@ -132,7 +132,7 @@ public class productos extends Fragment {
         UI();
         click();
         animacion_cargando();
-
+Log.e("el modo es",""+Global.Modo);
         if(Global.Modo==1){
 
             //TODO la lista de productos viende del adaptador para cliente
@@ -141,16 +141,22 @@ public class productos extends Fragment {
             iniciar_recycler();
             if(Global.idFiltro==0)
             llenarDatosClientes();
-            if(Global.idFiltro==1)
-            llenarDatosTiendero();
+            if(Global.idFiltro==1){
+                llenarDatosTiendero();
+                peticion_ProductosporTienda("TIENDA", tienda.getId());
+            }
+
+
         }else if(Global.Modo==2){
             //TODO la lista de productos debe consultarse modo vendedor(pertence a un mercado)
             mirar_producto();
             peticion_ProductosPorID();
-        }else if(Global.Modo==3){
-            mirar_producto();
+        }else {
+            Log.e("Estoy","Modo 3");
             peticion_ProductosporTienda("TIENDA", tienda.getId());
-           // tienda.getId()
+            mirar_producto();
+
+            // tienda.getId()
             //Aqui consumir para la lista de tiendas
             //GET ALL PRODUCTOS
 
@@ -199,8 +205,8 @@ public class productos extends Fragment {
         TVCompDescripcionV.setText(""+product.getDescripcion());
         TVUnidadMedidaP.setText(""+product.getUnidades());
         DecimalFormat f = new DecimalFormat("##.00");
-        if(Double.parseDouble(product.getPrecio())<1.0) TVCompSubtotalV.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
-            else TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        if(Double.parseDouble(""+product.getPrecio())<1.0) TVCompSubtotalV.setText("$0"+f.format(Double.parseDouble(""+product.getPrecio())));
+            else TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(""+product.getPrecio())));
         //TVCompSubtotalV.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
 
         //("el producto",""+product.getId());
@@ -266,12 +272,12 @@ public class productos extends Fragment {
         NombreProducto.setText(product.getNombre());
         UnidadesProd.setText("Precio por "+product.getUnidades());
         DecimalFormat f = new DecimalFormat("##.00");
-        if(Double.parseDouble(product.getPrecio())<1.0)  Valorproduct.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
-            else Valorproduct.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        if(Double.parseDouble(""+product.getPrecio())<1.0)  Valorproduct.setText("$0"+f.format(Double.parseDouble(""+product.getPrecio())));
+            else Valorproduct.setText("$"+f.format(Double.parseDouble(""+product.getPrecio())));
 
         //Valorproduct.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
-        if(Double.parseDouble(product.getPrecio())<1.0) Subtotal.setText("$0"+f.format(Double.parseDouble(product.getPrecio())));
-            else Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        if(Double.parseDouble(""+product.getPrecio())<1.0) Subtotal.setText("$0"+f.format(Double.parseDouble(""+product.getPrecio())));
+            else Subtotal.setText("$"+f.format(Double.parseDouble(""+product.getPrecio())));
       //  Subtotal.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
         if(product.getNombreCategoria()=="null") CategoriaDelProduct.setText("");
             else CategoriaDelProduct.setText(product.getNombreCategoria());
@@ -289,7 +295,7 @@ public class productos extends Fragment {
 
                 .into(FotoProducto);
 
-        final double precio=Double.parseDouble(product.getPrecio());
+        final double precio=Double.parseDouble(""+product.getPrecio());
         //final double subtotal=0;
         CantidadCar.setRange( 1,  1000);
         CantidadCar.setOnValueChangeListener(new ElegantNumberButton.OnValueChangeListener() {
@@ -414,11 +420,13 @@ private void llenarCarrito(Producto product){
     prod.setNombre(product.getNombre());
     prod.setDescripcion(product.getDescripcion());
     prod.setId_cantidad(Integer.parseInt(CantidadCar.getNumber()));
-    prod.setIdCategoria(Integer.parseInt(product.getIdCategoria()));
+    prod.setIdCategoria(Integer.parseInt(""+product.getIdCategoria()));
     prod.setIdProducto(product.getId());
     prod.setIdPuesto(Integer.parseInt(idPuestoI));
     prod.setIdVendedor(vendedor.getId().toString());
-    prod.setPrecio(Double.parseDouble(product.getPrecio()));
+
+
+    prod.setPrecio(Double.parseDouble(""+product.getPrecio()));
     prod.setUnidades(""+product.getUnidades());
 
     Double multi=prod.getId_cantidad()*prod.getPrecio();
@@ -444,15 +452,19 @@ private void llenarCarrito(Producto product){
 
     pues.add(PuestComp);
 
+
     nuevoC.setPuestos(pues);
     nuevoC.setCantidad(Integer.parseInt(CantidadCar.getNumber()));
-    nuevoC.setCiudad(Mercado.getCiudad());
     nuevoC.setCodigoMercado(Mercado.getCodigoMercado());
-    nuevoC.setDescripcion(Mercado.getDescripcion());
-    nuevoC.setDireccion(Mercado.getDireccion());
-    nuevoC.setEstado(Integer.parseInt(Mercado.getEstado()));
-    nuevoC.setFechaRegistro(Mercado.getFechaRegistro());
+
+
+
+
+
     nuevoC.setId(Mercado.getId());
+
+
+    nuevoC.setTipoCarro(Global.idFiltro);//Tipo 0 es Mercado Tipo 1 es Tiendas
     // nuevoC.setLatitud(""+Mercado.getLatitud().toString());
     // nuevoC.setLongitud(""+Mercado.getLatitud().toString());
     nuevoC.setNombre(Mercado.getNombre());
@@ -609,7 +621,6 @@ private void llenarCarrito(Producto product){
 
     private void peticion_ProductosporTienda(String tipoNegocio, int IdTien){
 
-        int x= 3;
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
@@ -674,6 +685,7 @@ private void llenarCarrito(Producto product){
                             }
                             iniciar_recycler();
                             adapter.notifyDataSetChanged();
+                            llenarDatosTiendero();
 
                         }
 

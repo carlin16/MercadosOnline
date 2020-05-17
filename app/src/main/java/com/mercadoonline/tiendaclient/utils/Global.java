@@ -84,9 +84,7 @@ public static void llenarToken(){
 
             Boolean encontre =false;
         for(Compra C: VerCompras){
-
-            if(C.getId()==nueva.getId()){
-
+            if(C.getId()==nueva.getId() && C.getTipoCarro()==nueva.getTipoCarro()){
               C.setCantidad(C.getCantidad()+nueva.getCantidad());
               C.setTotal(formatearDecimales(C.getTotal()+nueva.getTotal(),2));
                 //("totalGlobal" , "------------->"+C.getTotal());

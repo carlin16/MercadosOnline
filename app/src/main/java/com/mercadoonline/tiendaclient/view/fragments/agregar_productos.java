@@ -248,7 +248,7 @@ public class agregar_productos extends Fragment {
         ETNPDescrip.setText(product.getDescripcion());
 
         DecimalFormat f = new DecimalFormat("##.00");
-        ETNPPrecio.setText("$"+f.format(Double.parseDouble(product.getPrecio())));
+        ETNPPrecio.setText("$"+f.format(Double.parseDouble(""+product.getPrecio())));
         elegir_categoria();
 
     }
@@ -263,7 +263,7 @@ public class agregar_productos extends Fragment {
 
         int indice=0;
         for(ResponseCategorias c : Global.categorias){
-            if(c.getId()==Integer.parseInt(product.getIdCategoria())){
+            if(c.getId()==Integer.parseInt(""+product.getIdCategoria())){
 
                 indice=Global.categorias.indexOf(c);
             }

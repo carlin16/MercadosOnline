@@ -13,6 +13,16 @@ public class Compra {
     @SerializedName("id")
     @Expose
     private Integer id;//Mercado o Tiendas
+
+    public int getTipoCarro() {
+        return tipoCarro;
+    }
+
+    public void setTipoCarro(int tipoCarro) {
+        this.tipoCarro = tipoCarro;
+    }
+
+    private int tipoCarro;
     @SerializedName("cantidad")
     @Expose
     private Integer cantidad=0;
@@ -22,12 +32,13 @@ public class Compra {
     public void setTotal(Double total) {
         Total = total;
     }
-    @SerializedName("total")
-    @Expose
     private Double Total=0.0;
     public Integer getId() {
         return id;
     }
+
+
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -43,29 +54,11 @@ public class Compra {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public String getDescripcion() {
-        return descripcion;
-    }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
-    public String getDireccion() {
-        return direccion;
-    }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
 
-    public String getCiudad() {
-        return ciudad;
-    }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
 
     public String getLatitud() {
         return latitud;
@@ -83,21 +76,8 @@ public class Compra {
         this.longitud = longitud;
     }
 
-    public String getFechaRegistro() {
-        return fechaRegistro;
-    }
 
-    public void setFechaRegistro(String fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
 
-    public Integer getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Integer estado) {
-        this.estado = estado;
-    }
 
     public List<PuestosCompra> getPuestos() {
         return puestos;
@@ -119,11 +99,8 @@ public class Compra {
     @SerializedName("direccion")
     @Expose
     private String direccion;
-    @SerializedName("ciudad")
-    @Expose
-    private String ciudad;
-    @SerializedName("latitud")
-    @Expose
+
+
     private String latitud;
 
     public Integer getCantidad() {
@@ -136,15 +113,9 @@ public class Compra {
 
 
 
-    @SerializedName("longitud")
-    @Expose
+
     private String longitud;
-    @SerializedName("fecha_registro")
-    @Expose
-    private String fechaRegistro;
-    @SerializedName("estado")
-    @Expose
-    private Integer estado;
+
 
     @SerializedName("puestos")
     List<PuestosCompra> puestos=new ArrayList<>();
@@ -157,7 +128,9 @@ public class Compra {
         for(PuestosCompra C: puestos){
 
             if(C.getId()==puestin.getId()){
-                C.agregar_compra(puestin.getProductos().get(0));
+
+                for(CompraProductos pro:puestin.getProductos())
+                C.agregar_compra(pro);
                 encontre=true;
             }
 

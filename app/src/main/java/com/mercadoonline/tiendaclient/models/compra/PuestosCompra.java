@@ -51,15 +51,9 @@ public class PuestosCompra {
 
         Boolean encontre =false;
         for(CompraProductos C: productos){
-
             if(C.getIdProducto()==pro.getIdProducto()){
-
-
              int cantidad= C.getId_cantidad()+pro.getId_cantidad();
-
              C.setId_cantidad(cantidad);
-
-
              C.setTotal(Global.formatearDecimales((cantidad*C.getPrecio()),2));
 
                 encontre=true;

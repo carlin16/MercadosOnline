@@ -71,10 +71,10 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
        holder.nombre.setText(lst_normal.get(position).getNombre());
         DecimalFormat f = new DecimalFormat("##.00");
-        if(Double.parseDouble(lst_normal.get(position).getPrecio())<1.0){
-            holder.precio.setText("$0"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
+        if(Double.parseDouble(""+lst_normal.get(position).getPrecio())<1.0){
+            holder.precio.setText("$0"+f.format(Double.parseDouble(""+lst_normal.get(position).getPrecio())));
         }else{
-            holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
+            holder.precio.setText("$"+f.format(Double.parseDouble(""+lst_normal.get(position).getPrecio())));
         }
         //holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
        // holder.precio.setText("$"+lst_normal.get(position).getPrecio());

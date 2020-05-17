@@ -302,7 +302,7 @@ public class Login extends AppCompatActivity {
 /*
                          generar_token(ETLoginUser.getText().toString());
 */
-
+Log.e("antes de guardar",Global.convertObjToString(Global.LoginU));
                             guardarPreferences(ETLoginUser.getText().toString(), ETLoginPass.getText().toString(),Global.LoginU.getRol(),Global.LoginU.getToken());
                             Global.llenarToken();
                             iniciar_sesion();

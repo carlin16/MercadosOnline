@@ -5,22 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Producto {
-
-
-    @SerializedName("stock")
-    @Expose
-    private Integer stock;
-
-    @SerializedName("fuente")
-    @Expose
-    private Integer fuente;
-
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("id_puesto")
-    @Expose
-    private String idPuesto;
     @SerializedName("nombre")
     @Expose
     private String nombre;
@@ -29,25 +16,31 @@ public class Producto {
     private String descripcion;
     @SerializedName("id_categoria")
     @Expose
-    private String idCategoria;
+    private Integer idCategoria;
     @SerializedName("precio")
     @Expose
-    private String precio;
+    private Double precio;
+    @SerializedName("unidades")
+    @Expose
+    private String unidades;
     @SerializedName("url_imagen")
     @Expose
-    private Object urlImagen;
+    private String urlImagen;
     @SerializedName("estado")
     @Expose
-    private String estado;
+    private Integer estado;
+    @SerializedName("stock")
+    @Expose
+    private Integer stock;
     @SerializedName("fecha_registro")
     @Expose
     private String fechaRegistro;
     @SerializedName("fecha_actualiza")
     @Expose
     private Object fechaActualiza;
-    @SerializedName("unidades")
+    @SerializedName("fuente")
     @Expose
-    private Object unidades;
+    private String fuente;
     @SerializedName("nombre_categoria")
     @Expose
     private String nombreCategoria;
@@ -58,14 +51,6 @@ public class Producto {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getIdPuesto() {
-        return idPuesto;
-    }
-
-    public void setIdPuesto(String idPuesto) {
-        this.idPuesto = idPuesto;
     }
 
     public String getNombre() {
@@ -84,36 +69,52 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public String getIdCategoria() {
+    public Integer getIdCategoria() {
         return idCategoria;
     }
 
-    public void setIdCategoria(String idCategoria) {
+    public void setIdCategoria(Integer idCategoria) {
         this.idCategoria = idCategoria;
     }
 
-    public String getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
-    public Object getUrlImagen() {
+    public String getUnidades() {
+        return unidades;
+    }
+
+    public void setUnidades(String unidades) {
+        this.unidades = unidades;
+    }
+
+    public String getUrlImagen() {
         return urlImagen;
     }
 
-    public void setUrlImagen(Object urlImagen) {
+    public void setUrlImagen(String urlImagen) {
         this.urlImagen = urlImagen;
     }
 
-    public String getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public String getFechaRegistro() {
@@ -132,12 +133,12 @@ public class Producto {
         this.fechaActualiza = fechaActualiza;
     }
 
-    public Object getUnidades() {
-        return unidades;
+    public String getFuente() {
+        return fuente;
     }
 
-    public void setUnidades(Object unidades) {
-        this.unidades = unidades;
+    public void setFuente(String fuente) {
+        this.fuente = fuente;
     }
 
     public String getNombreCategoria() {
@@ -148,19 +149,4 @@ public class Producto {
         this.nombreCategoria = nombreCategoria;
     }
 
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
-    }
-
-    public Integer getFuente() {
-        return fuente;
-    }
-
-    public void setFuente(Integer fuente) {
-        this.fuente = fuente;
-    }
 }
