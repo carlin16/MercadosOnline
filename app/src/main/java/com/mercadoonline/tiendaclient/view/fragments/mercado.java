@@ -400,6 +400,7 @@ llamarPreferences();
             public void onClick(View v) {
                 iniciar_recycler();
                 TituloVista.setText("Mercados");
+                Global.idFiltro=0;
                 guardarPreferences("MERCADO");
                 popupWindow.dismiss();
 
@@ -412,6 +413,7 @@ llamarPreferences();
             public void onClick(View v) {
                 iniciar_recycler2();
                 TituloVista.setText("Tiendas");
+                Global.idFiltro=1;
                 guardarPreferences("TIENDA");
                 popupWindow.dismiss();
             }

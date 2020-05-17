@@ -139,6 +139,7 @@ Log.e("el modo es",""+Global.Modo);
             //("esta es el del vendedor","------>"+ImageVendedor);
             animacion_compra();
             iniciar_recycler();
+            Log.e("El filtro actual es",""+Global.idFiltro);
             if(Global.idFiltro==0)
             llenarDatosClientes();
             if(Global.idFiltro==1){
@@ -422,9 +423,16 @@ private void llenarCarrito(Producto product){
     prod.setId_cantidad(Integer.parseInt(CantidadCar.getNumber()));
     prod.setIdCategoria(Integer.parseInt(""+product.getIdCategoria()));
     prod.setIdProducto(product.getId());
-    prod.setIdPuesto(Integer.parseInt(idPuestoI));
-    prod.setIdVendedor(vendedor.getId().toString());
 
+    if(Global.idFiltro==0){
+        prod.setIdPuesto(Integer.parseInt(idPuestoI));
+        prod.setIdVendedor(vendedor.getId().toString());
+    }
+
+    if(Global.idFiltro==1){
+        prod.setIdPuesto(tienda.getId());
+        prod.setIdVendedor(""+tienda.getIdUsuario());
+    }
 
     prod.setPrecio(Double.parseDouble(""+product.getPrecio()));
     prod.setUnidades(""+product.getUnidades());
@@ -446,28 +454,43 @@ private void llenarCarrito(Producto product){
 
     lstprod.add(prod);
 
-    PuestComp.setId(ID);
-    PuestComp.setVendedor(vendedor);
-    PuestComp.setProductos(lstprod);
 
+    if(Global.idFiltro==0){
+        PuestComp.setId(ID);
+        PuestComp.setVendedor(vendedor);
+    }
+    if(Global.idFiltro==1){
+        PuestComp.setId(tienda.getId());
+    }
+
+
+
+
+
+
+    PuestComp.setProductos(lstprod);
     pues.add(PuestComp);
 
 
     nuevoC.setPuestos(pues);
     nuevoC.setCantidad(Integer.parseInt(CantidadCar.getNumber()));
-    nuevoC.setCodigoMercado(Mercado.getCodigoMercado());
 
+    if(Global.idFiltro==0){
+        nuevoC.setCodigoMercado(Mercado.getCodigoMercado());
+        nuevoC.setId(Mercado.getId());
+        nuevoC.setNombre(Mercado.getNombre());
 
+    }
 
+    if(Global.idFiltro==1){
+        nuevoC.setId(tienda.getId());
+        nuevoC.setNombre(tienda.getNombre());
 
-
-    nuevoC.setId(Mercado.getId());
-
+    }
 
     nuevoC.setTipoCarro(Global.idFiltro);//Tipo 0 es Mercado Tipo 1 es Tiendas
     // nuevoC.setLatitud(""+Mercado.getLatitud().toString());
     // nuevoC.setLongitud(""+Mercado.getLatitud().toString());
-    nuevoC.setNombre(Mercado.getNombre());
     nuevoC.setTotal(total);
     Global.Agregar_Carrito(nuevoC);
 

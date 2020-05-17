@@ -20,7 +20,6 @@ public class PuestosCompra {
     @Expose
     private List<CompraProductos> productos = new ArrayList<>();
 
-
     public Vendedor getVendedor() {
         return vendedor;
     }
