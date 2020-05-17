@@ -81,7 +81,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
     //  aqui guia te y setea acvtualiza el response
 
-        String url=Global.Url+"productos/"+lst_normal.get(position).getId()+"/foto";
+        String url=Global.UrlImagen+lst_normal.get(position).getUrlImagen();
        Glide
                 .with(holder.imagen.getContext())
                 .load(url)

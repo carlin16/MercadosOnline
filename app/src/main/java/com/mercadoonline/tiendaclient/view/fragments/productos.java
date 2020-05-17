@@ -169,6 +169,8 @@ public class productos extends Fragment {
             @Override
             public void onItemClick(final Producto product, int position) {
 
+               Log.e("el producto es",Global.convertObjToString(product));
+
                 if(Global.Modo==1){comprar_productos(product);}
                 else if(Global.Modo==2){seleccionar_producto(product,position);}
             }
@@ -198,7 +200,7 @@ public class productos extends Fragment {
         //("el producto",""+product.getId());
         //cargar foto
 
-        String url=Global.Url+"productos/"+product.getId()+"/foto";
+        String url=Global.UrlImagen+product.getUrlImagen();
 
         Glide
                 .with(TVFotoProduct.getContext())
@@ -273,7 +275,7 @@ public class productos extends Fragment {
 
         Glide
                 .with(getActivity())
-                .load(Global.Url+"productos/"+product.getId()+"/foto")
+                .load(Global.UrlImagen+product.getUrlImagen())
                 .placeholder(R.drawable.ic_place_productos)
                 .error(R.drawable.ic_place_productos)
                 . skipMemoryCache(true)
@@ -409,7 +411,10 @@ private void llenarCarrito(Producto product){
     prod.setId_cantidad(Integer.parseInt(CantidadCar.getNumber()));
     prod.setIdCategoria(Integer.parseInt(product.getIdCategoria()));
     prod.setIdProducto(product.getId());
+
     prod.setIdPuesto(Integer.parseInt(product.getIdPuesto()));
+
+
     prod.setIdVendedor(vendedor.getId().toString());
     prod.setPrecio(Double.parseDouble(product.getPrecio()));
     prod.setUnidades(""+product.getUnidades());
@@ -474,6 +479,7 @@ private void llenarCarrito(Producto product){
                    // add_pro.id_del_fragment="frag_car";
 
                     agregar_productos prod = new agregar_productos();
+                    if(Global.Modo==3)
                     prod.idNegocio=tienda.getId();
 
                     FragmentTransaction fragmentTransaction;
@@ -642,6 +648,8 @@ private void llenarDatosTiendero(){
    // Cantidadpro.setText(""+(ls_listado.size()) +" Productos");
     // String cate=""+TiendaPorId.getMaxCategorias();
    //Idpuesto.setText(TiendaPorId.getCodigo());
+
+    Cantidadpro.setText(""+(ls_listado.size()) +" Productos");
     DescripcionPuesto.setText(tienda.getDescripcion());
     }
 

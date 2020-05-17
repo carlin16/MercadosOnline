@@ -154,6 +154,7 @@
                 android:layout_weight="1"
                 android:background="@color/col_negrosolida"
                 android:text="Editar"
+                style="@style/Theme.AppCompat.Light.NoActionBar"
                 android:textAllCaps="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"

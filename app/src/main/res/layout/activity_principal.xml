@@ -41,6 +41,7 @@
                 android:background="@drawable/tab_shadow"
                 app:tabIndicatorColor="@android:color/transparent"
                 app:tabIndicatorHeight="3dp"
+
                 app:tabTextColor="#D32222"></com.google.android.material.tabs.TabLayout>
 
             <com.google.android.material.bottomappbar.BottomAppBar
