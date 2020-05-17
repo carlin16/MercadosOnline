@@ -30,12 +30,10 @@ public class ResponseTiendas {
     @SerializedName("telefono")
     @Expose
     private Object telefono;
-    @SerializedName("creditos_utilizados")
+    @SerializedName("creditos_totales")
     @Expose
-    private String creditosUtilizados;
-    @SerializedName("creditos_abonados")
-    @Expose
-    private String creditosAbonados;
+    private String creditosTotales;
+
     @SerializedName("tipo_negocio")
     @Expose
     private Integer tipoNegocio;
@@ -124,21 +122,15 @@ public class ResponseTiendas {
         this.telefono = telefono;
     }
 
-    public String getCreditosUtilizados() {
-        return creditosUtilizados;
+    public String getCreditosTotales() {
+        return creditosTotales;
     }
 
-    public void setCreditosUtilizados(String creditosUtilizados) {
-        this.creditosUtilizados = creditosUtilizados;
+    public void setCreditosTotales(String creditosTotales) {
+        this.creditosTotales = creditosTotales;
     }
 
-    public String getCreditosAbonados() {
-        return creditosAbonados;
-    }
 
-    public void setCreditosAbonados(String creditosAbonados) {
-        this.creditosAbonados = creditosAbonados;
-    }
 
     public Integer getTipoNegocio() {
         return tipoNegocio;

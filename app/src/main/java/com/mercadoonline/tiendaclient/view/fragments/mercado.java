@@ -336,7 +336,7 @@ llamarPreferences();
 
     private void iniciar_recycler2(){
 
-        adapter2=new VistaMultitienda(ls_tienda,getFragmentManager());
+        adapter2=new VistaMultitienda(ls_tienda,getFragmentManager(),getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter2);

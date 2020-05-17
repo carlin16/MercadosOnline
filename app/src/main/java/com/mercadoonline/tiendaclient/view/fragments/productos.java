@@ -635,7 +635,7 @@ private void llenarCarrito(Producto product){
                         //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             ls_listado=response.body();
-
+                            Log.e("Estoy en if","");
                             Log.e("productos",Global.convertObjToString(response.body()));
                             // cambio_pantalla=true;
                             // Global.RegisUser=response.body();

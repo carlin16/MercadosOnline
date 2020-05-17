@@ -31,4 +31,6 @@
     <color name="col_purpura_claro">#5754D7</color>
     <color name="col_grishueso">#FAF9F9</color>
     <color name="col_placeholder">#dddddd</color>
+
+    <color name="col_verde_correa">#1CC53E</color>
 </resources>

@@ -145,7 +145,7 @@ public class visualizadorTiendasa extends Fragment {
 
 
     private void iniciar_recycler(){
-       adapter=new VistaMultitienda(ls_tienda,getFragmentManager());
+       adapter=new VistaMultitienda(ls_tienda,getFragmentManager(), getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);

@@ -1,5 +1,6 @@
 package com.mercadoonline.tiendaclient.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,6 @@ import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseTiendas;
 import com.mercadoonline.tiendaclient.utils.Global;
 import com.mercadoonline.tiendaclient.view.fragments.productos;
-import com.mercadoonline.tiendaclient.view.fragments.puestos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +31,10 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
     List<ResponseTiendas> lst_normal;
     List<ResponseTiendas> list_full;
     FragmentManager fragmentManager;
-
+    Context context;
     int manejador=0;
 
-    public VistaMultitienda(List<ResponseTiendas> lst_normal, FragmentManager fragmentManager) {
+    public VistaMultitienda(List<ResponseTiendas> lst_normal, FragmentManager fragmentManager,Context context) {
      /*   List<ResponseTiendas> filtro= new ArrayList<>();
         for(ResponseTiendas m :lst_normal){
             if(m.getPuestos().size()>0){
@@ -44,7 +44,7 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
         this.lst_normal = filtro;
         list_full=new ArrayList<>(lst_normal);
 */
-
+this.context=context;
         this.lst_normal = lst_normal;
         list_full=new ArrayList<>(lst_normal);
         this.fragmentManager = fragmentManager;
@@ -66,27 +66,47 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
     @Override
     public VistaMultitienda.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_mercados,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tiendas,
                 parent, false);
         return new Holder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull VistaMultitienda.Holder holder, final int position) {
+        String EstadoTienda="";
+        if(lst_normal.get(position).getEstado()==0)  {
+            EstadoTienda="E";
+            holder.estadoTienda.setText(EstadoTienda);
+            holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_rojo));
+            //holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_purpura));
+        }
+        if(lst_normal.get(position).getEstado()==1)  {
+            EstadoTienda="A";
+            holder.estadoTienda.setText(EstadoTienda);
+            holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_verde_correa));
+        }
+        if(lst_normal.get(position).getEstado()==2)  {
+            EstadoTienda="I";
+            holder.estadoTienda.setText(EstadoTienda);
+            holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_rojo));
+        }
 
         //Tienda currentItem = lst_normal.get(position);
-        holder.mercado_nombre.setText(""+lst_normal.get(position).getNombre().toUpperCase());
-        holder.mercado_direccion.setText(""+lst_normal.get(position).getDireccion().toUpperCase());
+        holder.tienda_nombre.setText(""+lst_normal.get(position).getNombre().toUpperCase());
+        holder.tienda_direccion.setText(""+lst_normal.get(position).getDireccion().toUpperCase());
+        holder.creditos_en_tienda.setText(""+lst_normal.get(position).getCreditosTotales().toUpperCase());
+
 
         String url= Global.UrlImagen+lst_normal.get(position).getUrlImagen();
         Glide
-                .with(holder.mercado_portada.getContext())
+                .with(holder.tienda_portada.getContext())
                 .load(url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+               // .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.NONE )
                 .centerCrop()
                 .placeholder(R.drawable.placeholder_mercado)
                 .error(R.drawable.placeholder_mercado)
-                .into(holder.mercado_portada);
+                .into(holder.tienda_portada);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,17 +134,19 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
 
     public class Holder extends RecyclerView.ViewHolder {
 
-        RoundedImageView mercado_portada;
-        CircleImageView mercado_perfil;
-        TextView mercado_nombre,mercado_direccion;
+        RoundedImageView tienda_portada;
+        CircleImageView tienda_perfil;
+        TextView tienda_nombre,tienda_direccion, estadoTienda, creditos_en_tienda;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            mercado_portada=itemView.findViewById(R.id.mercado_portada);
-            mercado_perfil=itemView.findViewById(R.id.mercado_perfil);
-            mercado_nombre=itemView.findViewById(R.id.mercado_nombre);
+            tienda_portada =itemView.findViewById(R.id.mercado_portada);
+            tienda_perfil =itemView.findViewById(R.id.mercado_perfil);
+            tienda_nombre =itemView.findViewById(R.id.mercado_nombre);
+            tienda_direccion=itemView.findViewById(R.id.mercado_direccion);
+            creditos_en_tienda=itemView.findViewById(R.id.TVValorCredito);
+            estadoTienda=itemView.findViewById(R.id.TVEstadoTienda);
 
-            mercado_direccion=itemView.findViewById(R.id.mercado_direccion);
 
 
         }

@@ -143,6 +143,7 @@
                     android:maxLines="1"
                     android:paddingBottom="10dp"
                     android:singleLine="true"
+                    android:textColor="@color/col_negrosolida"
                     android:textColorHint="@color/col_negro"
                     android:textSize="16sp" />
 
