@@ -10,10 +10,10 @@ import java.util.List;
 
 public class PuestosCompra {
 
-    @SerializedName("vendedor")
+    @SerializedName("vendedor") //id del usuario
     @Expose
     private Vendedor vendedor;
-    @SerializedName("id")
+    @SerializedName("id")  //id del mercado para puesto
     @Expose
     private Integer id;
     @SerializedName("productos")
