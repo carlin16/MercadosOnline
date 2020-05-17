@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -216,6 +217,12 @@ public class productos extends Fragment {
                 prod.product=product;
                 prod.bandera=2;
 
+                if(Global.Modo==3){
+                    prod.idNegocio=tienda.getId();
+                }
+
+                Log.e("mi negocio es ",""+tienda.getId());
+                Log.e("mi negocio es ",""+prod.idNegocio);
 
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = getFragmentManager().beginTransaction();
@@ -466,10 +473,12 @@ private void llenarCarrito(Producto product){
                 }else if(Global.Modo==2 || Global.Modo==3){
                    // add_pro.id_del_fragment="frag_car";
 
+                    agregar_productos prod = new agregar_productos();
+                    prod.idNegocio=tienda.getId();
 
                     FragmentTransaction fragmentTransaction;
                     fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Contenedor_Fragments, new agregar_productos()).addToBackStack("frag_agg");
+                    fragmentTransaction.replace(R.id.Contenedor_Fragments, prod).addToBackStack("frag_agg");
                     fragmentTransaction.commit();
 
                 }

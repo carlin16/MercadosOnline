@@ -85,6 +85,7 @@ public class agregar_productos extends Fragment {
     public  Producto product;
     public int bandera=1;
     boolean cambio=false;
+    public int idNegocio;
 
     Boolean continuar=false;
     int posUnidadMedida=0;
@@ -462,7 +463,7 @@ public class agregar_productos extends Fragment {
 
         if(Global.Modo==3){
             NuevoProducto.setFuente("NEGOCIO");
-            NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
+            NuevoProducto.setIdNegocio(idNegocio);
         }
 
 

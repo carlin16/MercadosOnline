@@ -3,6 +3,8 @@ package com.mercadoonline.tiendaclient.models.recibido;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class ResponseLoginUser {
 
     @SerializedName("id")
@@ -32,6 +34,17 @@ public class ResponseLoginUser {
     @SerializedName("id_puesto")
     @Expose
     private int id_puesto;
+    @SerializedName("negocios")
+    @Expose
+    private List<Negocio> negocios = null;
+
+    public List<Negocio> getNegocios() {
+        return negocios;
+    }
+
+    public void setNegocios(List<Negocio> negocios) {
+        this.negocios = negocios;
+    }
 
     public int getId_puesto() {
         return id_puesto;
