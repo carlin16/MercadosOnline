@@ -50,10 +50,17 @@ public class pedido extends Fragment {
     String mensaje="pedidos";
     RelativeLayout RelativeVacio;
 
+    String tipoNegocio="";
+
     public pedido() {
         // Required empty public constructor
     }
 
+ /*   String SelectTipo(int modo){
+        String tp="";
+        if(modo==1) tp="";
+        return tp;
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +73,7 @@ public class pedido extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
        recyclerView=vista.findViewById(R.id.Recycler_pedidos);
         RelativeVacio=vista.findViewById(R.id.RelativeVacio);
         peticion_pedidos();

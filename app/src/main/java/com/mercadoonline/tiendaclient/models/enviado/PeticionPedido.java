@@ -7,6 +7,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class PeticionPedido {
 
+
+
+    @SerializedName("id_vendedor")
+    @Expose
+    private Integer idVendedor;
+
+    @SerializedName("tipo")
+    @Expose
+    private String tipo;
+
     @SerializedName("id_usuario")
     @Expose
     private Integer idUsuario;
@@ -127,6 +137,23 @@ public class PeticionPedido {
 
     public void setDetalle(List<Detalle> detalle) {
         this.detalle = detalle;
+    }
+
+
+    public Integer getIdVendedor() {
+        return idVendedor;
+    }
+
+    public void setIdVendedor(Integer idVendedor) {
+        this.idVendedor = idVendedor;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
 }
