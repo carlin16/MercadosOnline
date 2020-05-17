@@ -56,6 +56,8 @@ import com.mercadoonline.tiendaclient.service.RetrofitCliente;
 import com.mercadoonline.tiendaclient.service.RetrofitclienteMaps;
 import com.mercadoonline.tiendaclient.utils.Global;
 
+import com.mercadoonline.tiendaclient.view.Principal;
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -89,10 +91,11 @@ public class registroLocal extends Fragment {
     Uri imagenNegocio; //Imagen q va a ser agregada al registro
 
     View vista;
+
     TextInputLayout TINomNegocio, TITelNegocio, TIDescripcionTienda;
     ImageView IconoTienda;
     RoundedImageView ImagenTiendaNueva;
-    EditText ETNomNegocio, ETTelNegocio, ETDescripcionTienda;
+    EditText ETNomNegocio,  ETDescripcionTienda, ETTelNegocio;
     LinearLayout ContenedorUbicame, ContenedorVerDir;
     CircularProgressButton BtnRegisNegoio;
     TextView TVPresentDir;
@@ -133,6 +136,9 @@ public class registroLocal extends Fragment {
 
     String ciudad;
 
+    CountryCodePicker codigo_pais;
+    String numeroTelefono;
+
     public registroLocal() {
         // Required empty public constructor
     }
@@ -143,7 +149,7 @@ public class registroLocal extends Fragment {
         TINomNegocio= vista.findViewById(R.id.TINombreNegocio);
         TITelNegocio=vista.findViewById(R.id.TITelefonoNegocio);
         ETNomNegocio=vista.findViewById(R.id.ETNombreNegocio);
-        ETTelNegocio=vista.findViewById(R.id.ETTelefonoNegocio);
+        ETTelNegocio=vista.findViewById(R.id.ETTelLocal);
         ContenedorUbicame=vista.findViewById(R.id.contenedorUbicame);
         BtnRegisNegoio=vista.findViewById(R.id.BtnRegisNegocio);
         IconoTienda =vista.findViewById(R.id.imageIconoNeg);
@@ -153,6 +159,8 @@ public class registroLocal extends Fragment {
         ImagenTiendaNueva=vista.findViewById(R.id.imagenTiendaNueva);
         ETDescripcionTienda=vista.findViewById(R.id.ETDescripTienda);
         TIDescripcionTienda=vista.findViewById(R.id.TIDescripTienda);
+
+        codigo_pais=vista.findViewById(R.id.CCPTiendaNueva);
 
 /*        ArrayAdapter<String> spinnerArrayAdapter;
         spinnerArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,Unidades);
@@ -267,6 +275,29 @@ public class registroLocal extends Fragment {
             }
         });
 
+        //Mejora en foco del TexImput
+        TINomNegocio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ETNomNegocio.requestFocus();
+            }
+        });
+
+        //Mejora en foco del TexImput
+        TITelNegocio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ETTelNegocio.requestFocus();
+            }
+        });
+
+        //Mejora en foco del TexImput
+        TIDescripcionTienda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ETDescripcionTienda.requestFocus();
+            }
+        });
 
 
         //validaciones para que al seleccionar campo, el texview cambien de color
@@ -357,21 +388,27 @@ public class registroLocal extends Fragment {
         if(verificar_vacio(ETNomNegocio.getText().toString())) {
             ETNomNegocio.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-        }else   if(verificar_vacio(ETTelNegocio.getText().toString())) {
+        }else
+            if(verificar_vacio(ETTelNegocio.getText().toString())) {
             ETTelNegocio.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
-        } else       if(verificar_vacio(ETDescripcionTienda.getText().toString())) {
+        } else
+
+            if(verificar_vacio(ETDescripcionTienda.getText().toString())) {
             ETDescripcionTienda.requestFocus();
             Snackbar.make(vista, "Todos los campos son obligatorios", Snackbar.LENGTH_LONG).show();
         } else if (imagenNegocio==null) {
             mensaje();
         }else if(direccion.length()<2){
             Snackbar.make(vista, "Escoja su direccion en el Mapa", Snackbar.LENGTH_LONG).show();
-        }
-        else {
-            Snackbar.make(vista, "Deberia registrar", Snackbar.LENGTH_LONG).show();
+        }  else if (ETTelNegocio.getText().toString().substring(0, 1).equals("0")) {
+            numeroTelefono = codigo_pais.getSelectedCountryCode() + ETTelNegocio.getText().toString().trim().substring(1);
+            llenarDatos();
+        } else {
+            numeroTelefono = codigo_pais.getSelectedCountryCode() + ETTelNegocio.getText().toString().trim();
             llenarDatos();
         }
+
 
     }
 
@@ -763,7 +800,7 @@ public class registroLocal extends Fragment {
     public  void llenarDatos() {
         NuevaTienda.setTipoNegocio(CatTien.get(posCategoria).getId());
         NuevaTienda.setDescripcion(ETDescripcionTienda.getText().toString());
-        NuevaTienda.setTelefono(ETTelNegocio.getText().toString());
+        NuevaTienda.setTelefono(numeroTelefono);
         NuevaTienda.setNombre(ETNomNegocio.getText().toString());
         NuevaTienda.setIdUsuario(Global.LoginU.getid());
         NuevaTienda.setCiudad(ciudad);
@@ -830,7 +867,9 @@ public class registroLocal extends Fragment {
 
                         pDialog.dismiss();
                         if(cambio_pantalla){
-                            getFragmentManager().popBackStack("frag_regisLocal",0);
+                            //getFragmentManager().popBackStack("frag_regisLocal",0);
+                            ((Principal) getActivity()).cambiar_tab(0);
+
                         }
                         //("Completado foto","registrado");
 

@@ -34,8 +34,9 @@
             android:name="com.mercadoonline.tiendaclient.view.Principal"
             android:screenOrientation="portrait"
             android:exported ="true"
-            android:windowSoftInputMode="adjustPan|adjustNothing"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme2"
             tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name=".view.Principal" />

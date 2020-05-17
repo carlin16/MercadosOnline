@@ -9,7 +9,7 @@
 
     <string name="Registrarse"><u>Registrarse</u></string>
 
-    <string name="mensaje_ubicacion">Asegúrate que la ubicación sea la correcta, tus clientes vendrán a este punto.</string>
+    <string name="mensaje_ubicacion">Escoje su ubicación.</string>
 
     <string name="IniciarSesion"><u>Iniciar Sesión</u></string>
     <string-array name="Roles">

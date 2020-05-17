@@ -10,9 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
             android:text="Registro de Puesto/Negocio"
             android:layout_marginBottom="10dp"
             android:textColor="@color/col_negro"
-            android:textSize="23sp"
+            android:textSize="25sp"
             android:layout_marginTop="-10dp"
             android:fontFamily="@font/segoeuib"
             android:textStyle="bold"></TextView
@@ -102,36 +102,53 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/TITelefonoNegocio"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:theme="@style/TextInputLayoutHint"
-            >
+            android:layout_marginLeft="2dp"
+            android:orientation="horizontal">
+            <com.rilixtech.widget.countrycodepicker.CountryCodePicker
+                android:id="@+id/CCPTiendaNueva"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
 
+                app:ccp_countryPreference="US,EC,ME,CO,PE"
 
-            <EditText
-                android:id="@+id/ETTelefonoNegocio"
+                app:ccp_defaultCode="593"
+                app:ccp_defaultNameCode="EC" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/TITelefonoNegocio"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="left"
-                android:hint="Teléfono"
-                android:imeActionId="6"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingLeft="5dp"
-                android:paddingBottom="10dp"
-                android:fontFamily="@font/segoeui"
-                android:singleLine="true"
-                android:textColor="@color/col_negro"
-                android:textColorHint="@color/col_naranja"
-                android:textSize="20sp"
-                />
+                android:layout_height="wrap_content"
+                android:theme="@style/TextInputLayoutHint">
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/ETTelLocal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/segoeui"
+                    android:hint="Teléfono"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:paddingBottom="10dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/col_negro"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -214,6 +231,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
+
             android:id="@+id/contenedorUbicame"
 
             android:layout_width="match_parent"
@@ -221,7 +239,7 @@
             android:orientation="vertical"
 
             android:background="@drawable/border_transaparente"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
 
 
             >
@@ -310,7 +328,8 @@
             android:layout_height="38dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/border_ingresar"
             android:text="Registrar"
             android:textColor="@color/col_White"
