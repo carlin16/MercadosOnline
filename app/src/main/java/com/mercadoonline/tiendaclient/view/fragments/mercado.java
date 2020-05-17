@@ -76,17 +76,11 @@ public class mercado extends Fragment {
     List<ResponseVerMercado> listado= new ArrayList<>();
     List<ResponseTiendas> ls_tienda= new ArrayList<>();
     TextView TituloVista;
-
     VistaMultitienda adapter2;
-
-
-
     Retrofit retrofit;
     ApiService retrofitApi;
-
     EditText buscar;
     Boolean continuar=false;
-    Boolean filtroVista= true;
     String mensaje="mercado";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -180,7 +174,7 @@ llamarPreferences();
                             return;
                         }else{
                             if(continuar){
-                                if(filtroVista)
+                                if(Global.idFiltro==0)
                                 iniciar_recycler();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
@@ -325,7 +319,7 @@ llamarPreferences();
                             return;
                         }else{
                             if(continuar){
-                                if(!filtroVista)
+                                if(Global.idFiltro==1)
                                 iniciar_recycler2();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
@@ -341,6 +335,7 @@ llamarPreferences();
 
 
     private void iniciar_recycler2(){
+
         adapter2=new VistaMultitienda(ls_tienda,getFragmentManager());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
@@ -362,12 +357,12 @@ llamarPreferences();
        String filtro=DtsRescatados.getString("FiltroS", "MERCADO");
         //Log.e("")
         if(filtro.equals("MERCADO")){
-            filtroVista=true;
+            Global.idFiltro=0;
             TituloVista.setText("Mercados");
 
         }
         else{
-            filtroVista=false;
+            Global.idFiltro=1;
 
             TituloVista.setText("Tiendas");
 

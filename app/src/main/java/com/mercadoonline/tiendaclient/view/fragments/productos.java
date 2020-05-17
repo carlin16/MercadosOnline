@@ -35,6 +35,7 @@ import com.mercadoonline.tiendaclient.models.compra.CompraProductos;
 import com.mercadoonline.tiendaclient.models.compra.PuestosCompra;
 import com.mercadoonline.tiendaclient.models.recibido.Producto;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseTiendas;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseVerMercado;
 import com.mercadoonline.tiendaclient.models.recibido.Vendedor;
@@ -66,7 +67,9 @@ import static com.mercadoonline.tiendaclient.utils.Global.PrimeraMayusculaNP;
  */
 public class productos extends Fragment {
 
+    public  ResponseTiendas tienda = new ResponseTiendas();
 
+    /////
     public List<Producto> ls_listado= new ArrayList<>();
     public Vendedor vendedor= new Vendedor();
     public ResponseVerMercado Mercado =new ResponseVerMercado();
@@ -130,14 +133,20 @@ public class productos extends Fragment {
 
         if(Global.Modo==1){
 
+            //TODO la lista de productos viende del adaptador para cliente
             //("esta es el del vendedor","------>"+ImageVendedor);
             animacion_compra();
             iniciar_recycler();
-            llenarDatos();
-
+            if(Global.idFiltro==0)
+            llenarDatosClientes();
+            if(Global.idFiltro==1)
+            llenarDatosTiendero();
         }else if(Global.Modo==2){
+            //TODO la lista de productos debe consultarse modo vendedor(pertence a un mercado)
             mirar_producto();
             peticion_ProductosPorID();
+        }else if(Global.Modo==3){
+           llenarDatosTiendero();
         }
 
 
@@ -296,7 +305,7 @@ public class productos extends Fragment {
 
     }
 
-private void llenarDatos(){
+private void llenarDatosClientes(){
 
     NombreDueno.setText(PrimeraMayusculaNP(vendedor.getNombres()+" "+vendedor.getApellidos()));
 
@@ -320,8 +329,6 @@ private void llenarDatos(){
 
 
     private void UI(){
-
-
         Idpuesto= vista.findViewById(R.id.TVProPuesto);
         NombreDueno= vista.findViewById(R.id.TVPuestoNombre);
         DescripcionPuesto= vista.findViewById(R.id.TVPuestoDescripcion);
@@ -561,7 +568,7 @@ private void llenarCarrito(Producto product){
                        adapter.notifyDataSetChanged();
 
                        if(Global.Modo==2){
-                            llenar_Vendedor();
+                            llenarDatosVendedor();
 
                        }
 
@@ -580,7 +587,7 @@ private void llenarCarrito(Producto product){
                 });
     }
 
-private void llenar_Vendedor(){
+private void llenarDatosVendedor(){
 
     NombreDueno.setText(PrimeraMayusculaNP(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos()));
 
@@ -610,6 +617,23 @@ private void llenar_Vendedor(){
 }
 
 
+
+private void llenarDatosTiendero(){
+    NombreDueno.setText(PrimeraMayusculaNP(tienda.getNombre()));
+    String LinkImagenP= Global.UrlImagen+tienda.getUrlImagen();
+    Glide
+            .with(this)
+            .load(LinkImagenP)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .placeholder(R.drawable.placeholder_perfil)
+            .error(R.drawable.placeholder_perfil)
+            .fitCenter()
+            .into(FotoPuesto);
+   // Cantidadpro.setText(""+(ls_listado.size()) +" Productos");
+    // String cate=""+TiendaPorId.getMaxCategorias();
+   //Idpuesto.setText(TiendaPorId.getCodigo());
+    DescripcionPuesto.setText(tienda.getDescripcion());
+    }
 
 
     Boolean confirmacion=false;

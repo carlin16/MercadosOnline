@@ -92,16 +92,7 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
             @Override
             public void onClick(View v) {
                 productos pro= new productos();
-               /* pro.ls_listado=lst_normal.get(position).getProductos();
-                pro.vendedor=lst_normal.get(position).getVendedor();
-                pro.idPuesto=""+lst_normal.get(position).getCodigo();
-                pro.ID=lst_normal.get(position).getId();
-                pro.categorias=""+lst_normal.get(position).getMaxCategorias();
-                pro.Mercado=Mercado;
-*/
-                pro.ImageVendedor=url;
-
-
+                pro.tienda=lst_normal.get(position);
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.Contenedor_Fragments, pro).addToBackStack(null);

@@ -16,7 +16,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Global {
-    public static String IdUser;
+
+
+    public static int idFiltro=0; //0 Mercado // 1 Tiendero
     public static PeticionRegistroUser RegisU= new PeticionRegistroUser();
     public static ResponseLoginUser LoginU= new ResponseLoginUser();
     public static ResponseRegistroUser RegisUser= new ResponseRegistroUser();
