@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,9 @@ public class perfil_usuario extends Fragment {
     View vista;
     TextView PerfilNombresCompletos, PerfilUsuario,PerfilDireccion, PerfilCelular, PerfilCorreo, PerfilRol;
     ImageView PerfilFoto;
-    String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
+
+    String imagen="";
+    String LinkImagenP=Global.UrlImagen;
     String Nombrecompleto="";
     Boolean continuar=false;
     String mensaje="";
@@ -117,6 +120,7 @@ public class perfil_usuario extends Fragment {
                         //("code PU",""+response.code());
                         if (response.isSuccessful()) {
                             Global.UserGlobal=response.body();
+                            LinkImagenP+=response.body().getImagenPerfil();
                             mensaje="Bienvenido "+Global.UserGlobal.getNombres();
                             continuar=true;
                         } else  if (response.code()==500) {
@@ -161,6 +165,10 @@ public class perfil_usuario extends Fragment {
             //("activity","removido de la actividad ");
             return;
         }
+
+
+        Log.e("objeto",Global.convertObjToString(Global.UserGlobal));
+        Log.e("imagen",LinkImagenP);
         llenar_subida();
 
 

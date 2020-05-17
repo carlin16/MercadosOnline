@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class PeticionNuevoProducto {
 
+    @SerializedName("fuente")
+    @Expose
+    private String fuente;
     @SerializedName("nombre")
     @Expose
     private String nombre;
@@ -18,12 +21,23 @@ public class PeticionNuevoProducto {
     @SerializedName("id_categoria")
     @Expose
     private Integer idCategoria;
+    @SerializedName("id_negocio")
+    @Expose
+    private Integer idNegocio;
     @SerializedName("id_puesto")
     @Expose
     private Integer idPuesto;
     @SerializedName("unidades")
     @Expose
     private String unidades;
+
+    public String getFuente() {
+        return fuente;
+    }
+
+    public void setFuente(String fuente) {
+        this.fuente = fuente;
+    }
 
     public String getNombre() {
         return nombre;
@@ -57,6 +71,14 @@ public class PeticionNuevoProducto {
         this.idCategoria = idCategoria;
     }
 
+    public Integer getIdNegocio() {
+        return idNegocio;
+    }
+
+    public void setIdNegocio(Integer idNegocio) {
+        this.idNegocio = idNegocio;
+    }
+
     public Integer getIdPuesto() {
         return idPuesto;
     }
@@ -72,4 +94,5 @@ public class PeticionNuevoProducto {
     public void setUnidades(String unidades) {
         this.unidades = unidades;
     }
+
 }

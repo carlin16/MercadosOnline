@@ -18,6 +18,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseTiendas;
 import com.mercadoonline.tiendaclient.utils.Global;
+import com.mercadoonline.tiendaclient.view.fragments.productos;
 import com.mercadoonline.tiendaclient.view.fragments.puestos;
 
 import java.util.ArrayList;
@@ -90,15 +91,21 @@ public class VistaMultitienda extends RecyclerView.Adapter<VistaMultitienda.Hold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             /*   puestos pue= new puestos();
-
-                pue.Mercado=lst_normal.get(position);
+                productos pro= new productos();
+               /* pro.ls_listado=lst_normal.get(position).getProductos();
+                pro.vendedor=lst_normal.get(position).getVendedor();
+                pro.idPuesto=""+lst_normal.get(position).getCodigo();
+                pro.ID=lst_normal.get(position).getId();
+                pro.categorias=""+lst_normal.get(position).getMaxCategorias();
+                pro.Mercado=Mercado;
+*/
+                pro.ImageVendedor=url;
 
 
                 FragmentTransaction fragmentTransaction;
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.Contenedor_Fragments, pue).addToBackStack(null);
-                fragmentTransaction.commit();*/
+                fragmentTransaction.replace(R.id.Contenedor_Fragments, pro).addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

@@ -588,7 +588,9 @@ private void llenar_Vendedor(){
 
     Idpuesto.setText(TiendaPorId.getCodigo());
 
-    String LinkImagenP=Global.Url+"usuarios/"+Global.LoginU.getid()+"/foto";
+   // String url= Global.UrlImagen+" images/profile-"+lst_normal.get(position).getIdVendedor()+".jpg";
+
+    String LinkImagenP= Global.UrlImagen+"images/profile-"+Global.LoginU.getid()+".jpg";
 
     Glide
             .with(this)

@@ -224,11 +224,9 @@ llamarPreferences();
             @Override
             public void onClick(View v) {
 
-                Log.e("contacto",PhoneNumberUtils.stripSeparators("+593993942225"));
 
-                Log.e("contacto",PhoneNumberUtils.stripSeparators("593993942225"));
-                enviaMensajeWhatsApp();
-                //popupFiltro(v);
+               // enviaMensajeWhatsApp();
+                popupFiltro(v);
 
             }
         });
@@ -343,7 +341,7 @@ llamarPreferences();
 
 
     private void iniciar_recycler2(){
-        adapter2=new VistaMultitienda(ls_tienda);
+        adapter2=new VistaMultitienda(ls_tienda,getFragmentManager());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter2);

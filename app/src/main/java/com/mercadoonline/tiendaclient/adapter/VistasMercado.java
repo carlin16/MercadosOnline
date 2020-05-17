@@ -73,7 +73,7 @@ int manejador=0;
         holder.mercado_nombre.setText(""+lst_normal.get(position).getNombre().toUpperCase());
         holder.mercado_direccion.setText(""+lst_normal.get(position).getDireccion().toUpperCase());
 
-        String url= Global.Url+"mercados/"+lst_normal.get(position).getId()+"/foto";
+        String url= Global.UrlImagen+lst_normal.get(position).getUrlImagen();
         Glide
                 .with(holder.mercado_portada.getContext())
                 .load(url)

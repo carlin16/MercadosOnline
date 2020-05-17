@@ -79,7 +79,8 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
     //  aqui guia te y setea acvtualiza el response
 
 
-       String url= Global.Url+"usuarios/"+lst_normal.get(position).getIdVendedor()+"/foto";
+       String url= Global.UrlImagen+"images/profile-"+lst_normal.get(position).getIdVendedor()+".jpg";
+       //Global.Url+"usuarios/"+lst_normal.get(position).getIdVendedor()+"/foto";
         Glide
                 .with(holder.imagen.getContext())
                 .load(url)
@@ -97,7 +98,7 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
         pro.ls_listado=lst_normal.get(position).getProductos();
         pro.vendedor=lst_normal.get(position).getVendedor();
         pro.idPuesto=""+lst_normal.get(position).getCodigo();
-        pro.ImageVendedor=Global.Url+"usuarios/"+lst_normal.get(position).getIdVendedor()+"/foto";
+        pro.ImageVendedor=url;
         pro.ID=lst_normal.get(position).getId();
         pro.categorias=""+lst_normal.get(position).getMaxCategorias();
         pro.Mercado=Mercado;

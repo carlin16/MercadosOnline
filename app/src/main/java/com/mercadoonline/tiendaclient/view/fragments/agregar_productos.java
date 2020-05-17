@@ -455,7 +455,13 @@ public class agregar_productos extends Fragment {
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
         NuevoProducto.setIdCategoria(categoria.get(posCategoria).getId());
         NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
-        //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
+
+
+        if(Global.Modo==2)
+            NuevoProducto.setFuente("PUESTO");
+
+
+            //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
         Gson gson = new Gson();
         String JPetProducto= gson.toJson(NuevoProducto);
@@ -463,8 +469,9 @@ public class agregar_productos extends Fragment {
         //  animacion_registro();
         //  subir_ProductoConImagen(JPetProducto);
         pDialog.show();
-        if(bandera==1){
 
+
+            if(bandera==1){
             subir_ProductoConImagen(JPetProducto);
         }else{
             peticion_EdicionProduct(JPetProducto, product.getId().toString());
