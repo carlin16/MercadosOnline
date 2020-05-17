@@ -103,6 +103,7 @@ public class detalle extends Fragment {
         DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
         DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
 
+
     }
 
     private void Click() {

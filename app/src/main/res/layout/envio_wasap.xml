@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            app:ccp_backgroundColor="@color/col_White"
+
             app:ccp_countryPreference="US,EC,ME,CO,PE"
 
             app:ccp_defaultCode="593"

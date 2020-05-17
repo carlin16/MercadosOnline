@@ -148,6 +148,10 @@ public class productos extends Fragment {
             peticion_ProductosPorID();
         }else if(Global.Modo==3){
             mirar_producto();
+           // tienda.getId()
+            //Aqui consumir para la lista de tiendas
+            //GET ALL PRODUCTOS
+
             llenarDatosTiendero();
         }
 

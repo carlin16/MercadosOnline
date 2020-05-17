@@ -149,6 +149,10 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
     private void Registrar(){
         PeticionPedido pedido= new PeticionPedido();
+        String tipoNegocio="";
+        if(Global.idFiltro==0) tipoNegocio="MERCADO";
+        if(Global.idFiltro==1) tipoNegocio="NEGOCIO";
+
         pedido.setCostoEnvio(2);
         pedido.setCostoVenta(Global.VerCompras.get(PosicionListaArray).getTotal());
         pedido.setTotal(Total_precio);
@@ -159,6 +163,10 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         pedido.setLngEntrega(""+nuevo.longitude);
         pedido.setDireccionEntrega(direccion);
         pedido.setCelularContacto(Global.LoginU.getCelular());
+        pedido.setTipo(tipoNegocio);
+
+        //0 puesto
+        //1negocio
 
 List<Detalle> pro= new ArrayList<>();
         for(CompraProductos p:productos){
