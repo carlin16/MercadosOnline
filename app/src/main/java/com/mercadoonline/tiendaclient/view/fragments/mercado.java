@@ -227,8 +227,7 @@ llamarPreferences();
                 Log.e("contacto",PhoneNumberUtils.stripSeparators("+593993942225"));
 
                 Log.e("contacto",PhoneNumberUtils.stripSeparators("593993942225"));
-              //  mensaje();
-                AbrirWhatsApp("+593993942225");
+                enviaMensajeWhatsApp();
                 //popupFiltro(v);
 
             }
@@ -438,45 +437,30 @@ llamarPreferences();
     }
 
 
-    public void AbrirWhatsApp(String telefono) {
-
-        Intent _intencion = new Intent("android.intent.action.MAIN");
-        _intencion.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
-        _intencion.putExtra(""+Global.LoginU.getNombres(), PhoneNumberUtils.stripSeparators(telefono) + "@s.whatsapp.net");
-        _intencion.putExtra(Intent.EXTRA_TEXT, "este mensjae es de prueba");
-
-        startActivity(_intencion);
-
-        //593+telefono.substring(1)
-    }
 
 
-    public void enviaMensajeWhatsApp(String msj) {
-        PackageManager pm=getActivity().getPackageManager();
-        try {
-            Intent waIntent = new Intent(Intent.ACTION_SEND);
-            waIntent.setType("text/plain");
-            PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-            waIntent.setPackage("com.whatsapp");
-            waIntent.putExtra(Intent.EXTRA_TEXT, msj);
-            startActivity(Intent.createChooser(waIntent, "Compartir con:"));
-        } catch (PackageManager.NameNotFoundException e) {
 
-        }
-    }
 
-    public void  mensaje(){
-
+    public void  enviaMensajeWhatsApp(){
+try {
         String toNumber = "+593993942225"; // contains spaces.
         toNumber = toNumber.replace("+", "").replace(" ", "");
 
         Intent sendIntent = new Intent("android.intent.action.MAIN");
         sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "esta es una prueba");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  283838 \n Costo: $2  \n Ubicacion: https://www.google.com/maps/search/?api=1&query=36.26577,-92.54324/");
+
+
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setPackage("com.whatsapp");
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
+
+
+
+    } catch (android.content.ActivityNotFoundException ex) {
+        Toast.makeText(getActivity(), "Whatsapp no esta instalado.", Toast.LENGTH_LONG).show();
+    }
     }
 
 
