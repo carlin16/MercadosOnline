@@ -8,56 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compra {
-
-
     public Compra() {
-
     }
-
     @SerializedName("id")
     @Expose
-    private Integer id;
-
+    private Integer id;//Mercado o Tiendas
     @SerializedName("cantidad")
     @Expose
     private Integer cantidad=0;
-
     public Double getTotal() {
         return Total;
     }
-
     public void setTotal(Double total) {
         Total = total;
     }
-
     @SerializedName("total")
     @Expose
     private Double Total=0.0;
-
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
-
     public String getCodigoMercado() {
         return codigoMercado;
     }
-
     public void setCodigoMercado(String codigoMercado) {
         this.codigoMercado = codigoMercado;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getDescripcion() {
         return descripcion;
     }

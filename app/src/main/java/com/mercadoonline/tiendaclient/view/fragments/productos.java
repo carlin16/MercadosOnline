@@ -114,7 +114,8 @@ public class productos extends Fragment {
     RecyclerView recyclerView;
     VistasProductos adapter;
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
-    public String idPuesto="";
+    public String idPuesto="";//PT-001 Base
+    public String idPuestoI="";//identificador unico
     public String ImageVendedor="";
     public  String categorias="";
     public int ID=0;
@@ -410,16 +411,12 @@ private void llenarCarrito(Producto product){
     PuestosCompra PuestComp = new PuestosCompra();
     List<CompraProductos> lstprod=new ArrayList<>();
     CompraProductos prod= new CompraProductos();
-
     prod.setNombre(product.getNombre());
     prod.setDescripcion(product.getDescripcion());
     prod.setId_cantidad(Integer.parseInt(CantidadCar.getNumber()));
     prod.setIdCategoria(Integer.parseInt(product.getIdCategoria()));
     prod.setIdProducto(product.getId());
-
-    prod.setIdPuesto(Integer.parseInt(product.getIdPuesto()));
-
-
+    prod.setIdPuesto(Integer.parseInt(idPuestoI));
     prod.setIdVendedor(vendedor.getId().toString());
     prod.setPrecio(Double.parseDouble(product.getPrecio()));
     prod.setUnidades(""+product.getUnidades());
