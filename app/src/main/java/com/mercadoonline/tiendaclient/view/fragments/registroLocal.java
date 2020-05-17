@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -48,15 +49,21 @@ import com.mercadoonline.tiendaclient.models.ApiMaps.DatosDireccion;
 import com.mercadoonline.tiendaclient.models.enviado.ReqRegTienda;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistarProducto;
 import com.mercadoonline.tiendaclient.service.ApiService;
 import com.mercadoonline.tiendaclient.service.ApiService2;
 import com.mercadoonline.tiendaclient.service.RetrofitCliente;
 import com.mercadoonline.tiendaclient.service.RetrofitclienteMaps;
 import com.mercadoonline.tiendaclient.utils.Global;
+
 import com.theartofdev.edmodo.cropper.CropImage;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +107,7 @@ public class registroLocal extends Fragment {
     ApiService retrofitApi2;
     Boolean continuar = false;
     String mensaje = "";
+    Boolean cambio_pantalla=false;
 
 
     MapDialogFragment map;
@@ -107,6 +115,8 @@ public class registroLocal extends Fragment {
     String calle = "Dirección no especifica";
 
     ApiService2 retrofitApi;
+
+
     Retrofit retrofit;
     String direccion="";
 
@@ -128,6 +138,8 @@ public class registroLocal extends Fragment {
     }
 
     private void UI(){
+
+        animacion_cargando();
         TINomNegocio= vista.findViewById(R.id.TINombreNegocio);
         TITelNegocio=vista.findViewById(R.id.TITelefonoNegocio);
         ETNomNegocio=vista.findViewById(R.id.ETNombreNegocio);
@@ -358,7 +370,7 @@ public class registroLocal extends Fragment {
         }
         else {
             Snackbar.make(vista, "Deberia registrar", Snackbar.LENGTH_LONG).show();
-            //llenarDatos();
+            llenarDatos();
         }
 
     }
@@ -447,14 +459,6 @@ public class registroLocal extends Fragment {
                                            datos_ubicacion(s, address.getLongName());
                                         }
 
-
-                                        if (address.getTypes().contains(ApiString.CIUDADELA3) || address.getTypes().contains(ApiString.CIUDADELA4)) {
-                                             ciudad= address.getLongName();
-                                        } else if (address.getTypes().contains(ApiString.CIUDADELA) || address.getTypes().contains(ApiString.CIUDADELA2)) {
-                                            ciudad=address.getLongName();
-                                        }
-
-
                                     }
 
                             }catch (Exception e){
@@ -517,19 +521,22 @@ public class registroLocal extends Fragment {
 
             case ApiString.PROVINCIA:
                // tienda.setProvincia(dato);
+                Log.e("mi provincia",dato);
                 break;
-
             case ApiString.CIUDAD:
                // tienda.setCiudad(dato);
+                Log.e("mi ciudad",dato);
                 ciudad=dato;
                 break;
 
             case ApiString.CALLE:
                 //tienda.setCalle(dato);
+                Log.e("mi calle",dato);
                 break;
 
             case ApiString.PAIS:
                // tienda.setPais(dato);
+                Log.e("mi pais",dato);
 
                 break;
         }
@@ -753,32 +760,93 @@ public class registroLocal extends Fragment {
 
     }
 
-    public  void llenarDatos(){
+    public  void llenarDatos() {
         NuevaTienda.setTipoNegocio(CatTien.get(posCategoria).getId());
-        NuevaTienda.setDescripcion(ETDescripcionTienda.toString());
-        NuevaTienda.setTelefono(ETTelNegocio.toString());
-        NuevaTienda.setNombre(ETNomNegocio.toString());
-        NuevaTienda.setIdUsuario(Global.UserGlobal.getId());
-        NuevaTienda.setCiudad("");
-
-        //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
-        //siguiente_paantalla();
+        NuevaTienda.setDescripcion(ETDescripcionTienda.getText().toString());
+        NuevaTienda.setTelefono(ETTelNegocio.getText().toString());
+        NuevaTienda.setNombre(ETNomNegocio.getText().toString());
+        NuevaTienda.setIdUsuario(Global.LoginU.getid());
+        NuevaTienda.setCiudad(ciudad);
+        NuevaTienda.setLatitud("" + NuevaUbicacion.latitude);
+        NuevaTienda.setLongitud("" + NuevaUbicacion.longitude);
+        NuevaTienda.setDireccion(direccion);
         Gson gson = new Gson();
-        String JPetProducto= gson.toJson(NuevaTienda);
-        //("json",JPetProducto);
-        //  animacion_registro();
-        //  subir_ProductoConImagen(JPetProducto);
+        String JPetTienda = gson.toJson(NuevaTienda);
+        Log.e("Json", JPetTienda);
         pDialog.show();
-        if(bandera==1){
+        subirTiendaConImagen(JPetTienda);
+    }
 
-            //subir_ProductoConImagen(JPetProducto);
-        }else{
-            //peticion_EdicionProduct(JPetProducto, product.getId().toString());
-///
-///funcion editar que es un put para los datos
-            // y un post para subir imagen
-            //tienes que crear esos dos api rest
-        }
+    public void subirTiendaConImagen(String jsonConf){
+
+        File file = new File(imagenNegocio.getPath());
+        RequestBody payload = RequestBody.create(MediaType.parse("text/plain"),jsonConf);
+
+        //RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part imagen = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+
+
+        retrofit2 = RetrofitCliente.getInstance();
+        retrofitApi2 = retrofit2.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi2.RegistrarTienda(imagen, payload,Global.LoginU.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseRegistarProducto>>() {
+                    @Override
+                    public void onNext(Response<ResponseRegistarProducto> response) {
+
+
+                        if (response.isSuccessful()) {
+
+                            cambio_pantalla =true;
+                            mensaje=response.body().getMensaje();
+                            //("normal",mensaje);
+                        } else  if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        } else{
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                //("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                        pDialog.dismiss();
+                        if(cambio_pantalla){
+                            getFragmentManager().popBackStack("frag_regisLocal",0);
+                        }
+                        //("Completado foto","registrado");
+
+
+                    }
+                });
+
+
+    }
+
+    private void animacion_cargando(){
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#"+Integer.toHexString(ContextCompat.getColor(getActivity(), R.color.col_naranja))));
+        pDialog.setTitleText("Registrando");
+        pDialog.setCancelable(false);
+
 
 
     }

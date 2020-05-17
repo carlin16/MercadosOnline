@@ -205,4 +205,13 @@ public interface ApiService {
                                                              @Header("Authorization") String authorization
     );
 
+    //@Headers({"Content-Type: application/json", "multipart/form-data"})
+    //Mismo response pq es igual al de registrar Producto
+    @Multipart
+    @POST("tiendas")
+    Observable<Response<ResponseRegistarProducto>>RegistrarTienda(@Part MultipartBody.Part imageFile,@Part ("payload") RequestBody ObjectJson,
+                                                                    @Header("Authorization") String authorization
+    );
+
+
 }
