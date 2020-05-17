@@ -146,7 +146,8 @@ public class productos extends Fragment {
             mirar_producto();
             peticion_ProductosPorID();
         }else if(Global.Modo==3){
-           llenarDatosTiendero();
+            mirar_producto();
+            llenarDatosTiendero();
         }
 
 
@@ -340,7 +341,7 @@ private void llenarDatosClientes(){
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
-        if(Global.Modo==2) {
+        if(Global.Modo==2 || Global.Modo==3) {
             Resources resources = getResources();
             compra.setImageDrawable(resources.getDrawable(R.drawable.ic_plus));
         }
@@ -462,7 +463,7 @@ private void llenarCarrito(Producto product){
                     fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.Contenedor_Fragments, car).addToBackStack("frag_car");
                     fragmentTransaction.commit();
-                }else if(Global.Modo==2){
+                }else if(Global.Modo==2 || Global.Modo==3){
                    // add_pro.id_del_fragment="frag_car";
 
 

@@ -454,11 +454,16 @@ public class agregar_productos extends Fragment {
         NuevoProducto.setPrecio(precio);
         NuevoProducto.setUnidades(UnidadesM[posUnidadMedida]);
         NuevoProducto.setIdCategoria(categoria.get(posCategoria).getId());
-        NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
 
 
         if(Global.Modo==2)
-            NuevoProducto.setFuente("PUESTO");
+             NuevoProducto.setFuente("PUESTO");
+             NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
+
+        if(Global.Modo==3){
+            NuevoProducto.setFuente("NEGOCIO");
+            NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
+        }
 
 
             //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
