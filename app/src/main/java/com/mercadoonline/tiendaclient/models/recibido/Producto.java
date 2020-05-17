@@ -6,6 +6,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Producto {
 
+
+    @SerializedName("stock")
+    @Expose
+    private Integer stock;
+
+    @SerializedName("fuente")
+    @Expose
+    private Integer fuente;
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -137,5 +146,21 @@ public class Producto {
 
     public void setNombreCategoria(String nombreCategoria) {
         this.nombreCategoria = nombreCategoria;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Integer getFuente() {
+        return fuente;
+    }
+
+    public void setFuente(Integer fuente) {
+        this.fuente = fuente;
     }
 }

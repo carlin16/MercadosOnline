@@ -1,6 +1,7 @@
 package com.mercadoonline.tiendaclient.service;
 
 
+import com.mercadoonline.tiendaclient.models.recibido.Producto;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseDetallesPedidos;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
@@ -211,6 +212,14 @@ public interface ApiService {
     @POST("tiendas")
     Observable<Response<ResponseRegistarProducto>>RegistrarTienda(@Part MultipartBody.Part imageFile,@Part ("payload") RequestBody ObjectJson,
                                                                     @Header("Authorization") String authorization
+    );
+
+    @Headers("Content-Type: application/json")
+    //cambiar y pasar por parametros, en list poner la clase q cojo de pojo
+    @GET("productos")
+    Observable<Response<List<Producto>>>VerProductosPorTienda(@Query("type") String tipoNegocio,
+                                                              @Query("id") String idTienda,
+                                                              @Header("Authorization") String authorization
     );
 
 

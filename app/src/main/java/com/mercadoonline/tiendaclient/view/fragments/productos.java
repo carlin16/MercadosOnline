@@ -148,6 +148,7 @@ public class productos extends Fragment {
             peticion_ProductosPorID();
         }else if(Global.Modo==3){
             mirar_producto();
+            peticion_ProductosporTienda("TIENDA", tienda.getId());
            // tienda.getId()
             //Aqui consumir para la lista de tiendas
             //GET ALL PRODUCTOS
@@ -600,6 +601,82 @@ private void llenarCarrito(Producto product){
                             subir_foto();
                         }*/
 
+
+                        }
+
+                    }
+                });
+    }
+
+
+
+    private void peticion_ProductosporTienda(String tipoNegocio, int IdTien){
+
+        int x= 3;
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+
+        disposable = (Disposable) retrofitApi.VerProductosPorTienda( tipoNegocio,""+IdTien, Global.LoginU.getToken() )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<Producto>>>() {
+                    @Override
+                    public void onNext(Response<List<Producto>> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            ls_listado=response.body();
+
+                            Log.e("productos",Global.convertObjToString(response.body()));
+                            // cambio_pantalla=true;
+                            // Global.RegisUser=response.body();
+                            //  Global.LoginU.setid(response.body().getId());
+                            mensaje="Productos obtenidos";
+                        } else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        //  pDialog.dismiss();
+                        //("ProductosTienda", "fallo");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        //("Completado",Global.convertObjToString(TiendaPorId));
+
+
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            //("activity","removido ");
+                            return;
+                        }else{
+
+                            List<Producto> muestreo =new ArrayList<>();
+                            muestreo.addAll(ls_listado);
+
+                            Log.e("productos",Global.convertObjToString(muestreo));
+
+                            ls_listado.clear();
+                            for (Producto x:muestreo){
+                                ls_listado.add(x);
+                                // ListProdcutsPorPuesto.add(x.getProductos());
+                                // adapter.notifyDataSetChanged();
+
+                            }
+                            iniciar_recycler();
+                            adapter.notifyDataSetChanged();
 
                         }
 
