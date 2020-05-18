@@ -109,13 +109,14 @@
                             >
 
                             <TextView
+                                android:id="@+id/PedidoTituloNM"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 android:maxLines="2"
                                 android:fontFamily="@font/segoeui"
-                                android:text="Transportista"
+                                android:text=""
                                 android:textColor="@color/col_negrosolida"
                                 android:textSize="16sp"
                                  />

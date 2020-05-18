@@ -15,9 +15,6 @@ public class Vendedor {
     @SerializedName("apellidos")
     @Expose
     private String apellidos;
-    @SerializedName("imagen_perfil")
-    @Expose
-    private Object imagenPerfil;
 
     public Integer getId() {
         return id;
@@ -42,13 +39,4 @@ public class Vendedor {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-
-    public Object getImagenPerfil() {
-        return imagenPerfil;
-    }
-
-    public void setImagenPerfil(Object imagenPerfil) {
-        this.imagenPerfil = imagenPerfil;
-    }
-
 }

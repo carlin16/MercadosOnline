@@ -84,15 +84,21 @@ public class VistaPedidos extends RecyclerView.Adapter<VistaPedidos.Holder>   {
         }
 
        // holder.RellenoStatus.setBackgroundColor(R.drawable.border_estatus_purpura);
+
         holder.NumPedido.setText("Pedido #"+lst_normal.get(position).getId());
+
+        if(lst_normal.get(position).getTipo().equals("MERCADO"))
         holder.DirMercado.setText(lst_normal.get(position).getNombreMercado());
+
+        if(lst_normal.get(position).getTipo().equals("NEGOCIO"))
+        holder.DirMercado.setText(lst_normal.get(position).getNombreNegocio());
 
         String[] parts = lst_normal.get(position).getFechaRegistro().split(" ");
         String fecha = parts[0]; //
 
         holder.FechayHoraPedido.setText(""+fecha);
 
-        holder.TotalPedido.setText("$"+ Global.formatearDecimales(Double.parseDouble(lst_normal.get(position).getTotal()),2));
+        holder.TotalPedido.setText("$"+ Global.formatearDecimales(Double.parseDouble(""+lst_normal.get(position).getTotal()),2));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

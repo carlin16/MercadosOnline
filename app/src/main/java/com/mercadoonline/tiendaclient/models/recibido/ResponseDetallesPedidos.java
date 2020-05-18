@@ -4,6 +4,7 @@ package com.mercadoonline.tiendaclient.models.recibido;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mercadoonline.tiendaclient.models.enviado.Detalle;
 
 public class ResponseDetallesPedidos {
 
@@ -12,22 +13,22 @@ public class ResponseDetallesPedidos {
     private Integer id;
     @SerializedName("id_usuario")
     @Expose
-    private String idUsuario;
-    @SerializedName("id_mercado")
+    private Integer idUsuario;
+    @SerializedName("id_establecimiento")
     @Expose
-    private String idMercado;
+    private Integer idEstablecimiento;
     @SerializedName("id_transportista")
     @Expose
-    private String idTransportista;
+    private Object idTransportista;
     @SerializedName("costo_venta")
     @Expose
-    private String costoVenta;
+    private Double costoVenta;
     @SerializedName("costo_envio")
     @Expose
-    private String costoEnvio;
+    private Integer costoEnvio;
     @SerializedName("total")
     @Expose
-    private String total;
+    private Double total;
     @SerializedName("forma_pago")
     @Expose
     private String formaPago;
@@ -37,24 +38,30 @@ public class ResponseDetallesPedidos {
     @SerializedName("fecha_actualiza")
     @Expose
     private Object fechaActualiza;
+    @SerializedName("tipo")
+    @Expose
+    private String tipo;
     @SerializedName("estado")
     @Expose
     private String estado;
     @SerializedName("mercado")
     @Expose
     private Mercado mercado;
+    @SerializedName("negocio")
+    @Expose
+    private Negocio negocio;
     @SerializedName("cliente")
     @Expose
     private Cliente cliente;
     @SerializedName("transportista")
     @Expose
-    private Transportista transportista = new Transportista();
+    private Transportista transportista;
     @SerializedName("entrega")
     @Expose
     private Entrega entrega;
     @SerializedName("detalles")
     @Expose
-    private List<DetallesP> detallesPS = null;
+    private List<DetallesP> detalles = null;
 
     public Integer getId() {
         return id;
@@ -64,51 +71,59 @@ public class ResponseDetallesPedidos {
         this.id = id;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public String getIdMercado() {
-        return idMercado;
+    public Integer getIdEstablecimiento() {
+        return idEstablecimiento;
     }
 
-    public void setIdMercado(String idMercado) {
-        this.idMercado = idMercado;
+    public void setIdEstablecimiento(Integer idEstablecimiento) {
+        this.idEstablecimiento = idEstablecimiento;
     }
 
-    public String getIdTransportista() {
+    public Object getIdTransportista() {
         return idTransportista;
     }
 
-    public void setIdTransportista(String idTransportista) {
+    public void setIdTransportista(Object idTransportista) {
         this.idTransportista = idTransportista;
     }
 
-    public String getCostoVenta() {
+    public Double getCostoVenta() {
         return costoVenta;
     }
 
-    public void setCostoVenta(String costoVenta) {
+    public void setCostoVenta(Double costoVenta) {
         this.costoVenta = costoVenta;
     }
 
-    public String getCostoEnvio() {
+    public Integer getCostoEnvio() {
         return costoEnvio;
     }
 
-    public void setCostoEnvio(String costoEnvio) {
+    public List<DetallesP> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallesP> detalles) {
+        this.detalles = detalles;
+    }
+
+    public void setCostoEnvio(Integer costoEnvio) {
         this.costoEnvio = costoEnvio;
     }
 
-    public String getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -136,6 +151,14 @@ public class ResponseDetallesPedidos {
         this.fechaActualiza = fechaActualiza;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -150,6 +173,14 @@ public class ResponseDetallesPedidos {
 
     public void setMercado(Mercado mercado) {
         this.mercado = mercado;
+    }
+
+    public Negocio getNegocio() {
+        return negocio;
+    }
+
+    public void setNegocio(Negocio negocio) {
+        this.negocio = negocio;
     }
 
     public Cliente getCliente() {
@@ -176,12 +207,5 @@ public class ResponseDetallesPedidos {
         this.entrega = entrega;
     }
 
-    public List<DetallesP> getDetallesPS() {
-        return detallesPS;
-    }
-
-    public void setDetallesPS(List<DetallesP> detallesPS) {
-        this.detallesPS = detallesPS;
-    }
 
 }

@@ -57,7 +57,7 @@ View linea_entregado ;
     String mensaje="detalle pedidos";
     RecyclerView recyclerView;
     VistasDetallePedido adapter;
-    TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha,Costo_Comision;
+    TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha,Costo_Comision,PedidoTituloNM;
         LinearLayout PedidoStatus;
         RelativeLayout DetaEntregado;
         RoundedImageView atras_detalle_pedido;
@@ -84,6 +84,11 @@ View linea_entregado ;
 
         NumeroPedido=vista.findViewById(R.id.NumeroPedido);
         NombreTrasnportista=vista.findViewById(R.id.NombreTrasnportista);
+
+
+
+        PedidoTituloNM=vista.findViewById(R.id.PedidoTituloNM);
+
         PedidoTxtStatus=vista.findViewById(R.id.PedidoTxtStatus);
         PedidoCelular=vista.findViewById(R.id.PedidoCelular);
         DetalleSubtotal=vista.findViewById(R.id.DetalleSubtotal);
@@ -91,7 +96,6 @@ View linea_entregado ;
         DetalleTotal=vista.findViewById(R.id.DetalleTotal);
         PedidoStatus=vista.findViewById(R.id.PedidoStatus);
         DetaEntregado=vista.findViewById(R.id.DetaEntregado);
-
         linea_entregado=vista.findViewById(R.id.linea_entregado);
         Costo_Comision=vista.findViewById(R.id.Costo_Comision);
 
@@ -125,17 +129,32 @@ View linea_entregado ;
 
         NumeroPedido.setText("Pedido # "+pedido.getId().toString());
 
-        if(pedido.getTransportista()!=null){
-            NombreTrasnportista.setText(""+pedido.getTransportista().getNombres()+" "+pedido.getTransportista().getApellidos());
-            PedidoCelular.setText(""+pedido.getTransportista().getCelular());
-        }else{
-              NombreTrasnportista.setText("No asignado");
-        }
+
 
 
         if(Global.Modo==1){
+
+
+            if(pedido.getTipo().equals("MERCADO")){
+                PedidoTituloNM.setText("Transportista");
+
+                if(pedido.getTransportista()!=null){
+                    NombreTrasnportista.setText(""+pedido.getTransportista().getNombres()+" "+pedido.getTransportista().getApellidos());
+                    PedidoCelular.setText(""+pedido.getTransportista().getCelular());
+                }else{
+                    NombreTrasnportista.setText("No asignado");
+                }
+
+            }else{
+                PedidoTituloNM.setText("TIENDA");
+                NombreTrasnportista.setText(pedido.getNegocio().getNombre());
+
+            }
+
+
+
             DetalleSubtotal.setText("$"+pedido.getCostoVenta());
-            DetalleCostoEnvio.setText("$"+Global.formatearDecimales(Double.parseDouble(pedido.getCostoEnvio()),2));
+            DetalleCostoEnvio.setText("$"+Global.formatearDecimales(Double.parseDouble(""+pedido.getCostoEnvio()),2));
             DetalleTotal.setText("$"+pedido.getTotal());
 
         }else{
@@ -238,7 +257,7 @@ View linea_entregado ;
                             if(continuar){
 
                                 if(Global.Modo==2){
-                                    for(DetallesP p:pedido.getDetallesPS()){
+                                    for(DetallesP p:pedido.getDetalles()){
 
                                         if(Integer.parseInt(p.getIdVendedor())==Global.LoginU.getid() && Integer.parseInt(p.getIdPuesto())==Global.LoginU.getId_puesto()){
                                             LstPro.add(p);
@@ -250,7 +269,7 @@ View linea_entregado ;
 
                                     comision=Global.formatearDecimales((subTotal*5)/100,2);
                                 }else {
-                                    LstPro.addAll(pedido.getDetallesPS());
+                                    LstPro.addAll(pedido.getDetalles());
                                 }
                                 iniciar_recycler();
                                 llenarDatos();

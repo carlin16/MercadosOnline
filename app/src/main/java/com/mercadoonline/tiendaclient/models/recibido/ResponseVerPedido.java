@@ -10,22 +10,22 @@ public class ResponseVerPedido {
     private Integer id;
     @SerializedName("id_usuario")
     @Expose
-    private String idUsuario;
-    @SerializedName("id_mercado")
+    private Integer idUsuario;
+    @SerializedName("id_establecimiento")
     @Expose
-    private String idMercado;
+    private Integer idEstablecimiento;
     @SerializedName("id_transportista")
     @Expose
-    private String idTransportista;
+    private Integer idTransportista;
     @SerializedName("costo_venta")
     @Expose
-    private String costoVenta;
+    private Double costoVenta;
     @SerializedName("costo_envio")
     @Expose
-    private String costoEnvio;
+    private Integer costoEnvio;
     @SerializedName("total")
     @Expose
-    private String total;
+    private Double total;
     @SerializedName("forma_pago")
     @Expose
     private String formaPago;
@@ -35,9 +35,15 @@ public class ResponseVerPedido {
     @SerializedName("fecha_actualiza")
     @Expose
     private Object fechaActualiza;
+    @SerializedName("tipo")
+    @Expose
+    private String tipo;
     @SerializedName("estado")
     @Expose
     private String estado;
+    @SerializedName("nombre_negocio")
+    @Expose
+    private String nombreNegocio;
     @SerializedName("nombre_mercado")
     @Expose
     private String nombreMercado;
@@ -50,51 +56,51 @@ public class ResponseVerPedido {
         this.id = id;
     }
 
-    public String getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(String idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public String getIdMercado() {
-        return idMercado;
+    public Integer getIdEstablecimiento() {
+        return idEstablecimiento;
     }
 
-    public void setIdMercado(String idMercado) {
-        this.idMercado = idMercado;
+    public void setIdEstablecimiento(Integer idEstablecimiento) {
+        this.idEstablecimiento = idEstablecimiento;
     }
 
-    public String getIdTransportista() {
+    public Integer getIdTransportista() {
         return idTransportista;
     }
 
-    public void setIdTransportista(String idTransportista) {
+    public void setIdTransportista(Integer idTransportista) {
         this.idTransportista = idTransportista;
     }
 
-    public String getCostoVenta() {
+    public Double getCostoVenta() {
         return costoVenta;
     }
 
-    public void setCostoVenta(String costoVenta) {
+    public void setCostoVenta(Double costoVenta) {
         this.costoVenta = costoVenta;
     }
 
-    public String getCostoEnvio() {
+    public Integer getCostoEnvio() {
         return costoEnvio;
     }
 
-    public void setCostoEnvio(String costoEnvio) {
+    public void setCostoEnvio(Integer costoEnvio) {
         this.costoEnvio = costoEnvio;
     }
 
-    public String getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -122,12 +128,28 @@ public class ResponseVerPedido {
         this.fechaActualiza = fechaActualiza;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public String getEstado() {
         return estado;
     }
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getNombreNegocio() {
+        return nombreNegocio;
+    }
+
+    public void setNombreNegocio(String nombreNegocio) {
+        this.nombreNegocio = nombreNegocio;
     }
 
     public String getNombreMercado() {
