@@ -31,6 +31,7 @@
         android:textSize="18sp" />
 
     <LinearLayout
+        android:background="@color/col_White"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="2dp"
@@ -51,10 +52,12 @@
             android:id="@+id/TITelefonoNegocio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TextInputLayoutHint">
+            android:background="@color/col_White"
+            >
 
 
             <EditText
+                android:background="@color/col_White"
                 android:id="@+id/ETTelLocal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
