@@ -451,7 +451,7 @@ View linea_entregado ;
 
             Intent sendIntent = new Intent("android.intent.action.MAIN");
             sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Total a Cobrar: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion+"/");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:+"+""+telInfo+"\nTotal a Cobrar: $"+""+costoEnvio+  "\nUbicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion);
 
 
 
