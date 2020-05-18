@@ -2,6 +2,7 @@ package com.mercadoonline.tiendaclient.view.fragments;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.textfield.TextInputLayout;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.adapter.VistasDetallePedido;
 import com.mercadoonline.tiendaclient.models.recibido.DetallesP;
@@ -187,8 +189,8 @@ View linea_entregado ;
             DetaEntregado.setVisibility(View.VISIBLE);
             linea_entregado.setVisibility(View.VISIBLE);
             PedidoTituloNM.setText("Cliente");
-            NombreTrasnportista.setText("+"+pedido.getCliente().getNombres());
-            PedidoCelular.setText(""+pedido.getCliente().getCelular());
+            NombreTrasnportista.setText(pedido.getCliente().getNombres());
+            PedidoCelular.setText("+"+pedido.getCliente().getCelular());
             DetalleSubtotal.setText("$"+pedido.getCostoVenta());
             DetalleCostoEnvio.setText("$"+pedido.getCostoEnvio());
             DetalleTotal.setText("$"+pedido.getTotal());
@@ -389,6 +391,23 @@ View linea_entregado ;
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
       EditText numero=myDialog.findViewById(R.id.ETTelLocal);
+       TextInputLayout TITelefonoNegocio=myDialog.findViewById(R.id.TITelefonoNegocio);
+
+        numero.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                //spn_rolUser
+                if (hasFocus) {
+
+                    TITelefonoNegocio.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TITelefonoNegocio.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+            //validaciones para que al seleccionar campo, el texview cambien de color
+
+
+        });
       RelativeLayout  DetalleBtnContinuar=myDialog.findViewById(R.id.DetalleBtnContinuar);
         CountryCodePicker codigo_pais=myDialog.findViewById(R.id.CCPTiendaNueva);
         DetalleBtnContinuar.setOnClickListener(new View.OnClickListener() {
@@ -403,7 +422,7 @@ View linea_entregado ;
                     } else {
                         numeroTelefono = codigo_pais.getSelectedCountryCode() + numero.getText().toString().trim();
                     }
-                    enviaMensajeWhatsApp(pedido.getCliente().getCelular(),numeroTelefono,""+pedido.getCostoEnvio(),""+pedido.getEntrega().getLngEntrega(),""+pedido.getEntrega().getLatEntrega() );
+                    enviaMensajeWhatsApp(pedido.getCliente().getCelular(),numeroTelefono,""+pedido.getTotal(),""+pedido.getEntrega().getLngEntrega(),""+pedido.getEntrega().getLatEntrega() );
                 }
 
                 //contacto
@@ -432,7 +451,7 @@ View linea_entregado ;
 
             Intent sendIntent = new Intent("android.intent.action.MAIN");
             sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Costo: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion+"/");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Total a Cobrar: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion+"/");
 
 
 

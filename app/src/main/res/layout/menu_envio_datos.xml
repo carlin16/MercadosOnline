@@ -51,7 +51,7 @@
             android:id="@+id/TITelefonoNegocio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/TextInputLayoutHint">
+            android:theme="@style/TextLabel">
 
 
             <EditText
@@ -68,6 +68,7 @@
                 android:maxLines="1"
                 android:paddingBottom="10dp"
                 android:singleLine="true"
+                android:textColor="@color/col_negrosolida"
                 android:textColorHint="@color/col_negro"
                 android:textSize="18sp" />
 
