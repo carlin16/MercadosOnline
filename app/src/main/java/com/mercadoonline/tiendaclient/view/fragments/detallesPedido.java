@@ -1,6 +1,8 @@
 package com.mercadoonline.tiendaclient.view.fragments;
 
+import android.app.Dialog;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,11 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.adapter.VistasDetallePedido;
 import com.mercadoonline.tiendaclient.models.recibido.DetallesP;
@@ -29,6 +33,7 @@ import com.mercadoonline.tiendaclient.service.RetrofitCliente;
 import com.mercadoonline.tiendaclient.utils.Global;
 import com.google.gson.Gson;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 
 import org.json.JSONObject;
 
@@ -57,7 +62,7 @@ View linea_entregado ;
     String mensaje="detalle pedidos";
     RecyclerView recyclerView;
     VistasDetallePedido adapter;
-    TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha,Costo_Comision,PedidoTituloNM;
+        TextView NumeroPedido,NombreTrasnportista,PedidoTxtStatus,PedidoCelular,DetalleSubtotal,DetalleCostoEnvio,DetalleTotal,PedidoFecha,Costo_Comision,PedidoTituloNM,TituloButtonEntrega;
         LinearLayout PedidoStatus;
         RelativeLayout DetaEntregado;
         RoundedImageView atras_detalle_pedido;
@@ -81,7 +86,7 @@ View linea_entregado ;
     private void UI(){
 
         PedidoFecha=vista.findViewById(R.id.PedidoFecha);
-
+        TituloButtonEntrega=vista.findViewById(R.id.TituloButtonEntrega);
         NumeroPedido=vista.findViewById(R.id.NumeroPedido);
         NombreTrasnportista=vista.findViewById(R.id.NombreTrasnportista);
 
@@ -106,8 +111,14 @@ View linea_entregado ;
         DetaEntregado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                peticion_estado_pedidos();
-                pDialog.show();
+                if(Global.Modo==1){
+
+                    peticion_estado_pedidos();
+                    pDialog.show();
+
+                } if(Global.Modo==3){
+                    dialog_Whats();
+                }
             }
         });
 
@@ -157,11 +168,29 @@ View linea_entregado ;
             DetalleCostoEnvio.setText("$"+Global.formatearDecimales(Double.parseDouble(""+pedido.getCostoEnvio()),2));
             DetalleTotal.setText("$"+pedido.getTotal());
 
-        }else{
-            ///cambiar
-            DetalleSubtotal.setText("$"+subTotal);
-            DetalleCostoEnvio.setText("$"+comision);
-            DetalleTotal.setText("$"+Global.formatearDecimales(subTotal-comision,2));
+        }else if(Global.Modo==2){
+            PedidoTituloNM.setText("Transportista");
+            if(pedido.getTransportista()!=null){
+                NombreTrasnportista.setText(""+pedido.getTransportista().getNombres()+" "+pedido.getTransportista().getApellidos());
+                PedidoCelular.setText(""+pedido.getTransportista().getCelular());
+            }else{
+                NombreTrasnportista.setText("No asignado");
+            }
+
+            DetalleSubtotal.setText("$"+pedido.getCostoVenta());
+            DetalleCostoEnvio.setText("$"+pedido.getCostoEnvio());
+            DetalleTotal.setText("$"+pedido.getTotal());
+        }else if(Global.Modo==3){
+
+            TituloButtonEntrega.setText("Enviar a Transportista");
+            DetaEntregado.setVisibility(View.VISIBLE);
+            linea_entregado.setVisibility(View.VISIBLE);
+            PedidoTituloNM.setText("Cliente");
+            NombreTrasnportista.setText("+"+pedido.getCliente().getNombres());
+            PedidoCelular.setText(""+pedido.getCliente().getCelular());
+            DetalleSubtotal.setText("$"+pedido.getCostoVenta());
+            DetalleCostoEnvio.setText("$"+pedido.getCostoEnvio());
+            DetalleTotal.setText("$"+pedido.getTotal());
         }
 
         PedidoFecha.setText(pedido.getFechaRegistro());
@@ -177,7 +206,7 @@ View linea_entregado ;
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_rojo));
             PedidoTxtStatus.setText("En Progreso");
 
-            if(Global.Modo==1){
+            if(Global.Modo==1 ){
                 DetaEntregado.setVisibility(View.VISIBLE);
                 linea_entregado.setVisibility(View.VISIBLE);
             }
@@ -347,4 +376,47 @@ View linea_entregado ;
         pDialog.setCancelable(false);
 
     }
+    String numeroTelefono="";
+
+    private void dialog_Whats(){
+        Dialog myDialog;
+        myDialog = new Dialog(getActivity());
+        myDialog.setContentView(R.layout.menu_envio_datos);
+        myDialog.setCancelable(true);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+      EditText numero=myDialog.findViewById(R.id.ETTelLocal);
+      RelativeLayout  DetalleBtnContinuar=myDialog.findViewById(R.id.DetalleBtnContinuar);
+        CountryCodePicker codigo_pais=myDialog.findViewById(R.id.CCPTiendaNueva);
+        DetalleBtnContinuar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if(numero.getText().length()>7){
+                    if (numero.getText().toString().substring(0, 1).equals("0")) {
+                        numeroTelefono = codigo_pais.getSelectedCountryCode() + numero.getText().toString().trim().substring(1);
+                        llenarDatos();
+                    } else {
+                        numeroTelefono = codigo_pais.getSelectedCountryCode() + numero.getText().toString().trim();
+                    }
+                }
+
+                //contacto
+               // pedido.getCliente().getCelular()
+               //numero
+              // numero.getText().toString();
+               // pedido.getEntrega().getLatEntrega()
+                //pedido.getEntrega().getLngEntrega()
+
+                Log.e("Whatsapp",""+numeroTelefono);
+                myDialog.dismiss();
+
+            }
+        });
+
+        myDialog.show();
+    }
+
+
 }

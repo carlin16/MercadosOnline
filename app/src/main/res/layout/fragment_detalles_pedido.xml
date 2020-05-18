@@ -442,6 +442,7 @@
                         </Button>
 
                         <TextView
+                            android:id="@+id/TituloButtonEntrega"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

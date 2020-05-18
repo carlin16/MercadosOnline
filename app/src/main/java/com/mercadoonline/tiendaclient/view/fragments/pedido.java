@@ -93,6 +93,7 @@ public class pedido extends Fragment {
         String tipo="";
         if(Global.Modo==1)tipo="CLIENTE";
          if(Global.Modo==2)tipo="VENDEDOR";
+        if(Global.Modo==3)tipo="TIENDERO";
 
         //("Pedidos","Se consumio");
         retrofit = RetrofitCliente.getInstance();
