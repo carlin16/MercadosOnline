@@ -54,7 +54,7 @@ public class detalle extends Fragment {
 
     public Compra CompraNueva = new Compra();
 
-    Double CostoEnvi = 2.00;
+    Double CostoEnvi = 0.0;
 
     public int PosicionListaArray = 0;
 
@@ -99,9 +99,20 @@ public class detalle extends Fragment {
     private void llenar_Detalle() {
         CompraNueva=Global.VerCompras.get(PosicionListaArray);
         DetaSubtotal.setText("$" + CompraNueva.getTotal().toString());
-        DetaCostoEnvio.setText("$" + Global.formatearDecimales(CostoEnvi,2));
-        DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
-        DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
+
+        if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==0){
+            CostoEnvi=2.0;
+            DetaCostoEnvio.setText("$" + Global.formatearDecimales(CostoEnvi,2));
+            DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
+            DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
+        }
+        if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==1){
+            CostoEnvi=0.0;
+            DetaCostoEnvio.setText("$" + Global.formatearDecimales(CostoEnvi,2));
+            DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
+            DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
+        }
+
 
 
     }

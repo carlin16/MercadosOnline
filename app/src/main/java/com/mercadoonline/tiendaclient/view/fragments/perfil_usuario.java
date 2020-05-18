@@ -83,7 +83,7 @@ public class perfil_usuario extends Fragment {
     public void UI(){
         PerfilNombresCompletos=vista.findViewById(R.id.TVPerfilNombres);
         PerfilUsuario=vista.findViewById(R.id.TVPerfilUser);
-        PerfilDireccion=vista.findViewById(R.id.TVPerfilDireccion);
+       // PerfilDireccion=vista.findViewById(R.id.TVPerfilDireccion);
         PerfilCelular=vista.findViewById(R.id.TVPerfilCelular);
         PerfilCorreo=vista.findViewById(R.id.TVPerfilCorreo);
         PerfilRol=vista.findViewById(R.id.TVPerfilRol);
@@ -175,7 +175,7 @@ public class perfil_usuario extends Fragment {
 
         PerfilNombresCompletos.setText(Global.PrimeraMayusculaNP(Global.LoginU.getNombres()+" "+Global.LoginU.getApellidos()));
         PerfilUsuario.setText("@"+Global.UserGlobal.getUsuario());
-        PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
+        //PerfilDireccion.setText(""+Global.UserGlobal.getDireccion());
         PerfilCelular.setText("+"+Global.UserGlobal.getCelular());
         PerfilCorreo.setText(""+Global.UserGlobal.getEmail());
         PerfilRol.setText(""+Global.ucFirst(Global.UserGlobal.getRol().toLowerCase()));

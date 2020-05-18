@@ -34,6 +34,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.type.LatLng;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.adapter.VistaMultitienda;
 import com.mercadoonline.tiendaclient.adapter.VistasMercado;
@@ -435,18 +436,21 @@ llamarPreferences();
 
 
 
-
-    public void  enviaMensajeWhatsApp(){
+//telSend, telContactar, costo, lonLat
+    //public  LatLng nuevo=null;
+    public void  enviaMensajeWhatsApp(String telInfo, String telContactar, Double costoEnvio, String longUbicacion, String latUbicacion){
 try {
-        String toNumber = "+593993942225"; // contains spaces.
-        toNumber = toNumber.replace("+", "").replace(" ", "");
+        //String toNumber = "+593993942225"; // contains spaces.
+        String toNumber;
+        toNumber = telContactar.replace("+", "").replace(" ", "");
 
         Intent sendIntent = new Intent("android.intent.action.MAIN");
         sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  283838 \n Costo: $2  \n Ubicacion: https://www.google.com/maps/search/?api=1&query=36.26577,-92.54324/");
+    sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Costo: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+longUbicacion+","+latUbicacion+"/");
 
 
-        sendIntent.setAction(Intent.ACTION_SEND);
+
+    sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.setPackage("com.whatsapp");
         sendIntent.setType("text/plain");
         startActivity(sendIntent);

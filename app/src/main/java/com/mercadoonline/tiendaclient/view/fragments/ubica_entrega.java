@@ -150,41 +150,56 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
     private void Registrar(){
         PeticionPedido pedido= new PeticionPedido();
         String tipoNegocio="";
-        if(Global.idFiltro==0) tipoNegocio="MERCADO";
-        if(Global.idFiltro==1) tipoNegocio="NEGOCIO";
 
-        pedido.setCostoEnvio(2);
-        pedido.setCostoVenta(Global.VerCompras.get(PosicionListaArray).getTotal());
-        pedido.setTotal(Total_precio);
+        //paraTodos
+
+        List<Detalle> pro= new ArrayList<>();
+        for(CompraProductos p:productos){
+
+            Detalle detproduc= new Detalle();
+            detproduc.setIdProducto(p.getIdProducto());
+            detproduc.setIdVendedor(Integer.parseInt(p.getIdVendedor()));
+            detproduc.setCantidad(p.getId_cantidad());
+            pro.add(detproduc);
+        }
+        pedido.setDetalle(pro);
         pedido.setIdUsuario(Global.LoginU.getid());
-        pedido.setIdMercado(Global.VerCompras.get(PosicionListaArray).getId());
-        pedido.setIdTransportista(0);
         pedido.setLatEntrega(""+nuevo.latitude);
         pedido.setLngEntrega(""+nuevo.longitude);
         pedido.setDireccionEntrega(direccion);
         pedido.setCelularContacto(Global.LoginU.getCelular());
-        pedido.setTipo(tipoNegocio);
+        pedido.setCostoVenta(Global.VerCompras.get(PosicionListaArray).getTotal());
+
+        if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==0) {
+            tipoNegocio = "MERCADO";
+            pedido.setTipo(tipoNegocio);
+            pedido.setIdMercado(Global.VerCompras.get(PosicionListaArray).getId());
+            pedido.setIdTransportista(0);//ojo  hasta qye se llene la BD con transportistas
+            pedido.setCostoEnvio(2);
+            pedido.setTotal(Total_precio);
+        }
+
+        if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==1) {
+            tipoNegocio="NEGOCIO";
+            pedido.setTipo(tipoNegocio);
+            pedido.setIdNegocio(Global.VerCompras.get(PosicionListaArray).getId());
+            pedido.setIdVendedor(Global.VerCompras.get(PosicionListaArray).getIdUsuario());
+            pedido.setTotal(Global.VerCompras.get(PosicionListaArray).getTotal());
+        }
+
+
+
+
+
+
+
+
+
 
         //0 puesto
         //1negocio
 
-List<Detalle> pro= new ArrayList<>();
-        for(CompraProductos p:productos){
 
-            Detalle detproduc= new Detalle();
-
-
-            detproduc.setIdProducto(p.getIdProducto());
-            detproduc.setIdVendedor(Integer.parseInt(p.getIdVendedor()));
-            detproduc.setCantidad(p.getId_cantidad());
-
-
-            pro.add(detproduc);
-
-
-        }
-
-        pedido.setDetalle(pro);
         Gson gson = new Gson();
         String JSONPedido= gson.toJson(pedido);
         //("json",JSONPedido);

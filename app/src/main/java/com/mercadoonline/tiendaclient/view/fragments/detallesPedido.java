@@ -1,6 +1,7 @@
 package com.mercadoonline.tiendaclient.view.fragments;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -381,6 +382,8 @@ View linea_entregado ;
     private void dialog_Whats(){
         Dialog myDialog;
         myDialog = new Dialog(getActivity());
+
+
         myDialog.setContentView(R.layout.menu_envio_datos);
         myDialog.setCancelable(true);
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -400,6 +403,7 @@ View linea_entregado ;
                     } else {
                         numeroTelefono = codigo_pais.getSelectedCountryCode() + numero.getText().toString().trim();
                     }
+                    enviaMensajeWhatsApp(pedido.getCliente().getCelular(),numeroTelefono,""+pedido.getCostoEnvio(),""+pedido.getEntrega().getLngEntrega(),""+pedido.getEntrega().getLatEntrega() );
                 }
 
                 //contacto
@@ -417,6 +421,35 @@ View linea_entregado ;
 
         myDialog.show();
     }
+
+    //telSend, telContactar, costo, lonLat
+    //public  LatLng nuevo=null;
+    public void  enviaMensajeWhatsApp(String telInfo, String telContactar, String costoEnvio, String longUbicacion, String latUbicacion){
+        try {
+            //String toNumber = "+593993942225"; // contains spaces.
+            String toNumber;
+            toNumber = telContactar.replace("+", "").replace(" ", "");
+
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Costo: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion+"/");
+
+
+
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.setPackage("com.whatsapp");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
+
+
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(), "Whatsapp no esta instalado.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
 
 
 }
