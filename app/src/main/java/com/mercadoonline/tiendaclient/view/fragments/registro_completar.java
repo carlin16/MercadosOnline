@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -229,6 +230,7 @@ public class registro_completar extends Fragment {
                     case 2:
                         //caso de tiendero
                         contenedor_mercado.setVisibility(View.GONE);
+                        break;
 
                 }
             }
@@ -361,10 +363,8 @@ public class registro_completar extends Fragment {
         RegisU.setDireccion(Direccion.getText().toString());
 
 
-        if (posRol > 0) {
+        if (posRol==1) {
              RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
-            //RegisU.setIdMercado();
-            //  RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
             RegisU.setPuesto(TENPuest.getText().toString());
         }
 
@@ -374,6 +374,8 @@ public class registro_completar extends Fragment {
         String JPetUser = gson.toJson(RegisU);
         //("json",JPetUser);
         pDialog.show();
+
+        Log.e("debe registrar","");
         peticion_Registro(JPetUser);
     }
 
