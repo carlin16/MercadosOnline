@@ -169,7 +169,8 @@ public interface ApiService {
 
     @Headers("Content-Type: application/json")
     @PUT("pedidos/{id}/estado/ENTREGADA")
-    Observable<Response<ResponseError>>ActualizarPedido( @Path("id") String x,
+    Observable<Response<ResponseError>>ActualizarPedido( @Path("id") String id,
+                                                         @Path("estado") String estado,
                                                          @Header("Authorization") String authorization
                                                          );
 

@@ -116,7 +116,7 @@ View linea_entregado ;
             public void onClick(View v) {
                 if(Global.Modo==1){
 
-                    peticion_estado_pedidos();
+                    peticion_estado_pedidos("ENTREGADA");
                     pDialog.show();
 
                 } if(Global.Modo==3){
@@ -186,8 +186,7 @@ View linea_entregado ;
         }else if(Global.Modo==3){
 
             TituloButtonEntrega.setText("Enviar a Transportista");
-            DetaEntregado.setVisibility(View.VISIBLE);
-            linea_entregado.setVisibility(View.VISIBLE);
+
             PedidoTituloNM.setText("Cliente");
             NombreTrasnportista.setText(pedido.getCliente().getNombres());
             PedidoCelular.setText("+"+pedido.getCliente().getCelular());
@@ -219,6 +218,11 @@ View linea_entregado ;
         if(pedido.getEstado().equals("WAITING")){
             PedidoStatus.setBackground(getResources().getDrawable(R.drawable.border_estatus_naranja));
             PedidoTxtStatus.setText("En Espera");
+
+            if(Global.Modo==3){
+                DetaEntregado.setVisibility(View.VISIBLE);
+                linea_entregado.setVisibility(View.VISIBLE);
+            }
 
         }
 
@@ -324,12 +328,12 @@ View linea_entregado ;
                 });
     }
 
-    private void peticion_estado_pedidos(){
+    private void peticion_estado_pedidos(String estado){
         Log.e("Pedidos","Detalles");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.ActualizarPedido( id_pedido,Global.LoginU.getToken())
+        disposable = (Disposable) retrofitApi.ActualizarPedido(id_pedido,estado,Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<ResponseError>>() {
@@ -461,6 +465,7 @@ View linea_entregado ;
             startActivity(sendIntent);
 
 
+            peticion_estado_pedidos("IN_PROGRESS");
 
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getActivity(), "Whatsapp no esta instalado.", Toast.LENGTH_LONG).show();

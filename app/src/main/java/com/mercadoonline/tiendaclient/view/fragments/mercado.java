@@ -106,7 +106,7 @@ public class mercado extends Fragment {
     @Override
     public void onStart() {
         if(locationManager==null)
-        miUbicacion();
+            miUbicacion();
         super.onStart();
     }
 
@@ -143,7 +143,7 @@ public class mercado extends Fragment {
 
 
                         if(response.isSuccessful()){
-                           listado.clear();
+                            listado.clear();
                             //("code VM",""+response.code());
                             //("respuest VM",Global.convertObjToString(response.body()));
                             listado.addAll(response.body());
@@ -177,14 +177,14 @@ public class mercado extends Fragment {
                     public void onComplete() {
 
                         //("code VM","completado");
-                       // adapter.notifyDataSetChanged();
+                        // adapter.notifyDataSetChanged();
                         if(getActivity()==null || isRemoving() || isDetached()){
                             //("activity","removido de la actividad mercado");
                             return;
                         }else{
                             if(continuar){
                                 if(Global.idFiltro==0)
-                                iniciar_recycler();
+                                    iniciar_recycler();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                             }
@@ -198,8 +198,8 @@ public class mercado extends Fragment {
 
     public void filtro(String S){
 
-    if(adapter!=null)
-        adapter.getFilter().filter(S);
+        if(adapter!=null)
+            adapter.getFilter().filter(S);
     }
 
 
@@ -224,15 +224,15 @@ public class mercado extends Fragment {
 
         icono_filtro
                 .setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
 
-               // enviaMensajeWhatsApp();
-                popupFiltro(v);
+                        // enviaMensajeWhatsApp();
+                        popupFiltro(v);
 
-            }
-        });
+                    }
+                });
 
 
 
@@ -329,7 +329,7 @@ public class mercado extends Fragment {
                         }else{
                             if(continuar){
                                 if(Global.idFiltro==1)
-                                iniciar_recycler2();
+                                    iniciar_recycler2();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
                             }
@@ -363,7 +363,7 @@ public class mercado extends Fragment {
 
     public void llamarPreferences(){
         SharedPreferences DtsRescatados=getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-       String filtro=DtsRescatados.getString("FiltroS", "MERCADO");
+        String filtro=DtsRescatados.getString("FiltroS", "MERCADO");
         //Log.e("")
         if(filtro.equals("MERCADO")){
             Global.idFiltro=0;
@@ -429,8 +429,8 @@ public class mercado extends Fragment {
         });
 
 
-       // popupWindow.showAsDropDown(v);
-       popupWindow.showAsDropDown(v,-300,-65);
+        // popupWindow.showAsDropDown(v);
+        popupWindow.showAsDropDown(v,-300,-65);
         popupWindow.getContentView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -468,30 +468,30 @@ public class mercado extends Fragment {
 
     }
 
-//telSend, telContactar, costo, lonLat
+    //telSend, telContactar, costo, lonLat
     //public  LatLng nuevo=null;
     public void  enviaMensajeWhatsApp(String telInfo, String telContactar, Double costoEnvio, String longUbicacion, String latUbicacion){
-try {
-        //String toNumber = "+593993942225"; // contains spaces.
-        String toNumber;
-        toNumber = telContactar.replace("+", "").replace(" ", "");
+        try {
+            //String toNumber = "+593993942225"; // contains spaces.
+            String toNumber;
+            toNumber = telContactar.replace("+", "").replace(" ", "");
 
-        Intent sendIntent = new Intent("android.intent.action.MAIN");
-        sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-    sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Costo: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+longUbicacion+","+latUbicacion+"/");
-
-
-
-    sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.setPackage("com.whatsapp");
-        sendIntent.setType("text/plain");
-        startActivity(sendIntent);
+            Intent sendIntent = new Intent("android.intent.action.MAIN");
+            sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:  "+""+telInfo+ "\n Costo: $"+""+costoEnvio+  "\n Ubicacion: https://www.google.com/maps/search/?api=1&query="+longUbicacion+","+latUbicacion+"/");
 
 
 
-    } catch (android.content.ActivityNotFoundException ex) {
-        Toast.makeText(getActivity(), "Whatsapp no esta instalado.", Toast.LENGTH_LONG).show();
-    }
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.setPackage("com.whatsapp");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
+
+
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(), "Whatsapp no esta instalado.", Toast.LENGTH_LONG).show();
+        }
     }
 
 
