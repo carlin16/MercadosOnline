@@ -2,18 +2,27 @@ package com.mercadoonline.tiendaclient.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.mercadoonline.tiendaclient.R;
+import com.mercadoonline.tiendaclient.mapas.MapDialogFragment;
 import com.mercadoonline.tiendaclient.models.enviado.PeticionLoginUser;
 import com.mercadoonline.tiendaclient.models.enviado.RequestGCToken;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
@@ -41,6 +50,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -56,6 +66,11 @@ public class Principal extends AppCompatActivity {
     RequestGCToken ReqGcToken= new RequestGCToken();
 boolean noti=false;
 int position=0;
+
+    SweetAlertDialog dialog_permisos;
+    SweetAlertDialog dialog_manual;
+    MapDialogFragment map;
+    public  LatLng NuevaUbicacion =null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +169,7 @@ int position=0;
             finish();
 
         }
-
+        validar_permisos();
 
        /* getSupportFragmentManager().beginTransaction()
                 //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
@@ -513,5 +528,102 @@ int position=0;
         //("Datos g", Pass);
 
     }
+
+    private boolean validar_permisos() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return true;
+        }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //("tengo permisos", "bien");
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) ||
+                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                //Todo no tiene permisos y le sale para dar
+                cargarDialogoRecomendacion();
+                //("dialogo", "recomendacion");
+            } else {
+                //Todo no tiene permisos por que los nego y puso no volver a presentar asi que  mandamos de nuevo  a pedir y entrara
+                //Todo a permisos manual
+                //  requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                //("dialogo", "else");
+            }
+            return false;
+        }
+        return true;
+    }
+    //Todo un dialog que recomienda por que activar los permisos
+
+    private void cargarDialogoRecomendacion() {
+
+        dialog_permisos = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+        dialog_permisos.setTitleText("Permisos Desactivados");
+        dialog_permisos.setContentText("Active los permisos de \n ubicación.");
+        dialog_permisos.setConfirmText("OK");
+        dialog_permisos.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                    requestPermissions
+                            (new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                }
+                dialog_permisos.dismissWithAnimation();
+            }
+        });
+
+
+        dialog_permisos.setCancelable(false);
+        dialog_permisos.show();
+    }
+
+    private void solicitarPermisosManual() {
+        dialog_manual = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
+        dialog_manual.setTitleText("Permisos Desactivados");
+        dialog_manual.setContentText("Configure los permisos de forma manual para el correcto funcionamiento \n de la App");
+        dialog_manual.setConfirmText("OK");
+        dialog_manual.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                Intent intent = new Intent();
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+               // Uri uri = Uri.fromParts("package",this , null);
+                Uri uri=Uri.fromParts("package", ":", null);
+                intent.setData(uri);
+                startActivity(intent);
+
+                dialog_manual.dismissWithAnimation();
+            }
+        });
+
+
+        dialog_manual.setCancelable(false);
+        dialog_manual.show();
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 100) {
+            if (grantResults.length == 2
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                //("permisos ", "defecto");
+
+                //map.show(getFragmentManager(), null);
+                // ir_ubicacion();
+
+            } else {
+                //("permisos", "manual");
+
+                solicitarPermisosManual();
+            }
+        }
+
+    }
+
+
 
 }

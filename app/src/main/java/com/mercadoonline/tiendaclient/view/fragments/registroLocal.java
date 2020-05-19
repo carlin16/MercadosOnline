@@ -732,8 +732,8 @@ public class registroLocal extends Fragment {
 
         dialog_permisos = new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE);
         dialog_permisos.setTitleText("Permisos Desactivados");
-        dialog_permisos.setContentText("Debe aceptar los permisos para el correcto funcionamiento de la App");
-        dialog_permisos.setConfirmText("OK2");
+        dialog_permisos.setContentText("Active los permisos de \n ubicación.");
+        dialog_permisos.setConfirmText("OK");
         dialog_permisos.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
@@ -754,7 +754,7 @@ public class registroLocal extends Fragment {
     private void solicitarPermisosManual() {
         dialog_manual = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
         dialog_manual.setTitleText("Permisos Desactivados");
-        dialog_manual.setContentText(" Configure los permisos de forma manual para el correcto funcionamiento de la App");
+        dialog_manual.setContentText("Configure los permisos de forma manual para el correcto funcionamiento \n de la App");
         dialog_manual.setConfirmText("OK");
         dialog_manual.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
             @Override
