@@ -407,10 +407,15 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                         //("Calle", "-" + tienda.getCalle());
                         //("Ciudad", tienda.getCiudad());
                         //("Pais", tienda.getPais());*/
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            //("activity","removido de la actividad mercado");
+                            return;
+                        }else{
                             if(direccion.length()>3)
                                 UbicaBtnContinuar.setVisibility(View.VISIBLE);
-                        UbicacionDireccion.setText(direccion);
+                            UbicacionDireccion.setText(direccion);
 
+                        }
                     }
                 });
 

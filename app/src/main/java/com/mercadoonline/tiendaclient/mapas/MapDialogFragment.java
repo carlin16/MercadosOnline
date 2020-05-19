@@ -90,7 +90,6 @@ GoogleMap gmap;
             public void onClick(View v) {
                 if(locationManager!=null)
                 locationManager.removeUpdates(locListener);
-
                 onItemOk.onItemClickok(nuevo);
                 dismiss();
             }
@@ -264,6 +263,7 @@ Log.e("click","click");
 
         }
     };
+
 
     private void actualizarUbicacion(Location location) {
         if (location != null) {

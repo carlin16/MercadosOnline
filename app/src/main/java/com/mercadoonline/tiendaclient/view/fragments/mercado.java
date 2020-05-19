@@ -1,40 +1,38 @@
 package com.mercadoonline.tiendaclient.view.fragments;
 
-import android.content.ComponentName;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.telephony.PhoneNumberUtils;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.type.LatLng;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.adapter.VistaMultitienda;
 import com.mercadoonline.tiendaclient.adapter.VistasMercado;
@@ -51,7 +49,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -69,6 +66,7 @@ public class mercado extends Fragment {
     public mercado() {
         // Required empty public constructor
     }
+    LocationManager locationManager =null;
 
     View vista;
     RecyclerView recyclerView;
@@ -86,12 +84,8 @@ public class mercado extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
         vista= inflater.inflate(R.layout.fragment_mercado, container, false);
-
-return vista;
+        return vista;
     }
 
     @Override
@@ -102,15 +96,29 @@ return vista;
         icono_filtro=vista.findViewById(R.id.icono_filtro);
         icono_filtro.setVisibility(View.VISIBLE);
         TituloVista=vista.findViewById(R.id.TituloVista);
-
-
-
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
-llamarPreferences();
-
+        llamarPreferences();
         click();
+    }
 
+
+    @Override
+    public void onStart() {
+        if(locationManager==null)
+        miUbicacion();
+        super.onStart();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if(locationManager!=null){
+            locationManager.removeUpdates(locListener);
+        }
+
+
+
+        super.onDestroyView();
     }
 
     private void  iniciar_recycler(){
@@ -272,7 +280,7 @@ llamarPreferences();
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerTiendas(""+Global.LoginU.getToken())
+        disposable = (Disposable) retrofitApi.VerTiendas(Global.latitudCliente,Global.longitudCliente,""+Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseTiendas>>>() {
@@ -434,7 +442,30 @@ llamarPreferences();
 
 
 
+    private void obtnerUbicacion() {
+        LocationManager locationManager = (LocationManager)
+                getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
 
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Log.e("falllo","al rscatar ubicaacion");
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager
+                .getBestProvider(criteria, false));
+        double latitude = location.getLatitude();
+        double longitud = location.getLongitude();
+        Log.e("ubicacion",""+latitude);
+        Log.e("ubicacion",""+longitud);
+
+    }
 
 //telSend, telContactar, costo, lonLat
     //public  LatLng nuevo=null;
@@ -462,5 +493,66 @@ try {
     }
     }
 
+
+
+
+    private void miUbicacion() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 40000, 5, locListener, Looper.getMainLooper());
+        actualizarUbicacion(location);
+        // locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,100,0,locListener);
+    }
+
+
+
+
+
+
+
+
+
+
+    LocationListener locListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            Log.e("actualizar","ubicacion");
+            actualizarUbicacion(location);
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
+    };
+
+
+
+
+    private void actualizarUbicacion(Location location) {
+        if (location != null) {
+            Global.latitudCliente=""+location.getLatitude();
+            Global.longitudCliente=""+location.getLongitude();
+
+            Log.e("prueba",Global.latitudCliente);
+            Log.e("prueba",Global.longitudCliente);
+
+        }
+
+    }
 
 }

@@ -202,7 +202,8 @@ public interface ApiService {
 
     @Headers("Content-Type: application/json")
     @GET("tiendas")
-    Observable<Response<List<ResponseTiendas>>>VerTiendas(
+    Observable<Response<List<ResponseTiendas>>>VerTiendas(  @Query("lat") String lat ,
+                                                            @Query("lng") String lng,
                                                              @Header("Authorization") String authorization
     );
 
