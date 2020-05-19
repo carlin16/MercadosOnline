@@ -362,8 +362,8 @@ public class registro_completar extends Fragment {
 
 
         if (posRol > 0) {
-            // RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
-            RegisU.setIdMercado(1);
+             RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
+            //RegisU.setIdMercado();
             //  RegisU.setIdMercado(mercadito.get(Mercado.getSelectedItemPosition()).getId());
             RegisU.setPuesto(TENPuest.getText().toString());
         }

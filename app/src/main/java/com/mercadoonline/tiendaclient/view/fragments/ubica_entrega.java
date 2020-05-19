@@ -306,9 +306,14 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         }
         else
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(nuevo,mMap.getCameraPosition().zoom));
-        consulta_ubicacion();
-        //direccion();
 
+
+        if(getActivity()==null || isRemoving() || isDetached()){
+            //("activity","removido de la actividad mercado");
+            return;
+        }else{
+            consulta_ubicacion();
+        }
     }
 
     private void actualizarUbicacion(Location location) {
@@ -363,36 +368,15 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                                 if(respuesta.body().getResults().size()>0)
                                 direccion = respuesta.body().getResults().get(0).getFormattedAddress();
                             }catch (Exception e){
+                                if(getActivity()==null || isRemoving() || isDetached()){
+                                    //("activity","removido de la actividad mercado");
+                                    return;
+                                }else{
+                                    direccion();
+                                }
 
-                                direccion();
                             }
-
                         } else direccion();
-
-
-
-                       /* //todo cambio
-                        for (AddressComponent address : respuesta.getResults().get(0).getAddressComponents()) {
-
-
-                            for (String s : address.getTypes()) {
-                                //("Carlin:", "---" + s);
-
-
-                                datos_ubicacion(s, address.getLongName());
-                            }
-
-
-                            if (address.getTypes().contains(ApiString.CIUDADELA3) || address.getTypes().contains(ApiString.CIUDADELA4)) {
-                                tienda.setCiudad(address.getLongName());
-                            } else if (address.getTypes().contains(ApiString.CIUDADELA) || address.getTypes().contains(ApiString.CIUDADELA2)) {
-                                tienda.setCiudad(address.getLongName());
-                            }
-
-
-                        }
-*/
-
                     }
 
                     @Override
@@ -518,6 +502,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                            // clearFragmentBackStack();
                             getFragmentManager().beginTransaction()
                                     .replace(R.id.Contenedor_Fragments, new pedido()).commit();
+
                             ((Principal) getActivity()).clearFragmentBackStack();
                             ((Principal) getActivity()).cambiar_tab(1);
                             Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
