@@ -464,6 +464,7 @@ public class mercado extends Fragment {
         double longitud = location.getLongitude();
         Log.e("ubicacion",""+latitude);
         Log.e("ubicacion",""+longitud);
+        //
 
     }
 
