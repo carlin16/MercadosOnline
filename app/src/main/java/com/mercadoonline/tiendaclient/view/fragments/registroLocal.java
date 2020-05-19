@@ -634,7 +634,7 @@ public class registroLocal extends Fragment {
         retrofit2 = RetrofitCliente.getInstance();
         retrofitApi2 = retrofit2.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi2.TraerCategoriasTiendas()
+        disposable = (Disposable) retrofitApi2.TraerCategoriasTiendas(Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseCategorias>>>() {

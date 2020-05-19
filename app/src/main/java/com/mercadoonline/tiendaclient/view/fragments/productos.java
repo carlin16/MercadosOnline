@@ -148,7 +148,7 @@ Log.e("el modo es",""+Global.Modo);
             }
 
 
-        }else if(Global.Modo==2){
+        }else if(Global.Modo==2 ){
             //TODO la lista de productos debe consultarse modo vendedor(pertence a un mercado)
             mirar_producto();
             peticion_ProductosPorID();
@@ -185,7 +185,7 @@ Log.e("el modo es",""+Global.Modo);
                Log.e("el producto es",Global.convertObjToString(product));
 
                 if(Global.Modo==1){comprar_productos(product);}
-                else if(Global.Modo==2){seleccionar_producto(product,position);}
+                else if(Global.Modo==2 || Global.Modo==3){seleccionar_producto(product,position);}
             }
         });
        /* RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -612,8 +612,11 @@ private void llenarCarrito(Producto product){
                         ls_listado.clear();
 
                        for (Producto x:TiendaPorId.getProductos()){
+                           if(x.getEstado()==1){
+                               ls_listado.add(x);
+                           }
 
-                           ls_listado.add(x);
+
                           // ListProdcutsPorPuesto.add(x.getProductos());
                            // adapter.notifyDataSetChanged();
 
@@ -702,7 +705,10 @@ private void llenarCarrito(Producto product){
 
                             ls_listado.clear();
                             for (Producto x:muestreo){
-                                ls_listado.add(x);
+                                if(x.getEstado()==1){
+                                    ls_listado.add(x);
+                                }
+
                                 // ListProdcutsPorPuesto.add(x.getProductos());
                                 // adapter.notifyDataSetChanged();
 
@@ -723,7 +729,9 @@ private void llenarDatosVendedor(){
 
     Cantidadpro.setText(""+(ls_listado.size()) +" Productos");
 
+
     Idpuesto.setText(TiendaPorId.getCodigo());
+    if(Global.Modo==3) Idpuesto.setText("");
 
    // String url= Global.UrlImagen+" images/profile-"+lst_normal.get(position).getIdVendedor()+".jpg";
 
