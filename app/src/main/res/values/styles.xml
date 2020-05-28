@@ -52,6 +52,8 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:background">@color/col_White</item>
     </style>
+
+    
     <style name="TextInputLayoutHint" parent="">
         <item name="android:textColorHint">@color/col_gris</item>
         <item name="colorControlNormal">@color/col_negrosolida</item>

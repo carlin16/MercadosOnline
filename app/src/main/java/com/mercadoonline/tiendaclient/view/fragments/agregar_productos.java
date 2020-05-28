@@ -240,7 +240,7 @@ public class agregar_productos extends Fragment {
 
 
     private void llenar_edicion(){
-        String url=Global.Url+"productos/"+product.getId()+"/foto";
+        String url=Global.UrlImagen+product.getUrlImagen();
         Glide.with(this).load(url).placeholder(R.drawable.ic_place_productos).error(R.drawable.ic_place_productos).fitCenter().into(NPImage);
         NP_Esconder.setVisibility(View.GONE);
         NPImage.setVisibility(View.VISIBLE);

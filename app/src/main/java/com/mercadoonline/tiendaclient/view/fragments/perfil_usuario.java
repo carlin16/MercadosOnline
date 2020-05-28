@@ -186,6 +186,7 @@ public class perfil_usuario extends Fragment {
 
         Glide.with(this).load(LinkImagenP).diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.placeholder_perfil)
+                .diskCacheStrategy(DiskCacheStrategy.NONE )
                 .error(R.drawable.placeholder_perfil).apply(RequestOptions.circleCropTransform()).into(PerfilFoto);
 
 

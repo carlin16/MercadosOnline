@@ -366,6 +366,8 @@ public class registro_completar extends Fragment {
         if (posRol==1) {
              RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
             RegisU.setPuesto(TENPuest.getText().toString());
+        }else if(posRol==2){
+            RegisU.setRol("TIENDERO");
         }
 
 
@@ -430,6 +432,7 @@ public class registro_completar extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
+                        Snackbar.make(vista, "" + e.toString(), Snackbar.LENGTH_LONG).show();
                         pDialog.dismiss();
                     }
 
@@ -446,8 +449,6 @@ public class registro_completar extends Fragment {
                             Credenciales.setPassword(RegisU.getPassword());
                             Gson gson = new Gson();
                             String JPetCredenciales = gson.toJson(Credenciales);
-
-
                             //("json",JPetCredenciales);
                             peticion_Login(JPetCredenciales);
                             guardarPreferences(RegisU.getUsuario(), RegisU.getPassword());

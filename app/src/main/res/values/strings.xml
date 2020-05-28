@@ -17,7 +17,7 @@
     <string-array name="Roles">
         <item>Cliente</item>
         <item>Vendedor</item>
-        <item>Tiendero</item>
+        <item>Mi Negocio</item>
     </string-array>
 
     <string-array name="TipoNegocio">

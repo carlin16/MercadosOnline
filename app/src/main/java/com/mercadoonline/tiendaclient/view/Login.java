@@ -86,11 +86,7 @@ public class Login extends AppCompatActivity {
         Click();
 
     }
-    private void UiAnima(){
-        Rebote = AnimationUtils.loadAnimation(this, R.anim.rebote);
 
-
-    }
     private  void UI(){
         ETLoginUser=findViewById(R.id.LoginUser);
         ETLoginPass=findViewById(R.id.LoginPass);

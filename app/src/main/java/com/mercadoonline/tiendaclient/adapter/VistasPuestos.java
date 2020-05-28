@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseVerAllPuesto;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseVerMercado;
@@ -85,6 +86,8 @@ public class VistasPuestos extends RecyclerView.Adapter<VistasPuestos.MultiHolde
                 .with(holder.imagen.getContext())
                 .load(url)
                 // .override(60,60)
+                .diskCacheStrategy(DiskCacheStrategy.NONE )
+
                 .placeholder(R.drawable.placeholder_mercado)
                 .error(R.drawable.placeholder_mercado)
                 .into(holder.imagen);
