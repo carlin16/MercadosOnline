@@ -78,7 +78,7 @@ import static com.mercadoonline.tiendaclient.utils.Global.verificar_vacio;
 public class registro_completar extends Fragment {
 
     Uri imagen_perfil;
-
+//
     /////
     View vista;
     String[] Roles;

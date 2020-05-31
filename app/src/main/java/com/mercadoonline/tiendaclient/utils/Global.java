@@ -27,7 +27,7 @@ public class Global {
     public static String Url="http://mercados-online.com/api/";
     public static String UrlImagen="http://mercados-online.com/storage/";
 
-
+//
     //public static String Url="http://209.188.18.144/dev/public/api/";
    //public static String UrlImagen="http://209.188.18.144/dev/public/storage/";
     public static  List<ResponseCategorias> categorias = new ArrayList<>();

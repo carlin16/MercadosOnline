@@ -10,9 +10,9 @@
     <string name="Registrarse"><u>Registrarse</u></string>
 
     <string name="mensaje_ubicacion">Escoje su ubicación.</string>
+    <string name="prueba">Escoje su ubicación.</string>
 
     <string name="info_wasap">Asegurese de tener instalado Whatsapp en su dispositivo</string>
-
     <string name="IniciarSesion"><u>Iniciar Sesión</u></string>
     <string-array name="Roles">
         <item>Cliente</item>
