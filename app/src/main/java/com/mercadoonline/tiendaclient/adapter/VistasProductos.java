@@ -58,7 +58,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     @NonNull
     @Override
     public MultiHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_productos,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_productos2,parent,false);
 
 
         //RecyclerView.LayoutParams layoutParams= new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -69,7 +69,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MultiHolder holder, final int position) {
-       holder.nombre.setText(lst_normal.get(position).getNombre());
+       holder.nombre.setText(lst_normal.get(position).getDescripcion());
         DecimalFormat f = new DecimalFormat("##.00");
         if(Double.parseDouble(""+lst_normal.get(position).getPrecio())<1.0){
             holder.precio.setText("$0"+f.format(Double.parseDouble(""+lst_normal.get(position).getPrecio())));
@@ -78,7 +78,7 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
         }
         //holder.precio.setText("$"+f.format(Double.parseDouble(lst_normal.get(position).getPrecio())));
        // holder.precio.setText("$"+lst_normal.get(position).getPrecio());
-        holder.Unidades.setText(""+lst_normal.get(position).getUnidades());
+        holder.Unidades.setText(""+lst_normal.get(position).getNombre());
     //  aqui guia te y setea acvtualiza el response
 //
         String url=Global.UrlImagen+lst_normal.get(position).getUrlImagen();
@@ -124,9 +124,9 @@ public class VistasProductos extends RecyclerView.Adapter<VistasProductos.MultiH
             super(itemView);
           //  if(Global.Modo==1){
                 imagen=itemView.findViewById(R.id.TVPuestoFotoV);
-                nombre=itemView.findViewById(R.id.TVProducNombre);
+                nombre=itemView.findViewById(R.id.TVDescripProd);
                 precio=itemView.findViewById(R.id.TVProducValor);
-             Unidades=itemView.findViewById(R.id.TVProducUnidades);
+             Unidades=itemView.findViewById(R.id.TVNombreProdu);
 
             // }
 

@@ -426,7 +426,10 @@ View linea_entregado ;
                     } else {
                         numeroTelefono = codigo_pais.getSelectedCountryCode() + numero.getText().toString().trim();
                     }
-                    enviaMensajeWhatsApp(pedido.getCliente().getCelular(),numeroTelefono,""+pedido.getTotal(),""+pedido.getEntrega().getLngEntrega(),""+pedido.getEntrega().getLatEntrega() );
+                  //  pedido.getNegocio().getNombre();
+
+                    String nombreEnviar=pedido.getCliente().getNombres()+" "+pedido.getCliente().getApellidos();
+                    enviaMensajeWhatsApp(pedido.getCliente().getCelular(),numeroTelefono,""+pedido.getTotal(),""+pedido.getEntrega().getLngEntrega(),""+pedido.getEntrega().getLatEntrega(), pedido.getNegocio().getNombre(), nombreEnviar );
                 }
 
                 //contacto
@@ -447,7 +450,7 @@ View linea_entregado ;
 
     //telSend, telContactar, costo, lonLat
     //public  LatLng nuevo=null;
-    public void  enviaMensajeWhatsApp(String telInfo, String telContactar, String costoEnvio, String longUbicacion, String latUbicacion){
+    public void  enviaMensajeWhatsApp(String telInfo, String telContactar, String costoEnvio, String longUbicacion, String latUbicacion, String nombreNegocio, String nombreApellidoCliente){
         try {
             //String toNumber = "+593993942225"; // contains spaces.
             String toNumber;
@@ -455,7 +458,7 @@ View linea_entregado ;
 
             Intent sendIntent = new Intent("android.intent.action.MAIN");
             sendIntent.putExtra("jid", toNumber + "@s.whatsapp.net");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:+"+""+telInfo+"\nTotal a Cobrar: $"+""+costoEnvio+  "\nUbicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Contacto:+"+""+telInfo+"\nTotal a Cobrar: $"+""+costoEnvio+  "\nUbicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion+"\nNombre Negocio: "+nombreNegocio+"\nNombres del Cliente: "+nombreApellidoCliente);
 
 
 

@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Vista Mercados"
+            android:text="Mercados"
             android:textSize="18dp"
             android:gravity="center"
             >
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@color/col_negro"
-            android:text="Vista Tiendas"
+            android:text="Negocios"
             android:textSize="18dp"
             android:gravity="center"
             >
