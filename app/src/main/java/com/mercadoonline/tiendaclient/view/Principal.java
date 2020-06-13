@@ -33,6 +33,7 @@ import com.mercadoonline.tiendaclient.service.ApiService;
 import com.mercadoonline.tiendaclient.service.RetrofitCliente;
 import com.mercadoonline.tiendaclient.utils.Global;
 import com.mercadoonline.tiendaclient.utils.Vista_tabs;
+import com.mercadoonline.tiendaclient.view.fragments.categorias;
 import com.mercadoonline.tiendaclient.view.fragments.mercado;
 import com.mercadoonline.tiendaclient.view.fragments.pedido;
 import com.mercadoonline.tiendaclient.view.fragments.perfil_usuario;
@@ -105,7 +106,8 @@ int position=0;
             if(Global.LoginU.getRol().equals("CLIENTE") ){
                 if(!noti){
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                            //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                            .replace(R.id.Contenedor_Fragments, new categorias()).commit();
                 }
 
                 Global.Modo=1;

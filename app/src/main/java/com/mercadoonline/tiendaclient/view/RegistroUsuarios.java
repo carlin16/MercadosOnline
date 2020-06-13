@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.mercadoonline.tiendaclient.R;
+import com.mercadoonline.tiendaclient.view.fragments.categorias;
 import com.mercadoonline.tiendaclient.view.fragments.registro_datos_usuario;
 
 public class RegistroUsuarios extends AppCompatActivity {
@@ -17,8 +18,8 @@ public class RegistroUsuarios extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.Contenedor_Registro, new registro_datos_usuario()).commit();//aqui puedo instanciar un nuevo fragment
-                    //.replace(R.id.Contenedor_Registro, new registro_completar()).commit();//aqui puedo instanciar un nuevo fragment
+                ////.replace(R.id.Contenedor_Registro, new registro_datos_usuario()).commit();//aqui puedo instanciar un nuevo fragment
+                    .replace(R.id.Contenedor_Registro, new categorias()).commit();//aqui puedo instanciar un nuevo fragment
 
     }
 }
