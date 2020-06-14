@@ -17,6 +17,9 @@ import android.view.ViewGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.mercadoonline.tiendaclient.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.mercadoonline.tiendaclient.view.Principal.tabLayout;
 
 /**
@@ -28,7 +31,7 @@ public class categorias extends Fragment {
     TabLayout tabCategorias;
 
 
-
+List<String> categorias= new ArrayList<>();
     public categorias() {
         // Required empty public constructor
     }
@@ -39,10 +42,31 @@ public class categorias extends Fragment {
     private  void UI(){
         Log.e("ancho y alto son> ", ""+width+" "+height);
         tabCategorias=vista.findViewById(R.id.catTab);
-        tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaaa 1"));
-        tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaa 2"));
-        tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaa 3"));
-        tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaaa 4"));
+
+        categorias.add("Mercados");
+        categorias.add("tiendas");
+        categorias.add("restaurantes");
+        categorias.add("negocios");
+        categorias.add("Mercados");
+        categorias.add("tiendas");
+        categorias.add("restaurantes");
+        categorias.add("negocios");
+
+
+
+
+        for (String cat:categorias){
+
+            tabCategorias.addTab (tabCategorias.newTab (). setText (cat));
+        }
+
+      /*  tabCategorias.addTab (tabCategorias.newTab (). setText ("Mercados"));
+        tabCategorias.addTab (tabCategorias.newTab (). setText ("Negocios"));
+        tabCategorias.addTab (tabCategorias.newTab (). setText ("Mercados"));
+        tabCategorias.addTab (tabCategorias.newTab (). setText ("Negocios"));
+        tabCategorias.addTab (tabCategorias.newTab (). setText ("Mercados"));
+        tabCategorias.addTab (tabCategorias.newTab (). setText ("Negocios"));*/
+       // tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaa 3"));
        // tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaa 5"));
        // tabCategorias.addTab (tabCategorias.newTab (). setText ("Tabaaaaa 6"));
         Log.e("el tip cat es>",""+tabCategorias.getTabMode());
@@ -50,14 +74,22 @@ public class categorias extends Fragment {
         float myTabLayoutSize = 360;
         int tamTab=tabCategorias.getWidth();
         Log.e("el ancho del tab es> ", ""+tamTab);
-        if (width >= myTabLayoutSize ){
+
+       if(categorias.size()>3){
+           tabCategorias.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+       }else{
+           tabCategorias.setTabMode(TabLayout.MODE_FIXED);
+       }
+
+       /* if (width >= myTabLayoutSize ){
             tabCategorias.setTabMode(TabLayout.MODE_FIXED);
             tabCategorias.setTabGravity(TabLayout.GRAVITY_FILL);
             Log.e("modo", "fijo");
         } else {
             tabCategorias.setTabMode(TabLayout.MODE_SCROLLABLE);
             Log.e("modo", "scorlable");
-        }
+        }*/
 
     }
 

@@ -106,8 +106,8 @@ int position=0;
             if(Global.LoginU.getRol().equals("CLIENTE") ){
                 if(!noti){
                     getSupportFragmentManager().beginTransaction()
-                            //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
-                            .replace(R.id.Contenedor_Fragments, new categorias()).commit();
+                            .replace(R.id.Contenedor_Fragments, new mercado()).commit();
+                            //.replace(R.id.Contenedor_Fragments, new categorias()).commit();
                 }
 
                 Global.Modo=1;

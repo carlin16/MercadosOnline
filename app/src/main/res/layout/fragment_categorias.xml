@@ -1,30 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragments.categorias">
+    android:background="@color/col_White"
+    tools:context=".view.fragments.mercado">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:background="@color/col_White"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/catTab"
-
-        android:background="@color/col_naranja2"
-        app:tabIndicatorColor="@color/col_White"
-        app:tabIndicatorHeight="3dp"
-        app:tabTextColor="@color/col_negro"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:orientation="vertical"
         >
+        <include layout="@layout/app_busqueda"></include>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/catTab"
+            android:background="@android:color/transparent"
+            app:tabIndicatorColor="@color/col_gris"
+            app:tabIndicatorHeight="3dp"
+            app:tabTextColor="@color/col_naranja"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:tabMode="scrollable"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+        </com.google.android.material.tabs.TabLayout>
 
-    </com.google.android.material.tabs.TabLayout>
 
-</FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+
