@@ -184,6 +184,8 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             pedido.setTipo(tipoNegocio);
             pedido.setIdNegocio(Global.VerCompras.get(PosicionListaArray).getId());
             pedido.setIdVendedor(Global.VerCompras.get(PosicionListaArray).getIdUsuario());
+           // pedido.setCostoEnvio(2);
+           // pedido.setTotal(Global.VerCompras.get(PosicionListaArray).getTotal()+2);
             pedido.setTotal(Global.VerCompras.get(PosicionListaArray).getTotal());
         }
 

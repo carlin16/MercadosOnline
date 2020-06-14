@@ -1,12 +1,14 @@
 package com.mercadoonline.tiendaclient.view.fragments;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,6 +21,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.json.JSONObject;
@@ -61,6 +65,7 @@ import java.util.List;
 import java.util.UUID;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
@@ -116,8 +121,17 @@ public class agregar_productos extends Fragment {
     TextView NombButton;
 
     SweetAlertDialog pDialog;
+
+    CircleImageView BtnIconAgregaPromo;
+    Spinner SpPromociones;
+    int posPromociones=0;
+    List<String> listPromociones= new ArrayList<>();
+    ArrayAdapter<String> spinnerArrayAdapter3;
+
+
     public agregar_productos() {
         // Required empty public constructor
+
     }
 
 
@@ -133,6 +147,7 @@ public class agregar_productos extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         UI();
         Click();
         animacion_cargando();
@@ -182,18 +197,43 @@ public class agregar_productos extends Fragment {
         NPImage =vista.findViewById(R.id.NPImage);
         NPRelativeImagen=vista.findViewById(R.id.NPRelativeImagen);
         NP_Esconder=vista.findViewById(R.id.NP_Esconder);
+        BtnIconAgregaPromo=vista.findViewById(R.id.BtnIconAgregarProducto);
+        SpPromociones= vista.findViewById(R.id.SPPromocion);
+
         //Cargar categorias desde consumo de API-REST
         /**/
         Unidades = Arrays.asList( UnidadesM );
 
 
 
+        spinnerArrayAdapter3 = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,listPromociones);
+        spinnerArrayAdapter3.setDropDownViewResource(R.layout.spinner_dropdown_item);
+       // spinnerArrayAdapter3.notifyDataSetChanged();
+        SpPromociones.setAdapter(spinnerArrayAdapter3);
+        SpPromociones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               /* if (position == spinnerArrayAdapter.getCount()) {
+                   ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_gris));
+                } else {
+                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_negrosolida));*/
+                posPromociones=position;
+                Log.e("pos de spiner>", ""+posPromociones);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
         ArrayAdapter<String> spinnerArrayAdapter;
         spinnerArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,Unidades);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+     //   spinnerArrayAdapter.notifyDataSetChanged();
         SPUnidad.setAdapter(spinnerArrayAdapter);
         SPUnidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -379,8 +419,12 @@ public class agregar_productos extends Fragment {
 
 
         });
-
-
+        BtnIconAgregaPromo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog_newPromo();
+            }
+        });
 
 
     }
@@ -709,6 +753,50 @@ public class agregar_productos extends Fragment {
                 });
 
 
+    }
+
+    private void dialog_newPromo(){
+        Dialog myDialog;
+        myDialog = new Dialog(getActivity());
+
+
+        myDialog.setContentView(R.layout.agregar_promocion);
+        myDialog.setCancelable(true);
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        EditText ETNombrePromo=myDialog.findViewById(R.id.ETNomPromo);
+        TextInputLayout TINombrePromo=myDialog.findViewById(R.id.TINomPromo);
+
+        ETNombrePromo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                //spn_rolUser
+                if (hasFocus) {
+
+                    TINombrePromo.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#EE8813")));
+                } else {
+                    TINombrePromo.setDefaultHintTextColor(ColorStateList.valueOf(Color.parseColor("#CCCCCC")));
+                }
+            }
+            //validaciones para que al seleccionar campo, el texview cambien de color
+
+
+        });
+        RelativeLayout  BtnGuardaPromo=myDialog.findViewById(R.id.BtnGuardarPromo);
+        BtnGuardaPromo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listPromociones.add(ETNombrePromo.getText().toString());
+                spinnerArrayAdapter3.notifyDataSetChanged();
+                SpPromociones.setSelection(listPromociones.size());
+
+                 Log.e("Promo",""+ETNombrePromo.getText().toString());
+                myDialog.dismiss();
+
+            }
+        });
+
+        myDialog.show();
     }
 
 

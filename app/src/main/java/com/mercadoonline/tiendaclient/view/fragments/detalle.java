@@ -107,6 +107,7 @@ public class detalle extends Fragment {
             DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
         }
         if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==1){
+            //CostoEnvi=2.0;
             CostoEnvi=0.0;
             DetaCostoEnvio.setText("$" + Global.formatearDecimales(CostoEnvi,2));
             DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));

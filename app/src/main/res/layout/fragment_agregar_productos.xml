@@ -8,6 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
@@ -307,6 +308,81 @@
                     android:textStyle="bold"></Spinner>
             </RelativeLayout>
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            >
+
+
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/geo"
+                    android:imeActionId="6"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:singleLine="true"
+                    android:text="Promocion"
+                    android:textColor="@color/col_naranja"
+                    android:textColorHint="@color/col_negro"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Spinner
+                    android:id="@+id/SPPromocion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/Unidades"
+                    android:fontFamily="@font/geo"
+                    android:textAlignment="center"
+                    android:textColor="@color/col_negro"
+                    android:textColorHint="@color/col_naranja"
+                    android:textSize="18sp"
+                    android:textStyle="bold"></Spinner>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_weight="1.5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+                <de.hdodenhof.circleimageview.CircleImageView
+
+                    android:id="@+id/BtnIconAgregarProducto"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="5dp"
+                    android:src="@drawable/ic_mas"
+                    android:textAlignment="center"
+                    android:textColor="@color/col_White"></de.hdodenhof.circleimageview.CircleImageView>
+
+            </RelativeLayout>
 
         </LinearLayout>
 

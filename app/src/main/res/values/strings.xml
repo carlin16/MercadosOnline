@@ -13,6 +13,7 @@
     <string name="prueba">Escoje su ubicación.</string>
 
     <string name="info_wasap">Asegurese de tener instalado Whatsapp en su dispositivo</string>
+    <string name="info_promocion">Asegurese de darle nombre correcto a su promoción</string>
     <string name="IniciarSesion"><u>Iniciar Sesión</u></string>
     <string-array name="Roles">
         <item>Cliente</item>
