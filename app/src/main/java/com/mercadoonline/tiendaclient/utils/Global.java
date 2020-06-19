@@ -33,6 +33,7 @@ public class Global {
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
     public static List<Compra> VerCompras= new ArrayList<>();
+    public static  List<ResponseCategorias> categoriasNegocios = new ArrayList<>();
 
 public static void llenarToken(){
     LoginU.setToken("Bearer "+ LoginU.getToken());

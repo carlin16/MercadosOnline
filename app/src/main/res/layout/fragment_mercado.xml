@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/col_White"
     tools:context=".view.fragments.mercado">
 
@@ -14,16 +15,19 @@
     android:orientation="vertical"
     >
     <include layout="@layout/app_busqueda"></include>
-    <TextView
-        android:id="@+id/TituloVista"
-        android:paddingStart="20dp"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/catTab"
+        android:background="@android:color/transparent"
+        app:tabIndicatorColor="@color/col_gris"
+        app:tabIndicatorHeight="3dp"
+        app:tabTextColor="@color/col_naranja"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mercados"
-        android:textColor="#1D1C1A"
-        android:layout_marginBottom="10dp"
-        android:textSize="28sp"
-        android:textStyle="bold"></TextView>
+        android:layout_height="?attr/actionBarSize"
+        app:tabMode="scrollable"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
+    </com.google.android.material.tabs.TabLayout>
 
     <androidx.recyclerview.widget.RecyclerView
      android:paddingHorizontal="20dp"

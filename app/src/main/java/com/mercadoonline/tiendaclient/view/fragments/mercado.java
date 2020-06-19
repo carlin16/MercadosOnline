@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -19,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -33,9 +35,11 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.tabs.TabLayout;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.adapter.VistaMultitienda;
 import com.mercadoonline.tiendaclient.adapter.VistasMercado;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseTiendas;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseVerMercado;
@@ -74,13 +78,20 @@ public class mercado extends Fragment {
     VistasMercado adapter;
     List<ResponseVerMercado> listado= new ArrayList<>();
     List<ResponseTiendas> ls_tienda= new ArrayList<>();
-    TextView TituloVista;
+   // TextView TituloVista;
     VistaMultitienda adapter2;
     Retrofit retrofit;
     ApiService retrofitApi;
     EditText buscar;
     Boolean continuar=false;
     String mensaje="mercado";
+
+    TabLayout tabCategorias;
+    List<String> categorias= new ArrayList<>();
+
+    int width  = Resources.getSystem().getDisplayMetrics().widthPixels;
+    int height = Resources.getSystem().getDisplayMetrics().heightPixels;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,11 +106,22 @@ public class mercado extends Fragment {
         compra=vista.findViewById(R.id.icono_buscar);
         icono_filtro=vista.findViewById(R.id.icono_filtro);
         icono_filtro.setVisibility(View.VISIBLE);
-        TituloVista=vista.findViewById(R.id.TituloVista);
+        //TituloVista=vista.findViewById(R.id.TituloVista);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
-        llamarPreferences();
+       // llamarPreferences();
+        peticion_mercado();
         click();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                creacion_tabs();
+                seleccion_tabs();
+            }
+        }, 500);
+
+
     }
 
 
@@ -183,7 +205,7 @@ public class mercado extends Fragment {
                             return;
                         }else{
                             if(continuar){
-                                if(Global.idFiltro==0)
+                               // if(Global.idFiltro==0)
                                     iniciar_recycler();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
@@ -275,12 +297,15 @@ public class mercado extends Fragment {
 
 
 
-    private void peticion_mistiendas(){
+    private void peticion_mistiendas(String id_catBuscar){
         //("peticion","mercado");
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
-        disposable = (Disposable) retrofitApi.VerTiendas(Global.latitudCliente,Global.longitudCliente,""+Global.LoginU.getToken())
+        Log.e("ubi para consulta", Global.latitudCliente+" "+Global.longitudCliente);
+        disposable = (Disposable) retrofitApi.VerTiendas(Global.latitudCliente,Global.longitudCliente,id_catBuscar,""+Global.LoginU.getToken())
+
+       // disposable = (Disposable) retrofitApi.VerTiendas("-2.1875211","-79.8946906",""+1,""+Global.LoginU.getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<Response<List<ResponseTiendas>>>() {
@@ -328,7 +353,7 @@ public class mercado extends Fragment {
                             return;
                         }else{
                             if(continuar){
-                                if(Global.idFiltro==1)
+                                //if(Global.idFiltro==1)
                                     iniciar_recycler2();
                             }else{
                                 Toast.makeText(getActivity(),mensaje,Toast.LENGTH_LONG).show();
@@ -367,17 +392,17 @@ public class mercado extends Fragment {
         //Log.e("")
         if(filtro.equals("MERCADO")){
             Global.idFiltro=0;
-            TituloVista.setText("Mercados");
+            //TituloVista.setText("Mercados");
 
         }
         else{
             Global.idFiltro=1;
 
-            TituloVista.setText("Tiendas");
+           // TituloVista.setText("Tiendas");
 
         }
         peticion_mercado();
-        peticion_mistiendas();
+      //  peticion_mistiendas();
 
     }
 
@@ -408,7 +433,7 @@ public class mercado extends Fragment {
             @Override
             public void onClick(View v) {
                 iniciar_recycler();
-                TituloVista.setText("Mercados");
+                //TituloVista.setText("Mercados");
                 Global.idFiltro=0;
                 guardarPreferences("MERCADO");
                 popupWindow.dismiss();
@@ -421,7 +446,7 @@ public class mercado extends Fragment {
             @Override
             public void onClick(View v) {
                 iniciar_recycler2();
-                TituloVista.setText("Tiendas");
+               // TituloVista.setText("Tiendas");
                 Global.idFiltro=1;
                 guardarPreferences("TIENDA");
                 popupWindow.dismiss();
@@ -553,6 +578,62 @@ public class mercado extends Fragment {
             Log.e("prueba",Global.longitudCliente);
 
         }
+
+    }
+    private void creacion_tabs(){
+        tabCategorias=vista.findViewById(R.id.catTab);
+        categorias.add("Mercados");
+        for(ResponseCategorias rcatg: Global.categoriasNegocios){
+                categorias.add(rcatg.getNombre());
+        }
+
+        for (String cat:categorias){
+
+            tabCategorias.addTab (tabCategorias.newTab (). setText (cat));
+        }
+
+        if(categorias.size()>3){
+            tabCategorias.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        }else{
+            tabCategorias.setTabMode(TabLayout.MODE_FIXED);
+        }
+    }
+
+    private void seleccion_tabs(){
+        tabCategorias.getTabAt(0).select();
+        tabCategorias.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                //  tabLayout.getTabAt(position).select();
+                Log.e("pos tab", ""+position);
+              //  elegir(tab.getPosition());
+                if(position>0){
+                    peticion_mistiendas(""+position);
+                    Global.idFiltro=1;
+                }else{
+                    iniciar_recycler();
+                    Global.idFiltro=0;
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                //("seleccion ","antiguo");
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                //  int position = tab.getPosition();
+                //("seleccion ","nuevo");
+             //   elegir(tab.getPosition());
+            }
+        });
+
+
 
     }
 

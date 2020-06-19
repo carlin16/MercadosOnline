@@ -207,6 +207,7 @@ public interface ApiService {
     @GET("tiendas")
     Observable<Response<List<ResponseTiendas>>>VerTiendas(  @Query("lat") String lat ,
                                                             @Query("lng") String lng,
+                                                            @Query("categoria") String id_catg_buscar,
                                                              @Header("Authorization") String authorization
     );
 

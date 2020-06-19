@@ -18,6 +18,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -49,6 +50,7 @@ import com.mercadoonline.tiendaclient.view.fragments.visualizadorTiendasa;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -72,6 +74,15 @@ int position=0;
     SweetAlertDialog dialog_manual;
     MapDialogFragment map;
     public  LatLng NuevaUbicacion =null;
+
+    //List<ResponseCategorias> CatTien = new ArrayList<>();
+    ArrayList<String> list_categorias = new ArrayList<String>();
+    ArrayAdapter<String> spinnerArrayAdapter;
+    Retrofit retrofit2;
+    ApiService retrofitApi2;
+    Boolean continuar = false;
+    String mensaje = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +123,7 @@ int position=0;
 
                 Global.Modo=1;
                 //("Modo", "CLIENTE");
-
+                peticion_categoriasTiendas();
             }else if(Global.LoginU.getRol().equals("VENDEDOR")  ){
 
                 if(!noti){
@@ -125,7 +136,9 @@ int position=0;
                     @Override
                     public void run() {
                         //Write whatever to want to do after delay specified (1 sec)
+                        Log.e("cate", "debe llamarse las categorias");
                         peticion_categorias();
+                       // peticion_categoriasTiendas();
 
                     }
                 }, 2000);
@@ -141,7 +154,9 @@ int position=0;
                     @Override
                     public void run() {
                         //Write whatever to want to do after delay specified (1 sec)
+                        Log.e("cate", "debe llamarse las categorias");
                         peticion_categorias();
+                       // peticion_categoriasTiendas();
 
                     }
                 }, 2000);
@@ -233,6 +248,8 @@ int position=0;
 
 
     private void elegir(int position){
+       // if(position==0)
+        Global.idFiltro=0;
         clearFragmentBackStack();
         switch (position) {
             case 0:
@@ -624,6 +641,60 @@ int position=0;
             }
         }
 
+    }
+
+    private void peticion_categoriasTiendas() {
+        //("peticion","mercado");
+        retrofit2 = RetrofitCliente.getInstance();
+        retrofitApi2 = retrofit2.create(ApiService.class);
+        Disposable disposable;
+        disposable = (Disposable) retrofitApi2.TraerCategoriasTiendas(Global.LoginU.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<ResponseCategorias>>>() {
+                    @Override
+                    public void onNext(Response<List<ResponseCategorias>> response) {
+
+
+                        if (response.isSuccessful()) {
+
+                            //("code VM",""+response.code());
+                            //("respuest VM",Global.convertObjToString(response.body()));
+                            Global.categoriasNegocios.addAll(response.body());
+                           Log.e("cat negocios",Global.convertObjToString(Global.categoriasNegocios));
+                        } else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson = new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje = staff.getMensaje();
+                                //("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+
+
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //("code VM","error");
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+
+
+
+                    }
+                });
     }
 
 
