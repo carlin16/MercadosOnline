@@ -24,12 +24,12 @@ public class Global {
     public static ResponseRegistroUser RegisUser= new ResponseRegistroUser();
     //objeto global para los datos q se presentan en el perfil de usuario
     public static ResponseUserPorID UserGlobal=new ResponseUserPorID();
-   // public static String Url="http://mercados-online.com/api/";
-    //public static String UrlImagen="http://mercados-online.com/storage/";
+    public static String Url="http://mercados-online.com/api/";
+    public static String UrlImagen="http://mercados-online.com/storage/";
 
 //
-    public static String Url="http://209.188.18.144/dev/public/api/";
-    public static String UrlImagen="http://209.188.18.144/dev/public/storage/";
+   // public static String Url="http://209.188.18.144/dev/public/api/";
+   // public static String UrlImagen="http://209.188.18.144/dev/public/storage/";
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
     public static List<Compra> VerCompras= new ArrayList<>();

@@ -39,6 +39,8 @@ import com.bumptech.glide.Glide;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.models.enviado.PeticionNuevoProducto;
 import com.mercadoonline.tiendaclient.models.recibido.Producto;
+import com.mercadoonline.tiendaclient.models.recibido.RespNewPromo;
+import com.mercadoonline.tiendaclient.models.recibido.RespPromociones;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistarProducto;
@@ -108,6 +110,7 @@ public class agregar_productos extends Fragment {
     TextInputLayout TINPNomPro , TINPPrecio, TINPDescrip;
     RelativeLayout NPBTNRegistProd;
     TextView TitutloAggP;
+    LinearLayout linearPromociones;
 
     Spinner SPCategoria ;
     Spinner SPUnidad;
@@ -127,6 +130,8 @@ public class agregar_productos extends Fragment {
     int posPromociones=0;
     List<String> listPromociones= new ArrayList<>();
     ArrayAdapter<String> spinnerArrayAdapter3;
+
+    List<RespPromociones> list_respPromociones= new ArrayList<>();
 
 
     public agregar_productos() {
@@ -149,10 +154,21 @@ public class agregar_productos extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         UI();
+        if(Global.Modo==3 ){
+            if(bandera!=2) peticion_promociones(""+idNegocio, false);
+
+        }else{
+            linearPromociones.setVisibility(View.GONE);
+        }
+
+       // peticion_promociones(""+1);
         Click();
         animacion_cargando();
 
         if(bandera==2){
+            if(Global.Modo==3) peticion_promociones(""+idNegocio, true);
+
+
             llenar_edicion();
             elegir_categoria();
             NombButton.setText("Terminar Edición");
@@ -199,6 +215,7 @@ public class agregar_productos extends Fragment {
         NP_Esconder=vista.findViewById(R.id.NP_Esconder);
         BtnIconAgregaPromo=vista.findViewById(R.id.BtnIconAgregarProducto);
         SpPromociones= vista.findViewById(R.id.SPPromocion);
+        linearPromociones= vista.findViewById(R.id.NPlinearPromocion);
 
         //Cargar categorias desde consumo de API-REST
         /**/
@@ -208,7 +225,7 @@ public class agregar_productos extends Fragment {
 
         spinnerArrayAdapter3 = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,listPromociones);
         spinnerArrayAdapter3.setDropDownViewResource(R.layout.spinner_dropdown_item);
-       // spinnerArrayAdapter3.notifyDataSetChanged();
+        // spinnerArrayAdapter3.notifyDataSetChanged();
         SpPromociones.setAdapter(spinnerArrayAdapter3);
         SpPromociones.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -233,7 +250,7 @@ public class agregar_productos extends Fragment {
         ArrayAdapter<String> spinnerArrayAdapter;
         spinnerArrayAdapter = new ArrayAdapter<>(getActivity(),R.layout.spinner_item2,Unidades);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-     //   spinnerArrayAdapter.notifyDataSetChanged();
+        //   spinnerArrayAdapter.notifyDataSetChanged();
         SPUnidad.setAdapter(spinnerArrayAdapter);
         SPUnidad.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -242,7 +259,7 @@ public class agregar_productos extends Fragment {
                    ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_gris));
                 } else {
                     ((TextView) view).setTextColor(ContextCompat.getColor(getActivity(), R.color.col_negrosolida));*/
-                    posUnidadMedida=position;
+                posUnidadMedida=position;
 
             }
 
@@ -287,6 +304,9 @@ public class agregar_productos extends Fragment {
         ETNPNomPro.setText(product.getNombre());
         ETNPDescrip.setText(product.getDescripcion());
 
+        //listPromociones.get
+        //product.ge
+
         DecimalFormat f = new DecimalFormat("##.00");
         ETNPPrecio.setText("$"+f.format(Double.parseDouble(""+product.getPrecio())));
         elegir_categoria();
@@ -298,7 +318,7 @@ public class agregar_productos extends Fragment {
     private void elegir_categoria(){
 
         // SPCategoria.selectItemByIndex(Global.Nombres_Categoria.indexOf());
-       SPUnidad.setSelection(Unidades.indexOf(product.getUnidades()));
+        SPUnidad.setSelection(Unidades.indexOf(product.getUnidades()));
 
 
         int indice=0;
@@ -359,7 +379,7 @@ public class agregar_productos extends Fragment {
             @Override
             public void onClick(View v) {
                 //    double cleanOutput = ETNPPrecio.getCleanDoubleValue();
-               validar_campos();
+                validar_campos();
 
             }
         });
@@ -501,17 +521,19 @@ public class agregar_productos extends Fragment {
         NuevoProducto.setIdCategoria(categoria.get(posCategoria).getId());
 
 
+
         if(Global.Modo==2)
-             NuevoProducto.setFuente("PUESTO");
-             NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
+            NuevoProducto.setFuente("PUESTO");
+        NuevoProducto.setIdPuesto(Global.LoginU.getId_puesto());
 
         if(Global.Modo==3){
             NuevoProducto.setFuente("NEGOCIO");
             NuevoProducto.setIdNegocio(idNegocio);
+            NuevoProducto.setIdPromocion(list_respPromociones.get(posPromociones).getId());
         }
 
 
-            //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
+        //("Llenar Ctg", "los datos llenados son "+ Global.convertObjToString(NuevoProducto));
         //siguiente_paantalla();
         Gson gson = new Gson();
         String JPetProducto= gson.toJson(NuevoProducto);
@@ -521,7 +543,7 @@ public class agregar_productos extends Fragment {
         pDialog.show();
 
 
-            if(bandera==1){
+        if(bandera==1){
             subir_ProductoConImagen(JPetProducto);
         }else{
             peticion_EdicionProduct(JPetProducto, product.getId().toString());
@@ -578,7 +600,7 @@ public class agregar_productos extends Fragment {
                         //("edicion","exito");
 
                         if(cambio)
-                        cambiar_fotoProdct(product.getId().toString());
+                            cambiar_fotoProdct(product.getId().toString());
                         else {
                             pDialog.dismiss();
                             getFragmentManager().popBackStack();
@@ -786,11 +808,16 @@ public class agregar_productos extends Fragment {
         BtnGuardaPromo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listPromociones.add(ETNombrePromo.getText().toString());
-                spinnerArrayAdapter3.notifyDataSetChanged();
-                SpPromociones.setSelection(listPromociones.size());
+                RespPromociones nuevaPromo= new RespPromociones();
+                nuevaPromo.setNombre(ETNombrePromo.getText().toString());
+                Gson gson = new Gson();
+                String JPetProducto= gson.toJson(nuevaPromo);
+                peticion_newPromocion(""+idNegocio, JPetProducto);
+              //  listPromociones.add(ETNombrePromo.getText().toString());
+               // spinnerArrayAdapter3.notifyDataSetChanged();
+              //  SpPromociones.setSelection(listPromociones.size());
 
-                 Log.e("Promo",""+ETNombrePromo.getText().toString());
+                Log.e("Promo",""+ETNombrePromo.getText().toString());
                 myDialog.dismiss();
 
             }
@@ -799,6 +826,122 @@ public class agregar_productos extends Fragment {
         myDialog.show();
     }
 
+//verPromocionesTiendas
 
+    private void peticion_promociones( String id_tienda, boolean band){
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+       // JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        disposable = (Disposable) retrofitApi.verPromocionesTiendas(id_tienda,Global.LoginU.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<RespPromociones>>>() {
+                    @Override
+                    public void onNext(Response<List<RespPromociones>> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            // cambio_pantalla=true;
+                            // Global.RegisUser=response.body();
+                            // Global.LoginU.setid(response.body().getId());
+                            //mensaje=response.body().getMensaje();
+                           // listPromociones.addAll(response.body());
+                            list_respPromociones.clear();
+                            list_respPromociones.addAll(response.body());
+                            listPromociones.clear();
+                            for(RespPromociones r: response.body()){
+                                listPromociones.add(r.getNombre());
+
+                            }
+                            spinnerArrayAdapter3.notifyDataSetChanged();
+                        } else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        pDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        //("edicion","exito");
+                        Log.e("list de promociones", Global.convertObjToString(listPromociones));
+                            if(band){
+                                Log.e("on complete", "estoy en el if band");
+                                int auxPromo=0;
+                                Log.e("size list", ""+list_respPromociones.size());
+                                Log.e("nombre promo",product.getPromocionNombre() );
+                                for(RespPromociones list: list_respPromociones){
+                                    if (list.getNombre().equals(product.getPromocionNombre()) ){
+                                        auxPromo=list_respPromociones.indexOf(list);
+                                        Log.e("compara promos", "si");
+                                    }
+                                }
+                                SpPromociones.setSelection(auxPromo);
+                            }
+
+                    }
+                });
+    }
+
+    //nuevaPromoTienda
+
+    private void peticion_newPromocion( String id_tienda, String jsonConf){
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        disposable = (Disposable) retrofitApi.nuevaPromoTienda(id_tienda,convertedObject,Global.LoginU.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<RespNewPromo>>() {
+                    @Override
+                    public void onNext(Response<RespNewPromo> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+
+
+                            //spinnerArrayAdapter3.notifyDataSetChanged();
+                        } else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        pDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        //("edicion","exito");
+                        Log.e("new promo", "creada");
+                        peticion_promociones(""+idNegocio, false);
+
+                    }
+                });
+    }
 
 }

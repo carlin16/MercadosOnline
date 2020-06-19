@@ -2,6 +2,8 @@ package com.mercadoonline.tiendaclient.service;
 
 
 import com.mercadoonline.tiendaclient.models.recibido.Producto;
+import com.mercadoonline.tiendaclient.models.recibido.RespNewPromo;
+import com.mercadoonline.tiendaclient.models.recibido.RespPromociones;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseDetallesPedidos;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
@@ -222,6 +224,21 @@ public interface ApiService {
     Observable<Response<List<Producto>>>VerProductosPorTienda(@Query("type") String tipoNegocio,
                                                               @Query("id") String idTienda,
                                                               @Header("Authorization") String authorization
+    );
+
+    @Headers("Content-Type: application/json")//FULL
+    @GET("tiendas/{id_tienda}/promociones")
+    Observable<Response<List<RespPromociones>>>verPromocionesTiendas(@Path(value = "id_tienda", encoded = true) String idTienda,
+                                                                    @Header("Authorization") String authorization
+
+    );
+
+    @Headers("Content-Type: application/json")//FULL
+    @POST("tiendas/{id_tienda}/promociones")
+    Observable<Response<RespNewPromo>>nuevaPromoTienda(@Path(value = "id_tienda", encoded = true) String idTienda,
+                                                       @Body JsonObject object,
+                                                       @Header("Authorization") String authorization
+
     );
 
 

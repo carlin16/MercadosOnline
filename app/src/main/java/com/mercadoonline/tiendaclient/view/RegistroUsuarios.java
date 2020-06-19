@@ -19,8 +19,8 @@ public class RegistroUsuarios extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         getSupportFragmentManager().beginTransaction()
-                 //.replace(R.id.Contenedor_Registro, new registro_datos_usuario()).commit();//aqui puedo instanciar un nuevo fragment
-                    .replace(R.id.Contenedor_Registro, new agregar_productos()).commit();//aqui puedo instanciar un nuevo fragment
+                 .replace(R.id.Contenedor_Registro, new registro_datos_usuario()).commit();//aqui puedo instanciar un nuevo fragment
+                    //.replace(R.id.Contenedor_Registro, new agregar_productos()).commit();//aqui puedo instanciar un nuevo fragment
 
     }
 }

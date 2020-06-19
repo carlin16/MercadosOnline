@@ -364,7 +364,10 @@ public class registro_completar extends Fragment {
 
 
         if (posRol==1) {
-             RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
+             if(Mercado.getSelectedItemPosition() < 0) {
+                 Toast.makeText(getActivity(), "No existen mercados para regsitrar", Toast.LENGTH_LONG).show();
+                 return;
+             }RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
             RegisU.setPuesto(TENPuest.getText().toString());
         }else if(posRol==2){
             RegisU.setRol("TIENDERO");

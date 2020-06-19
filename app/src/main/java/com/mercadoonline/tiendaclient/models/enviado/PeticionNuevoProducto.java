@@ -31,6 +31,18 @@ public class PeticionNuevoProducto {
     @Expose
     private String unidades;
 
+    @SerializedName("promocion")
+    @Expose
+    private int idPromocion;
+
+    public int getIdPromocion() {
+        return idPromocion;
+    }
+
+    public void setIdPromocion(int idPromocion) {
+        this.idPromocion = idPromocion;
+    }
+
     public String getFuente() {
         return fuente;
     }

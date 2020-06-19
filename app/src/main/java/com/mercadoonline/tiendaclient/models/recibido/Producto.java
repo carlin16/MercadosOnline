@@ -45,6 +45,22 @@ public class Producto {
     @Expose
     private String nombreCategoria;
 
+    @SerializedName("promocion")
+    @Expose
+    private String promocionNombre;
+
+    public String getPromocionNombre() {
+        return promocionNombre;
+    }
+
+    public void setPromocionNombre(String promocionNombre) {
+        this.promocionNombre = promocionNombre;
+    }
+
+
+
+
+
     public Integer getId() {
         return id;
     }
