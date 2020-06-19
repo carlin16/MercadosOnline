@@ -69,6 +69,10 @@ View linea_entregado ;
         LinearLayout PedidoStatus;
         RelativeLayout DetaEntregado;
         RoundedImageView atras_detalle_pedido;
+
+    LinearLayout DetacontenedorComision;
+    TextView DetaTVComision;
+
         View vista;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,6 +110,9 @@ View linea_entregado ;
         DetaEntregado=vista.findViewById(R.id.DetaEntregado);
         linea_entregado=vista.findViewById(R.id.linea_entregado);
         Costo_Comision=vista.findViewById(R.id.Costo_Comision);
+
+        DetacontenedorComision=vista.findViewById(R.id.DetConteComision);
+        DetaTVComision=vista.findViewById(R.id.DetTvComi);
 
             if(Global.Modo==2){
                 Costo_Comision.setText("Comisión");

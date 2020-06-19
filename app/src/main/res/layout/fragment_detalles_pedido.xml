@@ -366,6 +366,47 @@
 
 
                     </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:id="@+id/DetConteComision"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Comisión"
+                            android:textSize="15sp"
+                            android:textColor="@color/col_grisfuerte"
+                            android:fontFamily="@font/seguisb"
+
+                            android:layout_alignParentRight="true"
+                            >
+                        </TextView>
+
+                        <TextView
+
+                            android:id="@+id/DetTvComi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="$2.00"
+                            android:textSize="15sp"
+                            android:fontFamily="@font/seguisb"
+
+                            android:textColor="@color/col_grisfuerte"
+                            android:layout_alignParentRight="true"
+                            android:textAlignment="textEnd"
+                            >
+                        </TextView>
+
+
+                    </LinearLayout>
+
                     <LinearLayout
                         android:background="@color/col_White"
                         android:layout_width="match_parent"

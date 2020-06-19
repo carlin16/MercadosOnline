@@ -74,7 +74,8 @@ public class mercado extends Fragment {
 
     View vista;
     RecyclerView recyclerView;
-    ImageView compra,icono_filtro;
+    ImageView compra;
+            //icono_filtro;
     VistasMercado adapter;
     List<ResponseVerMercado> listado= new ArrayList<>();
     List<ResponseTiendas> ls_tienda= new ArrayList<>();
@@ -104,22 +105,28 @@ public class mercado extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         recyclerView=vista.findViewById(R.id.Recycler_mercados);
         compra=vista.findViewById(R.id.icono_buscar);
-        icono_filtro=vista.findViewById(R.id.icono_filtro);
-        icono_filtro.setVisibility(View.VISIBLE);
+       // icono_filtro=vista.findViewById(R.id.icono_filtro);
+       // icono_filtro.setVisibility(View.VISIBLE);
         //TituloVista=vista.findViewById(R.id.TituloVista);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
        // llamarPreferences();
         peticion_mercado();
         click();
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                creacion_tabs();
-                seleccion_tabs();
-            }
-        }, 500);
+        if(Global.categoriasNegocios.size()>0){
+            creacion_tabs();
+            seleccion_tabs();
+        }else{
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    creacion_tabs();
+                    seleccion_tabs();
+                }
+            }, 500);
+        }
+
 
 
     }
@@ -244,7 +251,7 @@ public class mercado extends Fragment {
         });
 
 
-        icono_filtro
+/*        icono_filtro
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -254,7 +261,7 @@ public class mercado extends Fragment {
                         popupFiltro(v);
 
                     }
-                });
+                });*/
 
 
 

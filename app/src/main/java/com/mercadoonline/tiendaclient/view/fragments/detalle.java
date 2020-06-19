@@ -20,6 +20,7 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,9 +53,11 @@ public class detalle extends Fragment {
     SweetAlertDialog dialog_permisos;
     SweetAlertDialog dialog_manual;
 
+
+
     public Compra CompraNueva = new Compra();
 
-    Double CostoEnvi = 0.0;
+    Double CostoEnvi = Global.costoEnvio;//ToDo puede ser cambiado desde base de datos
 
     public int PosicionListaArray = 0;
 
@@ -94,6 +97,8 @@ public class detalle extends Fragment {
         DetaTotal2 = vista.findViewById(R.id.DetalleTotal2);
         DetaContinuar = vista.findViewById(R.id.DetalleBtnContinuar);
 
+
+
     }
 
     private void llenar_Detalle() {
@@ -101,14 +106,14 @@ public class detalle extends Fragment {
         DetaSubtotal.setText("$" + CompraNueva.getTotal().toString());
 
         if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==0){
-            CostoEnvi=2.0;
+           // CostoEnvi=2.0;
             DetaCostoEnvio.setText("$" + Global.formatearDecimales(CostoEnvi,2));
             DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
             DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
         }
         if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==1){
             //CostoEnvi=2.0;
-            CostoEnvi=0.0;
+            //CostoEnvi=0.0;
             DetaCostoEnvio.setText("$" + Global.formatearDecimales(CostoEnvi,2));
             DetaTotal.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));
             DetaTotal2.setText("$" + Global.formatearDecimales((CompraNueva.getTotal() + CostoEnvi),2));

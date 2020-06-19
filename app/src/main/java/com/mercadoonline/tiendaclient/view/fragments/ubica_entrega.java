@@ -175,7 +175,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             pedido.setTipo(tipoNegocio);
             pedido.setIdMercado(Global.VerCompras.get(PosicionListaArray).getId());
             pedido.setIdTransportista(0);//ojo  hasta qye se llene la BD con transportistas
-            pedido.setCostoEnvio(2);
+            pedido.setCostoEnvio((int)Global.costoEnvio);
             pedido.setTotal(Total_precio);
         }
 
@@ -184,9 +184,10 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             pedido.setTipo(tipoNegocio);
             pedido.setIdNegocio(Global.VerCompras.get(PosicionListaArray).getId());
             pedido.setIdVendedor(Global.VerCompras.get(PosicionListaArray).getIdUsuario());
-           // pedido.setCostoEnvio(2);
+            pedido.setCostoEnvio((int)Global.costoEnvio);
+            pedido.setTotal(Total_precio);
            // pedido.setTotal(Global.VerCompras.get(PosicionListaArray).getTotal()+2);
-            pedido.setTotal(Global.VerCompras.get(PosicionListaArray).getTotal());
+            //pedido.setTotal(Global.VerCompras.get(PosicionListaArray).getTotal());
         }
 
 
