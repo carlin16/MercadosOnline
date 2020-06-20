@@ -1,7 +1,7 @@
 package com.mercadoonline.tiendaclient.service;
 
 
-import com.mercadoonline.tiendaclient.models.recibido.Producto;
+import com.mercadoonline.tiendaclient.models.recibido.Productos;
 import com.mercadoonline.tiendaclient.models.recibido.RespNewPromo;
 import com.mercadoonline.tiendaclient.models.recibido.RespPromociones;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
@@ -222,9 +222,9 @@ public interface ApiService {
     @Headers("Content-Type: application/json")
     //cambiar y pasar por parametros, en list poner la clase q cojo de pojo
     @GET("productos")
-    Observable<Response<List<Producto>>>VerProductosPorTienda(@Query("type") String tipoNegocio,
-                                                              @Query("id") String idTienda,
-                                                              @Header("Authorization") String authorization
+    Observable<Response<List<Productos>>>VerProductosPorTienda(@Query("type") String tipoNegocio,
+                                                               @Query("id") String idTienda,
+                                                               @Header("Authorization") String authorization
     );
 
     @Headers("Content-Type: application/json")//FULL

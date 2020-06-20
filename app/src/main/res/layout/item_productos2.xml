@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-    android:elevation="8dp"
     android:orientation="vertical"
     android:backgroundTint="@color/col_White"
     android:background="@color/col_White"

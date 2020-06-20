@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,10 +31,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.adapter.VistasProductos;
+import com.mercadoonline.tiendaclient.adapter.VistasProductosPromos;
 import com.mercadoonline.tiendaclient.models.compra.Compra;
 import com.mercadoonline.tiendaclient.models.compra.CompraProductos;
+import com.mercadoonline.tiendaclient.models.compra.PromosProductos;
 import com.mercadoonline.tiendaclient.models.compra.PuestosCompra;
-import com.mercadoonline.tiendaclient.models.recibido.Producto;
+import com.mercadoonline.tiendaclient.models.recibido.Productos;
+import com.mercadoonline.tiendaclient.models.recibido.RespPromociones;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseTiendas;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseVerAllPuesto;
@@ -72,7 +74,7 @@ public class productos extends Fragment {
     public  ResponseTiendas tienda = new ResponseTiendas();
 
     /////
-    public List<Producto> ls_listado= new ArrayList<>();
+    public List<Productos> ls_listado= new ArrayList<>();
     public Vendedor vendedor= new Vendedor();
     public ResponseVerMercado Mercado =new ResponseVerMercado();
 
@@ -100,6 +102,9 @@ public class productos extends Fragment {
     ApiService retrofitApi;
     ScaleInRightAnimator animator1 = new ScaleInRightAnimator();
 
+    List<RespPromociones> list_respPromociones= new ArrayList<>();
+    List<PromosProductos> lst_normal= new ArrayList<>();
+
 
 
 
@@ -114,6 +119,7 @@ public class productos extends Fragment {
     View vista;
     RecyclerView recyclerView;
     VistasProductos adapter;
+    VistasProductosPromos adapter2;
     TextView Idpuesto, NombreDueno, DescripcionPuesto, Cantidadpro;
     public String idPuesto="";//PT-001 Base
     public String idPuestoI="";//identificador unico
@@ -134,6 +140,7 @@ public class productos extends Fragment {
         click();
         animacion_cargando();
 Log.e("el modo es",""+Global.Modo);
+        //iniciar_recycler2();
         if(Global.Modo==1){
 
             //TODO la lista de productos viende del adaptador para cliente
@@ -145,7 +152,8 @@ Log.e("el modo es",""+Global.Modo);
             llenarDatosClientes();
             if(Global.idFiltro==1){
                 llenarDatosTiendero();
-                peticion_ProductosporTienda("TIENDA", tienda.getId());
+               // peticion_ProductosporTienda("TIENDA", tienda.getId());
+                peticion_promociones(""+tienda.getId(), false);
             }
 
 
@@ -155,7 +163,8 @@ Log.e("el modo es",""+Global.Modo);
             peticion_ProductosPorID();
         }else {
             Log.e("Estoy","Modo 3");
-            peticion_ProductosporTienda("TIENDA", tienda.getId());
+           // peticion_ProductosporTienda("TIENDA", tienda.getId());
+            peticion_promociones(""+tienda.getId(), false);
             mirar_producto();
 
             // tienda.getId()
@@ -178,10 +187,11 @@ Log.e("el modo es",""+Global.Modo);
     }
 
     private void  iniciar_recycler(){
+        Log.e("recycler 1", "estoy aqui");
         recyclerView= vista.findViewById(R.id.Recycler_productos);
         adapter=new VistasProductos(ls_listado, new VistasProductos.OnItemClicListener() {
             @Override
-            public void onItemClick(final Producto product, int position) {
+            public void onItemClick(final Productos product, int position) {
 
                Log.e("el producto es",Global.convertObjToString(product));
 
@@ -197,7 +207,23 @@ Log.e("el modo es",""+Global.Modo);
         recyclerView.setAdapter(adapter);
     }
 
-    private void seleccionar_producto(Producto product,int position){
+    private void  iniciar_recycler2(){
+        Log.e("recycler 2", "estoy aqui");
+        recyclerView= vista.findViewById(R.id.Recycler_productos);
+        adapter2=new VistasProductosPromos(lst_normal, getFragmentManager(), getActivity(), new VistasProductosPromos.OnItemClicListener() {
+            @Override
+            public void onItemClick(Productos product, int position) {
+                if(Global.Modo==1){comprar_productos(product);}
+                else if(Global.Modo==2 || Global.Modo==3){seleccionar_producto(product,position);}
+            }
+        });
+        //  RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter2);
+    }
+
+    private void seleccionar_producto(Productos product, int position){
 
         //("selccionar","estoy aqui cambiar foto");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -265,7 +291,7 @@ Log.e("el modo es",""+Global.Modo);
     }
 
 
-    private void comprar_productos(Producto product){
+    private void comprar_productos(Productos product){
 
         //("hey producto","click");
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -364,6 +390,10 @@ private void llenarDatosClientes(){
         compra=vista.findViewById(R.id.icono_buscar);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
+
+
+        //iniciar_recycler2();
+
         if(Global.Modo==2 || Global.Modo==3) {
             Resources resources = getResources();
             compra.setImageDrawable(resources.getDrawable(R.drawable.ic_plus));
@@ -413,7 +443,7 @@ private void llenarDatosClientes(){
 
 
 
-private void llenarCarrito(Producto product){
+private void llenarCarrito(Productos product){
     Compra nuevoC = new Compra();
     List<PuestosCompra> pues = new ArrayList<>();
     PuestosCompra PuestComp = new PuestosCompra();
@@ -559,6 +589,8 @@ private void llenarCarrito(Producto product){
     public void filtro(String S){
         if(adapter!=null)
             adapter.getFilter().filter(S);
+        if(adapter2!=null)
+            adapter2.getFilter().filter(S);
     }
 
     private void peticion_ProductosPorID(){
@@ -612,7 +644,7 @@ private void llenarCarrito(Producto product){
 
                         ls_listado.clear();
 
-                       for (Producto x:TiendaPorId.getProductos()){
+                       for (Productos x:TiendaPorId.getProductos()){
                            if(x.getEstado()==1){
                                ls_listado.add(x);
                            }
@@ -656,9 +688,9 @@ private void llenarCarrito(Producto product){
         disposable = (Disposable) retrofitApi.VerProductosPorTienda( tipoNegocio,""+IdTien, Global.LoginU.getToken() )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<List<Producto>>>() {
+                .subscribeWith(new DisposableObserver<Response<List<Productos>>>() {
                     @Override
-                    public void onNext(Response<List<Producto>> response) {
+                    public void onNext(Response<List<Productos>> response) {
 
                         //("code PU",""+response.code());
                         if (response.isSuccessful()) {
@@ -699,13 +731,13 @@ private void llenarCarrito(Producto product){
                             return;
                         }else{
 
-                            List<Producto> muestreo =new ArrayList<>();
+                            List<Productos> muestreo =new ArrayList<>();
                             muestreo.addAll(ls_listado);
 
                             Log.e("productos",Global.convertObjToString(muestreo));
 
                             ls_listado.clear();
-                            for (Producto x:muestreo){
+                            for (Productos x:muestreo){
                                 if(x.getEstado()==1){
                                     ls_listado.add(x);
                                 }
@@ -714,8 +746,39 @@ private void llenarCarrito(Producto product){
                                 // adapter.notifyDataSetChanged();
 
                             }
-                            iniciar_recycler();
-                            adapter.notifyDataSetChanged();
+
+                            for(Productos p : ls_listado){
+
+
+                                for(PromosProductos pro:lst_normal){
+                                    if(p.getPromocionNombre().equals(pro.getNombrePromo())){
+
+                                       lst_normal.get( lst_normal.indexOf(pro)).getLst_products().add(p);
+                                    }
+                                }
+
+                            }
+
+
+
+                            List<PromosProductos> nuevo =new ArrayList<>();
+                            for(PromosProductos pro :lst_normal){
+
+                                if(pro.getLst_products().size()>0){
+                                    nuevo.add(pro);
+                                }
+                            }
+
+
+                            lst_normal.clear();
+                            lst_normal.addAll(nuevo);
+                            Log.e("todo",""+ Global.convertObjToString(lst_normal));
+
+
+
+                            //iniciar_recycler();
+                            //adapter.notifyDataSetChanged();
+                            iniciar_recycler2();
                             llenarDatosTiendero();
 
                         }
@@ -778,7 +841,7 @@ private void llenarDatosTiendero(){
 
 
     Boolean confirmacion=false;
-    private void EliminarProducto(Producto produc,int position){
+    private void EliminarProducto(Productos produc, int position){
         mensaje="Servidor";
         retrofit = RetrofitCliente.getInstance();
         retrofitApi = retrofit.create(ApiService.class);
@@ -850,5 +913,79 @@ private void llenarDatosTiendero(){
         // eliminar("http://learn4win.com/WebServices/eliminar_alarma.php",malarma.get(position));
         ls_listado.remove(position);
         adapter.notifyItemRemoved(position);
+    }
+
+    private void peticion_promociones( String id_tienda, boolean band){
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        // JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        disposable = (Disposable) retrofitApi.verPromocionesTiendas(id_tienda,Global.LoginU.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<RespPromociones>>>() {
+                    @Override
+                    public void onNext(Response<List<RespPromociones>> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            // cambio_pantalla=true;
+                            // Global.RegisUser=response.body();
+                            // Global.LoginU.setid(response.body().getId());
+                            //mensaje=response.body().getMensaje();
+                            // listPromociones.addAll(response.body());
+                            list_respPromociones.clear();
+                            list_respPromociones.addAll(response.body());
+                            lst_normal.clear();
+                           // listPromociones.clear();
+                            for(RespPromociones r: response.body()){
+                                PromosProductos promspro= new PromosProductos();
+                                promspro.setNombrePromo(r.getNombre());
+                                lst_normal.add(promspro);
+
+                            }
+                            //spinnerArrayAdapter3.notifyDataSetChanged();
+                        } else {
+
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        pDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("complete", ""+Global.convertObjToString(lst_normal));
+                        peticion_ProductosporTienda("TIENDA", tienda.getId());
+
+                        //("edicion","exito");
+                       // Log.e("list de promociones", Global.convertObjToString(listPromociones));
+                      /*  if(band){
+                            Log.e("on complete", "estoy en el if band");
+                            int auxPromo=0;
+                            Log.e("size list", ""+list_respPromociones.size());
+                            Log.e("nombre promo",product.getPromocionNombre() );
+                            for(RespPromociones list: list_respPromociones){
+                                if (list.getNombre().equals(product.getPromocionNombre()) ){
+                                    auxPromo=list_respPromociones.indexOf(list);
+                                    Log.e("compara promos", "si");
+                                }
+                            }
+                           // SpPromociones.setSelection(auxPromo);
+                        }*/
+
+                    }
+                });
     }
 }

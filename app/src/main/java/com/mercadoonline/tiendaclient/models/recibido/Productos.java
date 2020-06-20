@@ -4,7 +4,7 @@ package com.mercadoonline.tiendaclient.models.recibido;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Producto {
+public class Productos {
     @SerializedName("id")
     @Expose
     private Integer id;

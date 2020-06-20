@@ -37,7 +37,7 @@ public class ResponseVerAllPuesto {
     private Vendedor vendedor;
     @SerializedName("productos")
     @Expose
-    private List<Producto> productos = new ArrayList<>();
+    private List<Productos> productos = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -111,11 +111,11 @@ public class ResponseVerAllPuesto {
         this.vendedor = vendedor;
     }
 
-    public List<Producto> getProductos() {
+    public List<Productos> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<Producto> productos) {
+    public void setProductos(List<Productos> productos) {
         this.productos = productos;
     }
 

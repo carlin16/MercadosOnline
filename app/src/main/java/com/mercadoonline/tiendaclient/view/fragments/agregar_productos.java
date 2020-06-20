@@ -38,7 +38,7 @@ import com.bumptech.glide.Glide;
 
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.models.enviado.PeticionNuevoProducto;
-import com.mercadoonline.tiendaclient.models.recibido.Producto;
+import com.mercadoonline.tiendaclient.models.recibido.Productos;
 import com.mercadoonline.tiendaclient.models.recibido.RespNewPromo;
 import com.mercadoonline.tiendaclient.models.recibido.RespPromociones;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
@@ -53,7 +53,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import com.rilixtech.widget.countrycodepicker.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.json.JSONObject;
@@ -89,7 +88,7 @@ public class agregar_productos extends Fragment {
 
     Retrofit retrofit;
     ApiService retrofitApi;
-    public  Producto product;
+    public Productos product;
     public int bandera=1;
     boolean cambio=false;
     public int idNegocio;
