@@ -61,12 +61,11 @@
                 <TextView
                     android:id="@+id/mercado_nombre"
                     android:layout_width="match_parent"
-
                     android:textAlignment="textStart"
                     android:paddingStart="5dp"
                     android:paddingTop="5dp"
                     android:layout_height="wrap_content"
-                    android:text="Mercado Mascote "
+                    android:text="Tienda Prueba"
                     android:textColor="@color/col_negrosolida"
                     android:textStyle="bold"
                     android:textSize="18sp"
@@ -75,18 +74,18 @@
                 </TextView>
 
                 <TextView
-                    android:layout_marginStart="5dp"
+                    android:visibility="gone"
                     android:id="@+id/TVEstadoTienda"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A"
-                    android:textStyle="bold"
-                    android:textColor="@color/col_White"
+                    android:layout_marginStart="5dp"
                     android:background="@color/col_verde_correa"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="A"
+                    android:textColor="@color/col_White"
                     android:textSize="15sp"
-                    ></TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
 
@@ -101,7 +100,8 @@
                 android:text="Av. Cuarta y la que cruza"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="15sp"
+
                 >
 
             </TextView>
@@ -109,6 +109,9 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ContenedorCreditos"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

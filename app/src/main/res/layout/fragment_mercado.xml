@@ -29,8 +29,49 @@
         >
     </com.google.android.material.tabs.TabLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-     android:paddingHorizontal="20dp"
+
+    <RelativeLayout
+        android:id="@+id/RlNoFound"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:src="@drawable/nofound"
+                >
+
+            </ImageView>
+            <TextView
+                android:textColor="@color/col_gris"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No se encontraron productos"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                >
+
+            </TextView>
+
+        </LinearLayout>
+
+
+</RelativeLayout>
+
+<androidx.recyclerview.widget.RecyclerView
+        android:paddingHorizontal="20dp"
+        android:paddingTop="10dp"
         android:layout_below="@+id/cantidad_mercados"
         android:background="@color/col_White"
         android:id="@+id/Recycler_mercados"

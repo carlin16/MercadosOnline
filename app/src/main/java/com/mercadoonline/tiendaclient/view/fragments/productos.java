@@ -883,6 +883,7 @@ private void llenarDatosTiendero(){
                     @Override
                     public void onComplete() {
 
+
                         if(confirmacion){
 
                             borrar_producto(position);
@@ -966,6 +967,11 @@ private void llenarDatosTiendero(){
 
                     @Override
                     public void onComplete() {
+
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            //("activity","removido ");
+                            return;
+                        }
                         Log.e("complete", ""+Global.convertObjToString(lst_normal));
                         peticion_ProductosporTienda("TIENDA", tienda.getId());
 

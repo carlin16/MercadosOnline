@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -86,7 +87,7 @@ public class mercado extends Fragment {
     EditText buscar;
     Boolean continuar=false;
     String mensaje="mercado";
-
+    RelativeLayout RlNoFound;
     TabLayout tabCategorias;
     List<String> categorias= new ArrayList<>();
 
@@ -110,6 +111,7 @@ public class mercado extends Fragment {
         //TituloVista=vista.findViewById(R.id.TituloVista);
         buscar=vista.findViewById(R.id.escribir_busqueda);
         buscar.clearFocus();
+        RlNoFound=vista.findViewById(R.id.RlNoFound);
        // llamarPreferences();
         peticion_mercado();
         click();
@@ -151,6 +153,7 @@ public class mercado extends Fragment {
     }
 
     private void  iniciar_recycler(){
+        RlNoFound.setVisibility(View.GONE);
         adapter= new VistasMercado(listado,getFragmentManager());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
@@ -376,6 +379,11 @@ public class mercado extends Fragment {
 
 
     private void iniciar_recycler2(){
+
+        if(ls_tienda.size()>0)
+            RlNoFound.setVisibility(View.GONE);
+        else
+            RlNoFound.setVisibility(View.VISIBLE);
 
         adapter2=new VistaMultitienda(ls_tienda,getFragmentManager(),getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
