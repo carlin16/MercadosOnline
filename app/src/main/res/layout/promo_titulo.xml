@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
 
-        android:fontFamily="@font/segoeuib"
+        android:fontFamily="@font/segoeui"
         android:text="Familiones"
         android:textSize="22sp"
         android:textColor="@color/col_grissuave"
