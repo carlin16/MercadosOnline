@@ -6,7 +6,6 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:orientation="vertical"
-
     android:background="@drawable/box_shadow"
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
@@ -20,15 +19,16 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:fontFamily="@font/segoeuib"
         android:text="Familiones"
-        android:textSize="20sp"
-        android:textColor="@color/col_negro"
+        android:textSize="22sp"
+        android:textColor="@color/col_grissuave"
         >
 
     </TextView>
 
         <View
-            android:layout_marginHorizontal="5dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:background="@color/col_grissuave2"
@@ -38,6 +38,7 @@
 
         </View>
     <androidx.recyclerview.widget.RecyclerView
+        android:background="#FAFAFA"
         android:visibility="gone"
         android:id="@+id/RecyclerProductosPromo"
         android:layout_marginHorizontal="5dp"

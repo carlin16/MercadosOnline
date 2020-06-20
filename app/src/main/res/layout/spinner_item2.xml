@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:text="hola como estas"
     android:textAlignment="center"
-    android:textSize="20sp"
+    android:textSize="18sp"
     android:textColor="@color/col_negrosolida"
     android:textColorHint="@color/col_negrosolida"
     android:paddingVertical="7dp"

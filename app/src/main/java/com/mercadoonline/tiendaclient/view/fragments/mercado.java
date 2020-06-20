@@ -112,6 +112,7 @@ public class mercado extends Fragment {
         buscar.clearFocus();
        // llamarPreferences();
         peticion_mercado();
+        categorias.clear();
         click();
         if(Global.categoriasNegocios.size()>0){
             creacion_tabs();

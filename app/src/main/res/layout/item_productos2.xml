@@ -6,6 +6,7 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:orientation="vertical"
+    android:elevation="10dp"
     android:backgroundTint="@color/col_White"
     android:background="@color/col_White"
     android:layout_marginTop="10dp"

@@ -875,6 +875,10 @@ public class agregar_productos extends Fragment {
 
                     @Override
                     public void onComplete() {
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            //("activity","removido ");
+                            return;
+                        }
                         //("edicion","exito");
                         Log.e("list de promociones", Global.convertObjToString(listPromociones));
                             if(band){
@@ -935,6 +939,10 @@ public class agregar_productos extends Fragment {
 
                     @Override
                     public void onComplete() {
+                        if(getActivity()==null || isRemoving() || isDetached()){
+                            //("activity","removido ");
+                            return;
+                        }
                         //("edicion","exito");
                         Log.e("new promo", "creada");
                         peticion_promociones(""+idNegocio, false);

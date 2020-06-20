@@ -660,6 +660,7 @@ int position=0;
 
                             //("code VM",""+response.code());
                             //("respuest VM",Global.convertObjToString(response.body()));
+                            Global.categoriasNegocios.clear();
                             Global.categoriasNegocios.addAll(response.body());
                            Log.e("cat negocios",Global.convertObjToString(Global.categoriasNegocios));
                         } else {
