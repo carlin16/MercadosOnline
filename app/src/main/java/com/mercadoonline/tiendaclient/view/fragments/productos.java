@@ -967,7 +967,7 @@ private void llenarDatosTiendero(){
 
                     @Override
                     public void onComplete() {
-
+///
                         if(getActivity()==null || isRemoving() || isDetached()){
                             //("activity","removido ");
                             return;
