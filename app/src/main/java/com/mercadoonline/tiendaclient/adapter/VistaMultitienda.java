@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -74,27 +75,33 @@ this.context=context;
     @Override
     public void onBindViewHolder(@NonNull VistaMultitienda.Holder holder, final int position) {
         String EstadoTienda="";
-        if(lst_normal.get(position).getEstado()==0)  {
-            EstadoTienda="E";
-            holder.estadoTienda.setText(EstadoTienda);
-            holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_rojo));
-            //holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_purpura));
+        if(Global.Modo==3){
+            holder.estadoTienda.setVisibility(View.VISIBLE);
+            if(lst_normal.get(position).getEstado()==0)  {
+                EstadoTienda="E";
+                holder.estadoTienda.setText(EstadoTienda);
+                holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_rojo));
+                //holder.RellenoStatus.setBackground(context.getResources().getDrawable(R.drawable.border_estatus_purpura));
+            }
+            if(lst_normal.get(position).getEstado()==1)  {
+                EstadoTienda="A";
+                holder.estadoTienda.setText(EstadoTienda);
+                holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_verde_correa));
+            }
+            if(lst_normal.get(position).getEstado()==2)  {
+                EstadoTienda="I";
+                holder.estadoTienda.setText(EstadoTienda);
+                holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_rojo));
+            }
+            holder.ContenedorCreditos.setVisibility(View.VISIBLE);
+            holder.creditos_en_tienda.setText(""+lst_normal.get(position).getCreditosTotales().toUpperCase());
+
         }
-        if(lst_normal.get(position).getEstado()==1)  {
-            EstadoTienda="A";
-            holder.estadoTienda.setText(EstadoTienda);
-            holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_verde_correa));
-        }
-        if(lst_normal.get(position).getEstado()==2)  {
-            EstadoTienda="I";
-            holder.estadoTienda.setText(EstadoTienda);
-            holder.estadoTienda.setBackground(context.getResources().getDrawable(R.color.col_rojo));
-        }
+
 
         //Tienda currentItem = lst_normal.get(position);
         holder.tienda_nombre.setText(""+lst_normal.get(position).getNombre().toUpperCase());
         holder.tienda_direccion.setText(""+lst_normal.get(position).getDireccion().toUpperCase());
-        holder.creditos_en_tienda.setText(""+lst_normal.get(position).getCreditosTotales().toUpperCase());
 
 
         String url= Global.UrlImagen+lst_normal.get(position).getUrlImagen();
@@ -137,6 +144,8 @@ this.context=context;
         RoundedImageView tienda_portada;
         CircleImageView tienda_perfil;
         TextView tienda_nombre,tienda_direccion, estadoTienda, creditos_en_tienda;
+        LinearLayout ContenedorCreditos;
+
 
         public Holder(@NonNull View itemView) {
             super(itemView);
@@ -146,7 +155,7 @@ this.context=context;
             tienda_direccion=itemView.findViewById(R.id.mercado_direccion);
             creditos_en_tienda=itemView.findViewById(R.id.TVValorCredito);
             estadoTienda=itemView.findViewById(R.id.TVEstadoTienda);
-
+            ContenedorCreditos=itemView.findViewById(R.id.ContenedorCreditos);
 
 
         }

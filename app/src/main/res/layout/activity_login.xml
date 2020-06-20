@@ -21,11 +21,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/segoeui"
             android:text="Mercados Online"
             android:textColor="@color/col_grissuave"
-            android:fontFamily="@font/segoeui"
-            android:textSize="17sp"
-            ></TextView>
+            android:textSize="17sp"></TextView>
 
         <TextView
             android:gravity="top"
