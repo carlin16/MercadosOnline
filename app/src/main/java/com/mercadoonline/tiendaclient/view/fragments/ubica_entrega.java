@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -19,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,11 +36,16 @@ import com.mercadoonline.tiendaclient.models.compra.CompraProductos;
 import com.mercadoonline.tiendaclient.models.compra.PuestosCompra;
 import com.mercadoonline.tiendaclient.models.enviado.Detalle;
 import com.mercadoonline.tiendaclient.models.enviado.PeticionPedido;
+import com.mercadoonline.tiendaclient.models.enviado.WhatsApp;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistrarPedido;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseRegistroUser;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseWhatsApp;
 import com.mercadoonline.tiendaclient.service.ApiService;
 import com.mercadoonline.tiendaclient.service.ApiService2;
+import com.mercadoonline.tiendaclient.service.ApiService3;
 import com.mercadoonline.tiendaclient.service.RetrofitCliente;
+import com.mercadoonline.tiendaclient.service.RetrofitWhatsApp;
 import com.mercadoonline.tiendaclient.service.RetrofitclienteMaps;
 import com.mercadoonline.tiendaclient.utils.ConnectivityStatus;
 import com.mercadoonline.tiendaclient.utils.Global;
@@ -59,6 +66,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -187,7 +195,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             for(PuestosCompra puesto: Global.VerCompras.get(PosicionListaArray).getPuestos()){
                 mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
                 mensajeWhatsappTransportista=mensajeWhatsappTransportista+"PUESTO:"+puesto.getCodigoPuesto();
-                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"------------------------ \n";
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"------------------------\n";
                 for(CompraProductos productos:puesto.getProductos()){
                     mensajeWhatsappTransportista=mensajeWhatsappTransportista+"Producto:"+productos.getNombre();
                     mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
@@ -199,7 +207,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                 mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
 
             }
-            mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nUbicacion: https://www.google.com/maps/search/?api=1&query="+Global.VerCompras.get(PosicionListaArray).getLatitud()+","+Global.VerCompras.get(PosicionListaArray).getLongitud()+"\nTelefono: "+Global.LoginU.getCelular()+"\nNombres del Cliente: "+Global.LoginU.getNombres();
+            mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nUbicacion de Entrega: https://www.google.com/maps/search/?api=1&query="+nuevo.latitude+","+nuevo.longitude+"\nTelefono: "+Global.LoginU.getCelular()+"\nNombres del Cliente: "+Global.LoginU.getNombres();
             Log.e("Whastapp",mensajeWhatsappTransportista);
 
         }
@@ -235,15 +243,12 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         //0 puesto
         //1negocio
 
-
         Gson gson = new Gson();
         String JSONPedido= gson.toJson(pedido);
-
-
         //("json",JSONPedido);
-     //   pDialog.show();
+       pDialog.show();
         Log.e("------",JSONPedido);
-       // peticion_Registrar(JSONPedido);
+     peticion_Registrar(JSONPedido);
 
     }
 
@@ -504,10 +509,26 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                     public void onNext(Response<ResponseRegistrarPedido> response) {
 
                         if(response.isSuccessful()){
-
                             //("code VM",""+response.code());
                             //("respuest VM",Global.convertObjToString(response.body()));
                           mensaje="Pedido Registrado";
+
+
+
+                            final int min = 0;
+                            final int max = Global.Transportistas.size()-1;
+                            final int random = new Random().nextInt((max - min) + 1) + min;
+
+                            WhatsApp mensaje=new WhatsApp();
+                            mensaje.setCode("593");
+                            mensaje.setNumber(Global.Transportistas.get(random).getCelular());
+                            mensaje.setMessage(mensajeWhatsappTransportista);
+                            Gson gson = new Gson();
+                            String JSONWHASTAPP= gson.toJson(mensaje);
+
+
+
+                            peticion_EnvioApiWhatsApp(JSONWHASTAPP);
                          correcto=true;
                         }else  if (response.code()==500){
                             mensaje="Ocurrio un error Inesperado";
@@ -573,6 +594,51 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
 
     }
+
+
+    private void peticion_EnvioApiWhatsApp(String jsonConf){
+        ApiService3 retrofitApi;
+        Retrofit retrofit;
+        retrofit = RetrofitWhatsApp.getInstance();
+        retrofitApi = retrofit.create(ApiService3.class);
+        Disposable disposable;
+        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+        disposable = (Disposable) retrofitApi.MensajeWhastApp(convertedObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseWhatsApp>>() {
+                    @Override
+                    public void onNext(Response<ResponseWhatsApp> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+
+                        } else {
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void catchGoogleMapsException(final Context context)
     {

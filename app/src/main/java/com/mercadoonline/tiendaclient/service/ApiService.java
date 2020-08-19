@@ -39,12 +39,19 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
-
-
-
     @Headers("Content-Type: application/json")
     @POST("usuarios")
     Observable<Response<ResponseRegistroUser>>RegistroUser(@Body JsonObject object);
+
+
+    @Headers("Content-Type: application/json")
+    @GET("usuarios")
+    Observable<Response<List<ResponseUserPorID>>>ObtenerTransportistas(@Query("tipo") String ValueChild ,@Header("Authorization") String authorization);
+
+
+
+
+
 
 
     @Headers("Content-Type: application/json")

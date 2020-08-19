@@ -30,6 +30,7 @@ import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseLoginUser;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseUpdateImagen;
+import com.mercadoonline.tiendaclient.models.recibido.ResponseUserPorID;
 import com.mercadoonline.tiendaclient.service.ApiService;
 import com.mercadoonline.tiendaclient.service.RetrofitCliente;
 import com.mercadoonline.tiendaclient.utils.Global;
@@ -192,10 +193,9 @@ int position=0;
                 //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
         .replace(R.id.Contenedor_Fragments, new mercado()).commit();
 */
-
        /* iniciar_tabs();
         elegir(position);*/
-
+        peticion_Transportistas();
     }
 
 
@@ -691,6 +691,57 @@ int position=0;
                     @Override
                     public void onComplete() {
 
+
+
+
+                    }
+                });
+    }
+
+
+    private void peticion_Transportistas(){
+        Retrofit retrofit;
+        ApiService retrofitApi;
+        retrofit = RetrofitCliente.getInstance();
+        retrofitApi = retrofit.create(ApiService.class);
+        Disposable disposable;
+        //JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+
+        disposable = (Disposable) retrofitApi.ObtenerTransportistas("TRANSPORTISTA",Global.LoginU.getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<List<ResponseUserPorID>>>() {
+                    @Override
+                    public void onNext(Response<List<ResponseUserPorID>> response) {
+
+                        //("code PU",""+response.code());
+                        if (response.isSuccessful()) {
+                            Global.Transportistas=response.body();
+                            Log.e("transportistas", ""+ Global.Transportistas.size());
+                        } else  if (response.code()==500) {
+                            mensaje = "Internal Server Error";
+                        } else{
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                Gson gson =new Gson();
+                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+                                mensaje=staff.getMensaje();
+                                //("normal-->400",mensaje);
+
+                            } catch (Exception e) {
+                                //("error conversion json",""+e.getMessage());
+                            }
+
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        //("Completado","Se cargo usuario");
 
 
 

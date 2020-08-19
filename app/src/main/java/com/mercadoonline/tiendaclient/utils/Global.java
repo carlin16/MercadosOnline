@@ -24,6 +24,8 @@ public class Global {
     public static ResponseRegistroUser RegisUser= new ResponseRegistroUser();
     //objeto global para los datos q se presentan en el perfil de usuario
     public static ResponseUserPorID UserGlobal=new ResponseUserPorID();
+    public static List<ResponseUserPorID> Transportistas= new ArrayList<>();
+
     public static String Url="http://mercados-online.com/api/";
     public static String UrlImagen="http://mercados-online.com/storage/";
 //
