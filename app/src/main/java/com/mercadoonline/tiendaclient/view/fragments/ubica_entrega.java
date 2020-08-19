@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.mercadoonline.tiendaclient.R;
 import com.mercadoonline.tiendaclient.models.ApiMaps.DatosDireccion;
 import com.mercadoonline.tiendaclient.models.compra.CompraProductos;
+import com.mercadoonline.tiendaclient.models.compra.PuestosCompra;
 import com.mercadoonline.tiendaclient.models.enviado.Detalle;
 import com.mercadoonline.tiendaclient.models.enviado.PeticionPedido;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseError;
@@ -74,6 +75,7 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
     ApiService2 retrofitApi;
     Retrofit retrofit;
     String direccion="";
+    String mensajeWhatsappTransportista;
 
     SweetAlertDialog pDialog;
     TextView DetalleCancelarPedido,DetalleTotalUbica,UbicacionDireccion;
@@ -177,6 +179,29 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             pedido.setIdTransportista(0);//ojo  hasta qye se llene la BD con transportistas
             pedido.setCostoEnvio((int)Global.costoEnvio);
             pedido.setTotal(Total_precio);
+
+            ///API WHATSS APP
+
+            mensajeWhatsappTransportista="MERCADO:"+Global.VerCompras.get(PosicionListaArray).getNombre()+
+                    "\nDirección:"+Global.VerCompras.get(PosicionListaArray).getDireccion();
+            for(PuestosCompra puesto: Global.VerCompras.get(PosicionListaArray).getPuestos()){
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"PUESTO:"+puesto.getCodigoPuesto();
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"------------------------ \n";
+                for(CompraProductos productos:puesto.getProductos()){
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"Producto:"+productos.getNombre();
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"Cantidad:"+productos.getId_cantidad();
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
+
+                }
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
+
+            }
+            mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nUbicacion: https://www.google.com/maps/search/?api=1&query="+Global.VerCompras.get(PosicionListaArray).getLatitud()+","+Global.VerCompras.get(PosicionListaArray).getLongitud()+"\nTelefono: "+Global.LoginU.getCelular()+"\nNombres del Cliente: "+Global.LoginU.getNombres();
+            Log.e("Whastapp",mensajeWhatsappTransportista);
+
         }
 
         if(Global.VerCompras.get(PosicionListaArray).getTipoCarro()==1) {
@@ -193,6 +218,14 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
 
 
+        Log.e("---1---",Global.convertObjToString(Global.VerCompras.get(PosicionListaArray)));
+
+
+
+    //    "Contacto:+"+""+telInfo+"\nTotal a Cobrar: $"+""+costoEnvio+  "\nUbicacion: https://www.google.com/maps/search/?api=1&query="+latUbicacion+","+longUbicacion+"\nNombre Negocio: "+nombreNegocio+"\nNombres del Cliente: "+nombreApellidoCliente
+
+
+
 
 
 
@@ -205,9 +238,12 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
         Gson gson = new Gson();
         String JSONPedido= gson.toJson(pedido);
+
+
         //("json",JSONPedido);
-        pDialog.show();
-        peticion_Registrar(JSONPedido);
+     //   pDialog.show();
+        Log.e("------",JSONPedido);
+       // peticion_Registrar(JSONPedido);
 
     }
 
@@ -218,7 +254,6 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
         mMap = googleMap;
 
         if(ConnectivityStatus.isConnected(getActivity())){
-
 
 
         if ((ActivityCompat.checkSelfPermission(getContext(),android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -454,6 +489,8 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
 
     }
     private void peticion_Registrar(String jsonConf){
+
+        Log.e("el pedido es",jsonConf);
         Retrofit retrofit = RetrofitCliente.getInstance();
        ApiService retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;

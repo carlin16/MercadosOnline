@@ -20,6 +20,17 @@ public class PuestosCompra {
     @Expose
     private List<CompraProductos> productos = new ArrayList<>();
 
+
+    private String codigoPuesto;
+
+    public String getCodigoPuesto() {
+        return codigoPuesto;
+    }
+
+    public void setCodigoPuesto(String codigoPuesto) {
+        this.codigoPuesto = codigoPuesto;
+    }
+
     public Vendedor getVendedor() {
         return vendedor;
     }

@@ -9,6 +9,7 @@ public class CompraProductos {
     @Expose
     private Integer idProducto;
 
+
     @SerializedName("id_vendedor")
     @Expose
     private String idVendedor;

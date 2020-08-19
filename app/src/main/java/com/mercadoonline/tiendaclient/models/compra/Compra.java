@@ -106,17 +106,22 @@ public class Compra {
     @SerializedName("descripcion")
     @Expose
     private String descripcion;
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
     @SerializedName("direccion")
     @Expose
     private String direccion;
-
-
     private String latitud;
-
     public Integer getCantidad() {
         return cantidad;
     }
-
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }

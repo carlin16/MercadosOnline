@@ -444,6 +444,8 @@ private void llenarDatosClientes(){
 
 
 private void llenarCarrito(Productos product){
+    Log.e("producto agregado",Global.convertObjToString(product)) ;
+
     Compra nuevoC = new Compra();
     List<PuestosCompra> pues = new ArrayList<>();
     PuestosCompra PuestComp = new PuestosCompra();
@@ -487,8 +489,13 @@ private void llenarCarrito(Productos product){
 
 
     if(Global.idFiltro==0){
+        Log.e("el id del puesto es",""+ID);
         PuestComp.setId(ID);
+        PuestComp.setCodigoPuesto(idPuesto);
         PuestComp.setVendedor(vendedor);
+
+        Log.e("puesto ",Global.convertObjToString(PuestComp)) ;
+
     }
     if(Global.idFiltro==1){
         PuestComp.setId(tienda.getId());
@@ -506,11 +513,16 @@ private void llenarCarrito(Productos product){
     nuevoC.setPuestos(pues);
     nuevoC.setCantidad(Integer.parseInt(CantidadCar.getNumber()));
 
+
     if(Global.idFiltro==0){
         nuevoC.setCodigoMercado(Mercado.getCodigoMercado());
         nuevoC.setId(Mercado.getId());
         nuevoC.setNombre(Mercado.getNombre());
-
+        nuevoC.setDireccion(Mercado.getDireccion());
+        if(Mercado.getLatitud()!=null){
+            nuevoC.setLatitud(Mercado.getLatitud().toString());
+            nuevoC.setLongitud(Mercado.getLatitud().toString());
+        }
     }
 
     if(Global.idFiltro==1){
@@ -524,6 +536,8 @@ private void llenarCarrito(Productos product){
     // nuevoC.setLatitud(""+Mercado.getLatitud().toString());
     // nuevoC.setLongitud(""+Mercado.getLatitud().toString());
     nuevoC.setTotal(total);
+
+    Log.e("mercado-puesto",Global.convertObjToString(nuevoC)) ;
     Global.Agregar_Carrito(nuevoC);
 
 }
