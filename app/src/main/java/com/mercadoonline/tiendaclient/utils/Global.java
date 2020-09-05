@@ -21,12 +21,6 @@ public class Global {
     public static String ROLTENDERO="TENDERO";
 
 
-
-
-
-
-
-
     public static String latitudCliente="";
     public static String longitudCliente="";
     public static int idFiltro=0; //0 Mercado // 1 Tiendero
@@ -38,8 +32,7 @@ public class Global {
     public static List<ResponseUserPorID> Transportistas= new ArrayList<>();
 
 
-    public static String Url="http://209.188.18.144/dev/public/api/";
-     public static String UrlImagen="http://209.188.18.144/dev/public/storage/";
+
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
     public static List<Compra> VerCompras= new ArrayList<>();
