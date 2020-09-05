@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -35,7 +34,6 @@ import com.mercadoonline.tiendaclient.service.ApiService;
 import com.mercadoonline.tiendaclient.service.RetrofitCliente;
 import com.mercadoonline.tiendaclient.utils.Global;
 import com.mercadoonline.tiendaclient.utils.Vista_tabs;
-import com.mercadoonline.tiendaclient.view.fragments.categorias;
 import com.mercadoonline.tiendaclient.view.fragments.mercado;
 import com.mercadoonline.tiendaclient.view.fragments.pedido;
 import com.mercadoonline.tiendaclient.view.fragments.perfil_usuario;
@@ -115,7 +113,7 @@ int position=0;
 
         if(Global.LoginU.getRol()!=null){
 
-            if(Global.LoginU.getRol().equals("CLIENTE") ){
+            if(Global.LoginU.getRol().equals(Global.ROLCLIENTE) ){
                 if(!noti){
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.Contenedor_Fragments, new mercado()).commit();
@@ -125,7 +123,7 @@ int position=0;
                 Global.Modo=1;
                 //("Modo", "CLIENTE");
                 peticion_categoriasTiendas();
-            }else if(Global.LoginU.getRol().equals("VENDEDOR")  ){
+            }else if(Global.LoginU.getRol().equals(Global.ROLMERCADO)  ){
 
                 if(!noti){
                     productos productin= new productos();
@@ -144,7 +142,7 @@ int position=0;
                     }
                 }, 2000);
                 //("Modo", "VENDEDOR");
-            }else  if(Global.LoginU.getRol().equals("TIENDERO")){
+            }else  if(Global.LoginU.getRol().equals(Global.ROLTENDERO)){
                 if(!noti){
                     visualizadorTiendasa tiendas= new visualizadorTiendasa();
                     getSupportFragmentManager().beginTransaction()
@@ -255,19 +253,19 @@ int position=0;
             case 0:
                 //("posicion",""+position);
 
-                if(Global.LoginU.getRol().equals("CLIENTE")){
+                if(Global.LoginU.getRol().equals(Global.ROLCLIENTE)){
                     getSupportFragmentManager().beginTransaction()
                             //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
                             .replace(R.id.Contenedor_Fragments, new mercado()).commit();
 
-                }else if(Global.LoginU.getRol().equals("VENDEDOR")){
+                }else if(Global.LoginU.getRol().equals(Global.ROLMERCADO)){
                     productos productin= new productos();
                     //productin.idPuesto=Global.LoginU.getId_puesto();
                     // puestito.banderaRol=2;
                     getSupportFragmentManager().beginTransaction()
                             //.replace(R.id.Contenedor_Fragments, new mercado()).commit();
                             .replace(R.id.Contenedor_Fragments, productin).commit();
-                }else if(Global.LoginU.getRol().equals("TIENDERO")){
+                }else if(Global.LoginU.getRol().equals(Global.ROLTENDERO)){
                     visualizadorTiendasa tiendas= new visualizadorTiendasa();
                     //productin.idPuesto=Global.LoginU.getId_puesto();
                     // puestito.banderaRol=2;

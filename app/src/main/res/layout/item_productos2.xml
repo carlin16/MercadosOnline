@@ -12,7 +12,6 @@
     android:layout_marginTop="10dp"
     android:layout_marginBottom="7dp"
     app:cardUseCompatPadding="true"
-
     android:layout_height="wrap_content"
     >
 
@@ -34,7 +33,7 @@
             />
 
         <LinearLayout
-            android:paddingHorizontal="10dp"
+            android:paddingHorizontal="6dp"
             android:paddingVertical="5dp"
             android:background="@color/col_White"
             android:layout_width="match_parent"
@@ -43,7 +42,6 @@
 
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -57,10 +55,10 @@
 
                     android:id="@+id/TVNombreProdu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:fontFamily="@font/segoeuisl"
-                    android:text="Combo dúo 5 especial de la casa para que te "
+                    android:text="Combo dúo 5 especial de la casa para que te ja "
                     android:textColor="@color/col_grisfuerte"
                     android:textSize="18sp"
                     android:textStyle="bold" />

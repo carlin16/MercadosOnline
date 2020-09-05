@@ -194,7 +194,7 @@ View linea_entregado ;
 
             TituloButtonEntrega.setText("Enviar a Transportista");
 
-            PedidoTituloNM.setText("Cliente");
+            PedidoTituloNM.setText(Global.ROLCLIENTE);
             NombreTrasnportista.setText(pedido.getCliente().getNombres());
             PedidoCelular.setText("+"+pedido.getCliente().getCelular());
             DetalleSubtotal.setText("$"+pedido.getCostoVenta());

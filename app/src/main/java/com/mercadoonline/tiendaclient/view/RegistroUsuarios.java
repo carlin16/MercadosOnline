@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import com.mercadoonline.tiendaclient.R;
-import com.mercadoonline.tiendaclient.view.fragments.agregar_productos;
-import com.mercadoonline.tiendaclient.view.fragments.categorias;
 import com.mercadoonline.tiendaclient.view.fragments.registro_datos_usuario;
 
 public class RegistroUsuarios extends AppCompatActivity {

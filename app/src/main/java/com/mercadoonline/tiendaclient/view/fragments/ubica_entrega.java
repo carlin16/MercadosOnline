@@ -193,21 +193,27 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
             mensajeWhatsappTransportista="MERCADO:"+Global.VerCompras.get(PosicionListaArray).getNombre()+
                     "\nDirección:"+Global.VerCompras.get(PosicionListaArray).getDireccion();
             for(PuestosCompra puesto: Global.VerCompras.get(PosicionListaArray).getPuestos()){
-                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
-                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"PUESTO:"+puesto.getCodigoPuesto();
-                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"------------------------\n";
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nPUESTO:"+puesto.getCodigoPuesto();
+               // mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nTotal:"+puesto.getProductos().;
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n----------------------";
+                double valorTotalpuesto=0;
                 for(CompraProductos productos:puesto.getProductos()){
-                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"Producto:"+productos.getNombre();
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nProducto:"+productos.getNombre();
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nCantidad:"+productos.getId_cantidad();
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nPrecio Unidad:$"+productos.getPrecio();
+                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nTotal:$"+productos.getTotal();
                     mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
-                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"Cantidad:"+productos.getId_cantidad();
-                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
-                    mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
-
+                    valorTotalpuesto+=productos.getTotal();
                 }
+                mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nValor Puesto:$"+valorTotalpuesto;
                 mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\n";
 
             }
             mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nUbicacion de Entrega: https://www.google.com/maps/search/?api=1&query="+nuevo.latitude+","+nuevo.longitude+"\nTelefono: "+Global.LoginU.getCelular()+"\nNombres del Cliente: "+Global.LoginU.getNombres();
+
+
+            mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nCosto Envio:$2.0";
+            mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nTotal Compra:$"+Total_precio;
             Log.e("Whastapp",mensajeWhatsappTransportista);
 
         }
@@ -511,23 +517,19 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                         if(response.isSuccessful()){
                             //("code VM",""+response.code());
                             //("respuest VM",Global.convertObjToString(response.body()));
-                          mensaje="Pedido Registrado";
-
-
-
+                            mensaje="Pedido Registrado";
+                            mensajeWhatsappTransportista=mensajeWhatsappTransportista+"\nNumero de Pedido #:"+response.body().getIdPedido();
                             final int min = 0;
                             final int max = Global.Transportistas.size()-1;
                             final int random = new Random().nextInt((max - min) + 1) + min;
-
                             WhatsApp mensaje=new WhatsApp();
                             mensaje.setCode("593");
+                          //  mensaje.setNumber("0993942225");
+                            Log.e("tranportista",Global.Transportistas.get(random).getCelular());
                             mensaje.setNumber(Global.Transportistas.get(random).getCelular());
                             mensaje.setMessage(mensajeWhatsappTransportista);
                             Gson gson = new Gson();
                             String JSONWHASTAPP= gson.toJson(mensaje);
-
-
-
                             peticion_EnvioApiWhatsApp(JSONWHASTAPP);
                          correcto=true;
                         }else  if (response.code()==500){
@@ -611,6 +613,9 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                     public void onNext(Response<ResponseWhatsApp> response) {
 
                         //("code PU",""+response.code());
+
+                        Log.e("Whats",""+response.code());
+                        Log.e("Whats",""+response.body().getMessage());
                         if (response.isSuccessful()) {
 
                         } else {
@@ -618,9 +623,12 @@ public class ubica_entrega extends Fragment implements OnMapReadyCallback, Googl
                     }
                     @Override
                     public void onError(Throwable e) {
+                        Log.e("Whats",e.toString());
                     }
                     @Override
                     public void onComplete() {
+                        Log.e("Whats","Completo");
+
                     }
                 });
     }

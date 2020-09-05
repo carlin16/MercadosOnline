@@ -16,6 +16,17 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class Global {
+    public static String ROLMERCADO="VENDEDOR";
+    public static String ROLCLIENTE="CLIENTE";
+    public static String ROLTENDERO="TENDERO";
+
+
+
+
+
+
+
+
     public static String latitudCliente="";
     public static String longitudCliente="";
     public static int idFiltro=0; //0 Mercado // 1 Tiendero

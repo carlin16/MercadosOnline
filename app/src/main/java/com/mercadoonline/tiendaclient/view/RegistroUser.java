@@ -277,81 +277,84 @@ public class RegistroUser extends AppCompatActivity {
         String JPetUser= gson.toJson(User);
         //("json",JPetUser);
         animacion_registro();
-        peticion_Registro(JPetUser);
+       // peticion_Registro(JPetUser);
     }
 
-    private void peticion_Registro(String jsonConf){
-        retrofit = RetrofitCliente.getInstance();
-        retrofitApi = retrofit.create(ApiService.class);
-        Disposable disposable;
-        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
-
-        disposable = (Disposable) retrofitApi.RegistroUser(convertedObject)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableObserver<Response<ResponseRegistroUser>>() {
-                    @Override
-                    public void onNext(Response<ResponseRegistroUser> response) {
-
-                        //("code PU",""+response.code());
-                        if (response.isSuccessful()) {
-                            cambio_pantalla=true;
-                            Global.RegisUser=response.body();
-                            mensaje=response.body().getMensaje();
-                        } else {
-                            animacion_errores();
-                            try {
-                                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                Gson gson =new Gson();
-                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
-
-                                mensaje=staff.getMensaje();
-
-                            } catch (Exception e) {
-                                //("error conversion json",""+e.getMessage());
-                            }
-                        }
-                    }
-                    @Override
-                    public void onError(Throwable e) {
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Write whatever to want to do after delay specified (1 sec)
-                                myDialog.dismiss();
-                            }
-                        }, 2000);
-
-
-                        myDialog.dismiss();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        //("Completado","registrado");
-                        if(!cambio_pantalla){
-                            datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    revertir_animacion();
-                                    //Write whatever to want to do after delay specified (1 sec)
-                                    myDialog.dismiss();
-                                }
-                            }, 2000);
-                        }else{
-                            subir_foto();
-                        }
-
-
-
-                    }
-                });
-    }
+//    private void peticion_Registro(String jsonConf){
+//        retrofit = RetrofitCliente.getInstance();
+//        retrofitApi = retrofit.create(ApiService.class);
+//        Disposable disposable;
+//        JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
+//
+//        disposable = (Disposable) retrofitApi.RegistroUser(convertedObject)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableObserver<Response<ResponseRegistroUser>>() {
+//                    @Override
+//                    public void onNext(Response<ResponseRegistroUser> response) {
+//
+//                        //("code PU",""+response.code());
+//                        if (response.isSuccessful()) {
+//                            cambio_pantalla=true;
+//                            if(response.body()!=null){
+//                                Global.RegisUser=response.body();
+//                                mensaje=response.body().getMensaje();
+//                            }
+//
+//                        } else {
+//                            animacion_errores();
+//                            try {
+//                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+//                                Gson gson =new Gson();
+//                                ResponseError staff = gson.fromJson(jObjError.toString(), ResponseError.class);
+//
+//                                mensaje=staff.getMensaje();
+//
+//                            } catch (Exception e) {
+//                                //("error conversion json",""+e.getMessage());
+//                            }
+//                        }
+//                    }
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        final Handler handler = new Handler();
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                //Write whatever to want to do after delay specified (1 sec)
+//                                myDialog.dismiss();
+//                            }
+//                        }, 2000);
+//
+//
+//                        myDialog.dismiss();
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//                        //("Completado","registrado");
+//                        if(!cambio_pantalla){
+//                            datos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+//                            fotos.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+//                            credenciales.doneLoadingAnimation(Color.parseColor("#00b347"), BitmapFactory.decodeResource(getResources(),R.drawable.login_no_check));
+//                            final Handler handler = new Handler();
+//                            handler.postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    revertir_animacion();
+//                                    //Write whatever to want to do after delay specified (1 sec)
+//                                    myDialog.dismiss();
+//                                }
+//                            }, 2000);
+//                        }else{
+//                            subir_foto();
+//                        }
+//
+//
+//
+//                    }
+//                });
+//    }
 
     private void mensaje() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

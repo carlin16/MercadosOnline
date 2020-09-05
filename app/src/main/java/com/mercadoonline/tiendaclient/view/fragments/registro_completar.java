@@ -361,8 +361,6 @@ public class registro_completar extends Fragment {
     public void llenarDatos() {
         RegisU.setRol(Roles[posRol].toUpperCase());
         RegisU.setDireccion(Direccion.getText().toString());
-
-
         if (posRol==1) {
              if(Mercado.getSelectedItemPosition() < 0) {
                  Toast.makeText(getActivity(), "No existen mercados para regsitrar", Toast.LENGTH_LONG).show();
@@ -370,7 +368,7 @@ public class registro_completar extends Fragment {
              }RegisU.setIdMercado(Integer.parseInt(mercadito.get(Mercado.getSelectedItemPosition()).getId()));
             RegisU.setPuesto(TENPuest.getText().toString());
         }else if(posRol==2){
-            RegisU.setRol("TIENDERO");
+            RegisU.setRol(Global.ROLTENDERO);
         }
 
 
@@ -404,7 +402,7 @@ public class registro_completar extends Fragment {
         retrofitApi = retrofit.create(ApiService.class);
         Disposable disposable;
         JsonObject convertedObject = new Gson().fromJson(jsonConf, JsonObject.class);
-
+        Log.e("---->",""+convertedObject);
         disposable = (Disposable) retrofitApi.RegistroUser(convertedObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -414,6 +412,8 @@ public class registro_completar extends Fragment {
 
                         //("code PU",""+response.code());
                         if (response.isSuccessful()) {
+
+
                             cambio_pantalla = true;
                             Global.RegisUser = response.body();
                             Global.LoginU.setid(response.body().getId());

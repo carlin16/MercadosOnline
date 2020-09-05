@@ -91,8 +91,8 @@ public class pedido extends Fragment {
     private void peticion_pedidos(){
 
         String tipo="";
-        if(Global.Modo==1)tipo="CLIENTE";
-         if(Global.Modo==2)tipo="VENDEDOR";
+        if(Global.Modo==1)tipo=Global.ROLCLIENTE;
+         if(Global.Modo==2)tipo=Global.ROLMERCADO;
         if(Global.Modo==3)tipo="TIENDERO";
 
         //("Pedidos","Se consumio");

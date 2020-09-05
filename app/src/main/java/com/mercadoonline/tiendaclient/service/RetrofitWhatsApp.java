@@ -22,12 +22,14 @@ public class RetrofitWhatsApp {
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .retryOnConnectionFailure(true)
-                    .connectTimeout(15, TimeUnit.SECONDS)
+                    .connectTimeout(1, TimeUnit.MINUTES)
+                    .readTimeout(1, TimeUnit.MINUTES)
+                    .writeTimeout(1, TimeUnit.MINUTES)
                     .build();
 
             newInstance = new Retrofit.Builder()
                     .client(client)
-                    .baseUrl("http://gg.maxdore.com:8082/")
+                    .baseUrl("https://api.maxdore.com/")
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
