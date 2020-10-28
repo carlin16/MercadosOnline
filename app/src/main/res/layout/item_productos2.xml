@@ -24,7 +24,7 @@
         <ImageView
             android:id="@+id/TVPuestoFotoV"
             android:layout_width="115dp"
-            android:layout_height="100dp"
+            android:layout_height="110dp"
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:layout_weight="0"
@@ -57,6 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:maxLines="2"
                     android:fontFamily="@font/segoeuisl"
                     android:text="Combo dúo 5 especial de la casa para que te ja "
                     android:textColor="@color/col_grisfuerte"
@@ -83,7 +84,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
 
                 >
                 <TextView

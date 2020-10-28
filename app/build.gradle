@@ -1,8 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+// Apply the Crashlytics Gradle plugin
+apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
@@ -13,9 +15,8 @@ android {
         applicationId "com.mercadoonline.tiendaclient"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 10
-        versionName "2.7"
-
+        versionCode 11
+        versionName "2.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -28,6 +29,23 @@ android {
     compileOptions {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        mercadosonline {
+            applicationId "com.mercadoonline.tiendaclient"
+            buildConfigField("String", "BASE_URL", "\"http://mercados-online.com/\"")
+            buildConfigField("String", "NAME_APP", "\"Mercados Online\"")
+            resValue "string", "app_name", "Mercados Online"
+
+        }
+        mercadosespain {
+            applicationId "com.mercadosonline.mercados"
+            buildConfigField("String", "BASE_URL", "\"http://mercados-online.es/\"")
+            buildConfigField("String", "NAME_APP", "\"Mercados \"")
+            resValue "string", "app_name", "Mercados"
+        }
     }
 
 }
@@ -105,13 +123,16 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-analytics:17.2.3'
 
-    implementation 'com.google.firebase:firebase-core:17.2.3'
+    implementation 'com.google.firebase:firebase-core:17.5.0'
 // Add the Firebase SDK for Crashlytics.
 
 ///
     implementation 'com.google.android.material:material:1.0.0'
 
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+   // implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+
     //  implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //implementacion de boton de add/restar en compras

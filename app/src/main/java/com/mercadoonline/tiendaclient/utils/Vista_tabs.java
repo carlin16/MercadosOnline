@@ -26,7 +26,6 @@ public class Vista_tabs extends LinearLayout {
         TextView nombre=(TextView) view.findViewById(R.id.nombre_icono_tab);
         nombre.setText(label);
 
-
         StateListDrawable listDrawable = new StateListDrawable();
         listDrawable.addState(SELECTED_STATE_SET, this.getResources().getDrawable(drawable));
         listDrawable.addState(ENABLED_STATE_SET, this.getResources().getDrawable(drawableselec));

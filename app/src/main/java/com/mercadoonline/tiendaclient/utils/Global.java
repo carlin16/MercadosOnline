@@ -2,6 +2,7 @@ package com.mercadoonline.tiendaclient.utils;
 
 import android.text.TextUtils;
 
+import com.mercadoonline.tiendaclient.BuildConfig;
 import com.mercadoonline.tiendaclient.models.compra.Compra;
 import com.mercadoonline.tiendaclient.models.enviado.PeticionRegistroUser;
 import com.mercadoonline.tiendaclient.models.recibido.ResponseCategorias;
@@ -15,10 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+
+
 public class Global {
-    public static String ROLMERCADO="VENDEDOR";
     public static String ROLCLIENTE="CLIENTE";
+    public static String ROLMERCADO="VENDEDOR";
     public static String ROLTENDERO="TENDERO";
+    public static int Modo;
 
 
     public static String latitudCliente="";
@@ -31,7 +35,9 @@ public class Global {
     public static ResponseUserPorID UserGlobal=new ResponseUserPorID();
     public static List<ResponseUserPorID> Transportistas= new ArrayList<>();
 
-
+    public static String BaseUrl= BuildConfig.BASE_URL;
+    public static String Url="http://mercados-online.com/api/";
+    public static String UrlImagen="http://mercados-online.com/storage/";
 
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
@@ -65,7 +71,6 @@ public static void llenarToken(){
 
     }
 
-    public static int Modo;
 
 
 
@@ -89,8 +94,7 @@ public static void llenarToken(){
 
 
     public static void Agregar_Carrito(Compra nueva){
-
-            Boolean encontre =false;
+         Boolean encontre =false;
         for(Compra C: VerCompras){
             if(C.getId()==nueva.getId() && C.getTipoCarro()==nueva.getTipoCarro()){
               C.setCantidad(C.getCantidad()+nueva.getCantidad());

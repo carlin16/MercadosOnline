@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "901189670132",
+    "firebase_url": "https://municipio-online.firebaseio.com",
+    "project_id": "municipio-online",
+    "storage_bucket": "municipio-online.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901189670132:android:6ac22fce817829c76dbaa1",
+        "android_client_info": {
+          "package_name": "com.mercadoonline.tiendaclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901189670132-lvnfh7uksu7kc3v9ed4he20148u0prl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrgSSbwu9BwUol-_zw1IaLlhotPMKTZkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901189670132-lvnfh7uksu7kc3v9ed4he20148u0prl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901189670132:android:bd1769ee19098ff36dbaa1",
+        "android_client_info": {
+          "package_name": "com.mercadosonline.mercados"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901189670132-lvnfh7uksu7kc3v9ed4he20148u0prl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrgSSbwu9BwUol-_zw1IaLlhotPMKTZkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901189670132-lvnfh7uksu7kc3v9ed4he20148u0prl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
