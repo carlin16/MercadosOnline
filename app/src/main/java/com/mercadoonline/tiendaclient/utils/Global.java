@@ -36,8 +36,8 @@ public class Global {
     public static List<ResponseUserPorID> Transportistas= new ArrayList<>();
 
     public static String BaseUrl= BuildConfig.BASE_URL;
-    public static String Url="http://mercados-online.com/api/";
-    public static String UrlImagen="http://mercados-online.com/storage/";
+    public static String Url=BaseUrl+"api/";
+    public static String UrlImagen=BaseUrl+"storage/";
 
     public static  List<ResponseCategorias> categorias = new ArrayList<>();
     public static  List<String> Nombres_Categoria = new ArrayList<>();
